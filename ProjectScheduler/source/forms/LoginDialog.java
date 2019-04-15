@@ -1,13 +1,8 @@
 package forms;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import Application_Facade.ApplicationFacade;
 
 import java.awt.GridBagLayout;
@@ -21,6 +16,8 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
+import java.awt.GridLayout;
 
 public class LoginDialog extends JDialog {
 
@@ -28,15 +25,91 @@ public class LoginDialog extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = -6266910851826102840L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
 	
 	ApplicationFacade parent;
+	private JTextField textField;
 	
 	public LoginDialog(ApplicationFacade parent) {
+		getContentPane().setBackground(new Color(0, 0, 0));
 		
 		
 		this.parent = parent;
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{80, 193, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+		{
+			JLabel lblEnterYourCredential = new JLabel("Enter your credential:");
+			lblEnterYourCredential.setForeground(new Color(255, 255, 255));
+			lblEnterYourCredential.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			GridBagConstraints gbc_lblEnterYourCredential = new GridBagConstraints();
+			gbc_lblEnterYourCredential.gridwidth = 2;
+			gbc_lblEnterYourCredential.insets = new Insets(0, 0, 5, 0);
+			gbc_lblEnterYourCredential.gridx = 0;
+			gbc_lblEnterYourCredential.gridy = 0;
+			getContentPane().add(lblEnterYourCredential, gbc_lblEnterYourCredential);
+		}
+		{
+			JLabel lblUsername = new JLabel("Username:");
+			lblUsername.setForeground(new Color(255, 255, 255));
+			GridBagConstraints gbc_lblUsername = new GridBagConstraints();
+			gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
+			gbc_lblUsername.gridx = 0;
+			gbc_lblUsername.gridy = 1;
+			getContentPane().add(lblUsername, gbc_lblUsername);
+		}
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 1;
+		getContentPane().add(textField, gbc_textField);
+		textField.setColumns(10);
+		{
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon("C:\\Users\\Martin\\git\\ProjectScheduler\\ProjectScheduler\\Ressource\\paagen kanelgifler.jpg"));
+			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.anchor = GridBagConstraints.NORTH;
+			gbc_label.gridwidth = 2;
+			gbc_label.insets = new Insets(0, 0, 5, 5);
+			gbc_label.gridx = 0;
+			gbc_label.gridy = 2;
+			getContentPane().add(label, gbc_label);
+		}
+		{
+			JPanel panel = new JPanel();
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.anchor = GridBagConstraints.SOUTH;
+			gbc_panel.gridwidth = 2;
+			gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+			gbc_panel.gridx = 0;
+			gbc_panel.gridy = 3;
+			getContentPane().add(panel, gbc_panel);
+			panel.setLayout(new GridLayout(1, 0, 0, 0));
+			{
+				JButton btnNewButton = new JButton("Cancel");
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						dispose();
+					}
+				});
+				panel.add(btnNewButton);
+			}
+			{
+				JButton btnNewButton_1 = new JButton("Ok");
+				btnNewButton_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						parent.validateLogin(textField.getText());
+						dispose();
+					}
+				});
+				panel.add(btnNewButton_1);
+			}
+		}
 		initializeComponents();
 		
 	}
@@ -45,77 +118,7 @@ public class LoginDialog extends JDialog {
 	{
 		setTitle("Login dialog");
 		setResizable(false);
-		setBounds(100, 100, 279, 297);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.BLACK);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPanel.setLayout(gbl_contentPanel);
-		{
-			JLabel lblWelcomePleaseEnter = new JLabel("Welcome, please enter your credential");
-			lblWelcomePleaseEnter.setForeground(Color.WHITE);
-			lblWelcomePleaseEnter.setFont(new Font("Tahoma", Font.BOLD, 11));
-			GridBagConstraints gbc_lblWelcomePleaseEnter = new GridBagConstraints();
-			gbc_lblWelcomePleaseEnter.gridwidth = 2;
-			gbc_lblWelcomePleaseEnter.insets = new Insets(0, 0, 5, 0);
-			gbc_lblWelcomePleaseEnter.gridx = 0;
-			gbc_lblWelcomePleaseEnter.gridy = 0;
-			contentPanel.add(lblWelcomePleaseEnter, gbc_lblWelcomePleaseEnter);
-		}
-		{
-			JLabel lblUsername = new JLabel("Username");
-			lblUsername.setForeground(Color.WHITE);
-			GridBagConstraints gbc_lblUsername = new GridBagConstraints();
-			gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
-			gbc_lblUsername.gridx = 0;
-			gbc_lblUsername.gridy = 1;
-			contentPanel.add(lblUsername, gbc_lblUsername);
-		}
-		{
-			textField = new JTextField();
-			GridBagConstraints gbc_textField = new GridBagConstraints();
-			gbc_textField.insets = new Insets(0, 0, 5, 0);
-			gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-			gbc_textField.gridx = 1;
-			gbc_textField.gridy = 1;
-			contentPanel.add(textField, gbc_textField);
-			textField.setColumns(10);
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(Color.BLACK);
-			FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
-			buttonPane.setLayout(fl_buttonPane);
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton cancelButton = new JButton("Close");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-			{
-				JButton okButton = new JButton("Log in");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						parent.validateLogin(textField.getText());
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-		}
+		setBounds(100, 100, 266, 383);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
