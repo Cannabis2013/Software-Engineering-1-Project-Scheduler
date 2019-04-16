@@ -1,8 +1,8 @@
-package UserDomain;
+package models;
 
 import Abstractions.AbstractModel;
 
-public class User extends AbstractModel {
+public class UserModel extends AbstractModel {
 
 	private String userName;
 	private userRole role = userRole.Employee;
@@ -17,7 +17,7 @@ public class User extends AbstractModel {
     }
 	
 	
-	public User(String userName, userRole role)
+	public UserModel(String userName, userRole role)
     {
         this.userName = userName;
         this.role = role;
@@ -35,5 +35,10 @@ public class User extends AbstractModel {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	
+	public Object itemModel()
+    {
+		return null;
+    }
 
 }

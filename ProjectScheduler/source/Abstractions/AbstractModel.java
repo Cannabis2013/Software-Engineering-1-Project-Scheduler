@@ -3,7 +3,7 @@ package Abstractions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractModel {
+public abstract class AbstractModel {
 
 	private AbstractModel parent = null;
 	private AbstractManager parentManager = null;
@@ -116,6 +116,8 @@ public class AbstractModel {
 	private AbstractModel WarnParentObject(AbstractModel model) {
 		return model.parent != null ? WarnParentObject(model.parent) : model;
 	}
+	
+	public abstract Object itemModel();
 	
 
 }

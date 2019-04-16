@@ -60,4 +60,9 @@ public class HourRegistrationModel extends AbstractModel {
     {
         return pManager.model(parentModelIdentity()).parentModelIdentity();
     }
+    
+    public Object itemModel()
+    {
+		return null;
+    }
 }

@@ -3,17 +3,19 @@ package UserDomain;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.UserModel;
+
 public class UserManager {
 
-	private List<User> users = new ArrayList<User>();
-	private User currentlyLoggedIn = null;
+	private List<UserModel> users = new ArrayList<UserModel>();
+	private UserModel currentlyLoggedIn = null;
 	public UserManager() {
 		createUserPrototypes();
 	}
 	
 	public Boolean logIn(String userName)
     {
-        User user = verifyCredentials(userName);
+        UserModel user = verifyCredentials(userName);
         if (user == null)
             return false;
 
@@ -29,17 +31,17 @@ public class UserManager {
 
     public boolean isAdmin()
     {
-        return currentlyLoggedIn.Role() == User.userRole.Admin;
+        return currentlyLoggedIn.Role() == UserModel.userRole.Admin;
     }
 
-    public User currentUser()
+    public UserModel currentUser()
     {
         return currentlyLoggedIn;
     }
 
-    public User user(String userName)
+    public UserModel user(String userName)
     {
-        for (User u : users)
+        for (UserModel u : users)
         {        	
         	if (u.UserName().equals(userName))
         		return u;
@@ -50,16 +52,16 @@ public class UserManager {
     public List<String> allUserNames()
     {
         List<String> result = new ArrayList<String>();
-        for (User u : users)
+        for (UserModel u : users)
             result.add(u.UserName());
 
         return result;
     }
 	
 	
-	private User verifyCredentials(String userName)
+	private UserModel verifyCredentials(String userName)
     {
-		for(User u : users)
+		for(UserModel u : users)
 		{
 			if(u.UserName().equals(userName))
 				return u;
@@ -70,18 +72,18 @@ public class UserManager {
 	
 	private void createUserPrototypes()
     {
-		User admin = new User("admin", User.userRole.Admin);
+		UserModel admin = new UserModel("admin", UserModel.userRole.Admin);
 
         users.add(admin);
 
         /*
          * Initialize five users for testing purposes
          */
-        User nUser1 = new User("Jens_Werner2019", User.userRole.Employee);
-        User nUser2 = new User("Niels_Erik1964", User.userRole.Employee);
-        User nUser3 = new User("Bent_Bjerre", User.userRole.Employee);
-        User nUser4 = new User("Finn_Luger", User.userRole.Employee);
-        User nUser5 = new User("Technotonny", User.userRole.Employee);
+        UserModel nUser1 = new UserModel("Jens_Werner2019", UserModel.userRole.Employee);
+        UserModel nUser2 = new UserModel("Niels_Erik1964", UserModel.userRole.Employee);
+        UserModel nUser3 = new UserModel("Bent_Bjerre", UserModel.userRole.Employee);
+        UserModel nUser4 = new UserModel("Finn_Luger", UserModel.userRole.Employee);
+        UserModel nUser5 = new UserModel("Technotonny", UserModel.userRole.Employee);
         
         users.add(nUser1);
         users.add(nUser2);

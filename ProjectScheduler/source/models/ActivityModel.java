@@ -192,4 +192,9 @@ public class ActivityModel extends AbstractModel {
 
         return totalHours;
     }
+    
+    public Object itemModel()
+    {
+		return null;
+    }
 }

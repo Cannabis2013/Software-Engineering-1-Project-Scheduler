@@ -68,4 +68,9 @@ public class ProjectModel extends AbstractModel
         
     	return result;
     }
+    
+    public Object itemModel()
+    {
+		return null;
+    }
 }
