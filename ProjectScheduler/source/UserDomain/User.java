@@ -1,6 +1,8 @@
 package UserDomain;
 
-public class User {
+import Abstractions.AbstractModel;
+
+public class User extends AbstractModel {
 
 	private String userName;
 	private userRole role = userRole.Employee;
