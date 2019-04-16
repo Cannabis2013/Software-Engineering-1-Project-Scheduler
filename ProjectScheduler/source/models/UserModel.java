@@ -1,6 +1,7 @@
 package models;
 
 import Abstractions.AbstractModel;
+import formComponents.ItemModel;
 
 public class UserModel extends AbstractModel {
 
@@ -36,9 +37,19 @@ public class UserModel extends AbstractModel {
 		this.userName = userName;
 	}
 	
-	public Object itemModel()
+	public static String _roleStringRepresentation(userRole r)
     {
-		return null;
+        return r == userRole.Admin ? "Administrator" : "Employee";
+    }
+	
+	public ItemModel itemModel()
+    {
+		String[] itemData = new String[2];
+		
+		itemData[0] = modelIdentity();
+		itemData[1] = _roleStringRepresentation(role);
+		
+		return new ItemModel(itemData);
     }
 
 }

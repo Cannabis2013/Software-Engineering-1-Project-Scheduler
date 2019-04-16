@@ -6,6 +6,7 @@ import java.util.List;
 
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
+import formComponents.ItemModel;
 
 public class ActivityModel extends AbstractModel {
 	private List<String> assignedUserIdentities;
@@ -25,8 +26,8 @@ public class ActivityModel extends AbstractModel {
         List<String> assignedUsers)
     {
         setModelidentity(activityTitle);
-        sDate = sDate;
-        eDate = eDate;
+        this.sDate = sDate;
+        this.eDate = eDate;
         assignedUserIdentities = assignedUsers;
 
         parentProjectModel.AddSubModel(this);
@@ -37,8 +38,8 @@ public class ActivityModel extends AbstractModel {
     {
         this.reason = reason;
         setModelidentity(activityTitle);;
-        sDate = sDate;
-        eDate = eDate;
+        this.sDate = sDate;
+        this.eDate = eDate;
 
         Type = ActivityType.Absent_Related;
     }
@@ -168,33 +169,42 @@ public class ActivityModel extends AbstractModel {
     	}
     	return result;
     }
+    
+    public int TotalRegisteredHours()
+    {
+        int totalHours = 0;
+        for(AbstractModel model : SubModels())
+        {
+    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
+    		totalHours += hourModel.Hours();
+        }
+
+        return totalHours;
+    }
 
     public int TotalRegisteredHours(String userName)
     {
         int totalHours = 0;
-        if (userName != null)
+        
+        for(AbstractModel model : SubModels())
         {
-        	for(AbstractModel model : SubModels())
-            {
-        		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-                if (hourModel.userName.equals(userName))
-                    totalHours += hourModel.Hours();
-            }
-        }
-        else
-        {
-        	for(AbstractModel model : SubModels())
-            {
-        		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-        		totalHours += hourModel.Hours();
-            }
+    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
+            if (hourModel.userName.equals(userName))
+                totalHours += hourModel.Hours();
         }
 
         return totalHours;
     }
     
-    public Object itemModel()
+    public ItemModel itemModel()
     {
-		return null;
+    	String[] itemData = new String[4];
+		
+		itemData[0] = modelIdentity();
+		itemData[1] = sDate.toString();
+		itemData[2] = eDate.toString();
+		itemData[3] = Integer.toString(TotalRegisteredHours());
+		
+		return new ItemModel(itemData);
     }
 }

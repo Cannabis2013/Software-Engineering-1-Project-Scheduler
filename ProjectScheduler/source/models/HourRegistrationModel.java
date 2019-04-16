@@ -8,20 +8,21 @@ import java.util.Date;
 
 import Abstractions.AbstractModel;
 import ProjectDomain.ProjectManager;
+import formComponents.ItemModel;
 
 public class HourRegistrationModel extends AbstractModel {
 	private LocalDate originalRegistrationDate;
     private String activityTextContent;
     private int workHours;
     
-    public String userName;
+    private String uName;
 
 
     public HourRegistrationModel(String identity,int hours, String userName, String text, AbstractModel ParentActivity)
     {
         setModelidentity(identity);;
         this.workHours = hours;
-        this.userName = userName;
+        this.uName = userName;
         this.activityTextContent = text;
 
         ParentActivity.AddSubModel(this);
@@ -29,7 +30,6 @@ public class HourRegistrationModel extends AbstractModel {
         originalRegistrationDate = LocalDate.now();
         
     }
-
 
     public int Hours()
     {
@@ -40,7 +40,17 @@ public class HourRegistrationModel extends AbstractModel {
     {
     	workHours = h;
     }
-
+    
+    public String userName()
+    {
+    	return uName;
+    }
+    
+    public void setUserName(String userName)
+    {
+    	uName = userName;
+    }
+    
     public LocalDate registrationDate()
     {
     	return originalRegistrationDate;
@@ -61,8 +71,16 @@ public class HourRegistrationModel extends AbstractModel {
         return pManager.model(parentModelIdentity()).parentModelIdentity();
     }
     
-    public Object itemModel()
+    public ItemModel itemModel()
     {
-		return null;
+    	String[] itemData = new String[5];
+		
+		itemData[0] = modelIdentity();
+		itemData[1] = userName();
+		itemData[2] = Integer.toString(Hours());
+		itemData[3] = originalRegistrationDate.toString();
+		itemData[4] = parentModelIdentity();
+		
+		return new ItemModel(itemData);
     }
 }

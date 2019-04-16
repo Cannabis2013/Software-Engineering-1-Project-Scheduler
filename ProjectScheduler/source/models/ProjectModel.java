@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.ibm.icu.util.Calendar;
+
 import Abstractions.AbstractModel;
+import formComponents.ItemModel;
 
 public class ProjectModel extends AbstractModel
 {
@@ -69,8 +72,15 @@ public class ProjectModel extends AbstractModel
     	return result;
     }
     
-    public Object itemModel()
+    public ItemModel itemModel()
     {
-		return null;
+		String[] itemData = new String[4];
+		
+		itemData[0] = modelIdentity();
+		itemData[1] = pLeaderId;
+		itemData[2] = sDate.toString();
+		itemData[3] = eDate.toString();
+		
+		return new ItemModel(itemData);
     }
 }

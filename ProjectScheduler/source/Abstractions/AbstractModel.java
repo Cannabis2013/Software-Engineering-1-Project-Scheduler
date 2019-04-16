@@ -3,6 +3,8 @@ package Abstractions;
 import java.util.ArrayList;
 import java.util.List;
 
+import formComponents.ItemModel;
+
 public abstract class AbstractModel {
 
 	private AbstractModel parent = null;
@@ -117,7 +119,7 @@ public abstract class AbstractModel {
 		return model.parent != null ? WarnParentObject(model.parent) : model;
 	}
 	
-	public abstract Object itemModel();
+	public abstract ItemModel itemModel();
 	
 
 }
