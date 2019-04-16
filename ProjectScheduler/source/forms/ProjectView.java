@@ -1,7 +1,6 @@
 package forms;
 import javax.swing.JFrame;
 
-import Application_Facade.ApplicationFacade;
 import Application_Facade.GUIFacade;
 
 public class ProjectView extends JFrame {

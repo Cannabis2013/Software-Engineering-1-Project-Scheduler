@@ -66,7 +66,10 @@ public class ActivityModel extends AbstractModel {
     	this.reason = reason;
     }
 
-    public ActivityType TypeOfActivity => Type;
+    public ActivityType TypeOfActivity()
+    {
+    	return Type;
+    }
 
     public Date startDate()
     {
@@ -91,12 +94,12 @@ public class ActivityModel extends AbstractModel {
 
     public int startWeek()
     {
-    	
+    	return 0;
     }
 
     public int endWeek()
     {
-    	
+    	return 0;
     }
 
     public int EstimatedDuration()
