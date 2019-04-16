@@ -6,7 +6,7 @@ import java.util.List;
 public class AbstractModel {
 
 	private AbstractModel parent = null;
-	private AbstractManager ParentManager = null;
+	private AbstractManager parentManager = null;
 	private List<AbstractModel> subModels = new ArrayList<AbstractModel>();
 
 	private String ModelId;
@@ -34,12 +34,12 @@ public class AbstractModel {
 
 	public AbstractManager parentManager()
 	{
-		return ParentManager;
+		return parentManager;
     }
 	
 	public void setParentManager(AbstractManager parentManager)
 	{
-		this.ParentManager = parentManager;
+		this.parentManager = parentManager;
 	}
 
 	public String parentModelIdentity() {
