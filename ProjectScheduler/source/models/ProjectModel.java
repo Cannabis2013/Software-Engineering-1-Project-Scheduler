@@ -40,7 +40,7 @@ public class ProjectModel extends AbstractModel
     	return pLeaderId;
     }
     
-    public void setProjectLeaderId(string id)
+    public void setProjectLeaderId(String id)
     {
     	pLeaderId = id;
     }
@@ -61,25 +61,11 @@ public class ProjectModel extends AbstractModel
     	List<ActivityModel> result = new ArrayList<ActivityModel>();
     	for(AbstractModel model : SubModels())
     	{
-    		
+    		ActivityModel activity = (ActivityModel) model;
+    		if(activity.IsUserAssigned(userName))
+    			result.add(activity);
     	}
-        var userActivities = AllSubModels<ActivityModel>().Where(item => item.IsUserAssigned(userName));
-        return userActivities.Select(item => new ActivityModel(item)).ToList();
-    }
-
-    public override ListViewItem ItemModel()
-    {
-        var model = new ListViewItem(ModelIdentity);
         
-        model.SubItems.Add(projectLeaderId);
-
-        model.SubItems.Add(StartDate.ToString("dd/MM/yyyy"));
-        model.SubItems.Add(EndDate.ToString("dd/MM/yyyy"));
-
-        model.ImageIndex = 0;
-        model.StateImageIndex = 0;
-
-        return model;
+    	return result;
     }
-	
 }

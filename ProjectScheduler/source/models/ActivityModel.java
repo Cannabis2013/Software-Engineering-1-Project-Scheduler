@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.jface.viewers.deferred.SetModel;
-import org.osgi.framework.AllServiceListener;
-
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
 
