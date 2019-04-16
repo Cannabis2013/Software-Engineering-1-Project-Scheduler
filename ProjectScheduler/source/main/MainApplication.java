@@ -15,7 +15,6 @@ public class MainApplication {
 			public void run() {
 				try {
 					
-					ApplicationFacade app = new ApplicationFacade();
 					
 				} catch (Exception e) {
 					e.printStackTrace();
