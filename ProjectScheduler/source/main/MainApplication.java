@@ -2,6 +2,8 @@ package main;
 
 import java.awt.EventQueue;
 
+import Application_Facade.GUIFacade;
+
 
 public class MainApplication {
 
@@ -14,7 +16,7 @@ public class MainApplication {
 			public void run() {
 				try {
 					
-					
+					GUIFacade facade = new GUIFacade();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
