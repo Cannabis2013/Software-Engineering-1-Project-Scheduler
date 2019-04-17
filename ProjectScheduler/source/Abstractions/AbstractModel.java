@@ -8,9 +8,6 @@ import formComponents.ItemModel;
 
 public abstract class AbstractModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 440923988337809655L;
 	private AbstractModel parent = null;
 	private AbstractManager parentManager = null;

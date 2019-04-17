@@ -7,8 +7,11 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import Abstractions.AbstractModel;
+import ProjectDomain.ProjectManager;
 import formComponents.ItemModel;
 
 public class ProjectModel extends AbstractModel
@@ -22,15 +25,19 @@ public class ProjectModel extends AbstractModel
     {
     	setModelidentity(name);
     	
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTime(startDate);
-    	int year = cal.get(Calendar.YEAR);
+    	int year = ProjectManager.getDateProperty(startDate, Calendar.YEAR);
+    	
     	
     	StringBuilder serial = new StringBuilder();
     	serial.append(Integer.toString(year));
     	serial.append(Integer.toString(id++));
     	
     	serialId = serial.toString();
+    }
+    
+    public String serialIdentification()
+    {
+    	return serialId;
     }
     
     public Date startDate()
@@ -66,24 +73,13 @@ public class ProjectModel extends AbstractModel
 
     public List<ItemModel> activityItemModels()
     {
-    	List<ItemModel> models = new ArrayList<ItemModel>();
-        for (AbstractModel activity : subModels())
-            models.add(((ActivityModel) activity).itemModel());
-
-        return models;
+    	return subModels().stream().map(item -> item.itemModel()).collect(Collectors.toList());
     }
     
     public List<ActivityModel> Activities(String userName)
     {
-    	List<ActivityModel> result = new ArrayList<ActivityModel>();
-    	for(AbstractModel model : subModels())
-    	{
-    		ActivityModel activity = (ActivityModel) model;
-    		if(activity.IsUserAssigned(userName))
-    			result.add(activity);
-    	}
-        
-    	return result;
+    	Stream<ActivityModel> models = subModels().stream().map(item -> (ActivityModel) item);
+    	return models.filter(item -> item.IsUserAssigned(userName)).collect(Collectors.toList());
     }
     
     public ItemModel itemModel()

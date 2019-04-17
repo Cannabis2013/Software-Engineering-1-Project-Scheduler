@@ -2,8 +2,10 @@ package ProjectDomain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,6 +24,15 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
+	
+	private static String timeZoneId = "Europe/Copenhagen";
+	
+	public static int getDateProperty(Date date, int calProperty)
+	{
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(timeZoneId));
+		cal.setTime(date);
+		return cal.get(calProperty);
+	}
 
     public ItemModel[] ProjectItemModels()
     {
