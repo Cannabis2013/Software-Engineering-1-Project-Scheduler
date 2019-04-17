@@ -149,7 +149,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ItemModel[] projectItemModels(String UserIdentity)
     {
-    	Stream<AbstractModel> projects = pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
+    	Stream<AbstractModel> projects = 
+    			pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
         return projects.map(AbstractModel::itemModel).toArray(ItemModel[]::new);
     }
 
@@ -182,7 +183,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ActivityModel activity(String activityId)
     {
-        return pManager.activityModels().stream().filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
+        return pManager.activityModels().stream().
+        		filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
     }
 
     public List<ActivityModel> activities()
@@ -222,7 +224,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     @Override
     public HourRegistrationModel hourRegistrationModel(String activityId, String regId)
     {
-    	ActivityModel activity = pManager.activityModels().stream().filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
+    	ActivityModel activity = pManager.activityModels().stream().
+    			filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
         String projectId = activity.parentModelIdentity();
         return pManager.getHourRegistrationModel(projectId, activityId, regId);
     }

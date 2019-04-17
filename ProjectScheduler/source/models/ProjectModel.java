@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Calendar;
 
 
 
@@ -7,15 +8,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.ibm.icu.util.Calendar;
-
 import Abstractions.AbstractModel;
 import formComponents.ItemModel;
 
 public class ProjectModel extends AbstractModel
 {
-	private String pLeaderId, description;
+	private static final long serialVersionUID = 1L;
+	private static int id = 1000;
+	private String serialId , pLeaderId;
     private Date sDate, eDate;
+    
+    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate)
+    {
+    	setModelidentity(name);
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(startDate);
+    	int year = cal.get(Calendar.YEAR);
+    	
+    	StringBuilder serial = new StringBuilder();
+    	serial.append(Integer.toString(year));
+    	serial.append(Integer.toString(id++));
+    	
+    	serialId = serial.toString();
+    }
     
     public Date startDate()
     {
@@ -46,16 +62,6 @@ public class ProjectModel extends AbstractModel
     public void setProjectLeaderId(String id)
     {
     	pLeaderId = id;
-    }
-
-    public String shortDescription()
-    {
-    	return description;
-    }
-    
-    public void setShortDescription(String description)
-    {
-    	this.description = description;
     }
 
     public List<ItemModel> activityItemModels()

@@ -16,18 +16,27 @@ public abstract class AbstractModel implements Serializable {
 	private AbstractManager parentManager = null;
 	private List<AbstractModel> subModels = new ArrayList<AbstractModel>();
 
-	private String ModelId;
+	private String modelTitle, textContent;
 	
 	public String modelIdentity()
 	{
-		return ModelId;
+		return modelTitle;
 	}
 	
 	public void setModelidentity(String id)
 	{
-		ModelId = id;
+		modelTitle = id;
 	}
 	
+	public String description()
+	{
+		return textContent;
+	}
+	
+	public void setDescription(String text)
+	{
+		textContent = text;
+	}
 	
 	public AbstractModel Parent()
 	{
