@@ -7,6 +7,7 @@ import Abstractions.AbstractManager;
 import Abstractions.AbstractModel;
 import formComponents.ItemModel;
 import models.UserModel;
+import models.UserModel.userRole;
 
 public class UserManager extends AbstractManager {
 
@@ -84,20 +85,11 @@ public class UserManager extends AbstractManager {
 	
 	public ItemModel[] itemModels(Boolean fullList)
     {
-        int uCount = models().size(),startIndex = 0, index = 0; 
-        if (!fullList)
-        {
-            uCount--;
-            startIndex = 1;
-        }
-        ItemModel[] models = new ItemModel[uCount];
-        for (int i = startIndex; i < models().size(); i++)
-        {
-            AbstractModel u = models().get(i);
-            models[index++] = u.itemModel();
-        }
-
-        return models;
+        if(fullList)
+        	return models().stream().map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        else
+        	return models().stream().filter(subItem -> ((UserModel) subItem).Role() != userRole.Admin).
+        			map(item -> item.itemModel()).toArray(ItemModel[]::new);
     }
 	
 	private void createUserPrototypes()

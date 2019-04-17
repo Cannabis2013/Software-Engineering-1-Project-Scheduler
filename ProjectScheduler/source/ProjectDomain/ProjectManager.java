@@ -127,39 +127,31 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public ItemModel[] activityItemModels(UserManager uManager)
     {
-        Stream<AbstractModel> projects = models().stream();
-        Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
-        		map(subItem -> (AbstractModel) subItem);
-        
         if (uManager.isAdmin())
-        	return activities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
-
-        String userName = uManager.currentUser().modelIdentity();
-        
-        Stream<AbstractModel> userAssginedActivities = 
-        		activities.filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
+        {
+        	Stream<AbstractModel> projects = models().stream();
+            Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
+            		map(subItem -> (AbstractModel) subItem);
         	
-        Stream<AbstractModel> projectLeaderActivities =
-        		userAssginedActivities.
-        		filter(item -> ((ProjectModel) ((AbstractModel) item).Parent()).projectLeaderId().equals(userName));
-        
-        return projectLeaderActivities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        	return activities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        }
+        else
+        	return activityItemModels(uManager.currentUser().modelIdentity());
     }
 
     public ItemModel[] activityItemModels(String userName)
     {
-    	List<ItemModel> allModels = new ArrayList<ItemModel>();
-    	for (AbstractModel model : models())
-        {
-            ProjectModel project = (ProjectModel)model;
-            
-            Stream<AbstractModel> stream = project.subModels().stream().filter(item -> ((ActivityModel) item).
-            		IsUserAssigned(userName) && project.projectLeaderId() == userName);
-            List<ItemModel> models = stream.map(AbstractModel::itemModel).collect(Collectors.toList());
-            allModels.addAll(models);
-        }
+    	Stream<AbstractModel> projects = models().stream();
+        Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
+        		map(subItem -> (AbstractModel) subItem);
         
-        return allModels.toArray(new ItemModel[allModels.size()]);
+    	Stream<AbstractModel> userAssginedActivities = 
+        		activities.filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
+        	
+        Stream<AbstractModel> projectLeaderActivities =
+        		userAssginedActivities.filter(item -> ((ProjectModel) item.Parent()).projectLeaderId().equals(userName));
+        
+        return projectLeaderActivities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
     }
 
     public ItemModel[] RegistrationItemModels()
@@ -186,7 +178,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             for (AbstractModel model : project.subModels())
             {
                 ActivityModel activity = (ActivityModel) model;
-                List<AbstractModel> models = activity.subModels().stream().filter(item -> ((HourRegistrationModel) item).userName() == userName).collect(Collectors.toList());
+                List<AbstractModel> models = activity.subModels().stream().
+                		filter(item -> ((HourRegistrationModel) item).userName() == userName).collect(Collectors.toList());
                 for(AbstractModel rModel : models)
                 	regItemModels.add(rModel.itemModel());
                 
@@ -277,5 +270,4 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		// TODO Auto-generated method stub
 		
 	}
-
 }
