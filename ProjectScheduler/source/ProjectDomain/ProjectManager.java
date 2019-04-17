@@ -111,18 +111,13 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public HourRegistrationModel getHourRegistrationModel(String regId)
     {
-        List<ActivityModel> activities = activityModels();
-
-        for (ActivityModel activity : activities)
-        {
-            List<HourRegistrationModel> hourRegistrations = activity.HourRegistrationObjects();
-            HourRegistrationModel regModel =  hourRegistrations.stream().filter(item -> item.modelIdentity().equals(regId)).collect(Collectors.toList()).get(0);
-            if(regModel != null)
-            	return regModel;
-            
-        }
-
-        return null;
+        Stream<List<AbstractModel>> models = activityModels().stream().map(item -> item.subModels());
+        List<AbstractModel> modelsContainsRegId = 
+        		models.filter(item -> item.stream().
+        				anyMatch(subItem -> subItem.modelIdentity().equals(regId))).collect(Collectors.toList()).get(0);
+        
+        return (HourRegistrationModel) modelsContainsRegId.stream().
+        		filter(item -> item.modelIdentity().equals(regId)).distinct().collect(Collectors.toList()).get(0);
     }
 
     public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId)
@@ -132,36 +127,23 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public ItemModel[] activityItemModels(UserManager uManager)
     {
-    	
-        List<ItemModel> models = new ArrayList<ItemModel>();
-        if (uManager.isAdmin())
-        {
-            for (AbstractModel item : models())
-            {
-                ProjectModel project = (ProjectModel)item;
-                models.addAll(project.activityItemModels());
-            }
-            
-            return models.toArray(new ItemModel[models.size()]);
-        }
-
-        String userId = uManager.currentUser().modelIdentity();
-
-        for (AbstractModel item : models())
-        {
-            ProjectModel project = (ProjectModel)item;
-            for (AbstractModel model : project.subModels())
-            {
-            	ActivityModel activity = (ActivityModel) model;
-                if (!activity.IsUserAssigned(uManager) && project.projectLeaderId() != userId)
-                    continue;
-
-                
-                models.add(activity.itemModel());
-            }
-        }
+        Stream<AbstractModel> projects = models().stream();
+        Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
+        		map(subItem -> (AbstractModel) subItem);
         
-        return models.toArray(new ItemModel[models.size()]);
+        if (uManager.isAdmin())
+        	return activities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
+
+        String userName = uManager.currentUser().modelIdentity();
+        
+        Stream<AbstractModel> userAssginedActivities = 
+        		activities.filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
+        	
+        Stream<AbstractModel> projectLeaderActivities =
+        		userAssginedActivities.
+        		filter(item -> ((ProjectModel) ((AbstractModel) item).Parent()).projectLeaderId().equals(userName));
+        
+        return projectLeaderActivities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
     }
 
     public ItemModel[] activityItemModels(String userName)
@@ -171,7 +153,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         {
             ProjectModel project = (ProjectModel)model;
             
-            Stream<AbstractModel> stream = project.subModels().stream().filter(item -> ((ActivityModel) item).IsUserAssigned(userName) && project.projectLeaderId() == userName);
+            Stream<AbstractModel> stream = project.subModels().stream().filter(item -> ((ActivityModel) item).
+            		IsUserAssigned(userName) && project.projectLeaderId() == userName);
             List<ItemModel> models = stream.map(AbstractModel::itemModel).collect(Collectors.toList());
             allModels.addAll(models);
         }

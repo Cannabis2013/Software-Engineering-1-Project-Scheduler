@@ -3,12 +3,15 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
 import formComponents.ItemModel;
 
 public class ActivityModel extends AbstractModel {
+	
+	private static final long serialVersionUID = 1L;
 	private List<String> assignedUserIdentities;
     private Date sDate, eDate;
     private String reason;
@@ -119,12 +122,7 @@ public class ActivityModel extends AbstractModel {
     public boolean IsUserAssigned(UserManager uManager)
     {
         String currentUserName = uManager.currentUser().modelIdentity();
-        for(String userName : assignedUserIdentities)
-        {
-        	if(userName.equals(currentUserName))
-        		return true;
-        }
-        return false;
+        return assignedUserIdentities.stream().anyMatch(item -> item.equals(currentUserName));
     }
 
     public boolean IsUserAssigned(String userName)
