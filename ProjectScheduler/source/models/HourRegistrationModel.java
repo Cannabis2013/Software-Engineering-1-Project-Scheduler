@@ -25,7 +25,7 @@ public class HourRegistrationModel extends AbstractModel {
         this.uName = userName;
         this.activityTextContent = text;
 
-        ParentActivity.AddSubModel(this);
+        ParentActivity.addSubModel(this);
         
         originalRegistrationDate = LocalDate.now();
         

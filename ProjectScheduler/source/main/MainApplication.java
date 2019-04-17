@@ -16,7 +16,6 @@ public class MainApplication {
 			public void run() {
 				try {
 					GUIFacade facade = new GUIFacade();
-					s
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

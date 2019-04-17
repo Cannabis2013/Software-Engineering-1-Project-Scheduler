@@ -58,7 +58,7 @@ public abstract class AbstractManager {
     	return modelList.get(index);
     }
     
-    public List<AbstractModel> Models()
+    public List<AbstractModel> models()
     {
     	return modelList;
     }

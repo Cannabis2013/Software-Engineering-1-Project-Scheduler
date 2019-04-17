@@ -1,12 +1,17 @@
 package Abstractions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import formComponents.ItemModel;
 
-public abstract class AbstractModel {
+public abstract class AbstractModel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 440923988337809655L;
 	private AbstractModel parent = null;
 	private AbstractManager parentManager = null;
 	private List<AbstractModel> subModels = new ArrayList<AbstractModel>();
@@ -50,19 +55,19 @@ public abstract class AbstractModel {
 
 	//public abstract ListViewItem ItemModel();
 
-	public void AddSubModel(AbstractModel subModel) {
+	public void addSubModel(AbstractModel subModel) {
 		subModels.add(subModel);
 		subModel.setParent(this);
 		StateChanged();
 	}
 
-	public void RemoveSubModel(AbstractModel SubModel) {
+	public void removeSubModel(AbstractModel SubModel) {
 		subModels.remove(SubModel);
 		SubModel.parent = null;
 		StateChanged();
 	}
 
-	public void RemoveSubModel(String identity) {
+	public void removeSubModel(String identity) {
 		for (int i = 0; i < subModels.size(); i++) {
 			AbstractModel model = subModels.get(i);
 			if (model.modelIdentity().equals(identity)) {
@@ -78,7 +83,7 @@ public abstract class AbstractModel {
 		StateChanged();
 	}
 	
-	public AbstractModel SubModel(String SubModelIdentity)
+	public AbstractModel subModel(String SubModelIdentity)
 	{
 		for(AbstractModel model : subModels)
 		{
@@ -88,12 +93,12 @@ public abstract class AbstractModel {
 		return null;
 	}
 	
-	public AbstractModel SubModelAt(int index)
+	public AbstractModel subModelAt(int index)
 	{
 		return subModels.get(index);
 	}
 	
-	public List<AbstractModel> SubModels()
+	public List<AbstractModel> subModels()
 	{
 		return subModels;
 	}
@@ -102,8 +107,31 @@ public abstract class AbstractModel {
 	{
 		subModels = models;
 	}
+	
+	public <T> List<T> AllSubModels()
+    {
+        List<T> result = new ArrayList<T>();
+        for (AbstractModel model : subModels)
+        {
+        	if(model instanceof Object)
+        	{
+        		@SuppressWarnings("unchecked")
+				T item = (T) model;
+        		result.add(item);        		
+        	}
+        }
 
-	//public ListViewItem[] allSubItemModels() => subModels.Select(item => item.ItemModel()).ToArray();
+        return result;
+    }
+	
+	public List<ItemModel> allSubItemModels()
+	{
+		List<ItemModel> models = new ArrayList<>();
+		for(int i = 0;i <subModels().size();i++)
+			models.add(subModels().get(i).itemModel());
+		
+		return models;
+	}
 
 	public void NotifyObservers()
     {

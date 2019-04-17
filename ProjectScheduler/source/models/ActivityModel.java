@@ -30,7 +30,7 @@ public class ActivityModel extends AbstractModel {
         this.eDate = eDate;
         assignedUserIdentities = assignedUsers;
 
-        parentProjectModel.AddSubModel(this);
+        parentProjectModel.addSubModel(this);
         setParent(parentProjectModel);
     }
 
@@ -46,7 +46,7 @@ public class ActivityModel extends AbstractModel {
 
     public ActivityModel(ActivityModel copy)
     {
-        setSubModels(copy.SubModels());
+        setSubModels(copy.subModels());
         setModelidentity(copy.modelIdentity());
         sDate = copy.startDate();
         eDate = copy.endDate();
@@ -150,7 +150,7 @@ public class ActivityModel extends AbstractModel {
     public List<HourRegistrationModel> HourRegistrationObjects()
     {
     	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(AbstractModel model : SubModels())
+    	for(AbstractModel model : subModels())
     	{
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
     		result.add(hourModel);
@@ -161,10 +161,10 @@ public class ActivityModel extends AbstractModel {
     public List<HourRegistrationModel> HourRegistrationObjects(String userName)
     {
     	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(AbstractModel model : SubModels())
+    	for(AbstractModel model : subModels())
     	{
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-    		if(hourModel.userName.equals(userName))
+    		if(hourModel.userName().equals(userName))
     			result.add(hourModel);
     	}
     	return result;
@@ -173,7 +173,7 @@ public class ActivityModel extends AbstractModel {
     public int TotalRegisteredHours()
     {
         int totalHours = 0;
-        for(AbstractModel model : SubModels())
+        for(AbstractModel model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
     		totalHours += hourModel.Hours();
@@ -186,10 +186,10 @@ public class ActivityModel extends AbstractModel {
     {
         int totalHours = 0;
         
-        for(AbstractModel model : SubModels())
+        for(AbstractModel model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-            if (hourModel.userName.equals(userName))
+            if (hourModel.userName().equals(userName))
                 totalHours += hourModel.Hours();
         }
 

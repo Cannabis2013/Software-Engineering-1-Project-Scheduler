@@ -58,11 +58,19 @@ public class ProjectModel extends AbstractModel
     	this.description = description;
     }
 
+    public List<ItemModel> activityItemModels()
+    {
+    	List<ItemModel> models = new ArrayList<ItemModel>();
+        for (AbstractModel activity : subModels())
+            models.add(((ActivityModel) activity).itemModel());
+
+        return models;
+    }
     
     public List<ActivityModel> Activities(String userName)
     {
     	List<ActivityModel> result = new ArrayList<ActivityModel>();
-    	for(AbstractModel model : SubModels())
+    	for(AbstractModel model : subModels())
     	{
     		ActivityModel activity = (ActivityModel) model;
     		if(activity.IsUserAssigned(userName))
