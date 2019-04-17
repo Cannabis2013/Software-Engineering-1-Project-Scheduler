@@ -11,62 +11,62 @@ import models.HourRegistrationModel;
 
 public interface IApplicationProgrammingInterface {
 	// User section
-    Boolean Login(String userName, String password);
-    void Logut();
+    Boolean login(String userName);
+    void logut();
 
-    Boolean IsAdmin();
+    Boolean isAdmin();
 
-    UserModel CurrentUserLoggedIn();
+    UserModel currentUserLoggedIn();
 
-    List<String> UserNames();
+    List<String> userNames();
 
-    ItemModel[] UserListModels(Boolean IncludeAdmin);
+    ItemModel[] userListModels(Boolean IncludeAdmin);
 
-    String UserAvailability(String username, 
+    String userAvailability(String username, 
         Date sDate, Date eDate);
 
     // Project section
 
-    String AddProject(ProjectModel newProject);
-    String RemoveProject(int index);
-    String RemoveProject(String identity);
-    void RemoveProject(ProjectModel project);
+    String addProject(ProjectModel newProject);
+    String removeProject(int index);
+    String removeProject(String identity);
+    void removeProject(ProjectModel project);
 
-    ProjectModel Project(int index);
-    ProjectModel Project(String identity);
+    ProjectModel project(int index);
+    ProjectModel project(String identity);
 
-    ItemModel[] ProjectItemModels();
-    ItemModel[] ProjectItemModels(String UserIdentity);
+    ItemModel[] projectItemModels();
+    ItemModel[] projectItemModels(String UserIdentity);
 
     // Activities
-    void AddAbsenceActivity(ActivityModel activtity);
-    void RemoveAbsenceActivity(String id);
+    void addAbsenceActivity(ActivityModel activtity);
+    void removeAbsenceActivity(String id);
 
-    void RemoveActivity(String projectid, String activityId);
+    void removeActivity(String projectid, String activityId);
 
-    ActivityModel Activity(String projectId, String activityId);
-    ActivityModel Activity(String activityId);
+    ActivityModel activity(String projectId, String activityId);
+    ActivityModel activity(String activityId);
 
-    List<ActivityModel> Activities();
-    List<ActivityModel> Activities(String userName);
+    List<ActivityModel> activities();
+    List<ActivityModel> activities(String userName);
 
     ItemModel[] activityItemModels();
     ItemModel[] activityItemModels(String userName);
 
     // Hour registrations
 
-    void RegisterHour(String projectId, String activityId,
+    void registerHour(String projectId, String activityId,
         String regId, int hours, String shortDescription);
 
-    void UnRegisterHour(String projectId, String activityId, String regId);
+    void unRegisterHour(String projectId, String activityId, String regId);
 
-    HourRegistrationModel HourRegistrationModel(String activityId, String regId);
-    ItemModel[] HourRegistrationItemModels();
-    ItemModel[] HourRegistrationItemModels(String userNames);
+    HourRegistrationModel hourRegistrationModel(String activityId, String regId);
+    ItemModel[] hourRegistrationItemModels();
+    ItemModel[] hourRegistrationItemModels(String userNames);
 
     // Observer
 
-    void SubScribe(ICustomObserver observer);
-    void UnSubScribe(ICustomObserver observer);
-    void UnSubScribeAll();
+    void subScribe(ICustomObserver observer);
+    void unSubScribe(ICustomObserver observer);
+    void unSubScribeAll();
 }

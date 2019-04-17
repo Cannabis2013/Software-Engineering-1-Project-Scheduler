@@ -7,11 +7,11 @@ import UserDomain.UserManager;
 import forms.LoginDialog;
 import forms.ProjectView;
 
-public class GUIFacade {
+public class ApplicationFrontEnd {
 	
 	private UserManager uManager = new UserManager();
 	
-	public GUIFacade() {
+	public ApplicationFrontEnd() {
 		launchLoginDialog();
 	}
 	

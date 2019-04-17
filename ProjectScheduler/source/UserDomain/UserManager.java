@@ -3,9 +3,12 @@ package UserDomain;
 import java.util.ArrayList;
 import java.util.List;
 
+import Abstractions.AbstractManager;
+import Abstractions.AbstractModel;
+import formComponents.ItemModel;
 import models.UserModel;
 
-public class UserManager {
+public class UserManager extends AbstractManager {
 
 	private List<UserModel> users = new ArrayList<UserModel>();
 	private UserModel currentlyLoggedIn = null;
@@ -70,6 +73,33 @@ public class UserManager {
 		return null;
     }
 	
+	public List<String> listModelIdentities()
+    {
+        List<String> result = new ArrayList<String>();
+        for (AbstractModel u : models())
+            result.add(u.modelIdentity());
+
+        return result;
+    }
+	
+	public ItemModel[] itemModels(Boolean fullList)
+    {
+        int uCount = models().size(),startIndex = 0, index = 0; 
+        if (!fullList)
+        {
+            uCount--;
+            startIndex = 1;
+        }
+        ItemModel[] models = new ItemModel[uCount];
+        for (int i = startIndex; i < models().size(); i++)
+        {
+            AbstractModel u = models().get(i);
+            models[index++] = u.itemModel();
+        }
+
+        return models;
+    }
+	
 	private void createUserPrototypes()
     {
 		UserModel admin = new UserModel("admin", UserModel.userRole.Admin);
@@ -91,5 +121,11 @@ public class UserManager {
         users.add(nUser4);
         users.add(nUser5);
     }
+
+	@Override
+	public void requestUpdate() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -2,7 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 
-import Application_Facade.GUIFacade;
+import Application_Facade.ApplicationFrontEnd;
 
 
 public class MainApplication {
@@ -15,7 +15,7 @@ public class MainApplication {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIFacade facade = new GUIFacade();
+					ApplicationFrontEnd facade = new ApplicationFrontEnd();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

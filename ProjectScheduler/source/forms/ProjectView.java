@@ -1,14 +1,14 @@
 package forms;
 import javax.swing.JFrame;
 
-import Application_Facade.GUIFacade;
+import Application_Facade.ApplicationFrontEnd;
 
 public class ProjectView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private GUIFacade parent;
+	private ApplicationFrontEnd parent;
 	
-	public ProjectView(GUIFacade parent) {
+	public ProjectView(ApplicationFrontEnd parent) {
 		
 		this.parent = parent;
 		initialize();

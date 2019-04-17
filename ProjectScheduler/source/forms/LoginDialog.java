@@ -3,7 +3,7 @@ package forms;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import Application_Facade.GUIFacade;
+import Application_Facade.ApplicationFrontEnd;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -26,10 +26,10 @@ public class LoginDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = -6266910851826102840L;
 	
-	GUIFacade parent;
+	ApplicationFrontEnd parent;
 	private JTextField textField;
 	
-	public LoginDialog(GUIFacade parent) {
+	public LoginDialog(ApplicationFrontEnd parent) {
 		getContentPane().setBackground(new Color(0, 0, 0));
 		
 		
