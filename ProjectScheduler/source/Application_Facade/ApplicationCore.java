@@ -23,12 +23,11 @@ import models.HourRegistrationModel;
 public class ApplicationCore implements IApplicationProgrammingInterface {
 	
 	private String FileName = "ProjectFile";
-    private ProjectManager pManager;
+    private ProjectManager pManager = new ProjectManager();
     private UserManager uManager = new UserManager();
 
     public ApplicationCore()
     {
-        readPersistenceData();
     }
 
     public void writePersistence()
@@ -260,7 +259,4 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         pManager.UnSubScribeAll();
     }
-
-	
-
 }
