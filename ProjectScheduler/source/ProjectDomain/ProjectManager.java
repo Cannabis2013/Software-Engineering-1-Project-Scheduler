@@ -129,11 +129,12 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     {
         if (uManager.isAdmin())
         {
-        	Stream<AbstractModel> projects = models().stream();
-            Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
-            		map(subItem -> (AbstractModel) subItem);
-        	
-        	return activities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        	List<ItemModel> allModels = new ArrayList<ItemModel>();
+        	for (AbstractModel pModel : models()) {
+				Stream<ItemModel> activityItemModels = pModel.subModels().stream().map(item -> item.itemModel());
+				allModels.addAll(activityItemModels.collect(Collectors.toList()));
+			}
+        	return allModels.toArray(new ItemModel[allModels.size()]);
         }
         else
         	return activityItemModels(uManager.currentUser().modelIdentity());
@@ -141,17 +142,18 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public ItemModel[] activityItemModels(String userName)
     {
-    	Stream<AbstractModel> projects = models().stream();
-        Stream<AbstractModel> activities = projects.map(item -> item.subModels().stream()).
-        		map(subItem -> (AbstractModel) subItem);
-        
-    	Stream<AbstractModel> userAssginedActivities = 
-        		activities.filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
-        	
-        Stream<AbstractModel> projectLeaderActivities =
-        		userAssginedActivities.filter(item -> ((ProjectModel) item.Parent()).projectLeaderId().equals(userName));
-        
-        return projectLeaderActivities.map(item -> item.itemModel()).toArray(ItemModel[]::new);
+    	List<ItemModel> allModels = new ArrayList<ItemModel>();
+    	for (AbstractModel pModel : models()) {
+			Stream<AbstractModel> userAssignedModels = 
+					pModel.subModels().stream().filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
+			Stream<AbstractModel> userProjects = 
+					userAssignedModels.filter(item -> ((ProjectModel) item.Parent()).projectLeaderId().equals(userName));
+			
+			Stream<ItemModel> itemModels = userProjects.map(item -> item.itemModel());
+			allModels.addAll(itemModels.collect(Collectors.toList()));
+		}
+    	
+    	return allModels.toArray(new ItemModel[allModels.size()]);
     }
 
     public ItemModel[] RegistrationItemModels()
