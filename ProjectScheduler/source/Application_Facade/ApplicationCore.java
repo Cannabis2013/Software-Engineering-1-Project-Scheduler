@@ -51,8 +51,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         try {
 			saveFileStream = new FileInputStream(FileName);
 			deSerializer = new ObjectInputStream(saveFileStream);
-			if(pManager != null)
-				pManager = (ProjectManager) deSerializer.readObject();
+			pManager = (ProjectManager) deSerializer.readObject();
 		} catch (Exception e) {
 			pManager = new ProjectManager();
 		}
