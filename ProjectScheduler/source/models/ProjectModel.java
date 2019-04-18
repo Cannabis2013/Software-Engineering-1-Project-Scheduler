@@ -1,9 +1,7 @@
 package models;
 
 import java.util.Calendar;
-
-
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +33,26 @@ public class ProjectModel extends AbstractModel
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
+    	setDescription(description);
+    }
+    
+    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description)
+    {
+    	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
+    	
+    	sDate = simpleDate.parse(startDate);
+    	eDate = simpleDate.parse(endDate);
+    	
+    	int year = ProjectManager.getDateProperty(sDate, Calendar.YEAR);
+    	
+    	StringBuilder serial = new StringBuilder();
+    	serial.append(Integer.toString(year));
+    	serial.append(Integer.toString(id++));
+    	
+    	serialId = serial.toString();
+    	
+    	setModelidentity(name);
+    	setProjectLeaderId(projectLeaderId);
     	setDescription(description);
     }
     

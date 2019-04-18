@@ -18,7 +18,7 @@ import models.ProjectModel;
 public class ProjectSteps {
 	
 	ApplicationCore coreApp = new ApplicationCore();
-	DateFormat simpleDate = new SimpleDateFormat("dd-mm-yy");
+	DateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
 	ProjectModel tempProject;
 	String tempString;
 	
@@ -36,17 +36,9 @@ public class ProjectSteps {
 	public void he_fills_an_project_application_with_the_following_information_Title_start_date_today_end_date_at_projectleaderid_short_description(String string, String string2, String string3, String string4) {
 	    tempString = string;
 		
-		Date sDate = null;
-	    Date eDate = null;
-		try {
-			sDate = Calendar.getInstance().getTime();
-			eDate = simpleDate.parse(string2);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			fail();
-		}
+		String currentDate = simpleDate.format(Calendar.getInstance().getTime());
 		
-		ProjectModel project = new ProjectModel(string, string3, sDate, eDate, string4);
+		ProjectModel project = new ProjectModel(string, currentDate, string2, string3,string4);
 		tempProject = project;
 	}
 
@@ -113,6 +105,24 @@ public class ProjectSteps {
 		
 		assertTrue(true);
 		
+	}
+	
+	@Given("the user currently logged in is not admin")
+	public void the_user_currently_logged_in_is_not_admin() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Given("he wants to remove the project with the title {string}.")
+	public void he_wants_to_remove_the_project_with_the_title(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Then("he recieves a message that reads {string}.")
+	public void he_recieves_a_message_that_reads(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
 	}
 
 }
