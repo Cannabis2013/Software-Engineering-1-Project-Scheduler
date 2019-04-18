@@ -17,6 +17,6 @@ Scenario: Admin removes project succesfully
 	
 Scenario: User removes project unsuccesfully
 	Given a project exists with the name "Project CANVAS"
-	And the user currently logged in is not admin
+	And the user with username "Finn_Luger" enters his username
 	And he wants to remove the project with the title "Project Canvas".
 	Then he recieves a message that reads "Admin privilliges required".

@@ -107,22 +107,20 @@ public class ProjectSteps {
 		
 	}
 	
-	@Given("the user currently logged in is not admin")
-	public void the_user_currently_logged_in_is_not_admin() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	@Given("the user with username {string} enters his username")
+	public void the_user_with_username_enters_his_username(String string) {
+	    assertTrue(coreApp.login(string));
 	}
 
 	@Given("he wants to remove the project with the title {string}.")
 	public void he_wants_to_remove_the_project_with_the_title(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	    tempString = string;
 	}
 
 	@Then("he recieves a message that reads {string}.")
 	public void he_recieves_a_message_that_reads(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	    assertTrue(coreApp.removeProject(tempString).equals(string));
 	}
 
 }

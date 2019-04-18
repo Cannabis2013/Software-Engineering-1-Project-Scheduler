@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Calendar;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,8 +41,13 @@ public class ProjectModel extends AbstractModel
     {
     	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
     	
-    	sDate = simpleDate.parse(startDate);
-    	eDate = simpleDate.parse(endDate);
+    	try {
+			sDate = simpleDate.parse(startDate);
+			eDate = simpleDate.parse(endDate);
+		} catch (ParseException e) {
+			sDate = Calendar.getInstance().getTime();
+			eDate = Calendar.getInstance().getTime();
+		}
     	
     	int year = ProjectManager.getDateProperty(sDate, Calendar.YEAR);
     	
