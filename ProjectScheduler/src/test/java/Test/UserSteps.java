@@ -4,20 +4,29 @@ import cucumber.api.java.en.Then;
 
 import static org.junit.Assert.assertEquals;
 
+import Application_Facade.ApplicationCore;
 import UserDomain.UserManager;
 
 public class UserSteps {
-  
-	@Given("The user has the following username: {string}")
-	public void the_user_has_the_following_username(String string) {
+	
+	ApplicationCore coreApp = new ApplicationCore();
+	String tempUserName;
+	
+	@Given("a user enters username {string}")
+	public void a_user_enters_username(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-	    
+		tempUserName = string;
 	}
-
-	@Then("he enters his credentials and logs in succesfully")
-	public void he_enters_his_credentials_and_logs_in_succesfully() {
+	
+	@Then("he logs in succesfully")
+	public void he_logs_in_succesfully() {
 	    // Write code here that turns the phrase above into concrete actions
-	    
+	    assertEquals(true, coreApp.login(tempUserName));
 	}
-
+	
+	@Then("he fails to log in")
+	public void he_fails_to_log_in() {
+	    // Write code here that turns the phrase above into concrete actions
+		assertEquals(false, coreApp.login(tempUserName));
+	}
 }

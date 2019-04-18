@@ -21,18 +21,21 @@ public class ProjectModel extends AbstractModel
 	private String serialId , pLeaderId;
     private Date sDate, eDate;
     
-    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate)
+    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate, String description)
     {
-    	setModelidentity(name);
-    	
     	int year = ProjectManager.getDateProperty(startDate, Calendar.YEAR);
-    	
     	
     	StringBuilder serial = new StringBuilder();
     	serial.append(Integer.toString(year));
     	serial.append(Integer.toString(id++));
     	
     	serialId = serial.toString();
+    	
+    	setModelidentity(name);
+    	setProjectLeaderId(projectLeaderId);
+    	sDate = startDate;
+    	eDate = endDate;
+    	setDescription(description);
     }
     
     public String serialIdentification()
