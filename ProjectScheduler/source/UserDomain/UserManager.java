@@ -97,15 +97,15 @@ public class UserManager extends AbstractManager {
 		UserModel admin = new UserModel("admin", UserModel.userRole.Admin);
 
         users.add(admin);
-
+        
         /*
          * Initialize five users for testing purposes
          */
-        UserModel nUser1 = new UserModel("Jens_Werner2019", UserModel.userRole.Employee);
-        UserModel nUser2 = new UserModel("Niels_Erik1964", UserModel.userRole.Employee);
-        UserModel nUser3 = new UserModel("Bent_Bjerre", UserModel.userRole.Employee);
-        UserModel nUser4 = new UserModel("Finn_Luger", UserModel.userRole.Employee);
-        UserModel nUser5 = new UserModel("Technotonny", UserModel.userRole.Employee);
+        UserModel nUser1 = new UserModel("JW", UserModel.userRole.Employee);
+        UserModel nUser2 = new UserModel("NE", UserModel.userRole.Employee);
+        UserModel nUser3 = new UserModel("BE", UserModel.userRole.Employee);
+        UserModel nUser4 = new UserModel("FL", UserModel.userRole.Employee);
+        UserModel nUser5 = new UserModel("TT", UserModel.userRole.Employee);
         
         users.add(nUser1);
         users.add(nUser2);

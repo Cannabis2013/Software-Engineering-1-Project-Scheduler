@@ -197,8 +197,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public List<ActivityModel> activities()
     {
+    	String currentLoggedinUserName = uManager.currentUser().modelIdentity();
         return uManager.isAdmin() ? pManager.activityModels() : 
-            pManager.activityModels(uManager.currentUser().modelIdentity());
+            activities(currentLoggedinUserName);
     }
 
     public List<ActivityModel> activities(String userName)
@@ -208,8 +209,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ItemModel[] activityItemModels()
     {
+    	String currentLoggedinUserName = uManager.currentUser().modelIdentity();
         return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
-            pManager.activityItemModels(uManager.currentUser().modelIdentity());
+            activityItemModels(currentLoggedinUserName);
     }
 
     public ItemModel[] activityItemModels(String userName)

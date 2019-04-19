@@ -26,7 +26,7 @@ public class ActivitySteps {
 		SimpleDateFormat simpleDate = new SimpleDateFormat();
 		projectName = "Project CANVAS";
 		
-		String pLeader = "Finn_Luger";
+		String pLeader = "FL";
 		String startDate = simpleDate.format(Calendar.getInstance().getTime());
 		String endDate ="05-05-2019";
 		String shortDescription = "This is a test project";
@@ -53,7 +53,7 @@ public class ActivitySteps {
 	    assertTrue(pLeaderId.equals(string));
 	}
 
-	@Then("Finn Luger should be able to add an activity to project CANVAS")
+	@Then("FL should be able to add an activity to project CANVAS")
 	public void finn_Luger_should_be_able_to_add_an_activity_to_project_CANVAS() {
 	    // Write code here that turns the phrase above into concrete actions
 	    assertTrue(true);
@@ -66,8 +66,7 @@ public class ActivitySteps {
 
 	@Given("the user currently logged in has username {string}")
 	public void the_user_currently_logged_in_has_username(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    coreApp.login(string);
+	    assertTrue(coreApp.login(string));
 	    String currentUserName = coreApp.currentUserLoggedIn().UserName();
 	    assertEquals(true, currentUserName.equals(string));
 	}
@@ -145,16 +144,15 @@ public class ActivitySteps {
 	    
 	    assertEquals(true, coreApp.activity(projectName, string) != null);
 	}
-
-	@Then("Finn_Luger looks up the activity with title {string} and removes it succesfully.")
-	public void finn_luger_looks_up_the_activity_with_title_and_removes_it_succesfully(String string) {
-	    try {
+	
+	@Then("FL looks up the activity with title {string} and removes it succesfully.")
+	public void fl_looks_up_the_activity_with_title_and_removes_it_succesfully(String string) {
+		try {
 			coreApp.removeActivity(projectName, string);
 			assertEquals(false, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
 		}
-	    
 	}
 	
 	@Given("he creates an activity with title {string}, some random date intervals and assigns a user with username {string}.")

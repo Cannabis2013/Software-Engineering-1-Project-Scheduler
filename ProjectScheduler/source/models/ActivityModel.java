@@ -1,5 +1,6 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -204,15 +205,41 @@ public class ActivityModel extends AbstractModel {
     
     public ItemModel itemModel()
     {
+		return new ItemModel(ItemModelData());
+    }
+    
+    public ItemModel itemModel(int[] properties)
+    {
+    	String[] propertyStrings = new String[properties.length];
+    	int index = 0;
+    	
+    	for (int i = 0; i < properties.length; i++) {
+			int propertyIndex = properties[i];
+			if(propertyIndex >= 0  && propertyIndex < ItemModelData().length)
+				propertyStrings[index++] = ItemModelDataAt(propertyIndex);
+		}
+    	
+    	return new ItemModel(propertyStrings);
+    }
+    
+    private String ItemModelDataAt(int index)
+    {
+    	return ItemModelData()[index];
+    }
+    
+    private String[] ItemModelData()
+    {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+    	
     	String[] itemData = new String[5];
 		
 		itemData[0] = modelIdentity();
-		itemData[1] = sDate.toString();
-		itemData[2] = eDate.toString();
+		itemData[1] = dateFormat.format(sDate);
+		itemData[2] = dateFormat.format(eDate);
 		itemData[3] = Integer.toString(TotalRegisteredHours());
 		itemData[4] = serialId();
 		
-		return new ItemModel(itemData);
+		return itemData;
     }
     
     public void assignSerialId()
