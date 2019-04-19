@@ -22,10 +22,29 @@ public class ActivityModel extends AbstractModel {
     };
     
     public ActivityModel(String activityTitle, 
+        	AbstractModel parentModel,
+            Date sDate, 
+            Date eDate,
+            List<String> assignedUsers
+            )
+        {
+            setModelidentity(activityTitle);
+            this.sDate = sDate;
+            this.eDate = eDate;
+            
+            if(assignedUsers != null)
+            	assignedUserIdentities = assignedUsers;            
+            
+            setParent(parentModel);
+            
+            assignSerialId();
+        }
+    
+    public ActivityModel(String activityTitle, 
     	AbstractModel parentModel,
         Date sDate, 
-        Date eDate, 
-        List<String> assignedUsers)
+        Date eDate
+        )
     {
         setModelidentity(activityTitle);
         this.sDate = sDate;
@@ -33,11 +52,7 @@ public class ActivityModel extends AbstractModel {
         
         setParent(parentModel);
         
-        if(assignedUsers != null)
-        	assignedUserIdentities = assignedUsers;
-        
         assignSerialId();
-        
     }
 
     public ActivityModel(String activityTitle,String reason, Date sDate, Date eDate)

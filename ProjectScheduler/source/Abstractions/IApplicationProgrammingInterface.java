@@ -49,7 +49,7 @@ public interface IApplicationProgrammingInterface {
     void removeAbsenceActivity(String id);
     
     
-    void removeActivity(String projectid, String activityId);
+    void removeActivity(String projectid, String activityId) throws Exception;
 
     ActivityModel activity(String projectId, String activityId);
 

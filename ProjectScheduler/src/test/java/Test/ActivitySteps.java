@@ -1,10 +1,13 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import Application_Facade.ApplicationCore;
@@ -111,5 +114,73 @@ public class ActivitySteps {
 		ActivityModel activity = coreApp.activity(projectName, tempActivity.modelIdentity());
 	    
 	    assertEquals(false, activity != null);
+	}
+		
+	@Given("a user with username {string} is logged in and is project leader for Project CANVAS")
+	public void a_user_with_username_is_logged_in_and_is_project_leader_for_Project_CANVAS(String string) {
+		coreApp.login(string);
+	    try {
+			String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
+			assertEquals(string, currentUserLoggedIn);
+			String projectLeaderId = coreApp.project(projectName).projectLeaderId();
+			assertEquals(string, projectLeaderId);
+		} catch (NullPointerException e) {
+			fail();
+		}
+	}
+
+	@Given("an activity with title {string}, some random date intervals and {string} assigned as active user exists.")
+	public void an_activity_with_title_some_random_date_intervals_and_assigned_as_active_user_exists(String string, String string2) {
+		
+		String activityName = string;
+	    Date startDate = TestUnit.DateFromString("05-05-2019");
+	    Date endDate = TestUnit.DateFromString("19-05-2019");
+	    
+	    ProjectModel parentProject = coreApp.project(projectName);
+	    
+	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
+	    activity.assignUser(string2);
+	    
+	    coreApp.addActivity(parentProject.modelIdentity(), activity);
+	    
+	    assertEquals(true, coreApp.activity(projectName, string) != null);
+	}
+
+	@Then("Finn_Luger looks up the activity with title {string} and removes it succesfully.")
+	public void finn_luger_looks_up_the_activity_with_title_and_removes_it_succesfully(String string) {
+	    try {
+			coreApp.removeActivity(projectName, string);
+			assertEquals(false, coreApp.activity(projectName, string) != null);
+		} catch (Exception e) {
+			fail();
+		}
+	    
+	}
+	
+	@Given("he creates an activity with title {string}, some random date intervals and assigns a user with username {string}.")
+	public void he_creates_an_activity_with_title_some_random_date_intervals_and_assigns_a_user_with_username(String string, String string2) {
+		String activityName = string;
+	    Date startDate = TestUnit.DateFromString("05-05-2019");
+	    Date endDate = TestUnit.DateFromString("19-05-2019");
+	    
+	    ProjectModel parentProject = coreApp.project(projectName);
+	    
+	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
+	    activity.assignUser(string2);
+	    
+	    coreApp.addActivity(parentProject.modelIdentity(), activity);
+	    
+	    assertEquals(true, coreApp.activity(projectName, string) != null);
+	}
+	
+	@Then("{string} logs in and fails to remove the activity {string}.")
+	public void logs_in_and_fails_to_remove_the_activity(String string, String string2) {
+		assertTrue(coreApp.login(string));
+		try {
+			coreApp.removeActivity(projectName, string2);
+			fail();
+		} catch (Exception e) {
+			assertTrue(coreApp.activity(projectName, string2) != null);
+		}
 	}
 }

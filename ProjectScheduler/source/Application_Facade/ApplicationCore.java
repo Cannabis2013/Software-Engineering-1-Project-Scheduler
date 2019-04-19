@@ -158,7 +158,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		ProjectModel project = pManager.project(projectTitle);
 		String currentUserId = uManager.currentUser().UserName();
 		
-		if(project.projectLeaderId().equals(currentUserId))
+		if(project.projectLeaderId().equals(currentUserId) || uManager.isAdmin())
 			pManager.addActivity(projectTitle, activity);
 	}
 
@@ -174,17 +174,19 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
             pManager.RemoveActivityModel(model.modelIdentity(), id);
     }
 
-    public void removeActivity(String projectId, String activityId)
+    public void removeActivity(String projectId, String activityId) throws Exception
     {
         ProjectModel project = pManager.project(projectId);
-        String pUser = project.projectLeaderId();
-        if (project.projectLeaderId().equals(pUser))
+        String pUser = uManager.currentUser().UserName();
+        if (project.projectLeaderId().equals(pUser) || uManager.isAdmin())
             pManager.RemoveActivityModel(projectId, activityId);
+        else
+        	throw new Exception("User not admin nor projectleader for the parent project.");
     }
 
     public ActivityModel activity(String projectId, String activityId)
     {
-        return pManager.activityModelById(projectId, activityId);
+    	return pManager.activityModelById(projectId, activityId);
     }
 
     public List<ActivityModel> activitiesById(String activityId)
