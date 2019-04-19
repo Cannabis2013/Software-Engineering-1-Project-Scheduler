@@ -210,8 +210,16 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     public String UserAvailability(String userName, UserManager uManager, Date fromDate, Date toDate)
     {
         int partlyOccurrences = 0, fullOccurrences = 0;
+        
+        List<ActivityEntity> userActivityEntities = UserActivityEntities(userName, uManager);
+        
+        boolean hasAnyAbsenceActivities = userActivityEntities.stream().
+        		anyMatch(item -> item.TypeOfActivity() == ActivityModel.ActivityType.Absent_Related);
+        
+        if(userActivityEntities.size() < 20 && !hasAnyAbsenceActivities)
+        	return "Available";
 
-        for (ActivityEntity item : UserActivityEntities(userName, uManager))
+        for (ActivityEntity item : userActivityEntities)
         {
             if(item.TypeOfActivity() == ActivityModel.ActivityType.Work_Related)
             {
