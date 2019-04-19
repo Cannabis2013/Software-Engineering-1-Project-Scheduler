@@ -3,7 +3,6 @@ package models;
 import java.util.Calendar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,27 +16,20 @@ public class ProjectModel extends AbstractModel
 {
 	private static final long serialVersionUID = 1L;
 	private static int id = 1000;
-	private String serialId , pLeaderId;
+	private String pLeaderId;
     private Date sDate, eDate;
     
     public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate, String description)
-    {
-    	int year = ProjectManager.getDateProperty(startDate, Calendar.YEAR);
-    	
-    	StringBuilder serial = new StringBuilder();
-    	serial.append(Integer.toString(year));
-    	serial.append(Integer.toString(id++));
-    	
-    	serialId = serial.toString();
-    	
+    {	
     	setModelidentity(name);
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
     	setDescription(description);
+    	setSerialId(generateSerialId());
     }
     
-    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description)
+    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) throws ParseException
     {
     	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
     	
@@ -49,22 +41,10 @@ public class ProjectModel extends AbstractModel
 			eDate = Calendar.getInstance().getTime();
 		}
     	
-    	int year = ProjectManager.getDateProperty(sDate, Calendar.YEAR);
-    	
-    	StringBuilder serial = new StringBuilder();
-    	serial.append(Integer.toString(year));
-    	serial.append(Integer.toString(id++));
-    	
-    	serialId = serial.toString();
-    	
     	setModelidentity(name);
+    	setSerialId(generateSerialId());
     	setProjectLeaderId(projectLeaderId);
     	setDescription(description);
-    }
-    
-    public String serialIdentification()
-    {
-    	return serialId;
     }
     
     public Date startDate()
@@ -111,13 +91,29 @@ public class ProjectModel extends AbstractModel
     
     public ItemModel itemModel()
     {
-		String[] itemData = new String[4];
+		String[] itemData = new String[5];
 		
 		itemData[0] = modelIdentity();
 		itemData[1] = pLeaderId;
 		itemData[2] = sDate.toString();
 		itemData[3] = eDate.toString();
+		itemData[4] = serialId();
 		
 		return new ItemModel(itemData);
     }
+
+	@Override
+	protected String generateSerialId() {
+		
+		if(id > 9999)
+    		id = 1000;
+    	
+    	int year = ProjectManager.getDateProperty(sDate, Calendar.YEAR);
+    	
+    	StringBuilder serial = new StringBuilder();
+    	serial.append(Integer.toString(year));
+    	serial.append(Integer.toString(id++));
+    	
+    	return serial.toString();
+	}
 }

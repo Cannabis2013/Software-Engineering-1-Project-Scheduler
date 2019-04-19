@@ -25,6 +25,10 @@ public interface IApplicationProgrammingInterface {
     String userAvailability(String username, 
         Date sDate, Date eDate);
 
+    // General model section
+    
+    AbstractModel model(String serialId);
+    
     // Project section
 
     String addProject(ProjectModel newProject);
@@ -33,20 +37,22 @@ public interface IApplicationProgrammingInterface {
     void removeProject(ProjectModel project);
 
     ProjectModel project(int index);
-    ProjectModel project(String identity);
+    ProjectModel project(String title);
 
     ItemModel[] projectItemModels();
     ItemModel[] projectItemModels(String UserIdentity);
 
     // Activities
+    
     void addAbsenceActivity(ActivityModel activtity);
     void removeAbsenceActivity(String id);
-
+    
+    
     void removeActivity(String projectid, String activityId);
 
     ActivityModel activity(String projectId, String activityId);
-    ActivityModel activity(String activityId);
 
+    List<ActivityModel> activitiesById(String activityId);
     List<ActivityModel> activities();
     List<ActivityModel> activities(String userName);
 

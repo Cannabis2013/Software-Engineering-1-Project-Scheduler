@@ -53,6 +53,20 @@ public abstract class AbstractManager {
     	return null;
     }
     
+    public AbstractModel modelBySerial(String serial)
+    {
+    	for (AbstractModel model : models()) {
+			if(model.serialId().equals(serial))
+				return model;
+			
+			AbstractModel childModel = iterateModel(model,serial);
+			if(childModel != null)
+				return childModel;
+		}
+		
+		return null;
+    }
+    
     public AbstractModel modelAt(int index)
     {
     	return modelList.get(index);
@@ -79,5 +93,19 @@ public abstract class AbstractManager {
 
 	
 	public abstract void requestUpdate();
+	
+	private AbstractModel iterateModel(AbstractModel model, String serialId)
+	{
+		if(model.serialId().equals(serialId))
+			return model;
+		
+		for (AbstractModel aModel : model.subModels()) {
+			AbstractModel aM = iterateModel(aModel, serialId);
+			if(aM != null)
+				return aM;
+		}
+
+		return null;
+	}
 	
 }

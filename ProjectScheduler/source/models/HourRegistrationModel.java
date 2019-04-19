@@ -1,16 +1,15 @@
 package models;
 
-import java.awt.List;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 
 import Abstractions.AbstractModel;
 import ProjectDomain.ProjectManager;
 import formComponents.ItemModel;
 
 public class HourRegistrationModel extends AbstractModel {
+	
+	private static final long serialVersionUID = 1L;
 	private LocalDate originalRegistrationDate;
     private String activityTextContent;
     private int workHours;
@@ -28,7 +27,7 @@ public class HourRegistrationModel extends AbstractModel {
         ParentActivity.addSubModel(this);
         
         originalRegistrationDate = LocalDate.now();
-        
+        setSerialId(generateSerialId());
     }
 
     public int Hours()
@@ -73,14 +72,28 @@ public class HourRegistrationModel extends AbstractModel {
     
     public ItemModel itemModel()
     {
-    	String[] itemData = new String[5];
+    	String[] itemData = new String[6];
 		
 		itemData[0] = modelIdentity();
 		itemData[1] = userName();
 		itemData[2] = Integer.toString(Hours());
 		itemData[3] = originalRegistrationDate.toString();
 		itemData[4] = parentModelIdentity();
+		itemData[5] = serialId();
 		
 		return new ItemModel(itemData);
+    }
+    
+    @Override
+    protected String generateSerialId()
+    {
+    	StringBuilder serialBuilder = new StringBuilder();
+    	serialBuilder.append(modelIdentity());
+    	long currentTimeInMs = Calendar.getInstance().getTimeInMillis();
+    	int hashedId = (int) (currentTimeInMs % (long) parentModelIdentity().hashCode());
+    	
+    	serialBuilder.append(Integer.toString(hashedId));
+    	
+    	return serialBuilder.toString();
     }
 }

@@ -3,8 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
-
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
 import formComponents.ItemModel;
@@ -35,6 +33,8 @@ public class ActivityModel extends AbstractModel {
 
         parentProjectModel.addSubModel(this);
         setParent(parentProjectModel);
+        
+        setSerialId(generateSerialId());
     }
 
     public ActivityModel(String activityTitle,String reason, Date sDate, Date eDate)
@@ -45,6 +45,7 @@ public class ActivityModel extends AbstractModel {
         this.eDate = eDate;
 
         Type = ActivityType.Absent_Related;
+        setSerialId(generateSerialId());
     }
 
     public ActivityModel(ActivityModel copy)
@@ -196,13 +197,30 @@ public class ActivityModel extends AbstractModel {
     
     public ItemModel itemModel()
     {
-    	String[] itemData = new String[4];
+    	String[] itemData = new String[5];
 		
 		itemData[0] = modelIdentity();
 		itemData[1] = sDate.toString();
 		itemData[2] = eDate.toString();
 		itemData[3] = Integer.toString(TotalRegisteredHours());
+		itemData[4] = serialId();
 		
 		return new ItemModel(itemData);
+    }
+    
+    @Override
+    protected String generateSerialId()
+    {
+    	StringBuilder serialBuilder = new StringBuilder();
+    	serialBuilder.append(modelIdentity());
+    	int hashedId = 0;
+    	if(Type == ActivityType.Work_Related)
+    		 hashedId = parentModelIdentity().hashCode();
+    	else
+    		hashedId = reason.hashCode();
+    	
+    	serialBuilder.append(Integer.toString(hashedId));
+    	
+    	return serialBuilder.toString();
     }
 }

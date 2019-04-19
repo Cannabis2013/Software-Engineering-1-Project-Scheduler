@@ -180,10 +180,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.activityModelById(projectId, activityId);
     }
 
-    public ActivityModel activity(String activityId)
+    public List<ActivityModel> activitiesById(String activityId)
     {
         return pManager.activityModels().stream().
-        		filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
+        		filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList());
     }
 
     public List<ActivityModel> activities()
@@ -261,4 +261,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         pManager.UnSubScribeAll();
     }
+
+	@Override
+	public AbstractModel model(String serialId) {
+		return pManager.modelBySerial(serialId);
+	}
 }

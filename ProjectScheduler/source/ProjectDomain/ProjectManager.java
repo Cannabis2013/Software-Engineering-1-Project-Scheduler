@@ -269,7 +269,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
 	@Override
 	public void requestUpdate() {
-		// TODO Auto-generated method stub
 		
 	}
 }
