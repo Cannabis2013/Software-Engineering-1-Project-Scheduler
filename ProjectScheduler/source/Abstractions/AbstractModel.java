@@ -69,8 +69,6 @@ public abstract class AbstractModel implements Serializable {
 		return parent.modelIdentity();
 	}
 
-	//public abstract ListViewItem ItemModel();
-
 	public void addSubModel(AbstractModel subModel) {
 		subModels.add(subModel);
 		subModel.setParent(this);

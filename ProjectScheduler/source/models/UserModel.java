@@ -8,7 +8,6 @@ import formComponents.ItemModel;
 public class UserModel extends AbstractModel {
 
 	private static final long serialVersionUID = 1L;
-	private String userName;
 	private userRole role = userRole.Employee;
 	
 	public enum userRole {Admin, Employee};
@@ -23,7 +22,7 @@ public class UserModel extends AbstractModel {
 	
 	public UserModel(String userName, userRole role)
     {
-        this.userName = userName;
+        setModelidentity(userName);
         this.role = role;
     }
 	
@@ -33,11 +32,7 @@ public class UserModel extends AbstractModel {
 	}
 	
 	public String UserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+		return modelIdentity();
 	}
 	
 	public static String _roleStringRepresentation(userRole r)

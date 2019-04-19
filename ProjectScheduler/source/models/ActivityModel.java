@@ -10,7 +10,7 @@ import formComponents.ItemModel;
 public class ActivityModel extends AbstractModel {
 	
 	private static final long serialVersionUID = 1L;
-	private List<String> assignedUserIdentities;
+	private List<String> assignedUserIdentities = new ArrayList<String>();
     private Date sDate, eDate;
     private String reason;
     private ActivityType Type = ActivityType.Work_Related;
@@ -21,7 +21,8 @@ public class ActivityModel extends AbstractModel {
         Absent_Related
     };
     
-    public ActivityModel(String activityTitle,AbstractModel parentProjectModel, 
+    public ActivityModel(String activityTitle, 
+    	AbstractModel parentModel,
         Date sDate, 
         Date eDate, 
         List<String> assignedUsers)
@@ -29,12 +30,14 @@ public class ActivityModel extends AbstractModel {
         setModelidentity(activityTitle);
         this.sDate = sDate;
         this.eDate = eDate;
-        assignedUserIdentities = assignedUsers;
-
-        parentProjectModel.addSubModel(this);
-        setParent(parentProjectModel);
         
-        setSerialId(generateSerialId());
+        setParent(parentModel);
+        
+        if(assignedUsers != null)
+        	assignedUserIdentities = assignedUsers;
+        
+        assignSerialId();
+        
     }
 
     public ActivityModel(String activityTitle,String reason, Date sDate, Date eDate)
@@ -45,19 +48,8 @@ public class ActivityModel extends AbstractModel {
         this.eDate = eDate;
 
         Type = ActivityType.Absent_Related;
-        setSerialId(generateSerialId());
     }
 
-    public ActivityModel(ActivityModel copy)
-    {
-        setSubModels(copy.subModels());
-        setModelidentity(copy.modelIdentity());
-        sDate = copy.startDate();
-        eDate = copy.endDate();
-        assignedUserIdentities = copy.assignedUserIdentities;
-        setParent(copy.Parent());;
-    }
-    
     public String Reason()
     {
     	return reason;
@@ -206,6 +198,11 @@ public class ActivityModel extends AbstractModel {
 		itemData[4] = serialId();
 		
 		return new ItemModel(itemData);
+    }
+    
+    public void assignSerialId()
+    {
+    	setSerialId(generateSerialId());
     }
     
     @Override

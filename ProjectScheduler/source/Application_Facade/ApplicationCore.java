@@ -133,12 +133,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ProjectModel project(int index)
     {
-        return (ProjectModel) pManager.modelAt(index);
+        return pManager.projectAt(index);
     }
 
     public ProjectModel project(String identity)
     {
-        return (ProjectModel) pManager.model(identity);
+        return pManager.project(identity);
     }
 
     public ItemModel[] projectItemModels()
@@ -152,6 +152,15 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     			pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
         return projects.map(AbstractModel::itemModel).toArray(ItemModel[]::new);
     }
+    
+    @Override
+	public void addActivity(String projectTitle, ActivityModel activity) {
+		ProjectModel project = pManager.project(projectTitle);
+		String currentUserId = uManager.currentUser().UserName();
+		
+		if(project.projectLeaderId().equals(currentUserId))
+			pManager.addActivity(projectTitle, activity);
+	}
 
     public void addAbsenceActivity(ActivityModel activtity)
     {
@@ -167,12 +176,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public void removeActivity(String projectId, String activityId)
     {
-        AbstractModel project = pManager.model(projectId);
-        String pUser = ((ProjectModel) project).projectLeaderId();
-        if (((ProjectModel) project).projectLeaderId() == pUser)
-        {
+        ProjectModel project = pManager.project(projectId);
+        String pUser = project.projectLeaderId();
+        if (project.projectLeaderId().equals(pUser))
             pManager.RemoveActivityModel(projectId, activityId);
-        }
     }
 
     public ActivityModel activity(String projectId, String activityId)

@@ -33,7 +33,17 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		cal.setTime(date);
 		return cal.get(calProperty);
 	}
-
+	
+	public ProjectModel project(String projectName)
+	{
+		return (ProjectModel) model(projectName);
+	}
+	
+	public ProjectModel projectAt(int index)
+	{
+		return (ProjectModel) modelAt(index);
+	}
+	
     public ItemModel[] ProjectItemModels()
     {
         int count = models().size(), index = 0;
@@ -65,8 +75,14 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     {
         AbstractModel project = model(projectIdentity);
         
-        return (ActivityModel) project.subModels().stream().
-        		filter(item -> item.modelIdentity().equals(activityIdentity)).collect(Collectors.toList()).get(0);
+        try {
+			ActivityModel activity = (ActivityModel) project.subModels().stream().
+					filter(item -> item.modelIdentity().equals(activityIdentity)).collect(Collectors.toList()).get(0);
+			return activity;
+		} catch (Exception e) {
+			
+			return null;
+		}
         
     }
 
@@ -269,6 +285,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
 	@Override
 	public void requestUpdate() {
-		
+		for (ICustomObserver observer : observers)
+			observer.updateView();
 	}
 }

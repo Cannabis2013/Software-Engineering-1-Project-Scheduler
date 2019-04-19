@@ -38,8 +38,14 @@ public class ProjectSteps {
 		
 		String currentDate = simpleDate.format(Calendar.getInstance().getTime());
 		
-		ProjectModel project = new ProjectModel(string, currentDate, string2, string3,string4);
-		tempProject = project;
+		ProjectModel project;
+		try {
+			project = new ProjectModel(string, currentDate, string2, string3,string4);
+			tempProject = project;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Then("the project with the title {string} can be retrieved at the ProjectManager database.")
@@ -51,7 +57,7 @@ public class ProjectSteps {
 		if(retrievedProject == null)
 			fail();
 		
-		if(!retrievedProject.modelIdentity().equals(tempProject.modelIdentity()))
+		if(!retrievedProject.projectName().equals(tempProject.projectName()))
 			fail();
 		
 		if(!retrievedProject.startDate().equals(tempProject.startDate()))

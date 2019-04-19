@@ -47,6 +47,11 @@ public class ProjectModel extends AbstractModel
     	setDescription(description);
     }
     
+    public String projectName()
+    {
+    	return modelIdentity();
+    }
+    
     public Date startDate()
     {
     	return sDate;

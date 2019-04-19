@@ -17,12 +17,12 @@ public class HourRegistrationModel extends AbstractModel {
     private String uName;
 
 
-    public HourRegistrationModel(String identity,int hours, String userName, String text, AbstractModel ParentActivity)
+    public HourRegistrationModel(String identity,int hours, String userName, String shortDescription, AbstractModel ParentActivity)
     {
         setModelidentity(identity);;
         this.workHours = hours;
         this.uName = userName;
-        this.activityTextContent = text;
+        this.activityTextContent = shortDescription;
 
         ParentActivity.addSubModel(this);
         
@@ -89,8 +89,7 @@ public class HourRegistrationModel extends AbstractModel {
     {
     	StringBuilder serialBuilder = new StringBuilder();
     	serialBuilder.append(modelIdentity());
-    	long currentTimeInMs = Calendar.getInstance().getTimeInMillis();
-    	int hashedId = (int) (currentTimeInMs % (long) parentModelIdentity().hashCode());
+    	int hashedId = parentModelIdentity().hashCode();
     	
     	serialBuilder.append(Integer.toString(hashedId));
     	
