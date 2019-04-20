@@ -250,6 +250,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
     	ActivityModel activity = pManager.activityModels().stream().
     			filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
+    	
+    	if(activity == null)
+    		return null;
+    	
         String projectId = activity.parentModelIdentity();
         return pManager.getHourRegistrationModel(projectId, activityId, regId);
     }

@@ -68,9 +68,6 @@ public class HourRegisterSteps {
 
 	@When("he fills an application with the title {string} for registering {int} hours to the activity {string}")
 	public void he_fills_an_application_with_the_title_for_registering_hours_to_the_activity(String string, Integer int1, String string2) {
-	    String currentLoggedInUserName = coreApp.currentUserLoggedIn().UserName();
-	    ActivityModel parentActivity = coreApp.activity(projectName, activityName);
-		
 		try {
 			coreApp.registerHour(projectName, string2, string, int1, "");
 			tempRegName = string;
