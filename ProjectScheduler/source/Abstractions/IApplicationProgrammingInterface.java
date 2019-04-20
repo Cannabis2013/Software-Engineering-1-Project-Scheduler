@@ -45,7 +45,7 @@ public interface IApplicationProgrammingInterface {
     // Activities
     
     void addAbsenceActivity(ActivityModel activtity);
-    void addActivity(String projectTitle, ActivityModel activity);
+    void addActivity(String projectTitle, ActivityModel activity) throws Exception;
     void removeAbsenceActivity(String id);
     
     
@@ -63,7 +63,7 @@ public interface IApplicationProgrammingInterface {
     // Hour registrations
 
     void registerHour(String projectId, String activityId,
-        String regId, int hours, String shortDescription);
+        String regId, int hours, String shortDescription) throws Exception;
 
     void unRegisterHour(String projectId, String activityId, String regId);
 

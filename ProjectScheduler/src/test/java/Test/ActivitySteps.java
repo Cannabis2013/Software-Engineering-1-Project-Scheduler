@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.eclipse.osgi.internal.debug.Debug;
+
 import Application_Facade.ApplicationCore;
 import cucumber.api.java.en.*;
 import models.ActivityModel;
@@ -102,17 +105,29 @@ public class ActivitySteps {
 
 	@Then("he succesfully manage to add the activity to {string}")
 	public void he_succesfully_manage_to_add_the_activity_to(String string) {
-	    coreApp.addActivity(projectName, tempActivity);
-		ActivityModel activity = coreApp.activity(projectName, tempActivity.modelIdentity());
-	    
-	    assertEquals(true, activity != null);
+	    try {
+			coreApp.addActivity(projectName, tempActivity);
+		} catch (Exception e) {
+			fail();
+		}
+		ActivityModel activity;
+		try {
+			activity = coreApp.activity(projectName, tempActivity.modelIdentity());
+			assertEquals(true, activity != null);
+		} catch (Exception e) {
+			
+		}
 	}
 	
 	@Then("he unsuccesfully manage to add the activity to {string}")
 	public void he_unsuccesfully_manage_to_add_the_activity_to(String string) {
-		ActivityModel activity = coreApp.activity(projectName, tempActivity.modelIdentity());
+		try {
+			coreApp.addActivity(projectName, tempActivity);
+			fail();
+		} catch (Exception e) {
+			assertTrue(true);
+		}
 	    
-	    assertEquals(false, activity != null);
 	}
 		
 	@Given("a user with username {string} is logged in and is project leader for Project CANVAS")
@@ -140,19 +155,25 @@ public class ActivitySteps {
 	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
 	    activity.assignUser(string2);
 	    
-	    coreApp.addActivity(parentProject.modelIdentity(), activity);
+	    try {
+			coreApp.addActivity(parentProject.modelIdentity(), activity);
+			assertEquals(true, coreApp.activity(projectName, string) != null);
+		} catch (Exception e) {
+			fail();
+		}
 	    
-	    assertEquals(true, coreApp.activity(projectName, string) != null);
 	}
 	
 	@Then("FL looks up the activity with title {string} and removes it succesfully.")
 	public void fl_looks_up_the_activity_with_title_and_removes_it_succesfully(String string) {
 		try {
 			coreApp.removeActivity(projectName, string);
-			assertEquals(false, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
 		}
+		
+		assertEquals(false, coreApp.activity(projectName, string) != null);
+		
 	}
 	
 	@Given("he creates an activity with title {string}, some random date intervals and assigns a user with username {string}.")
@@ -166,9 +187,13 @@ public class ActivitySteps {
 	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
 	    activity.assignUser(string2);
 	    
-	    coreApp.addActivity(parentProject.modelIdentity(), activity);
+	    try {
+			coreApp.addActivity(parentProject.modelIdentity(), activity);
+			assertEquals(true, coreApp.activity(projectName, string) != null);
+		} catch (Exception e) {
+			fail();
+		}
 	    
-	    assertEquals(true, coreApp.activity(projectName, string) != null);
 	}
 	
 	@Then("{string} logs in and fails to remove the activity {string}.")
@@ -178,7 +203,8 @@ public class ActivitySteps {
 			coreApp.removeActivity(projectName, string2);
 			fail();
 		} catch (Exception e) {
-			assertTrue(coreApp.activity(projectName, string2) != null);
+			
 		}
+		
 	}
 }

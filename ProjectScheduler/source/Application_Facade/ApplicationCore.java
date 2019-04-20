@@ -154,12 +154,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     @Override
-	public void addActivity(String projectTitle, ActivityModel activity) {
+	public void addActivity(String projectTitle, ActivityModel activity) throws Exception {
 		ProjectModel project = pManager.project(projectTitle);
 		String currentUserId = uManager.currentUser().UserName();
 		
 		if(project.projectLeaderId().equals(currentUserId) || uManager.isAdmin())
 			pManager.addActivity(projectTitle, activity);
+		else
+			throw new Exception();
 	}
 
     public void addAbsenceActivity(ActivityModel activtity)
@@ -177,8 +179,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public void removeActivity(String projectId, String activityId) throws Exception
     {
         ProjectModel project = pManager.project(projectId);
-        String pUser = uManager.currentUser().UserName();
-        if (project.projectLeaderId().equals(pUser) || uManager.isAdmin())
+        String currentLoggedInUserName = uManager.currentUser().UserName();
+        if (project.projectLeaderId().equals(currentLoggedInUserName) || uManager.isAdmin())
             pManager.RemoveActivityModel(projectId, activityId);
         else
         	throw new Exception("User not admin nor projectleader for the parent project.");
@@ -186,7 +188,19 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ActivityModel activity(String projectId, String activityId)
     {
-    	return pManager.activityModelById(projectId, activityId);
+    	String currentUserName = uManager.currentUser().UserName();
+    	ActivityModel activity = pManager.activityModelById(projectId, activityId);
+    	
+    	if(activity == null)
+    		return null;
+    	
+    	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
+    		return activity;
+    	else if(activity.IsUserAssigned(currentUserName))
+    		return activity;
+    	
+    	return null;
+    	
     }
 
     public List<ActivityModel> activitiesById(String activityId)
@@ -219,10 +233,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.activityItemModels(userName);
     }
 
-    public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription)
+    public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
     {
         String userId = uManager.currentUser().modelIdentity();
-        ActivityModel parentActivity = pManager.activityModelById(projectId, activityId);
+        ActivityModel parentActivity = activity(projectId, activityId);
          new HourRegistrationModel(regId, hours, userId, shortDescription, parentActivity);
     }
 
@@ -245,8 +259,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 	public ItemModel[] hourRegistrationItemModels() {
 		if (uManager.isAdmin())
             return pManager.RegistrationItemModels();
-
-        return pManager.RegistrationItemModels(uManager.currentUser().modelIdentity());
+		
+		String currentLoggedInUsername = uManager.currentUser().modelIdentity();
+		
+        return pManager.RegistrationItemModels(currentLoggedInUsername);
 	}
     
     @Override
