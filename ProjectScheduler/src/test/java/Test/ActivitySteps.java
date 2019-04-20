@@ -131,7 +131,6 @@ public class ActivitySteps {
 		} catch (Exception e) {
 			assertTrue(true);
 		}
-	    
 	}
 		
 	@Given("a user with username {string} is logged in and is project leader for Project CANVAS")
