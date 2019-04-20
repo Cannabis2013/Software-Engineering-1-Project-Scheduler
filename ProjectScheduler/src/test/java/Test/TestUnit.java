@@ -8,7 +8,7 @@ public class TestUnit {
 	
 	public static Date DateFromString(String stringDate)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			return dateFormat.parse(stringDate);
 		} catch (ParseException e) {
@@ -18,7 +18,7 @@ public class TestUnit {
 	
 	public static String DateToString(Date date)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		return dateFormat.format(date);
 	}
 	

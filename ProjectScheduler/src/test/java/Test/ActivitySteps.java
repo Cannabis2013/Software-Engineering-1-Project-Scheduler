@@ -39,7 +39,7 @@ public class ActivitySteps {
 			coreApp.login("admin");
 			coreApp.addProject(project);
 			coreApp.logut();
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -19,19 +19,24 @@ public class ProjectModel extends AbstractModel
 	private String pLeaderId;
     private Date sDate, eDate;
     
-    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate, String description)
+    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate, String description) throws IllegalArgumentException
     {	
     	setModelidentity(name);
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
+    	
+    	if(eDate.compareTo(sDate) < 0)
+    		throw new IllegalArgumentException("The end date is before the start date.");
+    	
     	setDescription(description);
     	setSerialId(generateSerialId());
     }
     
-    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) throws ParseException
+    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) 
+    		throws Exception
     {
-    	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
+    	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-MM-yyyy");
     	
     	try {
 			sDate = simpleDate.parse(startDate);
@@ -39,6 +44,10 @@ public class ProjectModel extends AbstractModel
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Something went wrong with date conversion.");
 		}
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(sDate);
+    	int month = cal.get(Calendar.MONTH);
     	
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");

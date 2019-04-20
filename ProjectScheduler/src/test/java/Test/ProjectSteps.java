@@ -31,21 +31,26 @@ public class ProjectSteps {
 	public void the_currently_logged_in_user_is_admin() {
 		assertEquals(true, coreApp.isAdmin());
 	}
-
-	@Given("he fills an project application with the following information: Title {string}, start date today, end date at {string}, projectleaderid {string}, short description {string}")
+	
+	@Given("he fills an project application with the following information: Title {string}, start date today, end date at {string}, projectleaderid {string} , short description {string}")
 	public void he_fills_an_project_application_with_the_following_information_Title_start_date_today_end_date_at_projectleaderid_short_description(String string, String string2, String string3, String string4) {
-	    tempString = string;
+	    
+		tempString = string;
 		
-		String currentDate = simpleDate.format(Calendar.getInstance().getTime());
+		String currentDate = TestUnit.DateToString(Calendar.getInstance().getTime());
 		
 		ProjectModel project;
 		try {
-			project = new ProjectModel(string, currentDate, string2, string3,string4);
+			project = new ProjectModel(string, string3, "21-04-2019", string2, string4);
 			tempProject = project;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
+			fail();
+		} catch(Exception e1)
+		{
+			e1.printStackTrace();
 		}
+		
 	}
 
 	@Then("the project with the title {string} can be retrieved at the ProjectManager database.")
@@ -90,7 +95,7 @@ public class ProjectSteps {
 	@Given("a project exists with the name {string}")
 	public void a_project_exists_with_the_name(String string) {
 		tempString = string;
-	    ProjectModel project = new ProjectModel(string, "Finn_Luger", Calendar.getInstance().getTime(), null, "");
+	    ProjectModel project = new ProjectModel(string, "FL", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), "");
 	    coreApp.addProject(project);
 	    assertEquals(true, coreApp.project(string) != null);
 	}
