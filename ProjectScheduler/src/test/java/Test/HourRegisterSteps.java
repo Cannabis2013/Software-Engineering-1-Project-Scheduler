@@ -72,7 +72,7 @@ public class HourRegisterSteps {
 			coreApp.registerHour(projectName, string2, string, int1, "");
 			tempRegName = string;
 		} catch (Exception e) {
-			fail();
+			
 		}
 	}
 
@@ -80,6 +80,12 @@ public class HourRegisterSteps {
 	public void the_registered_hour_object_is_stored_in_the_system() {
 	    HourRegistrationModel regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
 	    assertEquals(true, regObject != null);
+	}
+	
+	@Then("the registered hour is not stored in the system.")
+	public void the_registered_hour_is_not_stored_in_the_system() {
+		HourRegistrationModel regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+	    assertEquals(false, regObject != null);
 	}
 	
 }

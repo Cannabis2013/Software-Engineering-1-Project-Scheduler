@@ -9,6 +9,9 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+
+import Abstractions.IApplicationProgrammingInterface;
+
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -21,15 +24,13 @@ import java.awt.GridLayout;
 
 public class LoginDialog extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6266910851826102840L;
+	private IApplicationProgrammingInterface service;
 	
 	ApplicationFrontEnd parent;
 	private JTextField textField;
 	
-	public LoginDialog(ApplicationFrontEnd parent) {
+	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		getContentPane().setBackground(new Color(0, 0, 0));
 		
 		
@@ -103,8 +104,11 @@ public class LoginDialog extends JDialog {
 				JButton btnNewButton_1 = new JButton("Ok");
 				btnNewButton_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						parent.validateLogin(textField.getText());
-						dispose();
+						if(service.login(textField.getText()))
+						{
+							parent.launchMainView();
+							dispose();
+						}
 					}
 				});
 				panel.add(btnNewButton_1);

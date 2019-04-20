@@ -223,7 +223,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ItemModel[] activityItemModels()
     {
-    	String currentLoggedinUserName = uManager.currentUser().modelIdentity();
+    	String currentLoggedinUserName = uManager.currentUser().UserName();
         return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
             activityItemModels(currentLoggedinUserName);
     }
