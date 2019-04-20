@@ -13,6 +13,7 @@ public class ActivityModel extends AbstractModel {
 	private static final long serialVersionUID = 1L;
 	private List<String> assignedUserIdentities = new ArrayList<String>();
     private Date sDate, eDate;
+    private int estimatedWorkHours;
     private String reason;
     private ActivityType Type = ActivityType.Work_Related;
 
@@ -26,13 +27,19 @@ public class ActivityModel extends AbstractModel {
         	AbstractModel parentModel,
             Date sDate, 
             Date eDate,
+            int estimatedWorkHours,
             List<String> assignedUsers,
             String description
-            )
+            ) throws IllegalArgumentException
         {
             setModelidentity(activityTitle);
             this.sDate = sDate;
             this.eDate = eDate;
+            
+            if(eDate.compareTo(sDate) < 0)
+            	throw new IllegalArgumentException("The end date is before the start date.");
+            
+            this.estimatedWorkHours = estimatedWorkHours;
             
             if(assignedUsers != null)
             	assignedUserIdentities = assignedUsers;            
@@ -47,11 +54,14 @@ public class ActivityModel extends AbstractModel {
     	AbstractModel parentModel,
         Date sDate, 
         Date eDate
-        )
+        ) throws IllegalArgumentException
     {
         setModelidentity(activityTitle);
         this.sDate = sDate;
         this.eDate = eDate;
+        
+        if(eDate.compareTo(sDate) < 0)
+        	throw new IllegalArgumentException("The end date is before the start date.");
         
         setParent(parentModel);
         
@@ -64,10 +74,18 @@ public class ActivityModel extends AbstractModel {
         setModelidentity(activityTitle);;
         this.sDate = sDate;
         this.eDate = eDate;
+        
+        if(eDate.compareTo(sDate) < 0)
+        	throw new IllegalArgumentException("The end date is before the start date.");
 
         Type = ActivityType.Absent_Related;
     }
-
+    
+    public int estimatedHours()
+    {
+    	return estimatedWorkHours;
+    }
+    
     public String Reason()
     {
     	return reason;

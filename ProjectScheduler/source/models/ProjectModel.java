@@ -37,9 +37,11 @@ public class ProjectModel extends AbstractModel
 			sDate = simpleDate.parse(startDate);
 			eDate = simpleDate.parse(endDate);
 		} catch (ParseException e) {
-			sDate = Calendar.getInstance().getTime();
-			eDate = Calendar.getInstance().getTime();
+			throw new IllegalArgumentException("Something went wrong with date conversion.");
 		}
+    	
+    	if(eDate.compareTo(sDate) < 0)
+    		throw new IllegalArgumentException("The end date is before the start date.");
     	
     	setModelidentity(name);
     	setSerialId(generateSerialId());

@@ -163,6 +163,4 @@ public abstract class AbstractModel implements Serializable {
 	
 	public abstract ItemModel itemModel();
 	protected abstract String generateSerialId();
-	
-
 }

@@ -25,7 +25,7 @@ public class RegisterHourTestUnit {
 				activityName = "GUI Test", 
 				registerId = "Menu work";
 		
-		int workHour = 4;
+		int workHour = 4, estimatedWorkHours = 4;
 		
 		if(!coreApp.login("FL"))
 			fail();
@@ -37,7 +37,8 @@ public class RegisterHourTestUnit {
 		
 		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
 		
-		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", chosenUsers,""))
+		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
+				estimatedWorkHours,chosenUsers,""))
 			fail();
 		
 		
@@ -82,7 +83,8 @@ public class RegisterHourTestUnit {
 	private boolean addActivity(String loggedInUserName, 
 			String activityName,
 			AbstractModel parentModel,
-			String startDate, String endDate, 
+			String startDate, String endDate,
+			int estimatedWorkHours,
 			List<String> assignUsers, 
 			String description)
 	{
@@ -100,7 +102,12 @@ public class RegisterHourTestUnit {
 			return false;
 		}
 		
-		ActivityModel activity = new ActivityModel(activityName, parentModel, sDate, eDate,assignUsers,description);
+		ActivityModel activity;
+		try {
+			activity = new ActivityModel(activityName, parentModel, sDate, eDate,estimatedWorkHours,assignUsers,description);
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 		
 		try {
 			coreApp.addActivity(parentModel.modelIdentity(), activity);
