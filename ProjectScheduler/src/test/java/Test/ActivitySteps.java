@@ -92,7 +92,7 @@ public class ActivitySteps {
 	    Date startDate = Calendar.getInstance().getTime();
 	    Date enddDate = (Date) startDate.clone();
 	    
-	    tempActivity = new ActivityModel(activityId,project,startDate,enddDate, null);
+	    tempActivity = new ActivityModel(activityId,project,startDate,enddDate, null, "");
 	}
 
 	@When("assigns {string} , {string} and {string}")

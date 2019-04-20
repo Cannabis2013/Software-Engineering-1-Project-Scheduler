@@ -26,7 +26,8 @@ public class ActivityModel extends AbstractModel {
         	AbstractModel parentModel,
             Date sDate, 
             Date eDate,
-            List<String> assignedUsers
+            List<String> assignedUsers,
+            String description
             )
         {
             setModelidentity(activityTitle);
@@ -37,6 +38,7 @@ public class ActivityModel extends AbstractModel {
             	assignedUserIdentities = assignedUsers;            
             
             setParent(parentModel);
+            setDescription(description);
             
             assignSerialId();
         }
