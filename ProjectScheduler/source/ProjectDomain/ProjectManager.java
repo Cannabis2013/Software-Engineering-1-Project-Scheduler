@@ -43,17 +43,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	{
 		return (ProjectModel) modelAt(index);
 	}
-	
-    public ItemModel[] ProjectItemModels()
-    {
-        int count = models().size(), index = 0;
-        ItemModel[] models = new ItemModel[count];
-
-        for (AbstractModel p : models())
-            models[index++] = p.itemModel();
-
-        return models;
-    }
 
     public void addActivity(String projectIdentity, ActivityModel activity)
     {
@@ -71,7 +60,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return true;
     }
 
-    public ActivityModel activityModelById(String projectIdentity, String activityIdentity)
+    public ActivityModel activityModelById(String projectIdentity, String activityIdentity) throws Exception
     {
         AbstractModel project = model(projectIdentity);
         
@@ -80,8 +69,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 					filter(item -> item.modelIdentity().equals(activityIdentity)).collect(Collectors.toList()).get(0);
 			return activity;
 		} catch (Exception e) {
-			
-			return null;
+			throw new Exception("The list probably return a null point which means the object doesn't exists");
 		}
         
     }
@@ -113,13 +101,18 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return resultingList;
     }
 
-    public void RegisterHour(String projectId, String activityId, HourRegistrationModel obj)
+    public void RegisterHour(String projectId, String activityId, HourRegistrationModel obj) throws Exception
     {
-        ActivityModel activity = activityModelById(projectId, activityId);
+        ActivityModel activity;
+		try {
+			activity = activityModelById(projectId, activityId);
+		} catch (Exception e) {
+			throw new Exception("The activity doesn't exists");
+		}
         activity.addSubModel(obj);
     }
 
-    public void UnRegisterHour(String projectId, String activityId, String regId)
+    public void UnRegisterHour(String projectId, String activityId, String regId) throws Exception
     {
         ActivityModel activity = activityModelById(projectId, activityId);
         activity.removeSubModel(regId);
@@ -139,6 +132,19 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId)
     {
     	return (HourRegistrationModel) model(projectId).subModel(activityId).subModel(regId);
+    }
+    
+    // Item models
+    
+    public ItemModel[] ProjectItemModels()
+    {
+        int count = models().size(), index = 0;
+        ItemModel[] models = new ItemModel[count];
+
+        for (AbstractModel p : models())
+            models[index++] = p.itemModel();
+
+        return models;
     }
 
     public ItemModel[] activityItemModels(UserManager uManager)

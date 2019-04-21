@@ -14,7 +14,7 @@ public abstract class AbstractManager {
         requestUpdate();
     }
 
-    public void removeModel(String identity)
+    public void removeModel(String identity) throws Exception
     {
         for (int i = 0; i < modelList.size(); i++)
         {
@@ -25,6 +25,8 @@ public abstract class AbstractManager {
                 return;
             }
         }
+        
+        throw new Exception("Object not found.");
     }
     public void removeModelAt(int index)
     {

@@ -34,7 +34,7 @@ public interface IApplicationProgrammingInterface {
     String addProject(ProjectModel newProject);
     String removeProject(int index);
     String removeProject(String identity);
-    void removeProject(ProjectModel project);
+    void removeProject(ProjectModel project) throws Exception;
 
     ProjectModel project(int index);
     ProjectModel project(String title);
@@ -65,7 +65,7 @@ public interface IApplicationProgrammingInterface {
     void registerHour(String projectId, String activityId,
         String regId, int hours, String shortDescription) throws Exception;
 
-    void unRegisterHour(String projectId, String activityId, String regId);
+    void unRegisterHour(String projectId, String activityId, String regId) throws Exception;
 
     HourRegistrationModel hourRegistrationModel(String activityId, String regId);
     ItemModel[] hourRegistrationItemModels();

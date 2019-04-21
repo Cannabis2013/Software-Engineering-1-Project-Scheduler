@@ -27,8 +27,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     private UserManager uManager = new UserManager();
 
     public ApplicationCore()
-    {
-    }
+    {}
 
     public void writePersistence()
     {
@@ -95,6 +94,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.UserAvailability(username, uManager, sDate, eDate);
 
     }
+    
+    // Models
 
     public String addProject(ProjectModel newProject)
     {
@@ -121,14 +122,25 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         if (!uManager.isAdmin())
             return "Admin privilliges required";
         
-        pManager.removeModel(identity);
+        try {
+			pManager.removeModel(identity);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 
         return "";
     }
 
-    public void removeProject(ProjectModel project)
+    public void removeProject(ProjectModel project) throws Exception 
     {
-        // Not defined yet.
+    	if(uManager.isAdmin())
+    	{
+    		try {
+				pManager.removeModel(project.projectName());
+			} catch (Exception e) {
+				throw e;
+			}
+    	}
     }
 
     public ProjectModel project(int index)
@@ -141,17 +153,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.project(identity);
     }
 
-    public ItemModel[] projectItemModels()
-    {
-        return pManager.ProjectItemModels();
-    }
-
-    public ItemModel[] projectItemModels(String UserIdentity)
-    {
-    	Stream<AbstractModel> projects = 
-    			pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
-        return projects.map(AbstractModel::itemModel).toArray(ItemModel[]::new);
-    }
     
     @Override
 	public void addActivity(String projectTitle, ActivityModel activity) throws Exception {
@@ -189,10 +190,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public ActivityModel activity(String projectId, String activityId)
     {
     	String currentUserName = uManager.currentUser().UserName();
-    	ActivityModel activity = pManager.activityModelById(projectId, activityId);
-    	
-    	if(activity == null)
-    		return null;
+    	ActivityModel activity;
+		try {
+			activity = pManager.activityModelById(projectId, activityId);
+		} catch (Exception e) {
+			return null;
+		}
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;
@@ -200,7 +203,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     		return activity;
     	
     	return null;
-    	
     }
 
     public List<ActivityModel> activitiesById(String activityId)
@@ -220,19 +222,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         return pManager.activityModels(userName);
     }
-
-    public ItemModel[] activityItemModels()
-    {
-    	String currentLoggedinUserName = uManager.currentUser().UserName();
-        return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
-            activityItemModels(currentLoggedinUserName);
-    }
-
-    public ItemModel[] activityItemModels(String userName)
-    {
-        return pManager.activityItemModels(userName);
-    }
-
+    
     public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
     {
         String userId = uManager.currentUser().modelIdentity();
@@ -240,8 +230,11 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
          new HourRegistrationModel(regId, hours, userId, shortDescription, parentActivity);
     }
 
-    public void unRegisterHour(String projectId, String activityId, String regId)
+    public void unRegisterHour(String projectId, String activityId, String regId) throws Exception
     {
+    	HourRegistrationModel regModel = pManager.getHourRegistrationModel(projectId, activityId, regId);
+    	if(!regModel.userName().equals(uManager.currentUser().UserName()) && !uManager.isAdmin())
+    			throw new Exception("Current user is not allowed to do this");
         pManager.UnRegisterHour(projectId,activityId,regId);
     }
     
@@ -258,6 +251,31 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.getHourRegistrationModel(projectId, activityId, regId);
     }
     
+    // Item models
+    
+    public ItemModel[] projectItemModels()
+    {
+        return pManager.ProjectItemModels();
+    }
+
+    public ItemModel[] projectItemModels(String UserIdentity)
+    {
+    	Stream<AbstractModel> projects = 
+    			pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
+        return projects.map(AbstractModel::itemModel).toArray(ItemModel[]::new);
+    }
+
+    public ItemModel[] activityItemModels()
+    {
+    	String currentLoggedinUserName = uManager.currentUser().UserName();
+        return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
+            activityItemModels(currentLoggedinUserName);
+    }
+
+    public ItemModel[] activityItemModels(String userName)
+    {
+        return pManager.activityItemModels(userName);
+    }
     
 	@Override
 	public ItemModel[] hourRegistrationItemModels() {
@@ -275,6 +293,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.RegistrationItemModels(userName);
     }
     
+    // Observer/observable
     @Override
     public void subScribe(ICustomObserver observer)
     {

@@ -34,10 +34,7 @@ public class ProjectSteps {
 	
 	@Given("he fills an project application with the following information: Title {string}, start date today, end date at {string}, projectleaderid {string} , short description {string}")
 	public void he_fills_an_project_application_with_the_following_information_Title_start_date_today_end_date_at_projectleaderid_short_description(String string, String string2, String string3, String string4) {
-	    
 		tempString = string;
-		
-		String currentDate = TestUnit.DateToString(Calendar.getInstance().getTime());
 		
 		ProjectModel project;
 		try {
@@ -50,7 +47,6 @@ public class ProjectSteps {
 		{
 			e1.printStackTrace();
 		}
-		
 	}
 
 	@Then("the project with the title {string} can be retrieved at the ProjectManager database.")

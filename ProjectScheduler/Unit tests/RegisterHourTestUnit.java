@@ -19,33 +19,47 @@ import models.ProjectModel;
 public class RegisterHourTestUnit {
 	ApplicationCore coreApp = new ApplicationCore();
 	@Test
-	public void registerHourTestCase()
-	{	
-		String projectName = "Project TEST", 
-				activityName = "GUI Test", 
-				registerId = "Menu work";
+	public void registerHour()
+	{
+		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
+		boolean result = registerHourTestCase("admin", "Project TEST", "FL", "FL", "GUI Test",chosenUsers,
+				"Menus", "BB");
+		
+		assertEquals(true, result);
+	}
+	
+	
+	public boolean registerHourTestCase(String projectUserName,
+			String projectName,
+			String projectLeaderName,
+			String activityUserName,
+			String activityName,
+			List<String> assignedUsers,
+			String registerHourId, 
+			String registerHourUserName)
+	{
 		
 		int workHour = 4, estimatedWorkHours = 4;
 		
 		if(!coreApp.login("FL"))
-			fail();
+			return false;
 		
-		if(!addProject("admin", projectName, "FL", "05-05-2019", "19-05-2019", "Test project"))
-			fail();
+		if(!addProject(projectUserName, projectName, projectLeaderName, "05-05-2019", "19-05-2019", "Test project"))
+			return false;
 		
 		ProjectModel project = coreApp.project("Project TEST");
 		
-		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
-		
 		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
-				estimatedWorkHours,chosenUsers,""))
-			fail();
+				estimatedWorkHours,assignedUsers,""))
+			return false;
 		
+		if(!addRegitstrationObject("TT", 
+				projectName, activityName, registerHourId, workHour, ""))
+			return false;
 		
-		assertEquals(true, addRegitstrationObject("TT", 
-				projectName, activityName, registerId, workHour, ""));
-		
+		return true;
 	}
+	
 	
 	private boolean addProject(String loggedInUserName, String projectTitle, 
 			String projectLeaderId, 
