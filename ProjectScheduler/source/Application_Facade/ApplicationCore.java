@@ -152,7 +152,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         return pManager.project(identity);
     }
-
     
     @Override
 	public void addActivity(String projectTitle, ActivityModel activity) throws Exception {

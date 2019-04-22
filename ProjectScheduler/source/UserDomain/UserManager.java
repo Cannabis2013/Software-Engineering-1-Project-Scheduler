@@ -103,7 +103,7 @@ public class UserManager extends AbstractManager {
          */
         UserModel nUser1 = new UserModel("JW", UserModel.userRole.Employee);
         UserModel nUser2 = new UserModel("NE", UserModel.userRole.Employee);
-        UserModel nUser3 = new UserModel("BE", UserModel.userRole.Employee);
+        UserModel nUser3 = new UserModel("BB", UserModel.userRole.Employee);
         UserModel nUser4 = new UserModel("FL", UserModel.userRole.Employee);
         UserModel nUser5 = new UserModel("TT", UserModel.userRole.Employee);
         

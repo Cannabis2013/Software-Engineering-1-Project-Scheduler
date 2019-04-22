@@ -17,7 +17,8 @@ import models.ActivityModel;
 import models.ProjectModel;
 
 public class RegisterHourTestUnit {
-	ApplicationCore coreApp = new ApplicationCore();
+	private ApplicationCore coreApp = new ApplicationCore();
+	
 	@Test
 	public void registerHour()
 	{
@@ -28,6 +29,50 @@ public class RegisterHourTestUnit {
 		assertEquals(true, result);
 	}
 	
+	@Test
+	public void unRegisterHourSuccesfull()
+	{
+		String projectName = "Project TEST";
+		String activityName = "GUI Test";
+		String regName = "Menus";
+		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
+		boolean result = registerHourTestCase("admin", projectName, "FL", "FL", activityName,chosenUsers,
+				regName, "BB");
+		
+		if(!result)
+			fail();
+		if(!coreApp.login("BB"))
+			fail();
+		
+		try {
+			coreApp.unRegisterHour(projectName, activityName, regName);
+		} catch (Exception e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void unRegisterHourUnSuccesfull()
+	{
+		String projectName = "Project TEST";
+		String activityName = "GUI Test";
+		String regName = "Menus";
+		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
+		boolean result = registerHourTestCase("admin", projectName, "FL", "FL", activityName,chosenUsers,
+				regName, "BB");
+		
+		if(!result)
+			fail();
+		if(!coreApp.login("TT"))
+			fail();
+		
+		try {
+			coreApp.unRegisterHour(projectName, activityName, regName);
+			fail();
+		} catch (Exception e) {
+			
+		}
+	}
 	
 	public boolean registerHourTestCase(String projectUserName,
 			String projectName,
@@ -53,13 +98,12 @@ public class RegisterHourTestUnit {
 				estimatedWorkHours,assignedUsers,""))
 			return false;
 		
-		if(!addRegitstrationObject("TT", 
+		if(!addRegitstrationObject(registerHourUserName, 
 				projectName, activityName, registerHourId, workHour, ""))
 			return false;
 		
 		return true;
 	}
-	
 	
 	private boolean addProject(String loggedInUserName, String projectTitle, 
 			String projectLeaderId, 
@@ -149,5 +193,4 @@ public class RegisterHourTestUnit {
 		}
 		return true;
 	}
-	
 }

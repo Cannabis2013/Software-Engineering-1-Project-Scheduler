@@ -31,10 +31,10 @@ public class HourRegisterSteps {
 		coreApp.addProject(project);
 		projectName = projectTitle;
 	}
-
-	@Given("an activity with name {string} with some random chosen date intervals chosen")
-	public void an_activity_with_name_with_some_random_chosen_date_intervals_chosen(String string) {
-	    Date startDate = TestUnit.DateFromString("05-05-2019");
+	
+	@Given("an activity extists with name {string} with some random chosen date intervals chosen")
+	public void an_activity_extists_with_name_with_some_random_chosen_date_intervals_chosen(String string) {
+		Date startDate = TestUnit.DateFromString("05-05-2019");
 	    Date endDate = TestUnit.DateFromString("11-05-2019");
 	    ProjectModel parentProject = coreApp.project(projectName);
 	    ActivityModel activity = new ActivityModel(string, parentProject, startDate, endDate);
