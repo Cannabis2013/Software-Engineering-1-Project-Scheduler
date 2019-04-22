@@ -2,24 +2,27 @@ package Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 public class TestUnit {
 	
-	public static Date DateFromString(String stringDate)
+	public static LocalDate DateFromString(String stringDate)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		try {
-			return dateFormat.parse(stringDate);
-		} catch (ParseException e) {
+			return LocalDate.parse(stringDate, formatter);
+		} catch (DateTimeParseException e) {
 			return null;
 		}
 	}
 	
-	public static String DateToString(Date date)
+	public static String DateToString(LocalDate date)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		return dateFormat.format(date);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		return date.format(formatter);
 	}
 	
 }

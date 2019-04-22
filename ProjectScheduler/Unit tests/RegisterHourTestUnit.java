@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -115,8 +116,8 @@ public class RegisterHourTestUnit {
 		if(!coreApp.login(loggedInUserName))
 			return false;
 		
-		Date sDate;
-		Date eDate;
+		LocalDate sDate;
+		LocalDate eDate;
 		
 		try {
 			sDate = TestUnit.DateFromString("05-05-2019");
@@ -150,8 +151,8 @@ public class RegisterHourTestUnit {
 		if(!coreApp.login(loggedInUserName))
 			return false;
 		
-		Date sDate;
-		Date eDate;
+		LocalDate sDate;
+		LocalDate eDate;
 		
 		try {
 			sDate = TestUnit.DateFromString(startDate);

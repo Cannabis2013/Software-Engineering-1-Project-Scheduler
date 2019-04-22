@@ -1,17 +1,12 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
-import org.eclipse.osgi.internal.debug.Debug;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import Application_Facade.ApplicationCore;
 import cucumber.api.java.en.*;
@@ -30,8 +25,8 @@ public class ActivitySteps {
 		projectName = "Project CANVAS";
 		
 		String pLeader = "FL";
-		String startDate = simpleDate.format(Calendar.getInstance().getTime());
-		String endDate ="05-05-2019";
+		String startDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
+		String endDate =DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
 		try {
@@ -89,8 +84,8 @@ public class ActivitySteps {
 		
 		ProjectModel project = coreApp.project(projectName);
 	    String activityId = string;
-	    Date startDate = Calendar.getInstance().getTime();
-	    Date enddDate = (Date) startDate.clone();
+	    LocalDate startDate = LocalDate.now();
+	    LocalDate enddDate = startDate.plusDays(2);
 	    
 	    try {
 			tempActivity = new ActivityModel(activityId,project,startDate,enddDate,4, null, "");
@@ -150,8 +145,8 @@ public class ActivitySteps {
 	public void an_activity_with_title_some_random_date_intervals_and_assigned_as_active_user_exists(String string, String string2) {
 		
 		String activityName = string;
-	    Date startDate = TestUnit.DateFromString("05-05-2019");
-	    Date endDate = TestUnit.DateFromString("19-05-2019");
+	    LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 	    
 	    ProjectModel parentProject = coreApp.project(projectName);
 	    
@@ -182,8 +177,8 @@ public class ActivitySteps {
 	@Given("he creates an activity with title {string}, some random date intervals and assigns a user with username {string}.")
 	public void he_creates_an_activity_with_title_some_random_date_intervals_and_assigns_a_user_with_username(String string, String string2) {
 		String activityName = string;
-	    Date startDate = TestUnit.DateFromString("05-05-2019");
-	    Date endDate = TestUnit.DateFromString("19-05-2019");
+	    LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 	    
 	    ProjectModel parentProject = coreApp.project(projectName);
 	    

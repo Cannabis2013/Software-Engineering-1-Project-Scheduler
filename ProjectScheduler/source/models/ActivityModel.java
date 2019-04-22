@@ -2,7 +2,7 @@ package models;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
@@ -12,7 +12,7 @@ public class ActivityModel extends AbstractModel {
 	
 	private static final long serialVersionUID = 1L;
 	private List<String> assignedUserIdentities = new ArrayList<String>();
-    private Date sDate, eDate;
+    private LocalDate sDate, eDate;
     private int estimatedWorkHours;
     private String reason;
     private ActivityType Type = ActivityType.Work_Related;
@@ -25,8 +25,8 @@ public class ActivityModel extends AbstractModel {
     
     public ActivityModel(String activityTitle, 
         	AbstractModel parentModel,
-            Date sDate, 
-            Date eDate,
+            LocalDate sDate, 
+            LocalDate eDate,
             int estimatedWorkHours,
             List<String> assignedUsers,
             String description
@@ -52,8 +52,8 @@ public class ActivityModel extends AbstractModel {
     
     public ActivityModel(String activityTitle, 
     	AbstractModel parentModel,
-        Date sDate, 
-        Date eDate
+        LocalDate sDate, 
+        LocalDate eDate
         ) throws IllegalArgumentException
     {
         setModelidentity(activityTitle);
@@ -68,7 +68,7 @@ public class ActivityModel extends AbstractModel {
         assignSerialId();
     }
 
-    public ActivityModel(String activityTitle,String reason, Date sDate, Date eDate)
+    public ActivityModel(String activityTitle,String reason, LocalDate sDate, LocalDate eDate)
     {
         this.reason = reason;
         setModelidentity(activityTitle);;
@@ -101,22 +101,22 @@ public class ActivityModel extends AbstractModel {
     	return Type;
     }
 
-    public Date startDate()
+    public LocalDate startDate()
     {
     	return sDate;
     }
     
-    public void setStartDate(Date date)
+    public void setStartDate(LocalDate date)
     {
     	sDate = date;
     }
     
-    public Date endDate()
+    public LocalDate endDate()
     {
     	return eDate;
     }
     
-    public void setEndDate(Date date)
+    public void setEndDate(LocalDate date)
     {
     	eDate = date;
     }

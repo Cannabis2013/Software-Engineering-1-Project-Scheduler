@@ -1,6 +1,6 @@
 package Abstractions;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import formComponents.ItemModel;
@@ -23,7 +23,7 @@ public interface IApplicationProgrammingInterface {
     ItemModel[] userListModels(Boolean IncludeAdmin);
 
     String userAvailability(String username, 
-        Date sDate, Date eDate);
+        LocalDate sDate, LocalDate eDate);
 
     // General model section
     

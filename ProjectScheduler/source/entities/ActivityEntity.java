@@ -1,16 +1,16 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import models.ActivityModel;
 
 public class ActivityEntity {
 	
 	private String title;
-    private Date sDate, eDate;
+    private LocalDate sDate, eDate;
     private ActivityModel.ActivityType aType;
 
-    public ActivityEntity(String title, Date endDate, Date startDate, ActivityModel.ActivityType type)
+    public ActivityEntity(String title, LocalDate endDate, LocalDate startDate, ActivityModel.ActivityType type)
     {
         this.title = title;
         this.eDate = endDate;
@@ -28,17 +28,17 @@ public class ActivityEntity {
     	return title;
     }
     
-    public Date StartDate()
+    public LocalDate StartDate()
     {
     	return sDate;
     }
 
-    public Date EndDate()
+    public LocalDate EndDate()
     {
     	return eDate;
     }
 
-    public boolean withinTimespan(Date date)
+    public boolean withinTimespan(LocalDate date)
     {
         return sDate.compareTo(date) <= 0 && eDate.compareTo(date) >= 0;
     }

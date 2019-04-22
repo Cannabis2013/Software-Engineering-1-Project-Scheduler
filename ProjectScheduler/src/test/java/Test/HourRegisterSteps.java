@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import Application_Facade.ApplicationCore;
@@ -24,8 +24,8 @@ public class HourRegisterSteps {
 	public void a_project_with_name_exists_with_a_user_with_username_as_projectleader(String string, String string2) {
 	    coreApp.login("admin");
 		String projectTitle = string, projectLeaderUserName = string2;
-		Date startDate = TestUnit.DateFromString("05-05-2019");
-		Date endDate = TestUnit.DateFromString("19-05-2019");
+		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		
 		ProjectModel project = new ProjectModel(projectTitle, projectLeaderUserName, startDate, endDate, "");
 		coreApp.addProject(project);
@@ -34,8 +34,8 @@ public class HourRegisterSteps {
 	
 	@Given("an activity extists with name {string} with some random chosen date intervals chosen")
 	public void an_activity_extists_with_name_with_some_random_chosen_date_intervals_chosen(String string) {
-		Date startDate = TestUnit.DateFromString("05-05-2019");
-	    Date endDate = TestUnit.DateFromString("11-05-2019");
+		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+	    LocalDate endDate = TestUnit.DateFromString("11-05-2019");
 	    ProjectModel parentProject = coreApp.project(projectName);
 	    ActivityModel activity = new ActivityModel(string, parentProject, startDate, endDate);
 	    try {

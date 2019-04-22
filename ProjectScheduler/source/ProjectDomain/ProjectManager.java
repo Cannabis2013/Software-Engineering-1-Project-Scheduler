@@ -1,6 +1,7 @@
 package ProjectDomain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -213,7 +214,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return regItemModels.toArray(new ItemModel[regItemModels.size()]);
     }
 
-    public String UserAvailability(String userName, UserManager uManager, Date fromDate, Date toDate)
+    public String UserAvailability(String userName, UserManager uManager, LocalDate fromDate, LocalDate toDate)
     {
         int partlyOccurrences = 0, fullOccurrences = 0;
         

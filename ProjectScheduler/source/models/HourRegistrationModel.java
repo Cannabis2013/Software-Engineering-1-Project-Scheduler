@@ -1,7 +1,9 @@
 package models;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 import Abstractions.AbstractModel;
 import ProjectDomain.ProjectManager;
@@ -53,6 +55,12 @@ public class HourRegistrationModel extends AbstractModel {
     public LocalDate registrationDate()
     {
     	return originalRegistrationDate;
+    }
+    
+    public int registrationWeekOfTheYear()
+    {
+    	TemporalField tempField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+    	return originalRegistrationDate.get(tempField);
     }
     
     public String ShortDescription()

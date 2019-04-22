@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -89,7 +89,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
             return uManager.itemModels(false);
     }
 
-    public String userAvailability(String username, Date sDate, Date eDate)
+    public String userAvailability(String username, LocalDate sDate, LocalDate eDate)
     {
         return pManager.UserAvailability(username, uManager, sDate, eDate);
 

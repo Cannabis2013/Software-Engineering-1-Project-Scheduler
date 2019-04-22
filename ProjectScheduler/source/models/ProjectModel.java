@@ -3,10 +3,14 @@ package models;
 import java.util.Calendar;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.ibm.icu.util.LocaleData;
 
 import Abstractions.AbstractModel;
 import ProjectDomain.ProjectManager;
@@ -17,9 +21,9 @@ public class ProjectModel extends AbstractModel
 	private static final long serialVersionUID = 1L;
 	private static int id = 1000;
 	private String pLeaderId;
-    private Date sDate, eDate;
+    private LocalDate sDate, eDate;
     
-    public ProjectModel(String name, String projectLeaderId, Date startDate, Date endDate, String description) throws IllegalArgumentException
+    public ProjectModel(String name, String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
     {	
     	setModelidentity(name);
     	setProjectLeaderId(projectLeaderId);
@@ -36,18 +40,14 @@ public class ProjectModel extends AbstractModel
     public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) 
     		throws Exception
     {
-    	SimpleDateFormat simpleDate = new SimpleDateFormat("dd-MM-yyyy");
-    	
+    	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     	try {
-			sDate = simpleDate.parse(startDate);
-			eDate = simpleDate.parse(endDate);
-		} catch (ParseException e) {
+			sDate = LocalDate.parse(startDate,dateFormat);
+			eDate = LocalDate.parse(endDate, dateFormat);
+		} catch (DateTimeParseException e) {
 			throw new IllegalArgumentException("Something went wrong with date conversion.");
 		}
     	
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTime(sDate);
-    	int month = cal.get(Calendar.MONTH);
     	
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
@@ -63,22 +63,22 @@ public class ProjectModel extends AbstractModel
     	return modelIdentity();
     }
     
-    public Date startDate()
+    public LocalDate startDate()
     {
     	return sDate;
     }
     
-    public Date endDate()
+    public LocalDate endDate()
     {
     	return eDate;
     }
     
-    public void setStartDate(Date date)
+    public void setStartDate(LocalDate date)
     {
     	sDate = date;
     }
     
-    public void setEndDate(Date date)
+    public void setEndDate(LocalDate date)
     {
     	eDate = date;
     }
@@ -124,7 +124,7 @@ public class ProjectModel extends AbstractModel
 		if(id > 9999)
     		id = 1000;
     	
-    	int year = ProjectManager.getDateProperty(sDate, Calendar.YEAR);
+    	int year = sDate.getYear();
     	
     	StringBuilder serial = new StringBuilder();
     	serial.append(Integer.toString(year));

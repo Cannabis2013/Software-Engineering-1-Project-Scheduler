@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
 
 import Application_Facade.ApplicationCore;
 import cucumber.api.java.en.Given;
@@ -91,7 +91,7 @@ public class ProjectSteps {
 	@Given("a project exists with the name {string}")
 	public void a_project_exists_with_the_name(String string) {
 		tempString = string;
-	    ProjectModel project = new ProjectModel(string, "FL", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), "");
+	    ProjectModel project = new ProjectModel(string, "FL", LocalDate.now(), LocalDate.now(), "");
 	    coreApp.addProject(project);
 	    assertEquals(true, coreApp.project(string) != null);
 	}
