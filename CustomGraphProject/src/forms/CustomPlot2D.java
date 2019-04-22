@@ -5,16 +5,16 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import forms.Plot.axis;
+import forms.GraphicsPlot2D.axis;
 
 public class CustomPlot2D extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private Plot graph;
+	private GraphicsPlot2D graph;
 	private List<Point> data;
 	public CustomPlot2D(List<Point> data) {
 		this.setData(data);
-		graph = new Plot();
+		graph = new GraphicsPlot2D();
 		graph.setOrigoCoordinates(125, 60);
 		graph.setMaxValAxis(axis.xAxis, getMaxValue(data, axis.xAxis));
 		graph.setMaxValAxis(axis.yAxis, getMaxValue(data, axis.yAxis));
