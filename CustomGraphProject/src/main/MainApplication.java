@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import forms.CustomPlot2D;
-import toolkit.Pair;
 
 public class MainApplication {
 	

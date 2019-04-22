@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import toolkit.Pair;
 
 public class GraphicsPlot2D extends JPanel {
 
@@ -22,7 +21,6 @@ public class GraphicsPlot2D extends JPanel {
 	
 	List<Point> cachedData = new ArrayList<Point>();
 	
-	List<Pair<String,Integer>> points = new ArrayList<>();
 	
 	public GraphicsPlot2D() {
 		internalOrigoCoordinates = new Point(0,0);
