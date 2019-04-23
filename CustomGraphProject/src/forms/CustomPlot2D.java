@@ -1,5 +1,6 @@
 package forms;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class CustomPlot2D extends JFrame {
 	public CustomPlot2D(List<Point> data) {
 		this.setData(data);
 		graph = new GraphicsPlot2D();
-		graph.setOrigoCoordinates(125, 60);
+		graph.setOrigoCoordinates(50, 50);
 		graph.setMaxValAxis(axis.xAxis, getMaxValue(data, axis.xAxis));
-		graph.setMaxValAxis(axis.yAxis, getMaxValue(data, axis.yAxis));
+		graph.setMaxValAxis(axis.yAxis, 75);
 		
 		for (Point point : data)
 			graph.addPoint(point);
@@ -25,6 +26,7 @@ public class CustomPlot2D extends JFrame {
 		add(graph);
 		
 		setSize(640, 400);
+		setMinimumSize(new Dimension(320,200));
 	}
 	
 	public List<Point> getData() {

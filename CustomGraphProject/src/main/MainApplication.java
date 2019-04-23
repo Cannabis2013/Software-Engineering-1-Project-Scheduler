@@ -17,8 +17,11 @@ public class MainApplication {
 				
 				List<Point> dataTestList = new ArrayList<>();
 				
-				for (int i = 1; i <= 10; i++)
-					dataTestList.add(new Point(i,i +3));
+				dataTestList.add(new Point(1, 2));
+				dataTestList.add(new Point(2, 3));
+				dataTestList.add(new Point(3, 5));
+				dataTestList.add(new Point(4,12));
+				dataTestList.add(new Point(8,23));
 				
 				CustomPlot2D cGraph = new CustomPlot2D(dataTestList);
 				cGraph.setVisible(true);
