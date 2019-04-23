@@ -17,8 +17,8 @@ public class CustomPlot2D extends JFrame {
 		this.setData(data);
 		graph = new GraphicsPlot2D();
 		graph.setOrigoCoordinates(50, 50);
-		graph.setMaxValAxis(axis.xAxis, getMaxValue(data, axis.xAxis));
-		graph.setMaxValAxis(axis.yAxis, 75);
+		graph.setMaxValAxis(axis.xAxis, data.get(data.size() - 1).x);
+		graph.setMaxValAxis(axis.yAxis, getSum(data, axis.yAxis));
 		
 		for (Point point : data)
 			graph.addPoint(point);
@@ -43,16 +43,15 @@ public class CustomPlot2D extends JFrame {
 		super.setVisible(b);
 	}
 	
-	private int getMaxValue(List<Point> list,axis ax)
+	
+	
+	private int getSum(List<Point> list,axis ax)
 	{
-		int maxVal = 0;
+		int sum = 0;
 		
-		for (Point point : list) {
-			int val = (ax == axis.xAxis) ? point.x : point.y;
-			if(val > maxVal)
-				maxVal = val;
-		}
+		for (Point point : list)
+			sum += (ax == axis.xAxis) ? point.x : point.y;
 		
-		return maxVal;
+		return sum;
 	}
 }

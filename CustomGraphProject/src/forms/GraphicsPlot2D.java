@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,9 @@ public class GraphicsPlot2D extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public Color backgroundColor = Color.BLACK;
 	private Point internalOrigoCoordinates;
-	private int verticalTopPadding = 40, horizontalPadding = 50, thickness = 4;;
+	private int verticalTopPadding = 80, horizontalPadding = 50, thickness = 4;;
 	double maxHorizontalValue, maxVerticalValue;
+	double vResolution = 1, hResolution = 1;
 	enum axis{xAxis,yAxis};
 	
 	List<Point> cachedData = new ArrayList<Point>();
@@ -29,6 +31,14 @@ public class GraphicsPlot2D extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		
+		if(blockWidth(axis.yAxis) <= 1)
+			vResolution = 20;
+		else if(blockWidth(axis.yAxis) <= 5)
+			vResolution = 10;
+		else if(blockWidth(axis.yAxis) <= 10)
+			vResolution = 2;
+		else
+			vResolution = 1;
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
@@ -37,6 +47,7 @@ public class GraphicsPlot2D extends JPanel {
 		
 		drawLines(g2d);
 		drawAxis(g2d);
+		drawLabels(g2d);
 		drawAxisLabels(g2d);
 		drawCachedData(g2d);
 	}
@@ -87,8 +98,10 @@ public class GraphicsPlot2D extends JPanel {
 		update(getGraphics());
 	}
 	
-	private double blockWidth(axis ax)
+	private double blockWidth(axis ax) throws IllegalStateException
 	{
+		if(maxHorizontalValue == 0 || maxVerticalValue == 0)
+			throw new IllegalStateException("The current state is illegal.");
 		if(ax == axis.xAxis)
 			return axisLenght(ax) / maxHorizontalValue;
 		else
@@ -105,19 +118,34 @@ public class GraphicsPlot2D extends JPanel {
 	
 	private void drawLines(Graphics2D g)
 	{
-		double width = blockWidth(axis.yAxis);
-		if(blockWidth(axis.yAxis) <= 5)
-			width = (int) (20*blockWidth(axis.yAxis));
-		g.setColor(Color.GRAY);
 		
-		for (double i = mapY(1) + 1; i >= verticalTopPadding - 2; i -= width) {
-			int posY = (int) i;
-			g.drawLine(mapX(0), posY, (int) (mapX(0) + axisLenght(axis.xAxis)), posY);
-		}
+		g.setColor(Color.DARK_GRAY);
 		
-		for (double i = mapX(1) - 1; i < getWidth() - horizontalPadding + 5; i += blockWidth(axis.xAxis)) {
+		for (double i = 0; vResolution*i <= maxVerticalValue; i++)
+			g.drawLine(mapX(0), (int) mapY(i*verticalResolution()), (int) (mapX(0) + axisLenght(axis.xAxis)), (int) mapY(i*verticalResolution()));
+		
+		for (double i = mapX(1) - 1; i < getWidth() - horizontalPadding + 5; i += horizontalResolution())
 			g.drawLine((int) i, (int) mapY(0), (int) i, verticalTopPadding);
+	}
+	
+	private void drawLabels(Graphics2D g)
+	{
+		for (double i = 0; vResolution*i <= maxVerticalValue; i++) {
+			String vLabel = Integer.toString((int) (vResolution*i));
+			int width = g.getFontMetrics().stringWidth(vLabel);
+			int posX = mapX(0) - width - 5, posY = (int) (mapY(i*verticalResolution()) + 3);
+			g.drawString(vLabel, posX, posY);
 		}
+	}
+	
+	private double verticalResolution()
+	{
+		return vResolution*blockWidth(axis.yAxis);
+	}
+	
+	private double horizontalResolution()
+	{
+		return hResolution*blockWidth(axis.xAxis);
 	}
 	
 	private void drawAxis(Graphics2D g)
@@ -157,14 +185,14 @@ public class GraphicsPlot2D extends JPanel {
 			
 			if(mapY(precedingYCoordinate) < mapY(0))
 				g.drawLine((int) (mapX((i - 1)*blockWidth(axis.xAxis))), 
-						(int) ((int) mapY(precedingYCoordinate*blockWidth(axis.yAxis))), 
+						(int) (mapY(precedingYCoordinate*blockWidth(axis.yAxis))), 
 						(int)(mapX(i*blockWidth(axis.xAxis))), 
 						(int) mapY(precedingYCoordinate*blockWidth(axis.yAxis)));
 			
 			if(mapY(currentYVal) < mapY(0))
-				g.drawLine((int) (mapX(i)*blockWidth(axis.xAxis)), 
+				g.drawLine((int) (mapX(i*blockWidth(axis.xAxis))), 
 						(int) mapY(precedingYCoordinate*blockWidth(axis.yAxis)), 
-						(int)(mapX(i)*blockWidth(axis.xAxis)), 
+						(int)(mapX(i*blockWidth(axis.xAxis))), 
 						(int) mapY(currentYVal*blockWidth(axis.yAxis)));
 			
 			precedingYCoordinate = currentYVal;
