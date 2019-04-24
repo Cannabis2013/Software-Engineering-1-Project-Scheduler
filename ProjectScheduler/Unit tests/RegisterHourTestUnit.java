@@ -1,24 +1,40 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
 import org.junit.Test;
 
 import Abstractions.AbstractModel;
 import Application_Facade.ApplicationCore;
 import Test.TestUnit;
+import formComponents.ItemModel;
 import models.ActivityModel;
 import models.ProjectModel;
 
 public class RegisterHourTestUnit {
 	private ApplicationCore coreApp = new ApplicationCore();
+	private String projectName = "Project TEST", activityName = "GUI Test", projectLeaderId = "FL";
+	private List<String> userNames;
+	
+	
+	public RegisterHourTestUnit() {
+		
+		userNames = Arrays.asList("BB", "TT", "JW");
+		if(!coreApp.login("FL"))
+			fail();
+		
+		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
+			fail();
+		
+		ProjectModel project = coreApp.project("Project TEST");
+		
+		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
+				20,userNames,""))
+			fail();
+	}
 	
 	@Test
 	public void registerHour()
@@ -53,26 +69,39 @@ public class RegisterHourTestUnit {
 	}
 	
 	@Test
-	public void unRegisterHourUnSuccesfull()
+	public void removeActivity()
 	{
-		String projectName = "Project TEST";
-		String activityName = "GUI Test";
-		String regName = "Menus";
-		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
-		boolean result = registerHourTestCase("admin", projectName, "FL", "FL", activityName,chosenUsers,
-				regName, "BB");
-		
-		if(!result)
-			fail();
-		if(!coreApp.login("TT"))
-			fail();
-		
+		coreApp.login("FL");
 		try {
-			coreApp.unRegisterHour(projectName, activityName, regName);
-			fail();
+			coreApp.removeActivity(projectName, activityName);
 		} catch (Exception e) {
-			
+			// TODO Auto-generated catch block
+			fail();
 		}
+	}
+	
+	@Test
+	public void removeProject()
+	{
+		coreApp.login("admin");
+		coreApp.removeProject(projectName);
+	}
+	
+	@Test
+	public void retrieveActivityItemModels()
+	{
+		coreApp.login("TT");
+		ItemModel[] itemModels = coreApp.activityItemModels();
+		
+		assertTrue(itemModels.length == 1);
+	}
+	
+	@Test
+	public void retrieveProjectItemModels()
+	{
+		coreApp.login("admin");
+		ItemModel[] itemModels = coreApp.projectItemModels();
+		assertTrue(itemModels.length == 1);
 	}
 	
 	public boolean registerHourTestCase(String projectUserName,
@@ -83,24 +112,9 @@ public class RegisterHourTestUnit {
 			List<String> assignedUsers,
 			String registerHourId, 
 			String registerHourUserName)
-	{
-		
-		int workHour = 4, estimatedWorkHours = 4;
-		
-		if(!coreApp.login("FL"))
-			return false;
-		
-		if(!addProject(projectUserName, projectName, projectLeaderName, "05-05-2019", "19-05-2019", "Test project"))
-			return false;
-		
-		ProjectModel project = coreApp.project("Project TEST");
-		
-		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
-				estimatedWorkHours,assignedUsers,""))
-			return false;
-		
+	{	
 		if(!addRegitstrationObject(registerHourUserName, 
-				projectName, activityName, registerHourId, workHour, ""))
+				projectName, activityName, registerHourId, 2, ""))
 			return false;
 		
 		return true;

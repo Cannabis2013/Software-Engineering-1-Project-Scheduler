@@ -1,6 +1,7 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -80,12 +81,14 @@ public class HourRegistrationModel extends AbstractModel {
     
     public ItemModel itemModel()
     {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    	
     	String[] itemData = new String[6];
 		
 		itemData[0] = modelIdentity();
 		itemData[1] = userName();
 		itemData[2] = Integer.toString(Hours());
-		itemData[3] = originalRegistrationDate.toString();
+		itemData[3] = originalRegistrationDate.format(formatter);
 		itemData[4] = parentModelIdentity();
 		itemData[5] = serialId();
 		

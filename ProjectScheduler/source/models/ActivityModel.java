@@ -3,7 +3,12 @@ package models;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
+
 import Abstractions.AbstractModel;
 import UserDomain.UserManager;
 import formComponents.ItemModel;
@@ -121,15 +126,16 @@ public class ActivityModel extends AbstractModel {
     	eDate = date;
     }
     
-
     public int startWeek()
     {
-    	return 0;
+    	TemporalField tempField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+    	return sDate.get(tempField);
     }
 
     public int endWeek()
     {
-    	return 0;
+    	TemporalField tempField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+    	return eDate.get(tempField);
     }
 
     public int EstimatedDuration()
@@ -249,13 +255,13 @@ public class ActivityModel extends AbstractModel {
     
     private String[] ItemModelData()
     {
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     	
     	String[] itemData = new String[5];
 		
 		itemData[0] = modelIdentity();
-		itemData[1] = dateFormat.format(sDate);
-		itemData[2] = dateFormat.format(eDate);
+		itemData[1] = sDate.format(formatter);
+		itemData[2] = eDate.format(formatter);
 		itemData[3] = Integer.toString(TotalRegisteredHours());
 		itemData[4] = serialId();
 		

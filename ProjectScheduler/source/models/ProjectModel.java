@@ -107,12 +107,14 @@ public class ProjectModel extends AbstractModel
     
     public ItemModel itemModel()
     {
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    	
 		String[] itemData = new String[5];
 		
 		itemData[0] = modelIdentity();
 		itemData[1] = pLeaderId;
-		itemData[2] = sDate.toString();
-		itemData[3] = eDate.toString();
+		itemData[2] = sDate.format(formatter);
+		itemData[3] = eDate.format(formatter);
 		itemData[4] = serialId();
 		
 		return new ItemModel(itemData);

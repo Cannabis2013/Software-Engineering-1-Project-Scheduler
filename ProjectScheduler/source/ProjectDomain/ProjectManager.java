@@ -167,12 +167,10 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     {
     	List<ItemModel> allModels = new ArrayList<ItemModel>();
     	for (AbstractModel pModel : models()) {
-			Stream<AbstractModel> userAssignedModels = 
+			Stream<AbstractModel> userAssignedActivities = 
 					pModel.subModels().stream().filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
-			Stream<AbstractModel> userProjects = 
-					userAssignedModels.filter(item -> ((ProjectModel) item.Parent()).projectLeaderId().equals(userName));
 			
-			Stream<ItemModel> itemModels = userProjects.map(item -> item.itemModel());
+			Stream<ItemModel> itemModels = userAssignedActivities.map(item -> item.itemModel());
 			allModels.addAll(itemModels.collect(Collectors.toList()));
 		}
     	
