@@ -93,15 +93,14 @@ public abstract class AbstractManager {
     	return result;
     }
 
-	
 	public abstract void requestUpdate();
 	
 	private Model iterateModel(Model model, String serialId)
 	{
 		if(model.serialId().equals(serialId))
 			return model;
-		
-		for (Model aModel : model.subModels()) {
+		List<Model> models = model.subModels();
+		for (Model aModel : models) {
 			Model aM = iterateModel(aModel, serialId);
 			if(aM != null)
 				return aM;

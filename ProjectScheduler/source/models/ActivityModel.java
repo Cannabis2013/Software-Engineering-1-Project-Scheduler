@@ -1,6 +1,5 @@
 package models;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +7,7 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import Abstractions.Model;
 import UserDomain.UserManager;
@@ -197,29 +197,21 @@ public class ActivityModel extends Model {
     
     public List<HourRegistrationModel> hourRegistrationModels()
     {
-    	return AllSubModels();
+    	return subModels();
     }
     
     public List<HourRegistrationModel> HourRegistrationObjects(String userName)
     {
-    	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(Model model : subModels())
-    	{
-    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-    		if(hourModel.userId().equals(userName))
-    			result.add(hourModel);
-    	}
-    	return result;
+    	List<HourRegistrationModel> models = subModels();
+    	return models.stream().filter(item -> item.userId().equals(userName)).collect(Collectors.toList());
     }
     
     public int totalRegisteredHours()
     {
         int totalHours = 0;
-        for(Model model : subModels())
-        {
-    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
+        List<HourRegistrationModel> models = subModels();
+        for(HourRegistrationModel hourModel : models)
     		totalHours += hourModel.hours();
-        }
 
         return totalHours;
     }
@@ -227,10 +219,9 @@ public class ActivityModel extends Model {
     public int totalRegisteredHours(String userName)
     {
         int totalHours = 0;
-        
-        for(Model model : subModels())
+        List<HourRegistrationModel> models = subModels();
+        for(HourRegistrationModel hourModel : models)
         {
-    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
             if (hourModel.userId().equals(userName))
                 totalHours += hourModel.hours();
         }

@@ -111,19 +111,9 @@ public abstract class Model implements Serializable {
 		return subModels.get(index);
 	}
 	
-	protected List<Model> subModels()
+	protected <T> List<T> subModels()
 	{
-		return subModels;
-	}
-	
-	protected void setSubModels(List<Model> models)
-	{
-		subModels = models;
-	}
-	
-	protected <T> List<T> AllSubModels()
-    {
-        List<T> result = new ArrayList<T>();
+		List<T> result = new ArrayList<T>();
         for (Model model : subModels)
         {
         	if(model instanceof Object)
@@ -135,15 +125,26 @@ public abstract class Model implements Serializable {
         }
 
         return result;
-    }
+	}
+	
+	protected void removeAllSubModels()
+	{
+		subModels.clear();
+	}
+	
+	protected void setSubModels(List<Model> models)
+	{
+		subModels = models;
+	}
 	
 	protected List<ItemModel> allSubItemModels()
 	{
-		List<ItemModel> models = new ArrayList<>();
-		for(int i = 0;i <subModels().size();i++)
-			models.add(subModels().get(i).itemModel());
+		List<ItemModel> itemModels = new ArrayList<>();
+		List<Model> models = subModels();
+		for(int i = 0;i <models.size();i++)
+			itemModels.add(models.get(i).itemModel());
 		
-		return models;
+		return itemModels;
 	}
 
 	private void StateChanged()

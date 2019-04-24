@@ -110,7 +110,7 @@ public class ProjectModel extends Model
 
     public List<ActivityModel> Activities()
     {
-    	return AllSubModels();
+    	return subModels();
     }
     
     public List<ActivityModel> Activities(String userName)
@@ -119,9 +119,15 @@ public class ProjectModel extends Model
     	return models.filter(item -> item.IsUserAssigned(userName)).collect(Collectors.toList());
     }
     
+    public void removeAllActivities()
+    {
+    	removeAllSubModels();
+    }
+    
     public List<ItemModel> activityItemModels()
     {
-    	return subModels().stream().map(item -> item.itemModel()).collect(Collectors.toList());
+    	List<ActivityModel> aModels = subModels();
+    	return aModels.stream().map(item -> item.itemModel()).collect(Collectors.toList());
     }
     
     public ItemModel itemModel()

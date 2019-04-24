@@ -35,15 +35,22 @@ public class UserAvailable extends TestTemplate {
 			fail();
 	}
 	
-	
-	public String isTTNotAvailable()
+	@Test
+	public void isUserAvailable()
 	{
-		numberOfActivities = 20;
+		assertEquals("Available", userIsAvailable());
+		assertEquals("Partly available", userIsPartlyAvailable());
+		assertEquals("Not available", userIsNotAvailable());
+	}
+	
+	public String userIsAvailable()
+	{
+		numberOfActivities = 15;
 		LocalDate sDate = startDate, eDate = endDate;
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
 		ProjectModel project = coreApp.project("Project TEST");
-		
+		project.removeAllActivities();
 		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
@@ -59,14 +66,14 @@ public class UserAvailable extends TestTemplate {
 		return coreApp.userAvailability("TT", startDate, endDate);
 	}
 	
-	public void isTTPartlyAvailable()
+	public String userIsPartlyAvailable()
 	{
-		
+		numberOfActivities = 20;
 		LocalDate sDate = startDate, eDate = endDate;
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
 		ProjectModel project = coreApp.project("Project TEST");
-		
+		project.removeAllActivities();
 		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
@@ -80,8 +87,30 @@ public class UserAvailable extends TestTemplate {
 			sDate = sDate.plusDays(1);
 		}
 		
-		String availability = coreApp.userAvailability("TT", startDate, endDate);
-		assertEquals("Partly available", availability);
+		return coreApp.userAvailability("TT", startDate, endDate);
+	}
+	
+	public String userIsNotAvailable()
+	{
+		numberOfActivities = 20;
+		LocalDate sDate = startDate, eDate = endDate;
+		userNames = Arrays.asList("BB", "TT", "JW");
+		int activityIndex = 0;
+		ProjectModel project = coreApp.project("Project TEST");
+		project.removeAllActivities();
+		
+		String aName = String.format(activityName + "(%d)", activityIndex);
+		for (int i = 0; i < numberOfActivities; i++) {
+			addActivity(projectLeaderId, 
+					aName, 
+					project, 
+					sDate.format(dateFormatter), 
+					eDate.format(dateFormatter), 25, 
+					userNames, 
+					"Test");
+		}
+		
+		return coreApp.userAvailability("TT", startDate, endDate);
 	}
 	
 }
