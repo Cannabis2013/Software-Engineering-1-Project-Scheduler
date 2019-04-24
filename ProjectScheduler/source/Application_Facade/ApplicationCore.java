@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import Abstractions.IApplicationProgrammingInterface;
 import Abstractions.ICustomObserver;
 import ProjectDomain.ProjectManager;
@@ -205,12 +205,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public List<ActivityModel> activitiesById(String activityId)
     {
         return pManager.activityModels().stream().
-        		filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList());
+        		filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList());
     }
 
     public List<ActivityModel> activities()
     {
-    	String currentLoggedinUserName = uManager.currentUser().modelIdentity();
+    	String currentLoggedinUserName = uManager.currentUser().modelId();
         return uManager.isAdmin() ? pManager.activityModels() : 
             activities(currentLoggedinUserName);
     }
@@ -222,7 +222,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
     {
-        String userId = uManager.currentUser().modelIdentity();
+        String userId = uManager.currentUser().modelId();
         ActivityModel parentActivity = activity(projectId, activityId);
          new HourRegistrationModel(regId, hours, userId, shortDescription, parentActivity);
     }
@@ -239,12 +239,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public HourRegistrationModel hourRegistrationModel(String activityId, String regId)
     {
     	ActivityModel activity = pManager.activityModels().stream().
-    			filter(item -> item.modelIdentity().equals(activityId)).collect(Collectors.toList()).get(0);
+    			filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
     	
     	if(activity == null)
     		return null;
     	
-        String projectId = activity.parentModelIdentity();
+        String projectId = activity.parentModelId();
         return pManager.getHourRegistrationModel(projectId, activityId, regId);
     }
     
@@ -277,7 +277,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		if (uManager.isAdmin())
             return pManager.RegistrationItemModels();
 		
-		String currentLoggedInUsername = uManager.currentUser().modelIdentity();
+		String currentLoggedInUsername = uManager.currentUser().modelId();
 		
         return pManager.RegistrationItemModels(currentLoggedInUsername);
 	}
@@ -308,7 +308,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
 
 	@Override
-	public AbstractModel modelBySerial(String serialId) {
+	public Model modelBySerial(String serialId) {
 		try {
 			return pManager.ModelBySerial(serialId);
 		} catch (Exception e) {

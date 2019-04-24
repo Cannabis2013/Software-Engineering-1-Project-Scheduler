@@ -3,7 +3,7 @@ package baseClass;
 import java.time.LocalDate;
 import java.util.List;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import Application_Facade.ApplicationCore;
 import Test.TestUnit;
 import models.ActivityModel;
@@ -64,7 +64,7 @@ public class TestTemplate {
 	
 	protected boolean addActivity(String loggedInUserName, 
 			String activityName,
-			AbstractModel parentModel,
+			Model parentModel,
 			String startDate, String endDate,
 			int estimatedWorkHours,
 			List<String> assignUsers, 
@@ -92,7 +92,7 @@ public class TestTemplate {
 		}
 		
 		try {
-			coreApp.addActivity(parentModel.modelIdentity(), activity);
+			coreApp.addActivity(parentModel.modelId(), activity);
 		} catch (Exception e) {
 			return false;
 		}

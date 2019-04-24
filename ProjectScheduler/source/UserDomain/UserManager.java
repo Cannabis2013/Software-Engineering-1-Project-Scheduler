@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Abstractions.AbstractManager;
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import formComponents.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;
@@ -77,8 +77,8 @@ public class UserManager extends AbstractManager {
 	public List<String> listModelIdentities()
     {
         List<String> result = new ArrayList<String>();
-        for (AbstractModel u : models())
-            result.add(u.modelIdentity());
+        for (Model u : models())
+            result.add(u.modelId());
 
         return result;
     }

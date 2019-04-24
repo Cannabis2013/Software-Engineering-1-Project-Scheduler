@@ -27,7 +27,7 @@ public interface IApplicationProgrammingInterface {
 
     // General model section
     
-    AbstractModel modelBySerial(String serialId);
+    Model modelBySerial(String serialId);
     
     // Project section
 

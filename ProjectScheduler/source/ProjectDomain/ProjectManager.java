@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.SubMonitor;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import Abstractions.AbstractManager;
 import Abstractions.ICustomObservable;
 import Abstractions.ICustomObserver;
@@ -29,16 +29,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
 	
-	private static String timeZoneId = "Europe/Copenhagen";
-	
-	public static int getDateProperty(Date date, int calProperty)
-	{
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(timeZoneId));
-		cal.setTime(date);
-		return cal.get(calProperty);
-	}
-	
-	public AbstractModel ModelBySerial(String serial) throws Exception
+	public Model ModelBySerial(String serial) throws Exception
 	{
 		return modelBySerial(serial);
 	}
@@ -88,18 +79,19 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	
     public void addActivity(String projectIdentity, ActivityModel activity)
     {
-        AbstractModel project = model(projectIdentity);
-        project.addSubModel(activity);
+        ProjectModel project = project(projectIdentity);
+        
+        project.addActivity(activity);
     }
 
     public boolean RemoveActivityModel(String projectId, String activityId)
     {
     	
-        ProjectModel p = project(projectId);
-        AbstractModel activity = p.activity(activityId);
+        ProjectModel project = project(projectId);
+        ActivityModel activity = project.activity(activityId);
         if (activity == null)
             return false;
-        p.removeSubModel(activity);
+        project.removeActivity(activity);
         return true;
     }
 
@@ -109,7 +101,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         
         try {
 			ActivityModel activity = project.Activities().stream().
-					filter(item -> item.modelIdentity().equals(activityIdentity)).collect(Collectors.toList()).get(0);
+					filter(item -> item.modelId().equals(activityIdentity)).collect(Collectors.toList()).get(0);
 			return activity;
 		} catch (Exception e) {
 			throw new Exception("The list probably return a null point which means the object doesn't exists");
@@ -132,7 +124,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     public List<ActivityModel> activityModels(String userName)
     {
         List<ActivityModel> resultingList = new ArrayList<ActivityModel>();
-        for (AbstractModel model : models())
+        for (Model model : models())
         {
             ProjectModel project = (ProjectModel) model;
             List<ActivityModel> userActivities = project.Activities(userName);
@@ -150,13 +142,13 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		} catch (Exception e) {
 			throw new Exception("The activity doesn't exists");
 		}
-        activity.addSubModel(obj);
+        activity.addRegistrationModel(obj);
     }
 
     public void UnRegisterHour(String projectId, String activityId, String regId) throws Exception
     {
         ActivityModel activity = activityModelById(projectId, activityId);
-        activity.removeSubModel(regId);
+        activity.removeRegistrationModel(regId);
     }
 
     public HourRegistrationModel getHourRegistrationModel(String regId)
@@ -166,10 +158,10 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         Stream<List<HourRegistrationModel>> hourRegModels = activityModels.map(item -> item.HourRegistrationObjects());
         List<HourRegistrationModel> modelsContainsRegId = 
         		hourRegModels.filter(item -> item.stream().
-        				anyMatch(subItem -> subItem.modelIdentity().equals(regId))).collect(Collectors.toList()).get(0);
+        				anyMatch(subItem -> subItem.modelId().equals(regId))).collect(Collectors.toList()).get(0);
         
         return (HourRegistrationModel) modelsContainsRegId.stream().
-        		filter(item -> item.modelIdentity().equals(regId)).distinct().collect(Collectors.toList()).get(0);
+        		filter(item -> item.modelId().equals(regId)).distinct().collect(Collectors.toList()).get(0);
     }
 
     public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId)
@@ -184,7 +176,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         int count = models().size(), index = 0;
         ItemModel[] models = new ItemModel[count];
 
-        for (AbstractModel p : models())
+        for (Model p : models())
             models[index++] = p.itemModel();
 
         return models;
@@ -216,7 +208,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         	return allModels.toArray(new ItemModel[allModels.size()]);
         }
         else
-        	return activityItemModels(uManager.currentUser().modelIdentity());
+        	return activityItemModels(uManager.currentUser().modelId());
     }
 
     public ItemModel[] activityItemModels(String userName)
@@ -313,13 +305,13 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     private List<ActivityEntity> UserActivityEntities(String userName,UserManager uManager)
     {
-    	return activityModels().stream().map(item -> new ActivityEntity(item.modelIdentity(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
+    	return activityModels().stream().map(item -> new ActivityEntity(item.modelId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
         
     }
 
     public List<String> ListModelIdentities()
     {
-    	return models().stream().map(item -> item.modelIdentity()).collect(Collectors.toList());
+    	return models().stream().map(item -> item.modelId()).collect(Collectors.toList());
     }
 
     public void RequestUpdate()

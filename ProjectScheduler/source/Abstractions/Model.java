@@ -6,85 +6,84 @@ import java.util.List;
 
 import formComponents.ItemModel;
 
-public abstract class AbstractModel implements Serializable {
+public abstract class Model implements Serializable {
 
 	private static final long serialVersionUID = 440923988337809655L;
-	private AbstractModel parent = null;
+	private Model parent = null;
 	private AbstractManager parentManager = null;
-	private List<AbstractModel> subModels = new ArrayList<AbstractModel>();
-	private String modelTitle, textContent;
-	private String modelSerialId;
+	private List<Model> subModels = new ArrayList<Model>();
+	private String id, text, serialId;
 	
 	public void setSerialId(String serial)
 	{
-		modelSerialId = serial;
+		serialId = serial;
 	}
 	
 	public String serialId()
 	{
-		return modelSerialId;
+		return serialId;
 	}
 	
-	public String modelIdentity()
+	public String modelId()
 	{
-		return modelTitle;
+		return id;
 	}
 	
 	public void setModelidentity(String id)
 	{
-		modelTitle = id;
+		this.id = id;
 	}
 	
 	public String description()
 	{
-		return textContent;
+		return text;
 	}
 	
 	public void setDescription(String text)
 	{
-		textContent = text;
+		this.text = text;
 	}
 	
-	public AbstractModel Parent()
+	public Model Parent()
 	{
 		return parent;
     }
 	
-	public void setParent(AbstractModel parent)
+	public void setParent(Model parent)
 	{
 		this.parent = parent;
 	}
 
-	public AbstractManager parentManager()
+	protected AbstractManager parentManager()
 	{
 		return parentManager;
     }
 	
-	public void setParentManager(AbstractManager parentManager)
+	protected void setParentManager(AbstractManager parentManager)
 	{
 		this.parentManager = parentManager;
 	}
 
-	public String parentModelIdentity() {
-		return parent.modelIdentity();
+	public String parentModelId() {
+		return parent.modelId();
 	}
 
-	public void addSubModel(AbstractModel subModel) {
+	protected void addSubModel(Model subModel) {
 		subModels.add(subModel);
 		subModel.setParent(this);
 		StateChanged();
 	}
 
-	public void removeSubModel(AbstractModel SubModel) {
+	protected void removeSubModel(Model SubModel) {
 		subModels.remove(SubModel);
 		SubModel.parent = null;
 		StateChanged();
 	}
 
-	public void removeSubModel(String identity) {
+	protected void removeSubModel(String identity) {
 		for (int i = 0; i < subModels.size(); i++) {
-			AbstractModel model = subModels.get(i);
-			if (model.modelIdentity().equals(identity)) {
+			Model model = subModels.get(i);
+			if (model.modelId().equals(identity)) {
 				subModels.remove(i);
 				StateChanged();
 				return;
@@ -92,32 +91,32 @@ public abstract class AbstractModel implements Serializable {
 		}
 	}
 
-	public void RemoveSubModelAt(int index) {
+	protected void RemoveSubModelAt(int index) {
 		subModels.remove(index);
 		StateChanged();
 	}
 	
-	protected AbstractModel subModel(String SubModelIdentity)
+	protected Model subModel(String SubModelIdentity)
 	{
-		for(AbstractModel model : subModels)
+		for(Model model : subModels)
 		{
-			if(model.modelIdentity().equals(SubModelIdentity))
+			if(model.modelId().equals(SubModelIdentity))
 				return model;
 		}
 		return null;
 	}
 	
-	protected AbstractModel subModelAt(int index)
+	protected Model subModelAt(int index)
 	{
 		return subModels.get(index);
 	}
 	
-	protected List<AbstractModel> subModels()
+	protected List<Model> subModels()
 	{
 		return subModels;
 	}
 	
-	public void setSubModels(List<AbstractModel> models)
+	protected void setSubModels(List<Model> models)
 	{
 		subModels = models;
 	}
@@ -125,7 +124,7 @@ public abstract class AbstractModel implements Serializable {
 	public <T> List<T> AllSubModels()
     {
         List<T> result = new ArrayList<T>();
-        for (AbstractModel model : subModels)
+        for (Model model : subModels)
         {
         	if(model instanceof Object)
         	{
@@ -147,13 +146,13 @@ public abstract class AbstractModel implements Serializable {
 		return models;
 	}
 
-	public void StateChanged()
+	private void StateChanged()
     {
-        AbstractModel ParentProject = WarnParentObject(this);
+        Model ParentProject = WarnParentObject(this);
         ParentProject.parentManager.requestUpdate();
     }
 
-	private AbstractModel WarnParentObject(AbstractModel model) {
+	private Model WarnParentObject(Model model) {
 		return model.parent != null ? WarnParentObject(model.parent) : model;
 	}
 	

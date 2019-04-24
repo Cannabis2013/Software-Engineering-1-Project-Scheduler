@@ -9,11 +9,11 @@ import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import UserDomain.UserManager;
 import formComponents.ItemModel;
 
-public class ActivityModel extends AbstractModel {
+public class ActivityModel extends Model {
 	
 	private static final long serialVersionUID = 1L;
 	private List<String> assignedUserIdentities = new ArrayList<String>();
@@ -29,7 +29,7 @@ public class ActivityModel extends AbstractModel {
     };
     
     public ActivityModel(String activityTitle, 
-        	AbstractModel parentModel,
+        	Model parentModel,
             LocalDate sDate, 
             LocalDate eDate,
             int estimatedWorkHours,
@@ -56,7 +56,7 @@ public class ActivityModel extends AbstractModel {
         }
     
     public ActivityModel(String activityTitle, 
-    	AbstractModel parentModel,
+    	Model parentModel,
         LocalDate sDate, 
         LocalDate eDate
         ) throws IllegalArgumentException
@@ -156,7 +156,7 @@ public class ActivityModel extends AbstractModel {
 
     public boolean IsUserAssigned(UserManager uManager)
     {
-        String currentUserName = uManager.currentUser().modelIdentity();
+        String currentUserName = uManager.currentUser().modelId();
         return assignedUserIdentities.stream().anyMatch(item -> item.equals(currentUserName));
     }
 
@@ -180,6 +180,16 @@ public class ActivityModel extends AbstractModel {
         assignedUserIdentities.clear();;
     }
     
+    public void addRegistrationModel(HourRegistrationModel model)
+    {
+    	addSubModel(model);
+    }
+    
+    public void removeRegistrationModel(String id)
+    {
+    	removeSubModel(id);
+    }
+    
     public HourRegistrationModel hourRegistrationModel(String id)
     {
     	return (HourRegistrationModel) subModel(id);
@@ -188,7 +198,7 @@ public class ActivityModel extends AbstractModel {
     public List<HourRegistrationModel> HourRegistrationObjects()
     {
     	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(AbstractModel model : subModels())
+    	for(Model model : subModels())
     	{
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
     		result.add(hourModel);
@@ -199,7 +209,7 @@ public class ActivityModel extends AbstractModel {
     public List<HourRegistrationModel> HourRegistrationObjects(String userName)
     {
     	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(AbstractModel model : subModels())
+    	for(Model model : subModels())
     	{
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
     		if(hourModel.userName().equals(userName))
@@ -211,7 +221,7 @@ public class ActivityModel extends AbstractModel {
     public int TotalRegisteredHours()
     {
         int totalHours = 0;
-        for(AbstractModel model : subModels())
+        for(Model model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
     		totalHours += hourModel.Hours();
@@ -224,7 +234,7 @@ public class ActivityModel extends AbstractModel {
     {
         int totalHours = 0;
         
-        for(AbstractModel model : subModels())
+        for(Model model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
             if (hourModel.userName().equals(userName))
@@ -264,7 +274,7 @@ public class ActivityModel extends AbstractModel {
     	
     	String[] itemData = new String[5];
 		
-		itemData[0] = modelIdentity();
+		itemData[0] = modelId();
 		itemData[1] = sDate.format(formatter);
 		itemData[2] = eDate.format(formatter);
 		itemData[3] = Integer.toString(TotalRegisteredHours());
@@ -282,10 +292,10 @@ public class ActivityModel extends AbstractModel {
     protected String generateSerialId()
     {
     	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelIdentity());
+    	serialBuilder.append(modelId());
     	int hashedId = 0;
     	if(Type == ActivityType.Work_Related)
-    		 hashedId = parentModelIdentity().hashCode();
+    		 hashedId = parentModelId().hashCode();
     	else
     		hashedId = reason.hashCode();
     	

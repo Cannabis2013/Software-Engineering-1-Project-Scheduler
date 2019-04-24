@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import Application_Facade.ApplicationCore;
 import Test.TestUnit;
 import baseClass.TestTemplate;

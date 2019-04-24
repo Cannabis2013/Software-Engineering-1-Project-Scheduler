@@ -5,9 +5,9 @@ import java.util.List;
 
 public abstract class AbstractManager {
 	
-	private List<AbstractModel> models = new ArrayList<AbstractModel>();
+	private List<Model> models = new ArrayList<Model>();
     
-    protected void addModel(AbstractModel item)
+    protected void addModel(Model item)
     {
         models.add(item);
         item.setParentManager(this);
@@ -18,8 +18,8 @@ public abstract class AbstractManager {
     {
         for (int i = 0; i < models.size(); i++)
         {
-            AbstractModel model = models.get(i);
-            if (model.modelIdentity().equals(identity))
+            Model model = models.get(i);
+            if (model.modelId().equals(identity))
             {
                 models.remove(i);
                 return;
@@ -33,9 +33,9 @@ public abstract class AbstractManager {
     	models.remove(index);
     }
     
-    protected AbstractModel model(AbstractModel item)
+    protected Model model(Model item)
     {
-    	for(AbstractModel model : models)
+    	for(Model model : models)
     	{
     		if(model == item)
     			return model;
@@ -44,24 +44,24 @@ public abstract class AbstractManager {
     	return null;
     }
     
-    protected AbstractModel model(String id)
+    protected Model model(String id)
     {
-    	for(AbstractModel model : models)
+    	for(Model model : models)
     	{
-    		if(model.modelIdentity().equals(id))
+    		if(model.modelId().equals(id))
     			return model;
     	}
     	
     	return null;
     }
     
-    protected AbstractModel modelBySerial(String serial) throws Exception
+    protected Model modelBySerial(String serial) throws Exception
     {
-    	for (AbstractModel model : models()) {
+    	for (Model model : models()) {
 			if(model.serialId().equals(serial))
 				return model;
 			
-			AbstractModel childModel = iterateModel(model,serial);
+			Model childModel = iterateModel(model,serial);
 			if(childModel != null)
 				return childModel;
 		}
@@ -69,17 +69,17 @@ public abstract class AbstractManager {
 		throw new Exception("Model not found");
     }
     
-    protected AbstractModel modelAt(int index)
+    protected Model modelAt(int index)
     {
     	return models.get(index);
     }
     
-    protected List<AbstractModel> models()
+    protected List<Model> models()
     {
     	return models;
     }
     
-    protected void setModels(List<AbstractModel> models)
+    protected void setModels(List<Model> models)
     {
     	this.models = models;
     }
@@ -87,8 +87,8 @@ public abstract class AbstractManager {
     protected List<String> ListModelIdentities()
     {
     	List<String> result = new ArrayList<>();
-    	for(AbstractModel model : models)
-    		result.add(model.modelIdentity());
+    	for(Model model : models)
+    		result.add(model.modelId());
     	
     	return result;
     }
@@ -96,13 +96,13 @@ public abstract class AbstractManager {
 	
 	public abstract void requestUpdate();
 	
-	private AbstractModel iterateModel(AbstractModel model, String serialId)
+	private Model iterateModel(Model model, String serialId)
 	{
 		if(model.serialId().equals(serialId))
 			return model;
 		
-		for (AbstractModel aModel : model.subModels()) {
-			AbstractModel aM = iterateModel(aModel, serialId);
+		for (Model aModel : model.subModels()) {
+			Model aM = iterateModel(aModel, serialId);
 			if(aM != null)
 				return aM;
 		}

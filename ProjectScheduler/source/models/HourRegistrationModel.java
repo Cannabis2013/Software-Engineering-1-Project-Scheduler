@@ -6,11 +6,11 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import ProjectDomain.ProjectManager;
 import formComponents.ItemModel;
 
-public class HourRegistrationModel extends AbstractModel {
+public class HourRegistrationModel extends Model {
 	
 	private static final long serialVersionUID = 1L;
 	private LocalDate originalRegistrationDate;
@@ -20,14 +20,14 @@ public class HourRegistrationModel extends AbstractModel {
     private String uName;
 
 
-    public HourRegistrationModel(String identity,int hours, String userName, String shortDescription, AbstractModel ParentActivity)
+    public HourRegistrationModel(String identity,int hours, String userName, String shortDescription, ActivityModel ParentActivity)
     {
         setModelidentity(identity);;
         this.workHours = hours;
         this.uName = userName;
         this.activityTextContent = shortDescription;
 
-        ParentActivity.addSubModel(this);
+        ParentActivity.addRegistrationModel(this);
         
         originalRegistrationDate = LocalDate.now();
         setSerialId(generateSerialId());
@@ -85,11 +85,11 @@ public class HourRegistrationModel extends AbstractModel {
     	
     	String[] itemData = new String[6];
 		
-		itemData[0] = modelIdentity();
+		itemData[0] = modelId();
 		itemData[1] = userName();
 		itemData[2] = Integer.toString(Hours());
 		itemData[3] = originalRegistrationDate.format(formatter);
-		itemData[4] = parentModelIdentity();
+		itemData[4] = parentModelId();
 		itemData[5] = serialId();
 		
 		return new ItemModel(itemData);
@@ -99,8 +99,8 @@ public class HourRegistrationModel extends AbstractModel {
     protected String generateSerialId()
     {
     	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelIdentity());
-    	int hashedId = parentModelIdentity().hashCode();
+    	serialBuilder.append(modelId());
+    	int hashedId = parentModelId().hashCode();
     	
     	serialBuilder.append(Integer.toString(hashedId));
     	

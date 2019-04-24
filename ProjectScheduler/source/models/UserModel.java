@@ -2,10 +2,10 @@ package models;
 
 import java.util.Calendar;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import formComponents.ItemModel;
 
-public class UserModel extends AbstractModel {
+public class UserModel extends Model {
 
 	private static final long serialVersionUID = 1L;
 	private userRole role = userRole.Employee;
@@ -32,7 +32,7 @@ public class UserModel extends AbstractModel {
 	}
 	
 	public String UserName() {
-		return modelIdentity();
+		return modelId();
 	}
 	
 	public static String _roleStringRepresentation(userRole r)
@@ -44,7 +44,7 @@ public class UserModel extends AbstractModel {
     {
 		String[] itemData = new String[2];
 		
-		itemData[0] = modelIdentity();
+		itemData[0] = modelId();
 		itemData[1] = _roleStringRepresentation(role);
 		
 		return new ItemModel(itemData);
@@ -54,9 +54,9 @@ public class UserModel extends AbstractModel {
 	protected String generateSerialId()
     {
     	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelIdentity());
+    	serialBuilder.append(modelId());
     	long currentTimeInMs = Calendar.getInstance().getTimeInMillis();
-    	int hashedId = (int) (currentTimeInMs % (long) parentModelIdentity().hashCode());
+    	int hashedId = (int) (currentTimeInMs % (long) parentModelId().hashCode());
     	
     	serialBuilder.append(Integer.toString(hashedId));
     	

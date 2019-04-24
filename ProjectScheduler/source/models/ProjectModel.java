@@ -12,12 +12,12 @@ import java.util.stream.Stream;
 
 import com.ibm.icu.util.LocaleData;
 
-import Abstractions.AbstractModel;
+import Abstractions.Model;
 import ProjectDomain.ProjectManager;
 import UserDomain.UserManager;
 import formComponents.ItemModel;
 
-public class ProjectModel extends AbstractModel
+public class ProjectModel extends Model
 {
 	private static final long serialVersionUID = 1L;
 	private static int id = 1000;
@@ -61,7 +61,7 @@ public class ProjectModel extends AbstractModel
     
     public String projectName()
     {
-    	return modelIdentity();
+    	return modelId();
     }
     
     public LocalDate startDate()
@@ -105,6 +105,11 @@ public class ProjectModel extends AbstractModel
     	removeSubModel(activityId);
     }
     
+    public void removeActivity(ActivityModel activity)
+    {
+    	removeSubModel(activity);
+    }
+    
     public ActivityModel activity(String id)
     {
     	return (ActivityModel) subModel(id);
@@ -132,7 +137,7 @@ public class ProjectModel extends AbstractModel
     	
 		String[] itemData = new String[5];
 		
-		itemData[0] = modelIdentity();
+		itemData[0] = modelId();
 		itemData[1] = pLeaderId;
 		itemData[2] = sDate.format(formatter);
 		itemData[3] = eDate.format(formatter);

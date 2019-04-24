@@ -111,7 +111,7 @@ public class ActivitySteps {
 		}
 		ActivityModel activity;
 		try {
-			activity = coreApp.activity(projectName, tempActivity.modelIdentity());
+			activity = coreApp.activity(projectName, tempActivity.modelId());
 			assertEquals(true, activity != null);
 		} catch (Exception e) {
 			
@@ -154,7 +154,7 @@ public class ActivitySteps {
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(parentProject.modelIdentity(), activity);
+			coreApp.addActivity(parentProject.modelId(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
@@ -186,7 +186,7 @@ public class ActivitySteps {
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(parentProject.modelIdentity(), activity);
+			coreApp.addActivity(parentProject.modelId(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
