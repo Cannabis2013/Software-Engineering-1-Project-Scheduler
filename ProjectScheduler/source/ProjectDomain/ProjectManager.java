@@ -38,6 +38,26 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		return cal.get(calProperty);
 	}
 	
+	public AbstractModel ModelBySerial(String serial) throws Exception
+	{
+		return modelBySerial(serial);
+	}
+	
+	public void addProject(ProjectModel project)
+	{
+		addModel(project);
+	}
+	
+	public void removeProject(String id) throws Exception
+	{
+		removeModel(id);
+	}
+	
+	public void removeProjectAt(int index)
+	{
+		removeModelAt(index);
+	}
+	
 	public ProjectModel project(String projectName)
 	{
 		return (ProjectModel) model(projectName);
@@ -52,7 +72,20 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	{
 		return models().stream().map(item -> (ProjectModel) item).collect(Collectors.toList());
 	}
-
+	
+	public void addAbsenceActivity(ActivityModel activityAbsence)
+	{
+		for (ProjectModel project : allProjects()) {
+			project.addActivity(activityAbsence);
+		}
+	}
+	
+	public void removeAbsenceActivity(String id)
+	{
+		for (ProjectModel project : allProjects())
+			project.removeActivity(id);
+	}
+	
     public void addActivity(String projectIdentity, ActivityModel activity)
     {
         AbstractModel project = model(projectIdentity);
@@ -153,6 +186,20 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
         for (AbstractModel p : models())
             models[index++] = p.itemModel();
+
+        return models;
+    }
+    
+    public ItemModel[] ProjectItemModels(String username)
+    {
+        int count = models().size(), index = 0;
+        ItemModel[] models = new ItemModel[count];
+
+        for (ProjectModel project : allProjects())
+        {
+        	if(project.projectLeaderId().equals(username))
+        		models[index++] = project.itemModel();        	
+        }
 
         return models;
     }

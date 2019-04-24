@@ -95,6 +95,16 @@ public class ProjectModel extends AbstractModel
     	pLeaderId = id;
     }
     
+    public void addActivity(ActivityModel activity)
+    {
+    	addSubModel(activity);
+    }
+    
+    public void removeActivity(String activityId)
+    {
+    	removeSubModel(activityId);
+    }
+    
     public ActivityModel activity(String id)
     {
     	return (ActivityModel) subModel(id);

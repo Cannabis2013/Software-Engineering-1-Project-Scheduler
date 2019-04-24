@@ -76,7 +76,7 @@ public class HourRegistrationModel extends AbstractModel {
 
     public String CorrespondingProjectId(ProjectManager pManager)
     {
-        return pManager.model(parentModelIdentity()).parentModelIdentity();
+    	return "";
     }
     
     public ItemModel itemModel()

@@ -5,37 +5,37 @@ import java.util.List;
 
 public abstract class AbstractManager {
 	
-	private List<AbstractModel> modelList = new ArrayList<AbstractModel>();
+	private List<AbstractModel> models = new ArrayList<AbstractModel>();
     
-    public void addModel(AbstractModel item)
+    protected void addModel(AbstractModel item)
     {
-        modelList.add(item);
+        models.add(item);
         item.setParentManager(this);
         requestUpdate();
     }
 
-    public void removeModel(String identity) throws Exception
+    protected void removeModel(String identity) throws Exception
     {
-        for (int i = 0; i < modelList.size(); i++)
+        for (int i = 0; i < models.size(); i++)
         {
-            AbstractModel model = modelList.get(i);
+            AbstractModel model = models.get(i);
             if (model.modelIdentity().equals(identity))
             {
-                modelList.remove(i);
+                models.remove(i);
                 return;
             }
         }
         
         throw new Exception("Object not found.");
     }
-    public void removeModelAt(int index)
+    protected void removeModelAt(int index)
     {
-    	modelList.remove(index);
+    	models.remove(index);
     }
     
-    public AbstractModel model(AbstractModel item)
+    protected AbstractModel model(AbstractModel item)
     {
-    	for(AbstractModel model : modelList)
+    	for(AbstractModel model : models)
     	{
     		if(model == item)
     			return model;
@@ -44,9 +44,9 @@ public abstract class AbstractManager {
     	return null;
     }
     
-    public AbstractModel model(String id)
+    protected AbstractModel model(String id)
     {
-    	for(AbstractModel model : modelList)
+    	for(AbstractModel model : models)
     	{
     		if(model.modelIdentity().equals(id))
     			return model;
@@ -55,7 +55,7 @@ public abstract class AbstractManager {
     	return null;
     }
     
-    public AbstractModel modelBySerial(String serial)
+    protected AbstractModel modelBySerial(String serial) throws Exception
     {
     	for (AbstractModel model : models()) {
 			if(model.serialId().equals(serial))
@@ -66,28 +66,28 @@ public abstract class AbstractManager {
 				return childModel;
 		}
 		
-		return null;
+		throw new Exception("Model not found");
     }
     
-    public AbstractModel modelAt(int index)
+    protected AbstractModel modelAt(int index)
     {
-    	return modelList.get(index);
+    	return models.get(index);
     }
     
-    public List<AbstractModel> models()
+    protected List<AbstractModel> models()
     {
-    	return modelList;
+    	return models;
     }
     
-    public void setModels(List<AbstractModel> models)
+    protected void setModels(List<AbstractModel> models)
     {
-    	modelList = models;
+    	this.models = models;
     }
 
-    public List<String> ListModelIdentities()
+    protected List<String> ListModelIdentities()
     {
     	List<String> result = new ArrayList<>();
-    	for(AbstractModel model : modelList)
+    	for(AbstractModel model : models)
     		result.add(model.modelIdentity());
     	
     	return result;

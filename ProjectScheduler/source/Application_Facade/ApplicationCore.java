@@ -101,8 +101,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         if (!uManager.isAdmin())
             return "Admin privligges required.";
-
-        pManager.addModel(newProject);
+        
+        pManager.addProject(newProject);
 
         return "";
     }
@@ -112,7 +112,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         if (!uManager.isAdmin())
             return "Admin privilliges required";
 
-        pManager.removeModelAt(index);
+        pManager.removeProjectAt(index);
 
         return "";
     }
@@ -123,7 +123,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
             return "Admin privilliges required";
         
         try {
-			pManager.removeModel(identity);
+			pManager.removeProject(identity);
 		} catch (Exception e) {
 			return e.getMessage();
 		}
@@ -136,7 +136,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	if(uManager.isAdmin())
     	{
     		try {
-				pManager.removeModel(project.projectName());
+				pManager.removeProject(project.projectName());
 			} catch (Exception e) {
 				throw e;
 			}
@@ -166,14 +166,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public void addAbsenceActivity(ActivityModel activtity)
     {
-        for (AbstractModel model : pManager.models())
-            pManager.addActivity(model.modelIdentity(),activtity);
+    	pManager.addAbsenceActivity(activtity);
     }
 
     public void removeAbsenceActivity(String id)
     {
-        for (AbstractModel model : pManager.models())
-            pManager.RemoveActivityModel(model.modelIdentity(), id);
+    	pManager.removeAbsenceActivity(id);
     }
 
     public void removeActivity(String projectId, String activityId) throws Exception
@@ -259,9 +257,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ItemModel[] projectItemModels(String UserIdentity)
     {
-    	Stream<AbstractModel> projects = 
-    			pManager.models().stream().filter(item -> ((ProjectModel) item).projectLeaderId().equals(UserIdentity));
-        return projects.map(AbstractModel::itemModel).toArray(ItemModel[]::new);
+    	return pManager.ProjectItemModels(UserIdentity);
     }
 
     public ItemModel[] activityItemModels()
@@ -312,7 +308,11 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
 
 	@Override
-	public AbstractModel model(String serialId) {
-		return pManager.modelBySerial(serialId);
+	public AbstractModel modelBySerial(String serialId) {
+		try {
+			return pManager.ModelBySerial(serialId);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

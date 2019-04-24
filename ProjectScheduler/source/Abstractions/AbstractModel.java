@@ -147,10 +147,6 @@ public abstract class AbstractModel implements Serializable {
 		return models;
 	}
 
-	public void NotifyObservers()
-    {
-    }
-
 	public void StateChanged()
     {
         AbstractModel ParentProject = WarnParentObject(this);
