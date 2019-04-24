@@ -143,14 +143,14 @@ public class ActivityModel extends Model {
     	return endWeek() - startWeek();
     }
 
-    public void assignUser(String userID)
+    public void assignUser(String id)
     {
-    	assignedUserIdentities.add(userID);
+    	assignedUserIdentities.add(id);
     }
 
-    public void AssignUsers(List<String> userIDs)
+    public void AssignUsers(List<String> userIds)
     {
-        for(String userId : userIDs)
+        for(String userId : userIds)
             assignedUserIdentities.add(userId);
     }
 
@@ -160,6 +160,16 @@ public class ActivityModel extends Model {
         return assignedUserIdentities.stream().anyMatch(item -> item.equals(currentUserName));
     }
 
+    public List<String> AssignedUsers()
+    {
+    	return assignedUserIdentities;
+    }
+    
+    public void ClearAssignedUserIdentities()
+    {
+    	assignedUserIdentities.clear();;
+    }
+    
     public boolean IsUserAssigned(String userName)
     {
         for(String uName : assignedUserIdentities)
@@ -168,16 +178,6 @@ public class ActivityModel extends Model {
         		return true;
         }
         return false;
-    }
-
-    public List<String> AssignedUsers()
-    {
-        return assignedUserIdentities;
-    }
-
-    public void ClearAssignedUserIdentities()
-    {
-        assignedUserIdentities.clear();;
     }
     
     public void addRegistrationModel(HourRegistrationModel model)
@@ -195,15 +195,9 @@ public class ActivityModel extends Model {
     	return (HourRegistrationModel) subModel(id);
     }
     
-    public List<HourRegistrationModel> HourRegistrationObjects()
+    public List<HourRegistrationModel> hourRegistrationModels()
     {
-    	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();
-    	for(Model model : subModels())
-    	{
-    		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-    		result.add(hourModel);
-    	}
-    	return result;
+    	return AllSubModels();
     }
     
     public List<HourRegistrationModel> HourRegistrationObjects(String userName)
@@ -212,33 +206,33 @@ public class ActivityModel extends Model {
     	for(Model model : subModels())
     	{
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-    		if(hourModel.userName().equals(userName))
+    		if(hourModel.userId().equals(userName))
     			result.add(hourModel);
     	}
     	return result;
     }
     
-    public int TotalRegisteredHours()
+    public int totalRegisteredHours()
     {
         int totalHours = 0;
         for(Model model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-    		totalHours += hourModel.Hours();
+    		totalHours += hourModel.hours();
         }
 
         return totalHours;
     }
 
-    public int TotalRegisteredHours(String userName)
+    public int totalRegisteredHours(String userName)
     {
         int totalHours = 0;
         
         for(Model model : subModels())
         {
     		HourRegistrationModel hourModel = (HourRegistrationModel) model;
-            if (hourModel.userName().equals(userName))
-                totalHours += hourModel.Hours();
+            if (hourModel.userId().equals(userName))
+                totalHours += hourModel.hours();
         }
 
         return totalHours;
@@ -263,6 +257,11 @@ public class ActivityModel extends Model {
     	return new ItemModel(propertyStrings);
     }
     
+    public List<ItemModel> HourRegistrationItemModels()
+    {
+    	return allSubItemModels();
+    }
+    
     private String ItemModelDataAt(int index)
     {
     	return ItemModelData()[index];
@@ -277,7 +276,7 @@ public class ActivityModel extends Model {
 		itemData[0] = modelId();
 		itemData[1] = sDate.format(formatter);
 		itemData[2] = eDate.format(formatter);
-		itemData[3] = Integer.toString(TotalRegisteredHours());
+		itemData[3] = Integer.toString(totalRegisteredHours());
 		itemData[4] = serialId();
 		
 		return itemData;

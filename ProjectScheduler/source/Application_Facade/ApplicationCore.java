@@ -230,7 +230,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public void unRegisterHour(String projectId, String activityId, String regId) throws Exception
     {
     	HourRegistrationModel regModel = pManager.getHourRegistrationModel(projectId, activityId, regId);
-    	if(!regModel.userName().equals(uManager.currentUser().UserName()) && !uManager.isAdmin())
+    	if(!regModel.userId().equals(uManager.currentUser().UserName()) && !uManager.isAdmin())
     			throw new Exception("Current user is not allowed to do this");
         pManager.UnRegisterHour(projectId,activityId,regId);
     }

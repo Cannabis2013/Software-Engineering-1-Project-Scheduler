@@ -35,7 +35,7 @@ public class UserAvailable extends TestTemplate {
 			fail();
 	}
 	
-	@Test
+	
 	public String isTTNotAvailable()
 	{
 		numberOfActivities = 20;
@@ -43,6 +43,8 @@ public class UserAvailable extends TestTemplate {
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
 		ProjectModel project = coreApp.project("Project TEST");
+		
+		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
 			addActivity(projectLeaderId, 
@@ -57,7 +59,6 @@ public class UserAvailable extends TestTemplate {
 		return coreApp.userAvailability("TT", startDate, endDate);
 	}
 	
-	@Test
 	public void isTTPartlyAvailable()
 	{
 		

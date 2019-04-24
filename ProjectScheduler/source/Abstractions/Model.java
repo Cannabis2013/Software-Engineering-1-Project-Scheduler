@@ -121,7 +121,7 @@ public abstract class Model implements Serializable {
 		subModels = models;
 	}
 	
-	public <T> List<T> AllSubModels()
+	protected <T> List<T> AllSubModels()
     {
         List<T> result = new ArrayList<T>();
         for (Model model : subModels)
@@ -137,7 +137,7 @@ public abstract class Model implements Serializable {
         return result;
     }
 	
-	public List<ItemModel> allSubItemModels()
+	protected List<ItemModel> allSubItemModels()
 	{
 		List<ItemModel> models = new ArrayList<>();
 		for(int i = 0;i <subModels().size();i++)
@@ -148,12 +148,12 @@ public abstract class Model implements Serializable {
 
 	private void StateChanged()
     {
-        Model ParentProject = WarnParentObject(this);
+        Model ParentProject = root(this);
         ParentProject.parentManager.requestUpdate();
     }
 
-	private Model WarnParentObject(Model model) {
-		return model.parent != null ? WarnParentObject(model.parent) : model;
+	protected Model root(Model model) {
+		return model.parent != null ? root(model.parent) : model;
 	}
 	
 	public abstract ItemModel itemModel();

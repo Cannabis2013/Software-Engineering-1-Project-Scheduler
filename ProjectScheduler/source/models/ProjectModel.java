@@ -1,8 +1,5 @@
 package models;
 
-import java.util.Calendar;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,18 +7,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.ibm.icu.util.LocaleData;
-
 import Abstractions.Model;
-import ProjectDomain.ProjectManager;
-import UserDomain.UserManager;
 import formComponents.ItemModel;
 
 public class ProjectModel extends Model
 {
 	private static final long serialVersionUID = 1L;
 	private static int id = 1000;
-	private String pLeaderId;
+	private String projectLeaderId;
     private LocalDate sDate, eDate;
     
     public ProjectModel(String name, String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
@@ -87,12 +80,12 @@ public class ProjectModel extends Model
 
     public String projectLeaderId()
     {
-    	return pLeaderId;
+    	return projectLeaderId;
     }
     
     public void setProjectLeaderId(String id)
     {
-    	pLeaderId = id;
+    	projectLeaderId = id;
     }
     
     public void addActivity(ActivityModel activity)
@@ -100,9 +93,9 @@ public class ProjectModel extends Model
     	addSubModel(activity);
     }
     
-    public void removeActivity(String activityId)
+    public void removeActivity(String id)
     {
-    	removeSubModel(activityId);
+    	removeSubModel(id);
     }
     
     public void removeActivity(ActivityModel activity)
@@ -115,20 +108,20 @@ public class ProjectModel extends Model
     	return (ActivityModel) subModel(id);
     }
 
-    public List<ItemModel> activityItemModels()
-    {
-    	return subModels().stream().map(item -> item.itemModel()).collect(Collectors.toList());
-    }
-    
     public List<ActivityModel> Activities()
     {
-    	return subModels().stream().map(item -> (ActivityModel) item).collect(Collectors.toList());
+    	return AllSubModels();
     }
     
     public List<ActivityModel> Activities(String userName)
     {
     	Stream<ActivityModel> models = subModels().stream().map(item -> (ActivityModel) item);
     	return models.filter(item -> item.IsUserAssigned(userName)).collect(Collectors.toList());
+    }
+    
+    public List<ItemModel> activityItemModels()
+    {
+    	return subModels().stream().map(item -> item.itemModel()).collect(Collectors.toList());
     }
     
     public ItemModel itemModel()
@@ -138,7 +131,7 @@ public class ProjectModel extends Model
 		String[] itemData = new String[5];
 		
 		itemData[0] = modelId();
-		itemData[1] = pLeaderId;
+		itemData[1] = projectLeaderId;
 		itemData[2] = sDate.format(formatter);
 		itemData[3] = eDate.format(formatter);
 		itemData[4] = serialId();

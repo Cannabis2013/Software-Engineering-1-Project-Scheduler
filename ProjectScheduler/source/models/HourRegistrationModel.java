@@ -14,18 +14,16 @@ public class HourRegistrationModel extends Model {
 	
 	private static final long serialVersionUID = 1L;
 	private LocalDate originalRegistrationDate;
-    private String activityTextContent;
     private int workHours;
-    
-    private String uName;
+    private String userId;
 
 
-    public HourRegistrationModel(String identity,int hours, String userName, String shortDescription, ActivityModel ParentActivity)
+    public HourRegistrationModel(String identity,int hours, String userId, String shortDescription, ActivityModel ParentActivity)
     {
         setModelidentity(identity);;
         this.workHours = hours;
-        this.uName = userName;
-        this.activityTextContent = shortDescription;
+        this.userId = userId;
+        setDescription(shortDescription);
 
         ParentActivity.addRegistrationModel(this);
         
@@ -33,24 +31,19 @@ public class HourRegistrationModel extends Model {
         setSerialId(generateSerialId());
     }
 
-    public int Hours()
+    public int hours()
     {
         return workHours;
     }
     
-    public void setHours(int h)
+    public void setHours(int hours)
     {
-    	workHours = h;
+    	workHours = hours;
     }
     
-    public String userName()
+    public String userId()
     {
-    	return uName;
-    }
-    
-    public void setUserName(String userName)
-    {
-    	uName = userName;
+    	return userId;
     }
     
     public LocalDate registrationDate()
@@ -63,20 +56,10 @@ public class HourRegistrationModel extends Model {
     	TemporalField tempField = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
     	return originalRegistrationDate.get(tempField);
     }
-    
-    public String ShortDescription()
-    {
-    	return activityTextContent;
-    }
-    
-    public void setShortDescription(String description)
-    {
-    	activityTextContent = description;
-    }
 
-    public String CorrespondingProjectId(ProjectManager pManager)
+    public String parentProjectId(ProjectManager pManager)
     {
-    	return "";
+    	return root(this).modelId();
     }
     
     public ItemModel itemModel()
@@ -86,8 +69,8 @@ public class HourRegistrationModel extends Model {
     	String[] itemData = new String[6];
 		
 		itemData[0] = modelId();
-		itemData[1] = userName();
-		itemData[2] = Integer.toString(Hours());
+		itemData[1] = userId();
+		itemData[2] = Integer.toString(hours());
 		itemData[3] = originalRegistrationDate.format(formatter);
 		itemData[4] = parentModelId();
 		itemData[5] = serialId();

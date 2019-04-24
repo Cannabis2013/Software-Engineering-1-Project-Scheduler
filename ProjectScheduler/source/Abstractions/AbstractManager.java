@@ -84,7 +84,7 @@ public abstract class AbstractManager {
     	this.models = models;
     }
 
-    protected List<String> ListModelIdentities()
+    protected List<String> allProjectNames()
     {
     	List<String> result = new ArrayList<>();
     	for(Model model : models)

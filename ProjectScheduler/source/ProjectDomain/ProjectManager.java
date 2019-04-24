@@ -155,7 +155,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     {
     	
         Stream<ActivityModel> activityModels = activityModels().stream().map(item -> item);
-        Stream<List<HourRegistrationModel>> hourRegModels = activityModels.map(item -> item.HourRegistrationObjects());
+        Stream<List<HourRegistrationModel>> hourRegModels = activityModels.map(item -> item.hourRegistrationModels());
         List<HourRegistrationModel> modelsContainsRegId = 
         		hourRegModels.filter(item -> item.stream().
         				anyMatch(subItem -> subItem.modelId().equals(regId))).collect(Collectors.toList()).get(0);
@@ -232,7 +232,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         {
             for (ActivityModel activity : project.Activities())
             {
-                List<ItemModel> models = activity.allSubItemModels();
+                List<ItemModel> models = activity.HourRegistrationItemModels();
                 regModels.addAll(models);
             }
         }
@@ -247,8 +247,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         {
             for (ActivityModel activity : project.Activities())
             {
-                List<HourRegistrationModel> models = activity.HourRegistrationObjects().stream().
-                		filter(item -> item.userName() == userName).collect(Collectors.toList());
+                List<HourRegistrationModel> models = activity.hourRegistrationModels().stream().
+                		filter(item -> item.userId() == userName).collect(Collectors.toList());
                 for(HourRegistrationModel rModel : models)
                 	regItemModels.add(rModel.itemModel());
                 
@@ -309,7 +309,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         
     }
 
-    public List<String> ListModelIdentities()
+    public List<String> allProjectNames()
     {
     	return models().stream().map(item -> item.modelId()).collect(Collectors.toList());
     }
