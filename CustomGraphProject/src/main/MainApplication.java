@@ -22,6 +22,9 @@ public class MainApplication {
 				dataTestList.add(new Point(3, 5));
 				dataTestList.add(new Point(4,12));
 				dataTestList.add(new Point(8,23));
+				dataTestList.add(new Point(9,29));
+				dataTestList.add(new Point(10,29));
+				dataTestList.add(new Point(12,36));
 				
 				CustomPlot2D cGraph = new CustomPlot2D(dataTestList);
 				cGraph.setVisible(true);

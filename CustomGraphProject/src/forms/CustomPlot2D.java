@@ -27,6 +27,8 @@ public class CustomPlot2D extends JFrame {
 		
 		setSize(640, 400);
 		setMinimumSize(new Dimension(320,200));
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public List<Point> getData() {

@@ -5,12 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-
+																																			
 public class GraphicsPlot2D extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -30,16 +29,8 @@ public class GraphicsPlot2D extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		
-		if(blockWidth(axis.yAxis) <= 1)
-			vResolution = 20;
-		else if(blockWidth(axis.yAxis) <= 5)
-			vResolution = 10;
-		else if(blockWidth(axis.yAxis) <= 10)
-			vResolution = 2;
-		else
-			vResolution = 1;
-		
+		super.paintComponent(g);
+		setAxisResolutions();
 		Graphics2D g2d = (Graphics2D) g;
 		
 		g2d.setColor(backgroundColor);
@@ -66,11 +57,6 @@ public class GraphicsPlot2D extends JPanel {
 			maxVerticalValue = max;
 	}
 	
-	@Override
-	public void show() {
-		setVisible(true);
-	}
-	
 	public void setBackgroundColor(Color color)
 	{
 		backgroundColor = color;
@@ -80,16 +66,12 @@ public class GraphicsPlot2D extends JPanel {
 	
 	private int mapX(double x)
 	{
-		int newX =  (int) (x + internalOrigoCoordinates.getX());
-		
-		return newX;
+		return (int) (x + internalOrigoCoordinates.getX());
 	}
 	
 	private double mapY(double y)
 	{
-		double newY = getHeight() - internalOrigoCoordinates.y - y;
-		
-		return newY;
+		return getHeight() - internalOrigoCoordinates.y - y;
 	}
 	
 	public void setOrigoCoordinates(int x ,int y)
@@ -101,7 +83,7 @@ public class GraphicsPlot2D extends JPanel {
 	private double blockWidth(axis ax) throws IllegalStateException
 	{
 		if(maxHorizontalValue == 0 || maxVerticalValue == 0)
-			throw new IllegalStateException("The current state is illegal.");
+			throw new IllegalStateException("The current state is not ready for this call.");
 		if(ax == axis.xAxis)
 			return axisLenght(ax) / maxHorizontalValue;
 		else
@@ -118,7 +100,6 @@ public class GraphicsPlot2D extends JPanel {
 	
 	private void drawLines(Graphics2D g)
 	{
-		
 		g.setColor(Color.DARK_GRAY);
 		
 		for (double i = 0; vResolution*i <= maxVerticalValue; i++)
@@ -130,35 +111,37 @@ public class GraphicsPlot2D extends JPanel {
 	
 	private void drawLabels(Graphics2D g)
 	{
+		
+		// Draw y labels
 		for (double i = 0; vResolution*i <= maxVerticalValue; i++) {
 			String vLabel = Integer.toString((int) (vResolution*i));
 			int width = g.getFontMetrics().stringWidth(vLabel);
-			int posX = mapX(0) - width - 5, posY = (int) (mapY(i*verticalResolution()) + 3);
+			int posX = mapX(0) - width - thickness - 3, posY = (int) (mapY(i*verticalResolution()) + 4);
 			g.drawString(vLabel, posX, posY);
 		}
-	}
-	
-	private double verticalResolution()
-	{
-		return vResolution*blockWidth(axis.yAxis);
-	}
-	
-	private double horizontalResolution()
-	{
-		return hResolution*blockWidth(axis.xAxis);
+		
+		// Draw x labels
+		
+		for (double i = 0; hResolution*i <= maxHorizontalValue; i++) {
+			String hLabel = Integer.toString((int) (hResolution*i));
+			int width = g.getFontMetrics().stringWidth(hLabel);
+			int height = g.getFont().getSize();
+			int posX = mapX(i*horizontalResolution()) - width/2, posY = (int) (mapY(0) + height + thickness);
+			g.drawString(hLabel, posX, posY);
+		}
 	}
 	
 	private void drawAxis(Graphics2D g)
 	{
 		double startPosX = mapX(0);
-		double startPosY = mapY(0) - thickness/2;
+		double startPosY = mapY(0);
 		double hWidth = (getWidth() - horizontalPadding) - startPosX;
-		double vHeight = mapY(0) - verticalTopPadding + thickness/2;
+		double vHeight = mapY(0) - verticalTopPadding + thickness;
 		
 		g.setColor(Color.WHITE);
 		
 		g.fillRect((int) startPosX, (int) startPosY , (int)hWidth, thickness);
-		g.fillRect((int)startPosX - thickness/2, verticalTopPadding , thickness, (int)vHeight);
+		g.fillRect((int)startPosX - thickness, verticalTopPadding , thickness, (int)vHeight);
 	}
 	
 	
@@ -197,5 +180,39 @@ public class GraphicsPlot2D extends JPanel {
 			
 			precedingYCoordinate = currentYVal;
 		}
+	}
+	
+	private void setAxisResolutions()
+	{
+		if(blockWidth(axis.yAxis) <= 0.5)
+			vResolution = maxVerticalValue;
+		else if(blockWidth(axis.yAxis) <= 1)
+			vResolution = maxVerticalValue/2;
+		else if(blockWidth(axis.yAxis) <= 5)
+			vResolution = 10;
+		else if(blockWidth(axis.yAxis) <= 10)
+			vResolution = 2;
+		else
+			vResolution = 1;
+		
+		if(blockWidth(axis.xAxis) <= 5)
+			hResolution = 20;
+		else if(blockWidth(axis.xAxis) <= 15)
+			hResolution = 10;
+		else if(blockWidth(axis.xAxis) <= 25)
+			hResolution = 2;
+		else
+			hResolution = 1;
+		
+	}
+	
+	private double verticalResolution()
+	{
+		return vResolution*blockWidth(axis.yAxis);
+	}
+	
+	private double horizontalResolution()
+	{
+		return hResolution*blockWidth(axis.xAxis);
 	}
 }
