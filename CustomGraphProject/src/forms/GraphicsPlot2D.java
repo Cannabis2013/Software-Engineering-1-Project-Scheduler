@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class GraphicsPlot2D extends JPanel {
 	double maxHorizontalValue, maxVerticalValue;
 	double vResolution = 1, hResolution = 1;
 	enum axis{xAxis,yAxis};
+	private String graphTitle = "GraphTitle";
 	
 	List<Point> cachedData = new ArrayList<Point>();
 	
@@ -41,6 +43,7 @@ public class GraphicsPlot2D extends JPanel {
 		drawLabels(g2d);
 		drawAxisLabels(g2d);
 		drawCachedData(g2d);
+		drawGraphTitle(g2d);
 	}
 	
 	public void addPoint(Point point)
@@ -48,6 +51,10 @@ public class GraphicsPlot2D extends JPanel {
 		cachedData.add(point);
 	}
 	
+	public void setGraphtitle(String title)
+	{
+		graphTitle = title;
+	}
 	
 	public void setMaxValAxis(axis ax, int max)
 	{
@@ -135,13 +142,13 @@ public class GraphicsPlot2D extends JPanel {
 	{
 		double startPosX = mapX(0);
 		double startPosY = mapY(0);
-		double hWidth = (getWidth() - horizontalPadding) - startPosX;
-		double vHeight = mapY(0) - verticalTopPadding + thickness;
+		double hWidth = (getWidth() - horizontalPadding) - startPosX + 1;
+		double vHeight = mapY(0) - verticalTopPadding + thickness + 1;
 		
 		g.setColor(Color.WHITE);
 		
-		g.fillRect((int) startPosX, (int) startPosY , (int)hWidth, thickness);
-		g.fillRect((int)startPosX - thickness, verticalTopPadding , thickness, (int)vHeight);
+		g.fillRect((int) startPosX, (int) startPosY , (int)hWidth, thickness); // xAxis
+		g.fillRect((int)startPosX - thickness, verticalTopPadding - 1, thickness, (int)vHeight); // yAxis
 	}
 	
 	
@@ -180,6 +187,16 @@ public class GraphicsPlot2D extends JPanel {
 			
 			precedingYCoordinate = currentYVal;
 		}
+	}
+	
+	private void drawGraphTitle(Graphics2D g)
+	{
+		g.setColor(Color.WHITE);
+		Font f = new Font("Arial",1,24);
+		g.setFont(f);
+		int width = g.getFontMetrics().stringWidth(graphTitle);
+		double posX = getWidth()/2 - width/2, posY = verticalTopPadding - 24;
+		g.drawString(graphTitle, (int) posX, (int) posY);
 	}
 	
 	private void setAxisResolutions()
