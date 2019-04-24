@@ -10,11 +10,11 @@ public class ActivityEntity {
     private LocalDate sDate, eDate;
     private ActivityModel.ActivityType aType;
 
-    public ActivityEntity(String title, LocalDate endDate, LocalDate startDate, ActivityModel.ActivityType type)
+    public ActivityEntity(String title, LocalDate startDate, LocalDate endDate,ActivityModel.ActivityType type)
     {
         this.title = title;
-        this.eDate = endDate;
         this.sDate = startDate;
+        this.eDate = endDate;
         this.aType = type;
     }
 

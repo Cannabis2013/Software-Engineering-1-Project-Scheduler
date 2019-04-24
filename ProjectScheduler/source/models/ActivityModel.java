@@ -180,6 +180,11 @@ public class ActivityModel extends AbstractModel {
         assignedUserIdentities.clear();;
     }
     
+    public HourRegistrationModel hourRegistrationModel(String id)
+    {
+    	return (HourRegistrationModel) subModel(id);
+    }
+    
     public List<HourRegistrationModel> HourRegistrationObjects()
     {
     	List<HourRegistrationModel> result = new ArrayList<HourRegistrationModel>();

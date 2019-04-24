@@ -14,6 +14,7 @@ import com.ibm.icu.util.LocaleData;
 
 import Abstractions.AbstractModel;
 import ProjectDomain.ProjectManager;
+import UserDomain.UserManager;
 import formComponents.ItemModel;
 
 public class ProjectModel extends AbstractModel
@@ -93,10 +94,20 @@ public class ProjectModel extends AbstractModel
     {
     	pLeaderId = id;
     }
+    
+    public ActivityModel activity(String id)
+    {
+    	return (ActivityModel) subModel(id);
+    }
 
     public List<ItemModel> activityItemModels()
     {
     	return subModels().stream().map(item -> item.itemModel()).collect(Collectors.toList());
+    }
+    
+    public List<ActivityModel> Activities()
+    {
+    	return subModels().stream().map(item -> (ActivityModel) item).collect(Collectors.toList());
     }
     
     public List<ActivityModel> Activities(String userName)

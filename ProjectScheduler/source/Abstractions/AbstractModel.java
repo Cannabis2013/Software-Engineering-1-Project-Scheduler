@@ -97,7 +97,7 @@ public abstract class AbstractModel implements Serializable {
 		StateChanged();
 	}
 	
-	public AbstractModel subModel(String SubModelIdentity)
+	protected AbstractModel subModel(String SubModelIdentity)
 	{
 		for(AbstractModel model : subModels)
 		{
@@ -107,12 +107,12 @@ public abstract class AbstractModel implements Serializable {
 		return null;
 	}
 	
-	public AbstractModel subModelAt(int index)
+	protected AbstractModel subModelAt(int index)
 	{
 		return subModels.get(index);
 	}
 	
-	public List<AbstractModel> subModels()
+	protected List<AbstractModel> subModels()
 	{
 		return subModels;
 	}
