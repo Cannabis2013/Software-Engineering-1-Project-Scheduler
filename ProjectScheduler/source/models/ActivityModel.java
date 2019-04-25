@@ -10,8 +10,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import Abstractions.Model;
-import UserDomain.UserManager;
 import formComponents.ItemModel;
+import managers.UserManager;
 
 public class ActivityModel extends Model {
 	

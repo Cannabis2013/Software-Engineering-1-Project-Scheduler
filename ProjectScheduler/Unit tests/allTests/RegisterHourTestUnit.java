@@ -3,17 +3,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
-import Abstractions.Model;
-import Application_Facade.ApplicationCore;
-import Test.TestUnit;
 import baseClass.TestTemplate;
 import formComponents.ItemModel;
-import models.ActivityModel;
 import models.ProjectModel;
 
 public class RegisterHourTestUnit extends TestTemplate {

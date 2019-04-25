@@ -24,16 +24,15 @@ public class GraphicsPlot2D extends JPanel {
 	
 	List<Point> cachedData = new ArrayList<Point>();
 	
-	
 	public GraphicsPlot2D() {
 		internalOrigoCoordinates = new Point(0,0);
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		setAxisResolutions();
 		Graphics2D g2d = (Graphics2D) g;
+		
+		setAxisResolutions();		
 		
 		g2d.setColor(backgroundColor);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
@@ -205,8 +204,10 @@ public class GraphicsPlot2D extends JPanel {
 			vResolution = maxVerticalValue;
 		else if(blockWidth(axis.yAxis) <= 1)
 			vResolution = maxVerticalValue/2;
-		else if(blockWidth(axis.yAxis) <= 5)
+		else if(blockWidth(axis.yAxis) <= 3)
 			vResolution = 10;
+		else if(blockWidth(axis.yAxis) <= 5)
+			vResolution = 5;
 		else if(blockWidth(axis.yAxis) <= 10)
 			vResolution = 2;
 		else

@@ -41,7 +41,6 @@ public class CustomPlot2D extends JFrame {
 
 	@Override
 	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
 		super.setVisible(b);
 	}
 	

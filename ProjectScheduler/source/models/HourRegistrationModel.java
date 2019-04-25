@@ -7,8 +7,8 @@ import java.time.temporal.WeekFields;
 import java.util.Locale;
 
 import Abstractions.Model;
-import ProjectDomain.ProjectManager;
 import formComponents.ItemModel;
+import managers.ProjectManager;
 
 public class HourRegistrationModel extends Model {
 	

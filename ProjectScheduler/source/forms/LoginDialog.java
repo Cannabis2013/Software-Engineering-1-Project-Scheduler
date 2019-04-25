@@ -9,11 +9,13 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+import java.awt.event.KeyEvent;
 
 import Abstractions.IApplicationProgrammingInterface;
 
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
@@ -31,6 +33,9 @@ public class LoginDialog extends JDialog {
 	private JTextField textField;
 	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+		
+		this.service = service;
+		
 		getContentPane().setBackground(new Color(0, 0, 0));
 		
 		
@@ -113,6 +118,32 @@ public class LoginDialog extends JDialog {
 				});
 				panel.add(btnNewButton_1);
 			}
+			textField.addKeyListener(new KeyListener() {
+				
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent arg0) {
+					
+				}
+				
+				@Override
+				public void keyReleased(java.awt.event.KeyEvent arg0) {
+					// TODO Auto-generated method stub
+				
+				}
+				
+				@Override
+				public void keyPressed(java.awt.event.KeyEvent arg0) {
+					if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
+					{
+						if(service.login(textField.getText()))
+						{
+							parent.launchMainView();
+							dispose();
+						}
+					}
+						
+				}
+			});
 		}
 		initializeComponents();
 		

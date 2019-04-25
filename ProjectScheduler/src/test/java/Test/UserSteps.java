@@ -1,11 +1,11 @@
 package Test;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import managers.UserManager;
 
 import static org.junit.Assert.assertEquals;
 
 import Application_Facade.ApplicationCore;
-import UserDomain.UserManager;
 
 public class UserSteps {
 	

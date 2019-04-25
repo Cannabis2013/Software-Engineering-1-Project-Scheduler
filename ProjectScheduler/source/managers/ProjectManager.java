@@ -1,23 +1,16 @@
-package ProjectDomain;
+package managers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.eclipse.core.runtime.SubMonitor;
 
 import Abstractions.Model;
 import Abstractions.AbstractManager;
 import Abstractions.ICustomObservable;
 import Abstractions.ICustomObserver;
-import UserDomain.UserManager;
 import entities.ActivityEntity;
 import formComponents.ItemModel;
 import models.ActivityModel;
@@ -153,7 +146,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public HourRegistrationModel getHourRegistrationModel(String regId)
     {
-    	
         Stream<ActivityModel> activityModels = activityModels().stream().map(item -> item);
         Stream<List<HourRegistrationModel>> hourRegModels = activityModels.map(item -> item.hourRegistrationModels());
         List<HourRegistrationModel> modelsContainsRegId = 

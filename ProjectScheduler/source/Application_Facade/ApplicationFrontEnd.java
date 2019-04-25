@@ -4,8 +4,6 @@ package Application_Facade;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import Abstractions.IApplicationProgrammingInterface;
-import UserDomain.UserManager;
 import forms.LoginDialog;
 import forms.ProjectView;
 

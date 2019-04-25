@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 import Abstractions.Model;
 import Abstractions.IApplicationProgrammingInterface;
 import Abstractions.ICustomObserver;
-import ProjectDomain.ProjectManager;
-import UserDomain.UserManager;
 import formComponents.ItemModel;
+import managers.ProjectManager;
+import managers.UserManager;
 import models.ActivityModel;
 import models.ProjectModel;
 import models.UserModel;
@@ -28,7 +28,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ApplicationCore()
     {}
-
+    
+    // Persistence
     public void writePersistence()
     {
         FileOutputStream saveFileStream = null;
@@ -43,7 +44,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		}
     }
 
-    private void readPersistenceData()
+    @SuppressWarnings("unused")
+	private void readPersistenceData()
     {
     	FileInputStream saveFileStream = null;
         ObjectInputStream deSerializer = null;
@@ -96,7 +98,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     // Models
-
     public String addProject(ProjectModel newProject)
     {
         if (!uManager.isAdmin())
