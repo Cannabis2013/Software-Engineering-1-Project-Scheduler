@@ -1,4 +1,4 @@
-package forms;
+package customGraphics;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,13 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+
+import customGraphics.GraphicsPlot2D.axis;
 																																			
 public class GraphicsPlot2D extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	public Color backgroundColor = Color.BLACK;
 	private Point internalOrigoCoordinates;
-	private int verticalTopPadding = 80, horizontalPadding = 50, thickness = 4;;
+	private int verticalTopPadding = 40, horizontalPadding = 50, thickness = 4;;
 	double maxHorizontalValue, maxVerticalValue;
 	double vResolution = 1, hResolution = 1;
 	enum axis{xAxis,yAxis};
@@ -25,14 +27,52 @@ public class GraphicsPlot2D extends JPanel {
 	List<Point> cachedData = new ArrayList<Point>();
 	
 	public GraphicsPlot2D() {
-		internalOrigoCoordinates = new Point(0,0);
+		internalOrigoCoordinates = new Point(50,50);
+		
+		cachedData.add(new Point(1, 2));
+		cachedData.add(new Point(2, 3));
+		cachedData.add(new Point(3, 5));
+		cachedData.add(new Point(4,12));
+		cachedData.add(new Point(8,23));
+		cachedData.add(new Point(9,29));
+		cachedData.add(new Point(10,29));
+		cachedData.add(new Point(12,36));
+		setData(cachedData);
+		setOrigoCoordinates(50, 50);
+		setMaxValAxis(axis.xAxis, cachedData.get(cachedData.size() - 1).x);
+		setMaxValAxis(axis.yAxis, getSum(cachedData, axis.yAxis));
 	}
+	
+	public List<Point> getData() {
+		return cachedData;
+	}
+
+	public void setData(List<Point> cachedData) {
+		this.cachedData = cachedData;
+	}
+
+	@Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+		setSize(getSize());
+		setSize(getSize());
+	}
+	
+	private int getSum(List<Point> list,axis ax)
+	{
+		int sum = 0;
+		
+		for (Point point : list)
+			sum += (ax == axis.xAxis) ? point.x : point.y;
+		
+		return sum;
+	}
+	
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		
-		setAxisResolutions();		
+		setAxisResolutions();
 		
 		g2d.setColor(backgroundColor);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
@@ -43,11 +83,6 @@ public class GraphicsPlot2D extends JPanel {
 		drawAxisLabels(g2d);
 		drawCachedData(g2d);
 		drawGraphTitle(g2d);
-	}
-	
-	public void addPoint(Point point)
-	{
-		cachedData.add(point);
 	}
 	
 	public void setGraphtitle(String title)
@@ -191,7 +226,7 @@ public class GraphicsPlot2D extends JPanel {
 	private void drawGraphTitle(Graphics2D g)
 	{
 		g.setColor(Color.WHITE);
-		Font f = new Font("Arial",1,24);
+		Font f = new Font("Arial",1,16);
 		g.setFont(f);
 		int width = g.getFontMetrics().stringWidth(graphTitle);
 		double posX = getWidth()/2 - width/2, posY = verticalTopPadding - 24;

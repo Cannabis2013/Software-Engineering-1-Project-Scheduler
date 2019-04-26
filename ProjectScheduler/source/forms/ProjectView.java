@@ -2,6 +2,8 @@ package forms;
 import javax.swing.JFrame;
 
 import Application_Facade.ApplicationFrontEnd;
+import customGraphics.GraphicsPlot2D;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -19,13 +21,14 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.util.List;
+import java.awt.FlowLayout;
 
 public class ProjectView extends JFrame {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	private CustomTable table;
-	private CustomTable table_1;
 	public ProjectView(ApplicationFrontEnd parent) {
 		getContentPane().setBackground(Color.BLACK);
 		setBackground(Color.WHITE);
@@ -69,6 +72,7 @@ public class ProjectView extends JFrame {
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 0;
 		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
@@ -77,7 +81,7 @@ public class ProjectView extends JFrame {
 		panel.setBorder(new LineBorder(Color.ORANGE, 1, true));
 		panel.setBackground(Color.BLACK);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(5, 5, 5, 5);
+		gbc_panel.insets = new Insets(5, 5, 0, 5);
 		gbc_panel.gridheight = 4;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
@@ -113,6 +117,7 @@ public class ProjectView extends JFrame {
 		
 		table = new CustomTable();
 		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.insets = new Insets(0, 0, 5, 0);
 		gbc_table.fill = GridBagConstraints.BOTH;
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
@@ -122,16 +127,18 @@ public class ProjectView extends JFrame {
 		lblRegisteredHours.setForeground(Color.WHITE);
 		lblRegisteredHours.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblRegisteredHours = new GridBagConstraints();
+		gbc_lblRegisteredHours.insets = new Insets(0, 0, 5, 0);
 		gbc_lblRegisteredHours.gridx = 1;
 		gbc_lblRegisteredHours.gridy = 2;
 		getContentPane().add(lblRegisteredHours, gbc_lblRegisteredHours);
 		
-		table_1 = new CustomTable();
-		GridBagConstraints gbc_table_1 = new GridBagConstraints();
-		gbc_table_1.fill = GridBagConstraints.BOTH;
-		gbc_table_1.gridx = 1;
-		gbc_table_1.gridy = 3;
-		getContentPane().add(table_1, gbc_table_1);
+		GraphicsPlot2D panel_1 = new GraphicsPlot2D();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 3;
+		getContentPane().add(panel_1, gbc_panel_1);
 	}
 
 }
