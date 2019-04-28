@@ -38,6 +38,11 @@ public class ActivityEntity {
     	return eDate;
     }
 
+    public boolean strictlyWithinTimespan(LocalDate date)
+    {
+        return sDate.compareTo(date) < 0 && eDate.compareTo(date) > 0;
+    }
+    
     public boolean withinTimespan(LocalDate date)
     {
         return sDate.compareTo(date) <= 0 && eDate.compareTo(date) >= 0;

@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.Test;
 
 import baseClass.TestTemplate;
+import models.ActivityModel;
 import models.ProjectModel;
 
 public class UserAvailable extends TestTemplate {
@@ -41,6 +42,8 @@ public class UserAvailable extends TestTemplate {
 		assertEquals("Available", userIsAvailable());
 		assertEquals("Partly available", userIsPartlyAvailable());
 		assertEquals("Not available", userIsNotAvailable());
+		assertEquals("Partly available", userIsPartlyOccupied());
+		assertEquals("Not available", userIsFullOccupied());
 	}
 	
 	public String userIsAvailable()
@@ -109,6 +112,26 @@ public class UserAvailable extends TestTemplate {
 					userNames, 
 					"Test");
 		}
+		
+		return coreApp.userAvailability("TT", startDate, endDate);
+	}
+	
+	public String userIsPartlyOccupied()
+	{
+		ProjectModel project = coreApp.project("Project TEST");
+		project.removeAllActivities();
+		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate.minusDays(1),"TT");
+		coreApp.addAbsenceActivity(activity);
+		
+		return coreApp.userAvailability("TT", startDate, endDate);
+	}
+	
+	public String userIsFullOccupied()
+	{
+		ProjectModel project = coreApp.project("Project TEST");
+		project.removeAllActivities();
+		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate, endDate,"TT");
+		coreApp.addAbsenceActivity(activity);
 		
 		return coreApp.userAvailability("TT", startDate, endDate);
 	}

@@ -272,6 +272,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
                     partlyOccurrences++;
                 else if (item.withinTimespan(fromDate) && toDate.compareTo(item.EndDate()) > 0)
                     partlyOccurrences++;
+                else if (item.strictlyWithinTimespan(fromDate) && item.strictlyWithinTimespan(toDate))
+                	partlyOccurrences++;
                 else if (item.withinTimespan(fromDate) && item.withinTimespan(toDate))
                     fullOccurrences++;
             }
@@ -282,6 +284,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
                 else if (fromDate.compareTo(item.StartDate()) < 0 && item.withinTimespan(toDate))
                     return "Partly available";
                 else if (item.withinTimespan(fromDate) && toDate.compareTo(item.EndDate()) > 0)
+                    return "Partly available";
+                else if (item.strictlyWithinTimespan(fromDate) && item.strictlyWithinTimespan(toDate))
                     return "Partly available";
                 else if (item.withinTimespan(fromDate) && item.withinTimespan(toDate))
                     return "Not available";

@@ -21,16 +21,27 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
+
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
+
 import java.util.List;
 import java.awt.FlowLayout;
+import javax.swing.JTabbedPane;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProjectView extends JFrame {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	private CustomTable table;
+	private CustomTable table_1;
 	public ProjectView(ApplicationFrontEnd parent) {
-		getContentPane().setBackground(Color.BLACK);
+		getContentPane().setBackground(new Color(160, 82, 45));
 		setBackground(Color.WHITE);
 		setMinimumSize(new Dimension(640, 400));
 		this.parent = parent;
@@ -69,6 +80,7 @@ public class ProjectView extends JFrame {
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel = new JLabel("Assigned activities");
+		lblNewLabel.setBackground(Color.RED);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -78,8 +90,8 @@ public class ProjectView extends JFrame {
 		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.ORANGE, 1, true));
-		panel.setBackground(Color.BLACK);
+		panel.setBorder(null);
+		panel.setBackground(new Color(160, 82, 45));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(5, 5, 0, 5);
 		gbc_panel.gridheight = 4;
@@ -88,32 +100,40 @@ public class ProjectView extends JFrame {
 		gbc_panel.gridy = 0;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.columnWidths = new int[]{95, 0};
+		gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0};
 		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblWelcomeText = new JLabel("Welcome text");
 		lblWelcomeText.setForeground(Color.WHITE);
 		lblWelcomeText.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblWelcomeText = new GridBagConstraints();
+		gbc_lblWelcomeText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblWelcomeText.fill = GridBagConstraints.BOTH;
 		gbc_lblWelcomeText.gridx = 0;
 		gbc_lblWelcomeText.gridy = 0;
 		panel.add(lblWelcomeText, gbc_lblWelcomeText);
 		
-		JLabel label = new JLabel("");
-		label.setMaximumSize(new Dimension(64, 64));
-		label.setInheritsPopupMenu(false);
-		label.setIconTextGap(0);
-		label.setIcon(new ImageIcon("C:\\Users\\Martin\\OneDrive\\Programmering\\Git projekter\\ProjectScheduler\\ProjectScheduler\\Ressource\\paagen kanelgifler.jpg"));
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.insets = new Insets(2, 2, 2, 2);
-		gbc_label.anchor = GridBagConstraints.NORTH;
-		gbc_label.gridx = 0;
-		gbc_label.gridy = 1;
-		panel.add(label, gbc_label);
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 0);
+		gbc_verticalStrut.gridx = 0;
+		gbc_verticalStrut.gridy = 11;
+		panel.add(verticalStrut, gbc_verticalStrut);
+		
+		JLabel lblManagement = new JLabel("Management");
+		lblManagement.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		GridBagConstraints gbc_lblManagement = new GridBagConstraints();
+		gbc_lblManagement.gridx = 0;
+		gbc_lblManagement.gridy = 12;
+		panel.add(lblManagement, gbc_lblManagement);
 		
 		table = new CustomTable();
 		GridBagConstraints gbc_table = new GridBagConstraints();
@@ -132,13 +152,12 @@ public class ProjectView extends JFrame {
 		gbc_lblRegisteredHours.gridy = 2;
 		getContentPane().add(lblRegisteredHours, gbc_lblRegisteredHours);
 		
-		GraphicsPlot2D panel_1 = new GraphicsPlot2D();
-		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 3;
-		getContentPane().add(panel_1, gbc_panel_1);
+		table_1 = new CustomTable();
+		GridBagConstraints gbc_table_1 = new GridBagConstraints();
+		gbc_table_1.fill = GridBagConstraints.BOTH;
+		gbc_table_1.gridx = 1;
+		gbc_table_1.gridy = 3;
+		getContentPane().add(table_1, gbc_table_1);
 	}
 
 }

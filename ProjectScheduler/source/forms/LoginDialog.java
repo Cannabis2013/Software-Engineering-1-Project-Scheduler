@@ -33,10 +33,11 @@ public class LoginDialog extends JDialog {
 	private JTextField textField;
 	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+		setBackground(new Color(160, 82, 45));
 		
 		this.service = service;
 		
-		getContentPane().setBackground(new Color(0, 0, 0));
+		getContentPane().setBackground(new Color(160, 82, 45));
 		
 		
 		this.parent = parent;

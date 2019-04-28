@@ -73,16 +73,19 @@ public class ActivityModel extends Model {
         assignSerialId();
     }
 
-    public ActivityModel(String activityTitle,String reason, LocalDate sDate, LocalDate eDate)
+    public ActivityModel(String activityTitle,String reason, LocalDate sDate, LocalDate eDate, String userId)
     {
         this.reason = reason;
         setModelidentity(activityTitle);;
         this.sDate = sDate;
         this.eDate = eDate;
         
+        
         if(eDate.compareTo(sDate) < 0)
         	throw new IllegalArgumentException("The end date is before the start date.");
-
+        
+        assignUser(userId);
+        
         Type = ActivityType.Absent_Related;
     }
     

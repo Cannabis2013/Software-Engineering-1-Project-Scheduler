@@ -14,7 +14,7 @@ Scenario: FL is able to add a actvity to Project CANVAS
 	And assigns "BB" , "JW" and "TT"
 	Then he succesfully manage to add the activity to "Project CANVAS"
 	
-Scenario: JW is unable to add an activity to Project CANVAS
+Scenario: JW is not projectleader, and therefore unable to add an activity to Project CANVAS
 	Given the user currently logged in has username "JW"
 	When he creates an activity with title "GUI Test" and some random interval dates
 	And assigns "BB" , "FL" and "TT"

@@ -152,7 +152,6 @@ public class GraphicsPlot2D extends JPanel {
 	
 	private void drawLabels(Graphics2D g)
 	{
-		
 		// Draw y labels
 		for (double i = 0; vResolution*i <= maxVerticalValue; i++) {
 			String vLabel = Integer.toString((int) (vResolution*i));
