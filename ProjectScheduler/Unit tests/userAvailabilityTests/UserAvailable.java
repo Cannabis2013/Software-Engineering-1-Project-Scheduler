@@ -135,5 +135,4 @@ public class UserAvailable extends TestTemplate {
 		
 		return coreApp.userAvailability("TT", startDate, endDate);
 	}
-	
 }
