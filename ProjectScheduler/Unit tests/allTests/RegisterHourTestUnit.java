@@ -40,7 +40,6 @@ public class RegisterHourTestUnit extends TestTemplate {
 		assertEquals(true, result);
 	}
 	
-	@Test
 	public void unRegisterHourSuccesfull()
 	{
 		String projectName = "Project TEST";
@@ -62,7 +61,6 @@ public class RegisterHourTestUnit extends TestTemplate {
 		}
 	}
 	
-	@Test
 	public void removeActivity()
 	{
 		coreApp.login("FL");
@@ -74,14 +72,12 @@ public class RegisterHourTestUnit extends TestTemplate {
 		}
 	}
 	
-	@Test
 	public void removeProject()
 	{
 		coreApp.login("admin");
 		coreApp.removeProject(projectName);
 	}
 	
-	@Test
 	public void retrieveActivityItemModels()
 	{
 		coreApp.login("TT");
@@ -90,7 +86,6 @@ public class RegisterHourTestUnit extends TestTemplate {
 		assertTrue(itemModels.length == 1);
 	}
 	
-	@Test
 	public void retrieveProjectItemModels()
 	{
 		coreApp.login("admin");
