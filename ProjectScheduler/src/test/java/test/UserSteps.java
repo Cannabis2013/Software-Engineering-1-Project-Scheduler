@@ -4,6 +4,7 @@ import cucumber.api.java.en.Then;
 import managers.UserManager;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import Application_Facade.ApplicationCore;
 
@@ -20,13 +21,21 @@ public class UserSteps {
 	
 	@Then("he logs in succesfully")
 	public void he_logs_in_succesfully() {
-	    // Write code here that turns the phrase above into concrete actions
-	    assertEquals(true, coreApp.login(tempUserName));
+		try {
+			coreApp.login(tempUserName);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 	
 	@Then("he fails to log in")
 	public void he_fails_to_log_in() {
 	    // Write code here that turns the phrase above into concrete actions
-		assertEquals(false, coreApp.login(tempUserName));
+		try {
+			coreApp.login(tempUserName);
+			fail();
+		} catch (Exception e) {
+			
+		}
 	}
 }

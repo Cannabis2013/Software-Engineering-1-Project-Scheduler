@@ -11,13 +11,13 @@ import baseClass.TestTemplate;
 import formComponents.ItemModel;
 import models.ProjectModel;
 
-public class RegisterHourTestClass extends TestTemplate {
+public class HourRegistrationTests extends TestTemplate {
 	
 	private String projectName = "Project TEST", activityName = "GUI Test", projectLeaderId = "FL";
 	private List<String> userNames = Arrays.asList("BB", "TT", "JW");
 	
 	
-	public RegisterHourTestClass() 
+	public HourRegistrationTests() 
 	{
 		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
 			fail();
@@ -49,8 +49,13 @@ public class RegisterHourTestClass extends TestTemplate {
 		
 		if(!result)
 			fail();
-		if(!coreApp.login("BB"))
-			fail();
+		
+		try {
+			coreApp.login("BB");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			coreApp.unRegisterHour(projectName, activityName, regName);
@@ -68,9 +73,14 @@ public class RegisterHourTestClass extends TestTemplate {
 		assertEquals(false, result);
 	}
 	
-	public void removeActivity()
+	@Test
+	public void removeActivitySuccesfully()
 	{
-		coreApp.login("FL");
+		try {
+			coreApp.login("FL");
+		} catch (Exception e1) {
+			fail();
+		}
 		try {
 			coreApp.removeActivity(projectName, activityName);
 		} catch (Exception e) {
@@ -80,13 +90,25 @@ public class RegisterHourTestClass extends TestTemplate {
 	@Test
 	public void removeProject()
 	{
-		coreApp.login("admin");
-		coreApp.removeProject(projectName);
+		try {
+			coreApp.login("admin");
+		} catch (Exception e) {
+			fail();
+		}
+		try {
+			coreApp.removeProject(projectName);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 	@Test
 	public void retrieveActivityItemModels()
 	{
-		coreApp.login("TT");
+		try {
+			coreApp.login("TT");
+		} catch (Exception e) {
+			fail();
+		}
 		ItemModel[] itemModels = coreApp.activityItemModels();
 		
 		assertTrue(itemModels.length == 1);
@@ -94,7 +116,11 @@ public class RegisterHourTestClass extends TestTemplate {
 	@Test
 	public void retrieveProjectItemModels()
 	{
-		coreApp.login("admin");
+		try {
+			coreApp.login("admin");
+		} catch (Exception e) {
+			fail();
+		}
 		ItemModel[] itemModels = coreApp.projectItemModels();
 		assertTrue(itemModels.length == 1);
 	}

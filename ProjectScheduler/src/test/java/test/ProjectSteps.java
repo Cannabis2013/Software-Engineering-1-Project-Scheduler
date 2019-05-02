@@ -24,7 +24,11 @@ public class ProjectSteps {
 	
 	public ProjectSteps()
 	{
-		coreApp.login("admin");
+		try {
+			coreApp.login("admin");
+		} catch (Exception e) {
+			fail();
+		}
 	}
   
 	@Given("the currently logged in user is admin")
@@ -85,7 +89,11 @@ public class ProjectSteps {
 	@Given("the user with the username {string} is logged in")
 	public void the_user_with_the_username_is_logged_in(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-	    coreApp.login(string);
+	    try {
+			coreApp.login(string);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@Then("he fails to add the project to the database.")
@@ -112,14 +120,22 @@ public class ProjectSteps {
 	@Given("the user currently logged in is admin")
 	public void the_user_currently_logged_in_is_admin() {
 	    // Write code here that turns the phrase above into concrete actions
-	    coreApp.login("admin");
+	    try {
+			coreApp.login("admin");
+		} catch (Exception e) {
+			fail();
+		}
 		assertTrue(coreApp.isAdmin());
 	}
 
 	@Then("he performs an action that results in removing the project from the system.")
 	public void he_performs_an_action_that_results_in_removing_the_project_from_the_system() {
-		if(!coreApp.removeProject(tempString).equals(""))
+		try {
+			coreApp.removeProject(tempString);
+		} catch (Exception e) {
 			fail();
+		}
+			
 		if(coreApp.project(tempString) != null)
 			fail();
 		
@@ -129,7 +145,11 @@ public class ProjectSteps {
 	
 	@Given("the user with username {string} enters his username")
 	public void the_user_with_username_enters_his_username(String string) {
-	    assertTrue(coreApp.login(string));
+		try {
+			coreApp.login(string);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@Given("he wants to remove the project with the title {string}.")
@@ -139,8 +159,12 @@ public class ProjectSteps {
 
 	@Then("he recieves a message that reads {string}.")
 	public void he_recieves_a_message_that_reads(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(coreApp.removeProject(tempString).equals(string));
+		try {
+			coreApp.removeProject(tempString);
+			fail();
+		} catch (Exception e) {
+			assertEquals(string, e.getMessage());
+		}
 	}
 
 }

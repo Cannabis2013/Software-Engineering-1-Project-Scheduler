@@ -11,7 +11,7 @@ import models.HourRegistrationModel;
 
 public interface IApplicationProgrammingInterface {
 	// User section
-    Boolean login(String userName);
+    void login(String userName) throws Exception;
     void logut();
 
     Boolean isAdmin();
@@ -32,8 +32,8 @@ public interface IApplicationProgrammingInterface {
     // Project section
 
     void addProject(ProjectModel newProject) throws Exception;
-    String removeProject(int index);
-    String removeProject(String identity);
+    void removeProject(int index) throws Exception;
+    void removeProject(String identity) throws Exception;
     void removeProject(ProjectModel project) throws Exception;
 
     ProjectModel project(int index);

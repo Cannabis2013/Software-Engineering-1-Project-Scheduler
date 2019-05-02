@@ -17,11 +17,11 @@ public class UserManager extends AbstractManager {
 		createUserPrototypes();
 	}
 	
-	public Boolean logIn(String userName)
+	public Boolean logIn(String userName) throws Exception
     {
         UserModel user = verifyCredentials(userName);
         if (user == null)
-            return false;
+            throw new Exception("Wrong userName");
 
         currentlyLoggedIn = user;
 

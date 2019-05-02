@@ -58,9 +58,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		}
     }
 
-    public Boolean login(String userName)
+    public void login(String userName) throws Exception
     {
-        return uManager.logIn(userName);
+        uManager.logIn(userName);
     }
 
     public void logut()
@@ -106,28 +106,25 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         pManager.addProject(newProject);
     }
 
-    public String removeProject(int index)
+    public void removeProject(int index) throws Exception
     {
         if (!uManager.isAdmin())
-            return "Admin privilliges required";
+            throw new Exception("Admin privilliges required!");
 
         pManager.removeProjectAt(index);
 
-        return "";
     }
 
-    public String removeProject(String identity)
+    public void removeProject(String identity) throws Exception
     {
         if (!uManager.isAdmin())
-            return "Admin privilliges required";
+            throw new Exception("Admin privilliges required");
         
         try {
 			pManager.removeProject(identity);
 		} catch (Exception e) {
-			return e.getMessage();
+			throw e;
 		}
-
-        return "";
     }
 
     public void removeProject(ProjectModel project) throws Exception 

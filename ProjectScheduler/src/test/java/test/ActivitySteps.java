@@ -64,7 +64,11 @@ public class ActivitySteps {
 
 	@Given("the user currently logged in has username {string}")
 	public void the_user_currently_logged_in_has_username(String string) {
-	    assertTrue(coreApp.login(string));
+		try {
+			coreApp.login(string);
+		} catch (Exception e) {
+			fail();
+		}
 	    String currentUserName = coreApp.currentUserLoggedIn().UserName();
 	    assertEquals(true, currentUserName.equals(string));
 	}
@@ -130,7 +134,11 @@ public class ActivitySteps {
 		
 	@Given("a user with username {string} is logged in and is project leader for Project CANVAS")
 	public void a_user_with_username_is_logged_in_and_is_project_leader_for_Project_CANVAS(String string) {
-		coreApp.login(string);
+		try {
+			coreApp.login(string);
+		} catch (Exception e1) {
+			fail();
+		}
 	    try {
 			String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
 			assertEquals(string, currentUserLoggedIn);
@@ -196,7 +204,11 @@ public class ActivitySteps {
 	
 	@Then("{string} logs in and fails to remove the activity {string}.")
 	public void logs_in_and_fails_to_remove_the_activity(String string, String string2) {
-		assertTrue(coreApp.login(string));
+		try {
+			coreApp.login(string);
+		} catch (Exception e1) {
+			fail();
+		}
 		try {
 			coreApp.removeActivity(projectName, string2);
 			fail();

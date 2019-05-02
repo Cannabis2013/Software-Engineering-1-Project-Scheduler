@@ -37,7 +37,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		removeModel(id);
 	}
 	
-	public void removeProjectAt(int index)
+	public void removeProjectAt(int index) throws Exception
 	{
 		removeModelAt(index);
 	}

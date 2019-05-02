@@ -1,5 +1,7 @@
 package baseClass;
 
+import static org.junit.Assert.fail;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class TestTemplate {
 			String endDate, 
 			String description)
 	{
-		
-		if(!coreApp.login(loggedInUserName))
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
 			return false;
+		}
 		
 		LocalDate sDate;
 		LocalDate eDate;
@@ -58,9 +62,11 @@ public class TestTemplate {
 			List<String> assignUsers, 
 			String description)
 	{
-		
-		if(!coreApp.login(loggedInUserName))
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
 			return false;
+		}
 		
 		LocalDate sDate;
 		LocalDate eDate;
@@ -88,6 +94,23 @@ public class TestTemplate {
 		return true;
 	}
 	
+	public boolean removeActivity(String loggedInUserName,
+			String projectName, 
+			String activityName)
+	{
+		try {
+			coreApp.login("FL");
+		} catch (Exception e1) {
+			return false;
+		}
+		try {
+			coreApp.removeActivity(projectName, activityName);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
 	protected boolean addRegistrationObject(String loggedInUserName,
 			String projectName, 
 			String activityName,
@@ -95,8 +118,11 @@ public class TestTemplate {
 			int workHours,
 			String description)
 	{
-		if(!coreApp.login(loggedInUserName))
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
 			return false;
+		}
 		try {
 			coreApp.registerHour(projectName, activityName, registrationId, workHours, description);
 		} catch (Exception e) {
@@ -110,8 +136,11 @@ public class TestTemplate {
 			String activityName,
 			String registrationId)
 	{
-		if(!coreApp.login(loggedInUserName))
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
 			return false;
+		}
 		try {
 			coreApp.unRegisterHour(projectName, activityName, registrationId);
 		} catch (Exception e) {
@@ -126,8 +155,11 @@ public class TestTemplate {
 			String registrationId,
 			int newHour)
 	{
-		if(!coreApp.login(loggedInUserName))
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
 			return false;
+		}
 		HourRegistrationModel model = null;
 		try {
 			model = coreApp.hourRegistrationModel(activityName, registrationId);

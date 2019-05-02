@@ -28,8 +28,10 @@ public abstract class AbstractManager {
         
         throw new Exception("Object not found.");
     }
-    protected void removeModelAt(int index)
+    protected void removeModelAt(int index) throws Exception
     {
+    	if(index >= models.size() || index < 0)
+			throw new Exception("Index not valid");
     	models.remove(index);
     }
     

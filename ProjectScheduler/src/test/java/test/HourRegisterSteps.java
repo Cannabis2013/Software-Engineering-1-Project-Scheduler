@@ -22,7 +22,11 @@ public class HourRegisterSteps {
 	
 	@Given("a project with name {string} exists with a user with username {string} as projectleader")
 	public void a_project_with_name_exists_with_a_user_with_username_as_projectleader(String string, String string2) {
-	    coreApp.login("admin");
+	    try {
+			coreApp.login("admin");
+		} catch (Exception e1) {
+			fail();
+		}
 		String projectTitle = string, projectLeaderUserName = string2;
 		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
@@ -67,7 +71,11 @@ public class HourRegisterSteps {
 
 	@Given("a user with userName {string} is logged in")
 	public void a_user_with_userName_is_logged_in(String string) {
-	    coreApp.login(string);
+	    try {
+			coreApp.login(string);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@When("he fills an application with the title {string} for registering {int} hours to the activity {string}")

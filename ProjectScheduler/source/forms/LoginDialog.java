@@ -110,11 +110,14 @@ public class LoginDialog extends JDialog {
 				JButton btnNewButton_1 = new JButton("Ok");
 				btnNewButton_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(service.login(textField.getText()))
+						try {
+							service.login(textField.getText());
+						} catch (Exception e1) 
 						{
-							parent.launchMainView();
-							dispose();
+							return;
 						}
+						parent.launchMainView();
+						dispose();
 					}
 				});
 				panel.add(btnNewButton_1);
@@ -136,11 +139,13 @@ public class LoginDialog extends JDialog {
 				public void keyPressed(java.awt.event.KeyEvent arg0) {
 					if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
 					{
-						if(service.login(textField.getText()))
-						{
-							parent.launchMainView();
-							dispose();
+						try {
+							service.login(textField.getText());
+						} catch (Exception e) {
+							return;
 						}
+						parent.launchMainView();
+						dispose();
 					}
 						
 				}
