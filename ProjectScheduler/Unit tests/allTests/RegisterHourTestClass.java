@@ -14,7 +14,7 @@ import models.ProjectModel;
 public class RegisterHourTestClass extends TestTemplate {
 	
 	private String projectName = "Project TEST", activityName = "GUI Test", projectLeaderId = "FL";
-	private List<String> userNames;
+	private List<String> userNames = Arrays.asList("BB", "TT", "JW");
 	
 	
 	public RegisterHourTestClass() 
@@ -22,7 +22,6 @@ public class RegisterHourTestClass extends TestTemplate {
 		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
 			fail();
 		
-		userNames = Arrays.asList("BB", "TT", "JW");
 		ProjectModel project = coreApp.project("Project TEST");
 		
 		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
@@ -75,7 +74,6 @@ public class RegisterHourTestClass extends TestTemplate {
 		try {
 			coreApp.removeActivity(projectName, activityName);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			fail();
 		}
 	}

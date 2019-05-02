@@ -6,6 +6,7 @@ import java.util.List;
 import Abstractions.Model;
 import Application_Facade.ApplicationCore;
 import models.ActivityModel;
+import models.HourRegistrationModel;
 import models.ProjectModel;
 import test.TestUnit;
 
@@ -114,6 +115,32 @@ public class TestTemplate {
 			return false;
 		}
 		return true;
+	}
+	
+	protected boolean editRegistrationObject(String loggedInUserName,
+			String projectName, 
+			String activityName,
+			String registrationId,
+			int newHour)
+	{
+		if(!coreApp.login(loggedInUserName))
+			return false;
+		HourRegistrationModel model = null;
+		try {
+			model = coreApp.hourRegistrationModel(activityName, registrationId);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		model.setHours(newHour);
+		
+		try {
+			model = coreApp.hourRegistrationModel(activityName, registrationId);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return model.hours() == newHour;
 	}
 	
 }
