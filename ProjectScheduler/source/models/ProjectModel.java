@@ -32,7 +32,7 @@ public class ProjectModel extends Model
     }
     
     public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) 
-    		throws Exception
+    		throws IllegalArgumentException
     {
     	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     	try {

@@ -28,7 +28,11 @@ public class HourRegisterSteps {
 		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		
 		ProjectModel project = new ProjectModel(projectTitle, projectLeaderUserName, startDate, endDate, "");
-		coreApp.addProject(project);
+		try {
+			coreApp.addProject(project);
+		} catch (Exception e) {
+			fail();
+		}
 		projectName = projectTitle;
 	}
 	

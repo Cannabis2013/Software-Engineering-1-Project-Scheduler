@@ -98,14 +98,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     // Models
-    public String addProject(ProjectModel newProject)
+    public void addProject(ProjectModel newProject) throws Exception
     {
         if (!uManager.isAdmin())
-            return "Admin privligges required.";
+            throw new Exception("Admin privilliges required");
         
         pManager.addProject(newProject);
-
-        return "";
     }
 
     public String removeProject(int index)

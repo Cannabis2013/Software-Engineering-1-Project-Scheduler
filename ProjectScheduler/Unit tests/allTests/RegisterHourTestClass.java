@@ -99,5 +99,10 @@ public class RegisterHourTestClass extends TestTemplate {
 		assertTrue(itemModels.length == 1);
 	}
 	
+	@Test
+	public void editHourRegistration()
+	{
+		
+	}
 	
 }

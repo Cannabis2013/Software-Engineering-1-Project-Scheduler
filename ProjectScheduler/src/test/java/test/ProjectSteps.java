@@ -46,13 +46,18 @@ public class ProjectSteps {
 		} catch(Exception e1)
 		{
 			e1.printStackTrace();
+			fail();
 		}
 	}
 
 	@Then("the project with the title {string} can be retrieved at the ProjectManager database.")
 	public void the_project_with_the_title_can_be_retrieved_at_the_ProjectManager_database(String string) {
 		
-		assertEquals(true, coreApp.addProject(tempProject) == "");
+		try {
+			coreApp.addProject(tempProject);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		ProjectModel retrievedProject = coreApp.project(tempString);
 		if(retrievedProject == null)
@@ -85,14 +90,22 @@ public class ProjectSteps {
 
 	@Then("he fails to add the project to the database.")
 	public void he_fails_to_add_the_project_to_the_database() {
-		assertEquals(false, coreApp.addProject(tempProject) == "");
+		try {
+			coreApp.addProject(tempProject);
+			fail();
+		} catch (Exception e) {
+		}
 	}
 	
 	@Given("a project exists with the name {string}")
 	public void a_project_exists_with_the_name(String string) {
 		tempString = string;
 	    ProjectModel project = new ProjectModel(string, "FL", LocalDate.now(), LocalDate.now(), "");
-	    coreApp.addProject(project);
+	    try {
+			coreApp.addProject(project);
+		} catch (Exception e) {
+			fail();
+		}
 	    assertEquals(true, coreApp.project(string) != null);
 	}
 

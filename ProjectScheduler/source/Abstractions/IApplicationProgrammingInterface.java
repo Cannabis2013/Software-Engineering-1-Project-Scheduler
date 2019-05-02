@@ -31,7 +31,7 @@ public interface IApplicationProgrammingInterface {
     
     // Project section
 
-    String addProject(ProjectModel newProject);
+    void addProject(ProjectModel newProject) throws Exception;
     String removeProject(int index);
     String removeProject(String identity);
     void removeProject(ProjectModel project) throws Exception;

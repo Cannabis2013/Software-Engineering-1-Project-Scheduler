@@ -41,8 +41,11 @@ public class TestTemplate {
 			return false;
 		}
 		
-		if(!coreApp.addProject(project).equals(""))
+		try {
+			coreApp.addProject(project);
+		} catch (Exception e) {
 			return false;
+		}
 		
 		return true;
 	}
