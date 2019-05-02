@@ -13,22 +13,6 @@ public class TestTemplate {
 	
 	protected ApplicationCore coreApp = new ApplicationCore();
 	
-	protected boolean registerHourTestCase(String projectUserName,
-			String projectName,
-			String projectLeaderName,
-			String activityUserName,
-			String activityName,
-			List<String> assignedUsers,
-			String registerHourId, 
-			String registerHourUserName)
-	{	
-		if(!addRegistrationObject(registerHourUserName, 
-				projectName, activityName, registerHourId, 2, ""))
-			return false;
-		
-		return true;
-	}
-	
 	protected boolean addProject(String loggedInUserName, String projectTitle, 
 			String projectLeaderId, 
 			String startDate, 
@@ -103,15 +87,29 @@ public class TestTemplate {
 	protected boolean addRegistrationObject(String loggedInUserName,
 			String projectName, 
 			String activityName,
-			String registrationName,
+			String registrationId,
 			int workHours,
 			String description)
 	{
 		if(!coreApp.login(loggedInUserName))
 			return false;
-		
 		try {
-			coreApp.registerHour(projectName, activityName, registrationName, workHours, description);
+			coreApp.registerHour(projectName, activityName, registrationId, workHours, description);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	protected boolean removeRegistrationObject(String loggedInUserName,
+			String projectName, 
+			String activityName,
+			String registrationId)
+	{
+		if(!coreApp.login(loggedInUserName))
+			return false;
+		try {
+			coreApp.unRegisterHour(projectName, activityName, registrationId);
 		} catch (Exception e) {
 			return false;
 		}

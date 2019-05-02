@@ -190,14 +190,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	String currentUserName = uManager.currentUser().UserName();
     	ActivityModel activity;
 		try {
-			activity = pManager.activityModelById(projectId, activityId);
+			activity = pManager.activityById(projectId, activityId);
 		} catch (Exception e) {
 			return null;
 		}
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;
-    	else if(activity.IsUserAssigned(currentUserName))
+    	else if(activity.isUserAssigned(currentUserName))
     		return activity;
     	
     	return null;
@@ -223,9 +223,11 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
     {
+        ActivityModel activity = activity(projectId, activityId);
         String userId = uManager.currentUser().modelId();
-        ActivityModel parentActivity = activity(projectId, activityId);
-         new HourRegistrationModel(regId, hours, userId, shortDescription, parentActivity);
+        if(!activity.isUserAssigned(userId))
+        	throw new Exception("User isn't assigned to the selected activity");
+        new HourRegistrationModel(regId, hours, userId, shortDescription, activity);
     }
 
     public void unRegisterHour(String projectId, String activityId, String regId) throws Exception
@@ -237,13 +239,19 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     @Override
-    public HourRegistrationModel hourRegistrationModel(String activityId, String regId)
+    public HourRegistrationModel hourRegistrationModel(String activityId, String regId) throws Exception
     {
-    	ActivityModel activity = pManager.activityModels().stream().
-    			filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
+    	ActivityModel activity;
+		try {
+			activity = pManager.activityById(activityId);
+		} catch (Exception e) {
+			throw e;
+		}
     	
-    	if(activity == null)
-    		return null;
+    	String userId = uManager.currentUser().UserName();
+    	
+    	if(!activity.isUserAssigned(userId) && !uManager.isAdmin())
+    		throw new Exception("User is not assigned to this activity and is therefore not allowed to retrieve this object.");
     	
         String projectId = activity.parentModelId();
         return pManager.getHourRegistrationModel(projectId, activityId, regId);

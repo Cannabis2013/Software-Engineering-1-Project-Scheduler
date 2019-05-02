@@ -11,13 +11,13 @@ import baseClass.TestTemplate;
 import formComponents.ItemModel;
 import models.ProjectModel;
 
-public class RegisterHourTestUnit extends TestTemplate {
+public class RegisterHourTestClass extends TestTemplate {
 	
 	private String projectName = "Project TEST", activityName = "GUI Test", projectLeaderId = "FL";
 	private List<String> userNames;
 	
 	
-	public RegisterHourTestUnit() 
+	public RegisterHourTestClass() 
 	{
 		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
 			fail();
@@ -31,23 +31,22 @@ public class RegisterHourTestUnit extends TestTemplate {
 	}
 	
 	@Test
-	public void registerHour()
+	public void registerHourSuccesfully()
 	{
-		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
-		boolean result = registerHourTestCase("admin", "Project TEST", "FL", "FL", "GUI Test",chosenUsers,
-				"Menus", "BB");
+		int workHours = 4;
+		boolean result = addRegistrationObject("TT", projectName, activityName, "Menus", workHours, "");
 		
 		assertEquals(true, result);
 	}
 	
+	@Test
 	public void unRegisterHourSuccesfull()
 	{
 		String projectName = "Project TEST";
 		String activityName = "GUI Test";
 		String regName = "Menus";
-		List<String> chosenUsers = Arrays.asList(new String[] {"TT","JW", "BB"});
-		boolean result = registerHourTestCase("admin", projectName, "FL", "FL", activityName,chosenUsers,
-				regName, "BB");
+		int workHours = 4;
+		boolean result = addRegistrationObject("BB", projectName, activityName, regName, workHours, "");
 		
 		if(!result)
 			fail();
@@ -61,6 +60,15 @@ public class RegisterHourTestUnit extends TestTemplate {
 		}
 	}
 	
+	@Test
+	public void registerHourUnSuccesfully()
+	{
+		int workHours = 4;
+		boolean result = addRegistrationObject("FL", projectName, activityName, "Menus", workHours, "");
+		
+		assertEquals(false, result);
+	}
+	
 	public void removeActivity()
 	{
 		coreApp.login("FL");
@@ -71,13 +79,13 @@ public class RegisterHourTestUnit extends TestTemplate {
 			fail();
 		}
 	}
-	
+	@Test
 	public void removeProject()
 	{
 		coreApp.login("admin");
 		coreApp.removeProject(projectName);
 	}
-	
+	@Test
 	public void retrieveActivityItemModels()
 	{
 		coreApp.login("TT");
@@ -85,7 +93,7 @@ public class RegisterHourTestUnit extends TestTemplate {
 		
 		assertTrue(itemModels.length == 1);
 	}
-	
+	@Test
 	public void retrieveProjectItemModels()
 	{
 		coreApp.login("admin");

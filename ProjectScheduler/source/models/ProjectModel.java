@@ -116,7 +116,7 @@ public class ProjectModel extends Model
     public List<ActivityModel> Activities(String userName)
     {
     	Stream<ActivityModel> models = subModels().stream().map(item -> (ActivityModel) item);
-    	return models.filter(item -> item.IsUserAssigned(userName)).collect(Collectors.toList());
+    	return models.filter(item -> item.isUserAssigned(userName)).collect(Collectors.toList());
     }
     
     public void removeAllActivities()

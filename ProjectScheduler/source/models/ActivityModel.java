@@ -173,7 +173,7 @@ public class ActivityModel extends Model {
     	assignedUserIdentities.clear();;
     }
     
-    public boolean IsUserAssigned(String userName)
+    public boolean isUserAssigned(String userName)
     {
         for(String uName : assignedUserIdentities)
         {

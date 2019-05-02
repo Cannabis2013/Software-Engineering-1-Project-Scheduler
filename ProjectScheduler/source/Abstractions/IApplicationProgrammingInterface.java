@@ -67,7 +67,7 @@ public interface IApplicationProgrammingInterface {
 
     void unRegisterHour(String projectId, String activityId, String regId) throws Exception;
 
-    HourRegistrationModel hourRegistrationModel(String activityId, String regId);
+    HourRegistrationModel hourRegistrationModel(String activityId, String regId) throws Exception;
     ItemModel[] hourRegistrationItemModels();
     ItemModel[] hourRegistrationItemModels(String userNames);
 

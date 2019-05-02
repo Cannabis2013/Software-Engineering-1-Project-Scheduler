@@ -88,18 +88,27 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return true;
     }
 
-    public ActivityModel activityModelById(String projectIdentity, String activityIdentity) throws Exception
+    public ActivityModel activityById(String projectIdentity, String activityId) throws Exception
     {
         ProjectModel project = project(projectIdentity);
         
         try {
 			ActivityModel activity = project.Activities().stream().
-					filter(item -> item.modelId().equals(activityIdentity)).collect(Collectors.toList()).get(0);
+					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
 			return activity;
 		} catch (Exception e) {
 			throw new Exception("The list probably return a null point which means the object doesn't exists");
+		}   
+    }
+    
+    public ActivityModel activityById(String activityId) throws Exception
+    {
+    	try {
+			return activityModels().stream().
+					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
+		} catch (Exception e) {
+			throw new Exception("Activity by the given id doesn't exists.");
 		}
-        
     }
 
     public List<ActivityModel> activityModels()
@@ -131,7 +140,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     {
         ActivityModel activity;
 		try {
-			activity = activityModelById(projectId, activityId);
+			activity = activityById(projectId, activityId);
 		} catch (Exception e) {
 			throw new Exception("The activity doesn't exists");
 		}
@@ -140,7 +149,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public void UnRegisterHour(String projectId, String activityId, String regId) throws Exception
     {
-        ActivityModel activity = activityModelById(projectId, activityId);
+        ActivityModel activity = activityById(projectId, activityId);
         activity.removeRegistrationModel(regId);
     }
 
@@ -208,7 +217,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     	List<ItemModel> allModels = new ArrayList<ItemModel>();
     	for (ProjectModel project : allProjects()) {
 			Stream<ActivityModel> userAssignedActivities = 
-					project.Activities().stream().filter(item -> ((ActivityModel) item).IsUserAssigned(userName));
+					project.Activities().stream().filter(item -> ((ActivityModel) item).isUserAssigned(userName));
 			
 			Stream<ItemModel> itemModels = userAssignedActivities.map(item -> item.itemModel());
 			allModels.addAll(itemModels.collect(Collectors.toList()));
