@@ -180,15 +180,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         	throw new Exception("User not admin nor projectleader for the parent project.");
     }
 
-    public ActivityModel activity(String projectId, String activityId)
+    public ActivityModel activity(String projectId, String activityId) throws Exception
     {
     	String currentUserName = uManager.currentUser().UserName();
     	ActivityModel activity;
-		try {
-			activity = pManager.activityById(projectId, activityId);
-		} catch (Exception e) {
-			return null;
-		}
+		
+    	activity = pManager.activityById(projectId, activityId);
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;

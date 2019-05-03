@@ -177,8 +177,11 @@ public class ActivitySteps {
 		} catch (Exception e) {
 			fail();
 		}
-		
-		assertEquals(false, coreApp.activity(projectName, string) != null);
+		try {
+			coreApp.activity(projectName, string);
+			fail();
+		} catch (Exception e) {
+		}
 		
 	}
 	

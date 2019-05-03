@@ -51,7 +51,7 @@ public interface IApplicationProgrammingInterface {
     
     void removeActivity(String projectid, String activityId) throws Exception;
 
-    ActivityModel activity(String projectId, String activityId);
+    ActivityModel activity(String projectId, String activityId) throws Exception;
 
     List<ActivityModel> activitiesById(String activityId);
     List<ActivityModel> activities();
