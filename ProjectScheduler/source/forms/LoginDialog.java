@@ -4,76 +4,87 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import Application_Facade.ApplicationFrontEnd;
+import abstractions.CustomFrame;
+import abstractions.FrameImplementable;
+import abstractions.IApplicationProgrammingInterface;
+import sun.rmi.transport.proxy.CGIHandler;
 
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.event.KeyEvent;
-
-import Abstractions.IApplicationProgrammingInterface;
-
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.Panel;
-import java.awt.Point;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.GridBagConstraints;
 
-public class LoginDialog extends JDialog {
+public class LoginDialog extends JPanel implements FrameImplementable {
 
 	private static final long serialVersionUID = -6266910851826102840L;
 	IApplicationProgrammingInterface service;
+	CustomFrame frame = null;
 	
 	ApplicationFrontEnd parent;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JLabel lblUsername;
 	private JButton btnLogin;
-	private JLabel lblNewLabel_1;
-	private JLabel label;
-	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
-		setUndecorated(true);
-		setResizable(false);
+		setPreferredSize(new Dimension(275, 320));
+		setMinimumSize(new Dimension(300, 400));
+		setMaximumSize(new Dimension(300, 400));
+		setBorder(null);
+		
 		setBackground(new Color(160, 82, 45));
 		
 		this.service = service;
 		
-		getContentPane().setBackground(new Color(176, 196, 222));
+		setBackground(new Color(176, 196, 222));
 		
 		
 		this.parent = parent;
-		setBounds(100, 100, 300, 270);
-		getContentPane().setLayout(new BorderLayout());
+		setBounds(100, 100, 334, 270);
+		setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 196, 222));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			lblUsername = new JLabel("Username");
-			lblUsername.setForeground(new Color(255, 255, 255));
-			lblUsername.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
-		}
+		add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{126, 126, 0};
+		gbl_contentPanel.rowHeights = new int[]{134, 20, 20, 23, 0};
+		gbl_contentPanel.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
 		{
 
 			textField = new JTextField();
@@ -99,27 +110,14 @@ public class LoginDialog extends JDialog {
 					{
 						try {
 							service.login(textField.getText());
+							frame.close();
 						} catch (Exception e) {
 							return;
 						}
 						parent.launchMainView();
-						dispose();
-					}
-						
-				}
-			});
-		}
-		{
-			btnLogin = new JButton("Login");
-			btnLogin.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						service.login(textField.getText());
-						parent.launchMainView();
-						dispose();
-					} catch (Exception e1) {
 						
 					}
+						
 				}
 			});
 		}
@@ -128,54 +126,63 @@ public class LoginDialog extends JDialog {
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon("./Ressource/logo.png"));
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-		});
-		
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(29)
-							.addComponent(lblUsername))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(21)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textField)
-								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addComponent(btnCancel, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblUsername)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCancel)
-						.addComponent(btnLogin))
-					.addGap(7))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.gridwidth = 2;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 0;
+		contentPanel.add(lblNewLabel, gbc_lblNewLabel);
+		{
+			lblUsername = new JLabel("Username");
+			lblUsername.setForeground(new Color(255, 255, 255));
+			lblUsername.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
+		}
+		GridBagConstraints gbc_lblUsername = new GridBagConstraints();
+		gbc_lblUsername.gridwidth = 2;
+		gbc_lblUsername.anchor = GridBagConstraints.NORTH;
+		gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsername.gridx = 0;
+		gbc_lblUsername.gridy = 1;
+		contentPanel.add(lblUsername, gbc_lblUsername);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.gridwidth = 2;
+		gbc_textField.anchor = GridBagConstraints.NORTH;
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 2;
+		contentPanel.add(textField, gbc_textField);
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.anchor = GridBagConstraints.NORTH;
+		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel.gridx = 0;
+		gbc_btnCancel.gridy = 3;
+		contentPanel.add(btnCancel, gbc_btnCancel);
+		{
+			btnLogin = new JButton("Login");
+			btnLogin.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						service.login(textField.getText());
+						parent.launchMainView();
+						frame.close();
+					} catch (Exception e1) {
+						
+					}
+				}
+			});
+		}
+		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+		gbc_btnLogin.anchor = GridBagConstraints.NORTH;
+		gbc_btnLogin.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnLogin.gridx = 1;
+		gbc_btnLogin.gridy = 3;
+		contentPanel.add(btnLogin, gbc_btnLogin);
 		{
 			JPanel buttonPane = new JPanel();
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			add(buttonPane, BorderLayout.SOUTH);
 			GridBagLayout gbl_buttonPane = new GridBagLayout();
 			gbl_buttonPane.columnWidths = new int[]{0};
 			gbl_buttonPane.rowHeights = new int[]{0};
@@ -183,42 +190,19 @@ public class LoginDialog extends JDialog {
 			gbl_buttonPane.rowWeights = new double[]{Double.MIN_VALUE};
 			buttonPane.setLayout(gbl_buttonPane);
 		}
-		{
-			JPanel panel = new JPanel();
-			FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-			flowLayout.setVgap(7);
-			flowLayout.setHgap(10);
-			flowLayout.setAlignment(FlowLayout.RIGHT);
-			panel.setBackground(new Color(0, 0, 128));
-			panel.setPreferredSize(new Dimension(100, 30));
-			panel.setMinimumSize(new Dimension(0, 0));
-			getContentPane().add(panel, BorderLayout.NORTH);
-			
-			lblNewLabel_1 = new JLabel("X");
-			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblNewLabel_1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					System.exit(0);
-				}
-			});
-			lblNewLabel_1.setHorizontalTextPosition(SwingConstants.CENTER);
-			lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-			lblNewLabel_1.setForeground(new Color(255, 255, 255));
-			panel.add(lblNewLabel_1);
-		}
 		initializeComponents();
 	}
 	
 	private void initializeComponents()
 	{
-		setTitle("Login dialog");
-		this.setLocationRelativeTo(null);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				dispose();
-			}
-		});
+		
+	}
+
+	@Override
+	public void setFrame(CustomFrame frame) {
+		this.frame = frame;
+		this.frame.setWidget(this);
+		this.frame.ShowDialog();
+		
 	}
 }

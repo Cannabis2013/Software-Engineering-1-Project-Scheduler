@@ -1,4 +1,4 @@
-package Abstractions;
+package abstractions;
 
 import java.util.ArrayList;
 import java.util.List;

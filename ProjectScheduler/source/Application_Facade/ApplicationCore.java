@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import Abstractions.Model;
-import Abstractions.IApplicationProgrammingInterface;
-import Abstractions.ICustomObserver;
+import abstractions.IApplicationProgrammingInterface;
+import abstractions.ICustomObserver;
+import abstractions.Model;
 import formComponents.ItemModel;
 import managers.ProjectManager;
 import managers.UserManager;

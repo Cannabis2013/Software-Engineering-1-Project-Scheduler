@@ -3,8 +3,8 @@ package managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import Abstractions.AbstractManager;
-import Abstractions.Model;
+import abstractions.AbstractManager;
+import abstractions.Model;
 import formComponents.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;

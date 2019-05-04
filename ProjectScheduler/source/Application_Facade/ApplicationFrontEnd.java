@@ -5,6 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import forms.AddProject;
+import forms.CustomWidgetFrame;
 import forms.LoginDialog;
 import forms.ProjectView;
 
@@ -41,6 +42,7 @@ public class ApplicationFrontEnd {
 	public void launchLoginDialog()
 	{
 		LoginDialog dialog = new LoginDialog(this,coreApp);
+		dialog.setFrame(new CustomWidgetFrame());
 		
 		dialog.setVisible(true);
 	}

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import Abstractions.Model;
-import Abstractions.AbstractManager;
-import Abstractions.ICustomObservable;
-import Abstractions.ICustomObserver;
+import abstractions.AbstractManager;
+import abstractions.ICustomObservable;
+import abstractions.ICustomObserver;
+import abstractions.Model;
 import entities.ActivityEntity;
 import formComponents.ItemModel;
 import models.ActivityModel;

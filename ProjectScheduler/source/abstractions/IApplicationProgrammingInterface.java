@@ -1,4 +1,4 @@
-package Abstractions;
+package abstractions;
 
 import java.time.LocalDate;
 import java.util.List;

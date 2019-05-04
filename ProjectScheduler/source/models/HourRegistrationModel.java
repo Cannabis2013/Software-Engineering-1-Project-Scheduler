@@ -6,7 +6,7 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
-import Abstractions.Model;
+import abstractions.Model;
 import formComponents.ItemModel;
 import managers.ProjectManager;
 

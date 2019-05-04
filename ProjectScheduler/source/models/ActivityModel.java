@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import Abstractions.Model;
+import abstractions.Model;
 import formComponents.ItemModel;
 import managers.UserManager;
 
