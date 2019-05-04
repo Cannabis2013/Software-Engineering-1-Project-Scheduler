@@ -175,7 +175,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         ProjectModel project = pManager.project(projectId);
         String currentLoggedInUserName = uManager.currentUser().UserName();
         if (project.projectLeaderId().equals(currentLoggedInUserName) || uManager.isAdmin())
-            pManager.RemoveActivityModel(projectId, activityId);
+            pManager.removeActivityModel(projectId, activityId);
         else
         	throw new Exception("User not admin nor projectleader for the parent project.");
     }
@@ -191,7 +191,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	else if(activity.isUserAssigned(currentUserName))
     		return activity;
     	
-    	return null;
+    	throw new Exception("User isn't permitted to retrieve the selected activity.");
     }
 
     public List<ActivityModel> activitiesById(String activityId)

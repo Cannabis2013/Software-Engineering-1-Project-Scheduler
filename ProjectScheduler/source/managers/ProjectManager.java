@@ -77,7 +77,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         project.addActivity(activity);
     }
 
-    public boolean RemoveActivityModel(String projectId, String activityId)
+    public boolean removeActivityModel(String projectId, String activityId)
     {
     	
         ProjectModel project = project(projectId);
