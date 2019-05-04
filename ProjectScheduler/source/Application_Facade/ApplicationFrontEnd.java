@@ -4,6 +4,7 @@ package Application_Facade;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import forms.AddProject;
 import forms.LoginDialog;
 import forms.ProjectView;
 
@@ -23,6 +24,16 @@ public class ApplicationFrontEnd {
 			public void windowClosed(WindowEvent e) {
 				launchLoginDialog();
 				pView.dispose();
+			}
+		});
+	}
+	
+	public void launchAddProjectView() {
+		AddProject ap = new AddProject(this);
+		ap.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ap.dispose();
 			}
 		});
 	}

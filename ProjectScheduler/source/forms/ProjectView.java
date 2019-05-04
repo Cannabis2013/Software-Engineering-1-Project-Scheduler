@@ -40,8 +40,9 @@ public class ProjectView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private CustomTable table;
 	private CustomTable table_1;
+	
 	public ProjectView(ApplicationFrontEnd parent) {
-		getContentPane().setBackground(new Color(160, 82, 45));
+		getContentPane().setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
 		setMinimumSize(new Dimension(640, 400));
 		this.parent = parent;
@@ -72,6 +73,22 @@ public class ProjectView extends JFrame {
 			}
 		});
 		mnFile.add(mntmQuit);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		
+		JMenuItem mntmAddProject = new JMenuItem("Add Project");
+		mntmAddProject.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				parent.launchAddProjectView();
+			}
+		});
+		
+		mnEdit.add(mntmAddProject);
+		
+		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
+		mnEdit.add(mntmAddActivity);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{212, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
@@ -91,7 +108,7 @@ public class ProjectView extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
-		panel.setBackground(new Color(160, 82, 45));
+		panel.setBackground(new Color(176, 224, 230));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(5, 5, 0, 5);
 		gbc_panel.gridheight = 4;
@@ -158,6 +175,7 @@ public class ProjectView extends JFrame {
 		gbc_table_1.gridx = 1;
 		gbc_table_1.gridy = 3;
 		getContentPane().add(table_1, gbc_table_1);
+		this.setLocationRelativeTo(null);
 	}
 
 }
