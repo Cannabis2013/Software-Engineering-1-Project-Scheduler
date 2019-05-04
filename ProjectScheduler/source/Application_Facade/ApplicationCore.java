@@ -188,7 +188,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;
-    	else if(activity.isUserAssigned(currentUserName))
+    	if(activity.isUserAssigned(currentUserName))
     		return activity;
     	
     	throw new Exception("User isn't permitted to retrieve the selected activity.");
