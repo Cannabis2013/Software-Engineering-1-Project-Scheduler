@@ -183,9 +183,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public ActivityModel activity(String projectId, String activityId) throws Exception
     {
     	String currentUserName = uManager.currentUser().UserName();
-    	ActivityModel activity;
-		
-    	activity = pManager.activityById(projectId, activityId);
+    	
+    	ActivityModel activity = pManager.activityById(projectId, activityId);	
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;
