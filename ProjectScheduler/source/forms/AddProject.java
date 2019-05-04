@@ -1,8 +1,7 @@
 package forms;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
+import Application_Facade.ApplicationFrontEnd;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -14,39 +13,33 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
-import javax.swing.JScrollBar;
-import javax.swing.JSpinner;
 import javax.swing.JList;
-import java.awt.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddProject1 extends JDialog {
+public class AddProject extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private ApplicationFrontEnd parent;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			AddProject1 dialog = new AddProject1();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
-	public AddProject1() {
+	public AddProject(ApplicationFrontEnd parent) {
+		this.parent = parent;
+		initialize();
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setVisible(true);
+	}
+	
+		private void initialize() {
 		setBounds(100, 100, 610, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 224, 230));
