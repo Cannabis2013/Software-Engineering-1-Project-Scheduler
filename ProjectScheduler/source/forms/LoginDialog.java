@@ -18,107 +18,52 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 public class LoginDialog extends JDialog {
 
 	private static final long serialVersionUID = -6266910851826102840L;
-	private IApplicationProgrammingInterface service;
+	IApplicationProgrammingInterface service;
 	
 	ApplicationFrontEnd parent;
+	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
+	private JLabel lblUsername;
+	private JButton btnLogin;
 	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setBackground(new Color(160, 82, 45));
 		
 		this.service = service;
 		
-		getContentPane().setBackground(new Color(160, 82, 45));
+		getContentPane().setBackground(new Color(176, 196, 222));
 		
 		
 		this.parent = parent;
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{80, 193, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
+		setBounds(100, 100, 300, 270);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(new Color(176, 196, 222));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel lblEnterYourCredential = new JLabel("Enter your credential:");
-			lblEnterYourCredential.setForeground(new Color(255, 255, 255));
-			lblEnterYourCredential.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			GridBagConstraints gbc_lblEnterYourCredential = new GridBagConstraints();
-			gbc_lblEnterYourCredential.gridwidth = 2;
-			gbc_lblEnterYourCredential.insets = new Insets(0, 0, 5, 0);
-			gbc_lblEnterYourCredential.gridx = 0;
-			gbc_lblEnterYourCredential.gridy = 0;
-			getContentPane().add(lblEnterYourCredential, gbc_lblEnterYourCredential);
-		}
-		{
-			JLabel lblUsername = new JLabel("Username:");
+			lblUsername = new JLabel("Username");
 			lblUsername.setForeground(new Color(255, 255, 255));
-			GridBagConstraints gbc_lblUsername = new GridBagConstraints();
-			gbc_lblUsername.insets = new Insets(0, 0, 5, 5);
-			gbc_lblUsername.gridx = 0;
-			gbc_lblUsername.gridy = 1;
-			getContentPane().add(lblUsername, gbc_lblUsername);
-		}
-		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 1;
-		getContentPane().add(textField, gbc_textField);
-		textField.setColumns(10);
-		{
-			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon("C:\\Users\\Martin\\git\\ProjectScheduler\\ProjectScheduler\\Ressource\\paagen kanelgifler.jpg"));
-			GridBagConstraints gbc_label = new GridBagConstraints();
-			gbc_label.anchor = GridBagConstraints.NORTH;
-			gbc_label.gridwidth = 2;
-			gbc_label.insets = new Insets(0, 0, 5, 5);
-			gbc_label.gridx = 0;
-			gbc_label.gridy = 2;
-			getContentPane().add(label, gbc_label);
+			lblUsername.setFont(new Font("MS Reference Sans Serif", Font.PLAIN, 15));
 		}
 		{
-			JPanel panel = new JPanel();
-			GridBagConstraints gbc_panel = new GridBagConstraints();
-			gbc_panel.anchor = GridBagConstraints.SOUTH;
-			gbc_panel.gridwidth = 2;
-			gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-			gbc_panel.gridx = 0;
-			gbc_panel.gridy = 3;
-			getContentPane().add(panel, gbc_panel);
-			panel.setLayout(new GridLayout(1, 0, 0, 0));
-			{
-				JButton btnNewButton = new JButton("Cancel");
-				btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						dispose();
-					}
-				});
-				panel.add(btnNewButton);
-			}
-			{
-				JButton btnNewButton_1 = new JButton("Ok");
-				btnNewButton_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(service.login(textField.getText()))
-						{
-							parent.launchMainView();
-							dispose();
-						}
-					}
-				});
-				panel.add(btnNewButton_1);
-			}
+			textField = new JTextField();
+			textField.setColumns(10);
 			textField.addKeyListener(new KeyListener() {
 				
 				@Override
@@ -146,15 +91,71 @@ public class LoginDialog extends JDialog {
 				}
 			});
 		}
-		initializeComponents();
+		{
+			btnLogin = new JButton("Login");
+			btnLogin.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(service.login(textField.getText()))
+					{
+						parent.launchMainView();
+						dispose();
+					}
+				}
+			});
+		}
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("./Ressource/logo.png"));
+		
+		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGap(108)
+							.addComponent(lblUsername))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGap(10)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 269, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(8)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblUsername)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnLogin)
+					.addGap(47))
+		);
+		contentPanel.setLayout(gl_contentPanel);
+		{
+			JPanel buttonPane = new JPanel();
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			GridBagLayout gbl_buttonPane = new GridBagLayout();
+			gbl_buttonPane.columnWidths = new int[]{0};
+			gbl_buttonPane.rowHeights = new int[]{0};
+			gbl_buttonPane.columnWeights = new double[]{Double.MIN_VALUE};
+			gbl_buttonPane.rowWeights = new double[]{Double.MIN_VALUE};
+			buttonPane.setLayout(gbl_buttonPane);
+		}
 	}
 	
 	private void initializeComponents()
 	{
 		setTitle("Login dialog");
 		setResizable(false);
-		setBounds(100, 100, 266, 383);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -162,5 +163,4 @@ public class LoginDialog extends JDialog {
 			}
 		});
 	}
-
 }
