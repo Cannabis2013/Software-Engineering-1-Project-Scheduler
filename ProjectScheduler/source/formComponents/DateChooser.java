@@ -42,12 +42,10 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	for (int i = 0; i < button.length; i++) {
     		int selected = i;
     		button[i] = new JButton();
-    		button[i].setFocusPainted(false);
-    		button[i].setBackground(Color.white);
         
     		if (i > 6) {
     			button[i].addActionListener(new ActionListener() {
-    				public void actionPerformed(ActionEvent ae) {
+    				public void actionPerformed(ActionEvent e) {
     					if (button[selected].getActionCommand() == "") {
     						return;
         					} else {
@@ -68,7 +66,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	p2 = new JPanel(new GridLayout(1, 3));
     	previous = new JButton("<<");
     	previous.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent ae) {
+    		public void actionPerformed(ActionEvent e) {
     			month--;
     			displayCalender();
     			}
@@ -76,7 +74,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	
     	next = new JButton(">>");
     	next.addActionListener(new ActionListener() {
-    		public void actionPerformed(ActionEvent ae) {
+    		public void actionPerformed(ActionEvent e) {
     			month++;
     			displayCalender();
     			}
@@ -95,8 +93,8 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	}
 	
 	public void displayCalender() {
-		for (int x = 7; x < button.length; x++) {
-			button[x].setText("");
+		for (int i = 7; i < button.length; i++) {
+			button[i].setText("");
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("en"));
 		calender.set(year, month, 1);

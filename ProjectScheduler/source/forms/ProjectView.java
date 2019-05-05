@@ -133,6 +133,7 @@ public class ProjectView extends JPanel implements FrameImplementable {
 		textField.setColumns(10);
 		
 		JButton btnTest = new JButton();
+		btnTest.setFocusPainted(false);
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		btnTest.setIcon(calenderIcon);
 		btnTest.addMouseListener(new MouseAdapter() {
