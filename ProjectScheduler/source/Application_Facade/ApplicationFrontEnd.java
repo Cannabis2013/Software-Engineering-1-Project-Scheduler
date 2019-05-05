@@ -20,13 +20,7 @@ public class ApplicationFrontEnd {
 	public void launchMainView()
 	{
 		ProjectView pView = new ProjectView(this);
-		pView.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				launchLoginDialog();
-				pView.dispose();
-			}
-		});
+		
 	}
 	
 	public void launchAddProjectView() {

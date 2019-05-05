@@ -110,7 +110,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 					{
 						try {
 							service.login(textField.getText());
-							frame.close();
+							close();
 						} catch (Exception e) {
 							return;
 						}
@@ -204,5 +204,11 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 		this.frame.setWidget(this);
 		this.frame.ShowDialog();
 		
+	}
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		frame.close();
 	}
 }
