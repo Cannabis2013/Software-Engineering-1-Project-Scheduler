@@ -15,25 +15,21 @@ import javax.swing.border.Border;
 
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
-import io.cucumber.datatable.dependency.com.fasterxml.jackson.databind.type.PlaceholderForType;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.FlowLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class CustomWidgetFrame extends JFrame implements CustomFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private boolean mouseMoveEvent = false;
+	private double tempMouseX, tempMouseY;
+	private int X, Y;
 
 	/**
 	 * Launch the application.
@@ -69,6 +65,36 @@ public class CustomWidgetFrame extends JFrame implements CustomFrame{
 		contentPane.setLayout(gbl_contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.addMouseMotionListener(new MouseMotionAdapter() {
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				if(!mouseMoveEvent)
+					return;
+				int mouseX =  (int) (e.getLocationOnScreen().getX() - tempMouseX);
+				int mouseY = (int) (e.getLocationOnScreen().getY() - tempMouseY);
+				
+				setLocation(X + mouseX, Y + mouseY);
+			}
+		});
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(mouseMoveEvent)
+					e.consume();
+				mouseMoveEvent = true;
+				X = (int) getLocationOnScreen().getX();
+				Y = (int) getLocationOnScreen().getY();
+				
+				tempMouseX =  e.getLocationOnScreen().getX();
+				tempMouseY =  e.getLocationOnScreen().getY();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				mouseMoveEvent = false;
+			}
+		});
+		
 		panel.setBorder(null);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
