@@ -25,7 +25,7 @@ public class AddProject extends JDialog {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private ApplicationFrontEnd parent;
-	
+
 
 
 	

@@ -1,6 +1,7 @@
 package forms;
 import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
+import formComponents.DateChooser;
 import abstractions.FrameImplementable;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -18,17 +19,25 @@ import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 public class ProjectView extends JPanel implements FrameImplementable {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	CustomFrame frame;
+	DateChooser dateChooser;
 	private CustomTable table;
 	private CustomTable table_1;
+	private JTextField textField;
 	
 	public ProjectView(ApplicationFrontEnd parent) {
 		setBorder(null);
@@ -98,9 +107,9 @@ public class ProjectView extends JPanel implements FrameImplementable {
 		add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{95, 0};
-		gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0};
-		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0};
+		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblWelcomeText = new JLabel("Welcome text");
@@ -113,11 +122,37 @@ public class ProjectView extends JPanel implements FrameImplementable {
 		gbc_lblWelcomeText.gridy = 0;
 		panel.add(lblWelcomeText, gbc_lblWelcomeText);
 		
+		textField = new JTextField();
+		
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 2;
+		panel.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		JButton btnTest = new JButton();
+		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
+		btnTest.setIcon(calenderIcon);
+		btnTest.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dateChooser = new DateChooser(panel, textField);
+			}
+		});
+		GridBagConstraints gbc_btnTest = new GridBagConstraints();
+		gbc_btnTest.insets = new Insets(0, 0, 5, 0);
+		gbc_btnTest.gridx = 0;
+		gbc_btnTest.gridy = 1;
+		panel.add(btnTest, gbc_btnTest);
+		
+		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 0);
 		gbc_verticalStrut.gridx = 0;
-		gbc_verticalStrut.gridy = 11;
+		gbc_verticalStrut.gridy = 12;
 		panel.add(verticalStrut, gbc_verticalStrut);
 		
 		JLabel lblManagement = new JLabel("Management");
@@ -129,7 +164,7 @@ public class ProjectView extends JPanel implements FrameImplementable {
 		});
 		GridBagConstraints gbc_lblManagement = new GridBagConstraints();
 		gbc_lblManagement.gridx = 0;
-		gbc_lblManagement.gridy = 12;
+		gbc_lblManagement.gridy = 13;
 		panel.add(lblManagement, gbc_lblManagement);
 		
 		JPanel panel_1 = new JPanel();

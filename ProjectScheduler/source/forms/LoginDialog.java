@@ -52,6 +52,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 	private JTextField textField;
 	private JLabel lblUsername;
 	private JButton btnLogin;
+	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setPreferredSize(new Dimension(275, 320));
 		setMinimumSize(new Dimension(300, 400));
@@ -190,13 +191,8 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 			gbl_buttonPane.rowWeights = new double[]{Double.MIN_VALUE};
 			buttonPane.setLayout(gbl_buttonPane);
 		}
-		initializeComponents();
 	}
-	
-	private void initializeComponents()
-	{
-		
-	}
+
 
 	@Override
 	public void setFrame(CustomFrame frame) {
