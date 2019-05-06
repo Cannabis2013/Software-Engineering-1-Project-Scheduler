@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class DateChooser extends JPanel implements FrameImplementable {
+	
+	private static final long serialVersionUID = 1L;
 	int month = Calendar.getInstance().get(Calendar.MONTH);
 	int year = Calendar.getInstance().get(Calendar.YEAR);
 	JLabel dateLabel = new JLabel("", JLabel.CENTER);
@@ -33,6 +35,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 
 	public DateChooser(JPanel panel, JTextField text) {
 		dateDialog = new JDialog();
+		dateDialog.setUndecorated(true);
 		dateDialog.setModal(true);
     	dateDialog.setResizable(false);
     	
@@ -85,8 +88,8 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	p2.add(dateLabel);
     	p2.add(next);
     	
-    	dateDialog.add(p1, BorderLayout.CENTER);
-    	dateDialog.add(p2, BorderLayout.SOUTH);
+    	dateDialog.getContentPane().add(p1, BorderLayout.CENTER);
+    	dateDialog.getContentPane().add(p2, BorderLayout.SOUTH);
     	dateDialog.pack();
     	dateDialog.setLocationRelativeTo(panel);
     	displayCalender();
