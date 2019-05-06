@@ -186,8 +186,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	
     	if(uManager.isAdmin() || ((ProjectModel) activity.Parent()).projectLeaderId().equals(currentUserName))
     		return activity;
-    	if(activity.isUserAssigned(currentUserName))
-    		return activity;
     	
     	throw new Exception("User isn't permitted to retrieve the selected activity.");
     }
@@ -212,11 +210,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
     {
-        ActivityModel activity = activity(projectId, activityId);
-        String userId = uManager.currentUser().modelId();
+    	
+        ActivityModel activity = pManager.activityById(projectId, activityId);
+        String userId = uManager.currentUser().UserName();
         if(!activity.isUserAssigned(userId))
         	throw new Exception("User isn't assigned to the selected activity");
-        new HourRegistrationModel(regId, hours, userId, shortDescription, activity);
+        
+        HourRegistrationModel regModel = new HourRegistrationModel(regId, hours, userId, shortDescription);
+        activity.addRegistrationModel(regModel);
     }
 
     public void unRegisterHour(String projectId, String activityId, String regId) throws Exception

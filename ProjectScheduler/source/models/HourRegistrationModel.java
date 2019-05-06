@@ -18,14 +18,13 @@ public class HourRegistrationModel extends Model {
     private String userId;
 
 
-    public HourRegistrationModel(String identity,int hours, String userId, String shortDescription, ActivityModel ParentActivity)
+    public HourRegistrationModel(String identity,int hours, String userId, String shortDescription)
     {
         setModelidentity(identity);;
         this.workHours = hours;
         this.userId = userId;
         setDescription(shortDescription);
 
-        ParentActivity.addRegistrationModel(this);
         
         originalRegistrationDate = LocalDate.now();
         setSerialId(generateSerialId());
@@ -83,7 +82,7 @@ public class HourRegistrationModel extends Model {
     {
     	StringBuilder serialBuilder = new StringBuilder();
     	serialBuilder.append(modelId());
-    	int hashedId = parentModelId().hashCode();
+    	int hashedId = hashCode();
     	
     	serialBuilder.append(Integer.toString(hashedId));
     	

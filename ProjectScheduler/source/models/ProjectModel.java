@@ -54,7 +54,7 @@ public class ProjectModel extends Model
     
     public String projectName()
     {
-    	return modelId();
+    	return serialId();
     }
     
     public LocalDate startDate()
@@ -136,11 +136,10 @@ public class ProjectModel extends Model
     	
 		String[] itemData = new String[5];
 		
-		itemData[0] = modelId();
+		itemData[0] = projectName();
 		itemData[1] = projectLeaderId;
 		itemData[2] = sDate.format(formatter);
 		itemData[3] = eDate.format(formatter);
-		itemData[4] = serialId();
 		
 		return new ItemModel(itemData);
     }
