@@ -258,11 +258,11 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return regItemModels.toArray(new ItemModel[regItemModels.size()]);
     }
 
-    public String UserAvailability(String userName, UserManager uManager, LocalDate fromDate, LocalDate toDate)
+    public String userAvailability(String userName, LocalDate fromDate, LocalDate toDate)
     {
         int partlyOccurrences = 0, fullOccurrences = 0;
         
-        List<ActivityEntity> userActivityEntities = UserActivityEntities(userName, uManager);
+        List<ActivityEntity> userActivityEntities = UserActivityEntities(userName);
         
         boolean hasAnyAbsenceActivities = userActivityEntities.stream().
         		anyMatch(item -> item.TypeOfActivity() == ActivityModel.ActivityType.Absent_Related);
@@ -307,7 +307,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             : "Available";
     }
 
-    private List<ActivityEntity> UserActivityEntities(String userName,UserManager uManager)
+    private List<ActivityEntity> UserActivityEntities(String userName)
     {
     	return activityModels().stream().map(item -> new ActivityEntity(item.modelId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
         

@@ -91,7 +91,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public String userAvailability(String username, LocalDate sDate, LocalDate eDate)
     {
-        return pManager.UserAvailability(username, uManager, sDate, eDate);
+        return pManager.userAvailability(username, sDate, eDate);
 
     }
     
