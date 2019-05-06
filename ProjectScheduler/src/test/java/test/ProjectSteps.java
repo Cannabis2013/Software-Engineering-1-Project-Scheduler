@@ -135,11 +135,13 @@ public class ProjectSteps {
 		} catch (Exception e) {
 			fail();
 		}
-			
-		if(coreApp.project(tempString) != null)
-			fail();
 		
-		assertTrue(true);
+		try {
+			coreApp.project(tempString);
+			fail();
+		} catch (NullPointerException e) {
+			
+		}
 		
 	}
 	

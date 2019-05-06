@@ -103,7 +103,7 @@ public abstract class Model implements Serializable {
 			if(model.modelId().equals(SubModelIdentity))
 				return model;
 		}
-		return null;
+		throw new NullPointerException("No model with the given identity exists in the current context.");
 	}
 	
 	protected Model subModelAt(int index)

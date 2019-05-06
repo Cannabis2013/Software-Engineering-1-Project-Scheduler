@@ -42,12 +42,12 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		removeModelAt(index);
 	}
 	
-	public ProjectModel project(String projectName)
+	public ProjectModel project(String projectName) throws NullPointerException
 	{
 		return (ProjectModel) model(projectName);
 	}
 	
-	public ProjectModel projectAt(int index)
+	public ProjectModel projectAt(int index) throws NullPointerException
 	{
 		return (ProjectModel) modelAt(index);
 	}
@@ -70,14 +70,14 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 			project.removeActivity(id);
 	}
 	
-    public void addActivity(String projectIdentity, ActivityModel activity)
+    public void addActivity(String projectIdentity, ActivityModel activity) throws Exception
     {
         ProjectModel project = project(projectIdentity);
-        
+		
         project.addActivity(activity);
     }
 
-    public boolean removeActivityModel(String projectId, String activityId)
+    public boolean removeActivityModel(String projectId, String activityId) throws Exception
     {
     	
         ProjectModel project = project(projectId);
@@ -164,7 +164,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         		filter(item -> item.modelId().equals(regId)).distinct().collect(Collectors.toList()).get(0);
     }
 
-    public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId)
+    public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId) throws Exception
     {
     	return project(projectId).activity(activityId).hourRegistrationModel(regId);
     }

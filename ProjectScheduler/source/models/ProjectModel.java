@@ -103,7 +103,7 @@ public class ProjectModel extends Model
     	removeSubModel(activity);
     }
     
-    public ActivityModel activity(String id)
+    public ActivityModel activity(String id) throws Exception
     {
     	return (ActivityModel) subModel(id);
     }

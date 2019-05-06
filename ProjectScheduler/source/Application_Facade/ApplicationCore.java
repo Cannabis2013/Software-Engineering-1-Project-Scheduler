@@ -137,12 +137,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	}
     }
 
-    public ProjectModel project(int index)
+    public ProjectModel project(int index) throws NullPointerException
     {
         return pManager.projectAt(index);
     }
 
-    public ProjectModel project(String identity)
+    public ProjectModel project(String identity) throws NullPointerException
     {
         return pManager.project(identity);
     }

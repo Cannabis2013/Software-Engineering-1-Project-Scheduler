@@ -54,7 +54,7 @@ public abstract class AbstractManager {
     			return model;
     	}
     	
-    	return null;
+    	throw new NullPointerException("No model with the given identity exists within the current context.");
     }
     
     protected Model modelBySerial(String serial) throws Exception
@@ -73,6 +73,8 @@ public abstract class AbstractManager {
     
     protected Model modelAt(int index)
     {
+    	if(index > models.size())
+    		throw new NullPointerException("The model at the given index doesn't exist.");
     	return models.get(index);
     }
     

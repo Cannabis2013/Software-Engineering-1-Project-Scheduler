@@ -36,8 +36,8 @@ public interface IApplicationProgrammingInterface {
     void removeProject(String identity) throws Exception;
     void removeProject(ProjectModel project) throws Exception;
 
-    ProjectModel project(int index);
-    ProjectModel project(String title);
+    ProjectModel project(int index) throws NullPointerException;
+    ProjectModel project(String title) throws NullPointerException;
 
     ItemModel[] projectItemModels();
     ItemModel[] projectItemModels(String UserIdentity);
