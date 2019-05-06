@@ -7,8 +7,6 @@ import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import abstractions.IApplicationProgrammingInterface;
 import abstractions.ICustomObserver;
 import abstractions.Model;

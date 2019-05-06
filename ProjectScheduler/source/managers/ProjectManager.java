@@ -93,9 +93,8 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         ProjectModel project = project(projectIdentity);
         
         try {
-			ActivityModel activity = project.Activities().stream().
+			return project.Activities().stream().
 					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
-			return activity;
 		} catch (Exception e) {
 			throw new Exception("The list probably return a null point which means the object doesn't exists");
 		}   

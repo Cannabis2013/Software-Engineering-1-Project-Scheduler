@@ -185,6 +185,7 @@ public class ActivityModel extends Model {
     
     public void addRegistrationModel(HourRegistrationModel model)
     {
+    	model.setParent(this);
     	addSubModel(model);
     }
     
