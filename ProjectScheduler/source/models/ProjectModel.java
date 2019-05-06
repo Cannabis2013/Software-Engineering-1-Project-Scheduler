@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import Abstractions.Model;
+import abstractions.Model;
 import formComponents.ItemModel;
 
 public class ProjectModel extends Model

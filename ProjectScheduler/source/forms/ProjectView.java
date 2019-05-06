@@ -1,9 +1,8 @@
 package forms;
-import javax.swing.JFrame;
-
 import Application_Facade.ApplicationFrontEnd;
-import customGraphics.GraphicsPlot2D;
-
+import abstractions.CustomFrame;
+import formComponents.DateChooser;
+import abstractions.FrameImplementable;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -11,54 +10,63 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import java.awt.GridBagConstraints;
-import javax.swing.JTable;
 import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import formComponents.CustomTable;
-import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.border.LineBorder;
-
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-
-import java.util.List;
-import java.awt.FlowLayout;
-import javax.swing.JTabbedPane;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
 
-public class ProjectView extends JFrame {
+public class ProjectView extends JPanel implements FrameImplementable {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
+	CustomFrame frame;
+	DateChooser dateChooser;
 	private CustomTable table;
-	private CustomTable table_1;
 	
 	public ProjectView(ApplicationFrontEnd parent) {
-		getContentPane().setBackground(new Color(176, 224, 230));
+		setForeground(Color.WHITE);
+		setBorder(null);
+		setPreferredSize(new Dimension(960, 540));
+		setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(640, 400));
+		setMinimumSize(new Dimension(960, 540));
 		this.parent = parent;
+		setFrame(new CustomWidgetFrame());
 		initialize();
 		setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param parent 
 	 */
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 524, 495);
+		setBounds(100, 100, 960, 540);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		frame.setMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -81,7 +89,7 @@ public class ProjectView extends JFrame {
 		mntmAddProject.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				parent.launchAddProjectView();
+				parent.launchAddProject();
 			}
 		});
 		
@@ -89,93 +97,135 @@ public class ProjectView extends JFrame {
 		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{212, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
+		setLayout(null);
+		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		
-		JLabel lblNewLabel = new JLabel("Assigned activities");
-		lblNewLabel.setBackground(Color.RED);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(200, 0, 760, 540);
+		panel_1.setBackground(new Color(176, 224, 230));
+		add(panel_1);
+		panel_1.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(null);
-		panel.setBackground(new Color(176, 224, 230));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(5, 5, 0, 5);
-		gbc_panel.gridheight = 4;
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		getContentPane().add(panel, gbc_panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{95, 0};
-		gbl_panel.rowHeights = new int[]{20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 0};
-		gbl_panel.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
-		
-		JLabel lblWelcomeText = new JLabel("Welcome text");
-		lblWelcomeText.setForeground(Color.WHITE);
-		lblWelcomeText.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblWelcomeText = new GridBagConstraints();
-		gbc_lblWelcomeText.insets = new Insets(0, 0, 5, 0);
-		gbc_lblWelcomeText.fill = GridBagConstraints.BOTH;
-		gbc_lblWelcomeText.gridx = 0;
-		gbc_lblWelcomeText.gridy = 0;
-		panel.add(lblWelcomeText, gbc_lblWelcomeText);
-		
-		Component verticalStrut = Box.createVerticalStrut(20);
-		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-		gbc_verticalStrut.insets = new Insets(0, 0, 5, 0);
-		gbc_verticalStrut.gridx = 0;
-		gbc_verticalStrut.gridy = 11;
-		panel.add(verticalStrut, gbc_verticalStrut);
-		
-		JLabel lblManagement = new JLabel("Management");
-		lblManagement.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
-		GridBagConstraints gbc_lblManagement = new GridBagConstraints();
-		gbc_lblManagement.gridx = 0;
-		gbc_lblManagement.gridy = 12;
-		panel.add(lblManagement, gbc_lblManagement);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(31, 65, 590, 443);
+		panel_1.add(panel_2);
+		panel_2.setLayout(null);
 		
 		table = new CustomTable();
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.insets = new Insets(0, 0, 5, 0);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 1;
-		getContentPane().add(table, gbc_table);
+		table.setBounds(6, 6, 578, 431);
+		panel_2.add(table);
 		
-		JLabel lblRegisteredHours = new JLabel("Registered hours");
-		lblRegisteredHours.setForeground(Color.WHITE);
-		lblRegisteredHours.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblRegisteredHours = new GridBagConstraints();
-		gbc_lblRegisteredHours.insets = new Insets(0, 0, 5, 0);
-		gbc_lblRegisteredHours.gridx = 1;
-		gbc_lblRegisteredHours.gridy = 2;
-		getContentPane().add(lblRegisteredHours, gbc_lblRegisteredHours);
+		JButton btnAddActivity = new JButton("Add Activity");
+		btnAddActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent.launchAddActivity();
+			}
+		});
+		btnAddActivity.setBounds(637, 77, 117, 29);
+		panel_1.add(btnAddActivity);
 		
-		table_1 = new CustomTable();
-		GridBagConstraints gbc_table_1 = new GridBagConstraints();
-		gbc_table_1.fill = GridBagConstraints.BOTH;
-		gbc_table_1.gridx = 1;
-		gbc_table_1.gridy = 3;
-		getContentPane().add(table_1, gbc_table_1);
-		this.setLocationRelativeTo(null);
+		JButton btnEditActivity = new JButton("Edit Activity");
+		btnEditActivity.setBounds(637, 111, 117, 29);
+		panel_1.add(btnEditActivity);
+		
+		JButton btnRemoveActivty = new JButton("Remove Activty");
+		btnRemoveActivty.setBounds(633, 143, 128, 29);
+		panel_1.add(btnRemoveActivty);
+		
+		JLabel lblActivityOverview = new JLabel("Activity Overview");
+		lblActivityOverview.setHorizontalAlignment(SwingConstants.CENTER);
+		lblActivityOverview.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblActivityOverview.setBounds(31, 8, 253, 45);
+		panel_1.add(lblActivityOverview);
+		
+		JButton btnCheckUsers = new JButton("Check Users");
+		btnCheckUsers.setBounds(637, 174, 117, 29);
+		panel_1.add(btnCheckUsers);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 200, 540);
+		add(panel);
+		panel.setBorder(null);
+		panel.setBackground(new Color(176, 224, 230));
+		panel.setLayout(null);
+		
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		verticalStrut.setBounds(0, 0, 0, 0);
+		panel.add(verticalStrut);
+		
+		JLabel lblManagement = new JLabel("Projects");
+		lblManagement.setHorizontalAlignment(SwingConstants.CENTER);
+		lblManagement.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblManagement.setBounds(13, 6, 169, 45);
+
+		panel.add(lblManagement);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(24, 65, 158, 303);
+		panel.add(scrollPane_2);
+		
+		JTree tree = new JTree();
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent e) {
+				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+			}
+		});
+		tree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("Projects") {
+				{
+					add(new DefaultMutableTreeNode("Show All Projects"));
+					add(new DefaultMutableTreeNode("Project 1"));
+					add(new DefaultMutableTreeNode("Project 2"));
+					add(new DefaultMutableTreeNode("Project 3"));
+				}
+			}
+		));
+		scrollPane_2.setColumnHeaderView(tree);
+		
+		JButton btnRemoveActivity = new JButton("Remove Project");
+		btnRemoveActivity.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		btnRemoveActivity.setBounds(41, 477, 126, 29);
+		panel.add(btnRemoveActivity);
+		
+		JButton btnProjectView = new JButton("Edit Project");
+		btnProjectView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnProjectView.setBounds(41, 447, 127, 29);
+		panel.add(btnProjectView);
+		
+		JButton btnAddActivty = new JButton("Add Project");
+		btnAddActivty.setBounds(40, 414, 127, 29);
+		panel.add(btnAddActivty);
+		btnAddActivty.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				parent.launchAddProject();
+			}
+		});
+		btnAddActivty.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		
+		JButton btnProjectOverview = new JButton("Project Overview");
+		btnProjectOverview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parent.launchProjectDialog();
+			}
+		});
+		btnProjectOverview.setBounds(34, 383, 136, 29);
+		panel.add(btnProjectOverview);
 	}
 
+	@Override
+	public void setFrame(CustomFrame frame) {
+		this.frame = frame;
+		this.frame.setWidget(this);
+		this.frame.ShowDialog();
+	}
+
+	@Override
+	public void close() {
+		frame.close();
+	}
 }

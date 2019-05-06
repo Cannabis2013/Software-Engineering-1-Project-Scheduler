@@ -1,4 +1,4 @@
-package Abstractions;
+package abstractions;
 
 import java.io.Serializable;
 import java.util.ArrayList;

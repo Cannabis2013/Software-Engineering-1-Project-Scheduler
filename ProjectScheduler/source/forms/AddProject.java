@@ -2,6 +2,8 @@ package forms;
 
 import java.awt.BorderLayout;
 import Application_Facade.ApplicationFrontEnd;
+import formComponents.DateChooser;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -9,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -16,6 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class AddProject extends JDialog {
 
@@ -23,9 +31,9 @@ public class AddProject extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
 	private ApplicationFrontEnd parent;
-	
+	private JTextField textField_4;
+	private DateChooser dateChooser;
 
 
 	
@@ -40,120 +48,104 @@ public class AddProject extends JDialog {
 	}
 	
 		private void initialize() {
-		setBounds(100, 100, 610, 300);
+		setBounds(100, 100, 610, 316);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 224, 230));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		JLabel lblFillInInformation = new JLabel("Fill in information");
+		lblFillInInformation.setBounds(58, 28, 184, 39);
 		lblFillInInformation.setFont(new Font("Rockwell", Font.PLAIN, 21));
 		JLabel lblProjectId = new JLabel("Project ID");
-		lblProjectId.setFont(new Font("Rockwell", Font.PLAIN, 14));
+		lblProjectId.setBounds(58, 94, 70, 24);
+		lblProjectId.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		JLabel lblStartDate = new JLabel("Start Date");
+		lblStartDate.setBounds(58, 134, 63, 22);
 		lblStartDate.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		JLabel lblEndDate = new JLabel("End Date");
+		lblEndDate.setBounds(58, 174, 60, 22);
 		lblEndDate.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		JLabel lblLeader = new JLabel("Leader");
+		lblLeader.setBounds(58, 214, 60, 24);
 		lblLeader.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		
 		textField = new JTextField();
+		textField.setBounds(146, 90, 176, 26);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		textField_1.setBounds(146, 130, 155, 26);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
+		textField_2.setBounds(146, 170, 155, 26);
 		textField_2.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
+		lblEnterShortDescription.setBounds(345, 61, 141, 16);
 		lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 		
-		JList list = new JList();
-		
 		JButton btnNewButton = new JButton("Cancel");
+		btnNewButton.setBounds(345, 252, 86, 29);
 		btnNewButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(449, 252, 86, 29);
 		btnSave.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(53)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(lblFillInInformation)
-							.addGap(103)
-							.addComponent(lblEnterShortDescription))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblProjectId)
-								.addComponent(lblStartDate)
-								.addComponent(lblEndDate)
-								.addComponent(lblLeader, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
-							.addGap(21)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPanel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnNewButton)
-									.addGap(18)
-									.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(6, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(23)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblFillInInformation, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(33)
-							.addComponent(lblEnterShortDescription)))
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(5)
-							.addComponent(lblProjectId, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addGap(24)
-							.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-							.addGap(16)
-							.addComponent(lblEndDate, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-							.addGap(23)
-							.addComponent(lblLeader, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(21)
-							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(20)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(12)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(list, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnSave)
-								.addComponent(btnNewButton))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(342, 89, 183, 145);
+		textField_4.setColumns(10);
+		contentPanel.setLayout(null);
+		contentPanel.add(lblFillInInformation);
+		contentPanel.add(lblEnterShortDescription);
+		contentPanel.add(lblStartDate);
+		contentPanel.add(lblEndDate);
+		contentPanel.add(lblLeader);
+		contentPanel.add(lblProjectId);
+		contentPanel.add(textField);
+		contentPanel.add(textField_2);
+		contentPanel.add(textField_1);
+		contentPanel.add(btnNewButton);
+		contentPanel.add(btnSave);
+		contentPanel.add(textField_4);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dateChooser = new DateChooser(contentPanel, textField_1);
+			}
+		});
+		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
+		lblNewLabel.setIcon(calenderIcon);
+		lblNewLabel.setBounds(298, 135, 16, 16);
+		contentPanel.add(lblNewLabel);
+		
+		JLabel label = new JLabel("");
+		label.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dateChooser = new DateChooser(contentPanel, textField_2);
+			}
+		});
+		label.setIcon(calenderIcon);
+		label.setBounds(298, 175, 16, 16);
+		contentPanel.add(label);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Clair", "David", "Martin", "Peter"}));
+		comboBox.setBounds(146, 210, 176, 26);
+		comboBox.addItem("clair");
+		contentPanel.add(comboBox);
 	}
 }

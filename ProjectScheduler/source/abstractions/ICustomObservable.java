@@ -1,4 +1,4 @@
-package Abstractions;
+package abstractions;
 
 public interface ICustomObservable {
 	void NotifyObservers();
