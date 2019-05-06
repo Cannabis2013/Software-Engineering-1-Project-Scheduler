@@ -4,9 +4,11 @@ package Application_Facade;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import forms.AddActivity;
 import forms.AddProject;
 import forms.CustomWidgetFrame;
 import forms.LoginDialog;
+import forms.ProjectDialog;
 import forms.ProjectView;
 
 public class ApplicationFrontEnd {
@@ -23,7 +25,7 @@ public class ApplicationFrontEnd {
 		
 	}
 	
-	public void launchAddProjectView() {
+	public void launchAddProject() {
 		AddProject ap = new AddProject(this);
 		ap.addWindowListener(new WindowAdapter() {
 			@Override
@@ -39,6 +41,24 @@ public class ApplicationFrontEnd {
 		dialog.setFrame(new CustomWidgetFrame());
 		
 		dialog.setVisible(true);
+	}
+	
+	public void launchProjectDialog()
+	{
+		ProjectDialog dialog = new ProjectDialog(this);
+		dialog.setFrame(new CustomWidgetFrame());
+		
+		dialog.setVisible(true);
+	}
+
+	public void launchAddActivity() {
+		AddActivity aa = new AddActivity(this);
+		aa.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				aa.dispose();
+			}
+		});
 	}
 
 }

@@ -35,6 +35,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 		dateDialog = new JDialog();
 		dateDialog.setModal(true);
     	dateDialog.setResizable(false);
+    	
     
     	p1 = new JPanel(new GridLayout(7, 7));
     	p1.setPreferredSize(new Dimension(420, 120));
@@ -89,6 +90,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	dateDialog.pack();
     	dateDialog.setLocationRelativeTo(panel);
     	displayCalender();
+    	dateDialog.setAlwaysOnTop(true);
     	dateDialog.setVisible(true);
     	}
 	

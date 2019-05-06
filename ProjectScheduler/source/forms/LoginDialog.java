@@ -58,7 +58,6 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 		setMinimumSize(new Dimension(300, 400));
 		setMaximumSize(new Dimension(300, 400));
 		setBorder(null);
-		
 		setBackground(new Color(160, 82, 45));
 		
 		this.service = service;
