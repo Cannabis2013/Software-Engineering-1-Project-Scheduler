@@ -21,7 +21,7 @@ public class ApplicationFrontEnd {
 	
 	public void launchMainView()
 	{
-		ProjectView pView = new ProjectView(this);
+		ProjectView pView = new ProjectView(this,coreApp);
 	}
 	
 	public void launchAddProject() {

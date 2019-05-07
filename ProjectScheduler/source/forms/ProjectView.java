@@ -2,14 +2,14 @@ package forms;
 import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
+import abstractions.IApplicationProgrammingInterface;
+import abstractions.ICustomObserver;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
-import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,11 +23,10 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTable;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTree;
@@ -37,15 +36,16 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
-public class ProjectView extends JPanel implements FrameImplementable {
+public class ProjectView extends JPanel implements FrameImplementable, ICustomObserver {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	CustomFrame frame;
 	DateChooser dateChooser;
 	private CustomTable table;
+	private IApplicationProgrammingInterface service;
 	
-	public ProjectView(ApplicationFrontEnd parent) {
+	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setForeground(Color.WHITE);
 		setBorder(null);
 		setPreferredSize(new Dimension(960, 540));
@@ -56,6 +56,9 @@ public class ProjectView extends JPanel implements FrameImplementable {
 		setFrame(new CustomWidgetFrame());
 		initialize();
 		setVisible(true);
+		this.service = service;
+		
+		service.subScribe(this);
 	}
 
 	/**
@@ -249,5 +252,30 @@ public class ProjectView extends JPanel implements FrameImplementable {
 	@Override
 	public void close() {
 		frame.close();
+	}
+	
+	public void launchProjectDialog()
+	{
+		ProjectDialog dialog = new ProjectDialog(this);
+		dialog.setFrame(new CustomWidgetFrame());
+		
+		dialog.setVisible(true);
+	
+	}
+
+	public void launchAddActivity() {
+		AddActivity aa = new AddActivity(this);
+		aa.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				aa.dispose();
+			}
+		});
+	}
+
+	@Override
+	public void updateView() {
+		// TODO Auto-generated method stub
+		
 	}
 }

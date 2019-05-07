@@ -40,9 +40,8 @@ public class AddActivity extends JDialog {
 	private CustomTable table_1;
 
 
-	public AddActivity(ApplicationFrontEnd parent) {
+	public AddActivity(JDialog parent) {
 		setModal(true);
-		this.parent = parent;
 		initialize();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
