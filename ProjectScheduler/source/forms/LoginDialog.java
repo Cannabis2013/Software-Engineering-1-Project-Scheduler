@@ -206,11 +206,4 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 		// TODO Auto-generated method stub
 		frame.close();
 	}
-
-
-	@Override
-	public void setWindowModality(boolean modal) {
-		frame.setModality(modal);
-		
-	}
 }

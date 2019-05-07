@@ -38,17 +38,13 @@ public class AddProject extends JDialog implements FrameImplementable {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private ApplicationFrontEnd parent;
 	private JTextField textField_4;
 	private DateChooser dateChooser;
-	private IApplicationProgrammingInterface service;
-	private CustomFrame frame;
-	
+	private CustomFrame frame = null;
 	/**
 	 * Create the dialog.
 	 */
 	public AddProject(IApplicationProgrammingInterface service) {
-		this.service = service;
 		initialize();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -163,18 +159,16 @@ public class AddProject extends JDialog implements FrameImplementable {
 		@Override
 		public void setFrame(CustomFrame frame) {
 			// TODO Auto-generated method stub
-			
+			this.frame = frame;
+			frame.setWidget(this);
+			frame.setWindowModality(true);
+			frame.ShowDialog();
 		}
 
 		@Override
 		public void close() {
-			// TODO Auto-generated method stub
 			
+			frame.close();
 		}
 
-		@Override
-		public void setWindowModality(boolean modal) {
-			// TODO Auto-generated method stub
-			
-		}
 }

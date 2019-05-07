@@ -290,10 +290,4 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void setWindowModality(boolean modal) {
-		// TODO Auto-generated method stub
-		
-	}
 }

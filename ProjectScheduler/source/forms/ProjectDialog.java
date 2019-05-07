@@ -103,11 +103,4 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 		// TODO Auto-generated method stub
 		frame.close();
 	}
-
-
-	@Override
-	public void setWindowModality(boolean modal) {
-		// TODO Auto-generated method stub
-		
-	}
 }

@@ -1,13 +1,11 @@
 package forms;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -135,7 +133,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 		this.frame.setWidget(this);
-		setWindowModality(true);
+		frame.setWindowModality(true);
 		this.frame.ShowDialog();
 	}
 
@@ -144,9 +142,4 @@ public class DateChooser extends JPanel implements FrameImplementable {
 		frame.close();
 	}
 
-	@Override
-	public void setWindowModality(boolean modal) {
-		// TODO Auto-generated method stub
-		frame.setModality(modal);
-	}
 }

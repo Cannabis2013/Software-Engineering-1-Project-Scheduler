@@ -250,10 +250,4 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	public void close() {
 		frame.close();
 	}
-
-	@Override
-	public void setWindowModality(boolean modal) {
-		// TODO Auto-generated method stub
-		
-	}
 }

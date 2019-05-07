@@ -209,9 +209,9 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		contentPane.add(widget, layoutConstraints);
 		layoutConstraints.insets.bottom = 0;
 	}
-	
-	public void setModality(boolean modal)
-	{
+
+	@Override
+	public void setWindowModality(boolean modal) {
 		setModal(modal);
 	}
 
