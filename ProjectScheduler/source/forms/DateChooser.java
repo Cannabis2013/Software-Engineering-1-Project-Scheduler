@@ -1,4 +1,4 @@
-package formComponents;
+package forms;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
+
 import java.util.Calendar;
 import java.util.Locale;
 import java.awt.GridBagLayout;
@@ -141,7 +142,4 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	public void close() {
 		frame.close();
 	}
-
-
-
 }

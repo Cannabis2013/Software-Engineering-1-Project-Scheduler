@@ -37,7 +37,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
-public class ProjectView extends JPanel implements FrameImplementable {
+public class HourRegistration extends JPanel implements FrameImplementable {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class ProjectView extends JPanel implements FrameImplementable {
 	DateChooser dateChooser;
 	private CustomTable table;
 	
-	public ProjectView(ApplicationFrontEnd parent) {
+	public HourRegistration(ApplicationFrontEnd parent) {
 		setForeground(Color.WHITE);
 		setBorder(null);
 		setPreferredSize(new Dimension(960, 540));

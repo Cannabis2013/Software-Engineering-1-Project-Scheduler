@@ -2,13 +2,13 @@ package forms;
 
 import java.awt.BorderLayout;
 import Application_Facade.ApplicationFrontEnd;
-import formComponents.DateChooser;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
@@ -43,6 +43,7 @@ public class AddProject extends JDialog {
 	public AddProject(ApplicationFrontEnd parent) {
 		this.parent = parent;
 		initialize();
+		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
@@ -99,6 +100,7 @@ public class AddProject extends JDialog {
 		btnSave.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		
