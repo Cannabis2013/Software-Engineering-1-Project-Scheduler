@@ -4,6 +4,10 @@ package Application_Facade;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JMenuBar;
+
+import abstractions.CustomFrame;
+import abstractions.FrameImplementable;
 import forms.AddActivity;
 import forms.AddProject;
 import forms.CustomWidgetFrame;
@@ -22,6 +26,7 @@ public class ApplicationFrontEnd {
 	public void launchMainView()
 	{
 		ProjectView pView = new ProjectView(this,coreApp);
+		pView.setFrame(new CustomWidgetFrame());
 	}
 	
 	

@@ -14,6 +14,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import formComponents.CustomTable;
+import formComponents.ItemModel;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Component;
@@ -40,10 +42,11 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
-	CustomFrame frame;
+	private CustomFrame frame;
 	DateChooser dateChooser;
-	private CustomTable table;
+	private CustomTable activityView;
 	private IApplicationProgrammingInterface service;
+	private JMenuBar menuBar;
 	
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setForeground(Color.WHITE);
@@ -53,10 +56,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		setBackground(Color.WHITE);
 		setMinimumSize(new Dimension(960, 540));
 		this.parent = parent;
-		setFrame(new CustomWidgetFrame());
 		initialize();
-		setVisible(true);
-		this.service = service;
+		updateView();
+		
+		
 		
 		service.subScribe(this);
 	}
@@ -68,8 +71,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private void initialize() {
 		setBounds(100, 100, 960, 540);
 		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setMenuBar(menuBar);
+		menuBar = new JMenuBar();
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
@@ -120,9 +122,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		table = new CustomTable();
-		table.setBounds(6, 6, 578, 431);
-		panel_2.add(table);
+		activityView = new CustomTable();
+		activityView.setBounds(6, 6, 578, 431);
+		panel_2.add(activityView);
 		
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
@@ -241,11 +243,12 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		btnProjectOverview.setBounds(34, 383, 136, 29);
 		panel.add(btnProjectOverview);
 	}
-
+	
 	@Override
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 		this.frame.setWidget(this);
+		this.frame.setMenuBar(menuBar);
 		this.frame.ShowDialog();
 	}
 
@@ -287,7 +290,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 	@Override
 	public void updateView() {
-		// TODO Auto-generated method stub
+		ItemModel model1 = new ItemModel("GUI Test");
+		ItemModel model2 = new ItemModel("Menues");
 		
+		activityView.addItem(model1);
+		activityView.addItem(model2);
 	}
 }
