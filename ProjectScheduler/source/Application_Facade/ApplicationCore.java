@@ -142,9 +142,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.projectAt(index);
     }
 
-    public ProjectModel project(String identity) throws NullPointerException
+    public ProjectModel project(String identity) throws Exception
     {
-        return pManager.project(identity);
+    	if(uManager.isAdmin())
+    		return pManager.project(identity);
+    	
+    	throw new Exception("Not admin");
     }
     
     @Override

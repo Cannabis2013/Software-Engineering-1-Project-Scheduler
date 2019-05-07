@@ -80,7 +80,7 @@ public class TestTemplate {
 		
 		ActivityModel activity;
 		try {
-			activity = new ActivityModel(activityName, parentModel, sDate, eDate,estimatedWorkHours,assignUsers,description);
+			activity = new ActivityModel(activityName, sDate, eDate,estimatedWorkHours,assignUsers,description);
 		} catch (IllegalArgumentException e) {
 			return false;
 		}

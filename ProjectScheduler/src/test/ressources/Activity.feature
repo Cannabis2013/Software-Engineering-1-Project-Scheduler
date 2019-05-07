@@ -32,7 +32,7 @@ Scenario: A user fails to remove acitivty from Project CANVAS
 
 Scenario: An unauthorized user fails to assign employee
 	Given a user with username "HT" is logged in and is not projectleader for Project CANVAS
-	And an activity "GUI Test" exists
+	And an activity "GUI Test" exists and "FL" is projectleader for its parent project
 	And that "PB" is not assigned to "GUI Test" and is available
 	Then "HT" fails to assign "PB" to "GUI Test"
 

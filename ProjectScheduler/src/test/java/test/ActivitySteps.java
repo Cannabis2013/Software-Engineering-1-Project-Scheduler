@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.Arrays;
+import java.util.List;
 
 import Application_Facade.ApplicationCore;
 import cucumber.api.java.en.*;
@@ -15,9 +16,10 @@ import models.ProjectModel;
 
 public class ActivitySteps {
 	
-	ApplicationCore coreApp = new ApplicationCore();
-	ActivityModel tempActivity;
-	String projectName;
+	private ApplicationCore coreApp = new ApplicationCore();
+	private ActivityModel tempActivity;
+	private String projectName;
+	private ProjectModel currentProject = null;
 	
 	public ActivitySteps()
 	{
@@ -28,37 +30,49 @@ public class ActivitySteps {
 		String endDate =DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
+		currentProject = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
 		try {
-			ProjectModel project = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
 			coreApp.login("admin");
-			coreApp.addProject(project);
+			coreApp.addProject(currentProject);
 			coreApp.logut();
 		} catch (Exception e) {
-			e.printStackTrace();
+			fail();
 		}
 	}
 	
 	@Given("a project with name {string} exists")
 	public void a_project_with_name_exists(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(coreApp.project(string) != null);
+		try {
+			coreApp.login("admin");
+			coreApp.project(string);
+			coreApp.logut();
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@Given("the projectleader is a user with username {string}")
 	public void the_projectleader_is_a_user_with_username(String string) {
-	    String pLeaderId = coreApp.project(projectName).projectLeaderId();
+	    String pLeaderId;
+		try {
+			pLeaderId = currentProject.projectLeaderId();
+		} catch (Exception e) {
+			fail();
+			return;
+		}
 	    assertTrue(pLeaderId.equals(string));
 	}
 
 	@Then("FL should be able to add an activity to project CANVAS")
 	public void finn_Luger_should_be_able_to_add_an_activity_to_project_CANVAS() {
 	    // Write code here that turns the phrase above into concrete actions
-	    assertTrue(true);
+	    
 	}
 
 	@Then("other users shouldn't")
 	public void other_users_shouldn_t() {
-	    assertTrue(true);
+	    
 	}
 
 	@Given("the user currently logged in has username {string}")
@@ -75,8 +89,8 @@ public class ActivitySteps {
 	@Given("is projectleader for {string}")
 	public void is_projectleader_for(String string) {
 	    // Write code here that turns the phrase above into concrete actions
-	    ProjectModel project = coreApp.project(string);
-	    String projectLeader = project.projectLeaderId();
+	    
+	    String projectLeader = currentProject.projectLeaderId();
 	    String currentUserName = coreApp.currentUserLoggedIn().UserName();
 	    
 	    assertEquals(true, projectLeader.equals(currentUserName));
@@ -85,13 +99,13 @@ public class ActivitySteps {
 	@When("he creates an activity with title {string} and some random interval dates")
 	public void he_creates_an_activity_with_title_and_some_random_interval_dates(String string) {
 		
-		ProjectModel project = coreApp.project(projectName);
 	    String activityId = string;
 	    LocalDate startDate = LocalDate.now();
 	    LocalDate enddDate = startDate.plusDays(2);
 	    
 	    try {
-			tempActivity = new ActivityModel(activityId,project,startDate,enddDate,4, null, "");
+			tempActivity = new ActivityModel(activityId,startDate,enddDate,4, null, "");
+			currentProject.addActivity(tempActivity);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -141,7 +155,8 @@ public class ActivitySteps {
 	    try {
 			String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
 			assertEquals(string, currentUserLoggedIn);
-			String projectLeaderId = coreApp.project(projectName).projectLeaderId();
+			String projectLeaderId = currentProject.projectLeaderId();
+			
 			assertEquals(string, projectLeaderId);
 		} catch (NullPointerException e) {
 			fail();
@@ -155,13 +170,12 @@ public class ActivitySteps {
 	    LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 	    
-	    ProjectModel parentProject = coreApp.project(projectName);
 	    
-	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
+	    ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(parentProject.modelId(), activity);
+			coreApp.addActivity(currentProject.modelId(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
@@ -190,13 +204,12 @@ public class ActivitySteps {
 	    LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 	    
-	    ProjectModel parentProject = coreApp.project(projectName);
 	    
-	    ActivityModel activity = new ActivityModel(activityName,parentProject, startDate, endDate);
+	    ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(parentProject.modelId(), activity);
+			coreApp.addActivity(currentProject.modelId(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
@@ -230,7 +243,8 @@ public class ActivitySteps {
 	    try {
 			 String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
 			 assertEquals(string, currentUserLoggedIn);
-			 String projectLeaderId = coreApp.project(projectName).projectLeaderId();
+			 String projectLeaderId = currentProject.projectLeaderId();
+			
 			 assertNotSame(string, projectLeaderId);
 			} catch (NullPointerException e) {
 				fail();
@@ -241,11 +255,42 @@ public class ActivitySteps {
 	@Given("an activity {string} exists")
 	public void anActivityExists(String string) {
 		try {
-			assertEquals(true, coreApp.activity(projectName, string) != null);
+			coreApp.activity(projectName, string);
 		} catch(Exception e) {
 			fail();
 		}
 	    
+	}
+	
+	@Given("an activity {string} exists and {string} is projectleader for its parent project")
+	public void anActivityExistsAndIsProjectleaderForItsParentProject(String string, String string2) {
+	    try {
+			coreApp.login(string2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<String> assignedUsers = Arrays.asList("TT", "NE");
+	    ActivityModel activity = new ActivityModel(string,
+	    		LocalDate.now(),
+	    		LocalDate.now().plusDays(2),
+	    		10,
+	    		assignedUsers, "");
+	    
+	    try {
+			coreApp.addActivity(projectName, activity);
+		} catch (Exception e1) {
+			fail();
+		}
+	    
+	    try {
+			coreApp.activity(projectName, string);
+			tempActivity = activity;
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+		
 	}
 
 	@Given("that {string} is not assigned to {string} and is available")
@@ -261,6 +306,16 @@ public class ActivitySteps {
 
 	@Then("{string} fails to assign {string} to {string}")
 	public void failsToAssignTo(String string, String string2, String string3) {
-	    //to be done after code update
+	    try {
+			coreApp.login(string);
+		} catch (Exception e1) {
+			fail();
+		}
+		try {
+			coreApp.activity(projectName, tempActivity.modelId());
+			fail();
+		} catch (Exception e) {
+			
+		}
 	}
 }

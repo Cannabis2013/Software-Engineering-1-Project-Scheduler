@@ -28,8 +28,7 @@ public class ActivityModel extends Model {
         Absent_Related
     };
     
-    public ActivityModel(String activityTitle, 
-        	Model parentModel,
+    public ActivityModel(String activityTitle,
             LocalDate sDate, 
             LocalDate eDate,
             int estimatedWorkHours,
@@ -49,14 +48,12 @@ public class ActivityModel extends Model {
             if(assignedUsers != null)
             	assignedUserIdentities = assignedUsers;            
             
-            setParent(parentModel);
             setDescription(description);
             
             assignSerialId();
         }
     
-    public ActivityModel(String activityTitle, 
-    	Model parentModel,
+    public ActivityModel(String activityTitle,
         LocalDate sDate, 
         LocalDate eDate
         ) throws IllegalArgumentException
@@ -68,7 +65,6 @@ public class ActivityModel extends Model {
         if(eDate.compareTo(sDate) < 0)
         	throw new IllegalArgumentException("The end date is before the start date.");
         
-        setParent(parentModel);
         
         assignSerialId();
     }
@@ -293,7 +289,7 @@ public class ActivityModel extends Model {
     	serialBuilder.append(modelId());
     	int hashedId = 0;
     	if(Type == ActivityType.Work_Related)
-    		 hashedId = parentModelId().hashCode();
+    		 hashedId = this.hashCode();
     	else
     		hashedId = reason.hashCode();
     	

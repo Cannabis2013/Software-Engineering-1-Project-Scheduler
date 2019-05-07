@@ -20,20 +20,30 @@ public class UserAvailable extends TestTemplate {
 	private List<String> userNames;
 	private int numberOfActivities;
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	LocalDate startDate, endDate;
+	private LocalDate startDate, endDate;
+	private ProjectModel currentProject = null;
 	
 	public UserAvailable() {
 		numberOfActivities = 20;
 		startDate = LocalDate.parse("05-05-2019",dateFormatter);
 		endDate = LocalDate.parse("05-06-2019",dateFormatter);
 		
-		if(!addProject("admin", 
-				projectName, 
-				projectLeaderId, 
-				startDate.format(dateFormatter), 
-				endDate.format(dateFormatter), 
-				"Test project"))
+		try {
+			addProject("admin", 
+					projectName, 
+					projectLeaderId, 
+					startDate.format(dateFormatter), 
+					endDate.format(dateFormatter), 
+					"Test project");
+		} catch (Exception e) {
 			fail();
+		}
+		
+		try {
+			currentProject = coreApp.project(projectName);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 	
 	@Test
@@ -52,14 +62,14 @@ public class UserAvailable extends TestTemplate {
 		LocalDate sDate = startDate, eDate = endDate;
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
-		ProjectModel project = coreApp.project("Project TEST");
-		project.removeAllActivities();
+		
+		currentProject.removeAllActivities();
 		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
 			addActivity(projectLeaderId, 
 					aName, 
-					project, 
+					currentProject, 
 					sDate.format(dateFormatter), 
 					eDate.format(dateFormatter), 25, 
 					userNames, 
@@ -75,14 +85,13 @@ public class UserAvailable extends TestTemplate {
 		LocalDate sDate = startDate, eDate = endDate;
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
-		ProjectModel project = coreApp.project("Project TEST");
-		project.removeAllActivities();
+		currentProject.removeAllActivities();
 		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
 			addActivity(projectLeaderId, 
 					aName, 
-					project, 
+					currentProject, 
 					sDate.format(dateFormatter), 
 					eDate.format(dateFormatter), 25, 
 					userNames, 
@@ -99,14 +108,13 @@ public class UserAvailable extends TestTemplate {
 		LocalDate sDate = startDate, eDate = endDate;
 		userNames = Arrays.asList("BB", "TT", "JW");
 		int activityIndex = 0;
-		ProjectModel project = coreApp.project("Project TEST");
-		project.removeAllActivities();
+		currentProject.removeAllActivities();
 		
 		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
 			addActivity(projectLeaderId, 
 					aName, 
-					project, 
+					currentProject, 
 					sDate.format(dateFormatter), 
 					eDate.format(dateFormatter), 25, 
 					userNames, 
@@ -118,8 +126,7 @@ public class UserAvailable extends TestTemplate {
 	
 	public String userIsPartlyOccupied()
 	{
-		ProjectModel project = coreApp.project("Project TEST");
-		project.removeAllActivities();
+		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate.minusDays(1),"TT");
 		coreApp.addAbsenceActivity(activity);
 		
@@ -128,8 +135,7 @@ public class UserAvailable extends TestTemplate {
 	
 	public String userIsFullOccupied()
 	{
-		ProjectModel project = coreApp.project("Project TEST");
-		project.removeAllActivities();
+		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate, endDate,"TT");
 		coreApp.addAbsenceActivity(activity);
 		

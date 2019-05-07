@@ -19,6 +19,7 @@ public class HourRegisterSteps {
 	
 	ApplicationCore coreApp = new ApplicationCore();
 	String projectName, activityName, tempRegName;
+	ProjectModel currentProject;
 	
 	@Given("a project with name {string} exists with a user with username {string} as projectleader")
 	public void a_project_with_name_exists_with_a_user_with_username_as_projectleader(String string, String string2) {
@@ -31,9 +32,9 @@ public class HourRegisterSteps {
 		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		
-		ProjectModel project = new ProjectModel(projectTitle, projectLeaderUserName, startDate, endDate, "");
+		currentProject = new ProjectModel(projectTitle, projectLeaderUserName, startDate, endDate, "");
 		try {
-			coreApp.addProject(project);
+			coreApp.addProject(currentProject);
 		} catch (Exception e) {
 			fail();
 		}
@@ -43,9 +44,8 @@ public class HourRegisterSteps {
 	@Given("an activity extists with name {string} with some random chosen date intervals chosen")
 	public void an_activity_extists_with_name_with_some_random_chosen_date_intervals_chosen(String string) {
 		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
-	    LocalDate endDate = TestUnit.DateFromString("11-05-2019");
-	    ProjectModel parentProject = coreApp.project(projectName);
-	    ActivityModel activity = new ActivityModel(string, parentProject, startDate, endDate);
+	    LocalDate endDate = TestUnit.DateFromString("11-05-2019");;
+	    ActivityModel activity = new ActivityModel(string, startDate, endDate);
 	    try {
 			coreApp.addActivity(projectName, activity);
 			activityName = string;

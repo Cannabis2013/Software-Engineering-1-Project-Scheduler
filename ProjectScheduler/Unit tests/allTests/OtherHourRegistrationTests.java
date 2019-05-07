@@ -22,7 +22,13 @@ public class OtherHourRegistrationTests extends TestTemplate {
 		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
 			fail();
 		
-		ProjectModel project = coreApp.project("Project TEST");
+		ProjectModel project;
+		try {
+			project = coreApp.project("Project TEST");
+		} catch (Exception e) {
+			fail();
+			return;
+		}
 		
 		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
 				20,userNames,""))

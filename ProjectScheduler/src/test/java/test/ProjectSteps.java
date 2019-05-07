@@ -63,9 +63,13 @@ public class ProjectSteps {
 			fail();
 		}
 		
-		ProjectModel retrievedProject = coreApp.project(tempString);
-		if(retrievedProject == null)
+		ProjectModel retrievedProject;
+		try {
+			retrievedProject = coreApp.project(tempString);
+		} catch (Exception e) {
 			fail();
+			return;
+		}
 		
 		if(!retrievedProject.projectName().equals(tempProject.projectName()))
 			fail();
@@ -114,7 +118,11 @@ public class ProjectSteps {
 		} catch (Exception e) {
 			fail();
 		}
-	    assertEquals(true, coreApp.project(string) != null);
+	    try {
+			coreApp.project(string);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 	@Given("the user currently logged in is admin")
@@ -139,7 +147,7 @@ public class ProjectSteps {
 		try {
 			coreApp.project(tempString);
 			fail();
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			
 		}
 		
