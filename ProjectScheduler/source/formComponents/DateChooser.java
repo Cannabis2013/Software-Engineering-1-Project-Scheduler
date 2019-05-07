@@ -14,9 +14,11 @@ import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
-import forms.CustomWidgetFrame;
 import java.util.Calendar;
 import java.util.Locale;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class DateChooser extends JPanel implements FrameImplementable {
 	
@@ -25,7 +27,6 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	int year = Calendar.getInstance().get(Calendar.YEAR);
 	JLabel dateLabel = new JLabel("", JLabel.CENTER);
 	String day = "";
-	JDialog dateDialog;
 	Calendar calender = Calendar.getInstance();
 	JPanel p1, p2;
 	JButton next, previous;
@@ -34,15 +35,11 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	CustomFrame frame = null;
 
 	public DateChooser(JPanel panel, JTextField text) {
-		dateDialog = new JDialog();
-		dateDialog.setUndecorated(true);
-		dateDialog.setModal(true);
-    	dateDialog.setResizable(false);
-    	
-    
-    	p1 = new JPanel(new GridLayout(7, 7));
-    	p1.setPreferredSize(new Dimension(420, 120));
-
+		
+		p1 = new JPanel(new GridLayout(7, 7));
+		p1.setPreferredSize(new Dimension(420, 120));
+	    
+		
     	for (int i = 0; i < button.length; i++) {
     		int selected = i;
     		button[i] = new JButton();
@@ -54,7 +51,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
     						return;
         					} else {
         						day = button[selected].getActionCommand();
-        						dateDialog.dispose();
+        						frame.close();
         						text.setText(setPickedDate());
                             	}
         				}
@@ -66,6 +63,12 @@ public class DateChooser extends JPanel implements FrameImplementable {
         		}
     		p1.add(button[i]);
         	}
+    	GridBagLayout gridBagLayout = new GridBagLayout();
+    	gridBagLayout.columnWidths = new int[]{420, 0};
+    	gridBagLayout.rowHeights = new int[]{120, 23, 0};
+    	gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+    	gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+    	setLayout(gridBagLayout);
     	
     	p2 = new JPanel(new GridLayout(1, 3));
     	previous = new JButton("<<");
@@ -84,17 +87,25 @@ public class DateChooser extends JPanel implements FrameImplementable {
     			}
     		});
     	
+    
+    	
+    	GridBagConstraints gbc_p1 = new GridBagConstraints();
+    	gbc_p1.fill = GridBagConstraints.BOTH;
+    	gbc_p1.insets = new Insets(0, 0, 5, 0);
+    	gbc_p1.gridx = 0;
+    	gbc_p1.gridy = 0;
+    	add(p1, gbc_p1);
+    	
     	p2.add(previous);
     	p2.add(dateLabel);
     	p2.add(next);
-    	
-    	dateDialog.getContentPane().add(p1, BorderLayout.CENTER);
-    	dateDialog.getContentPane().add(p2, BorderLayout.SOUTH);
-    	dateDialog.pack();
-    	dateDialog.setLocationRelativeTo(panel);
+    	GridBagConstraints gbc_p2 = new GridBagConstraints();
+    	gbc_p2.fill = GridBagConstraints.VERTICAL;
+    	gbc_p2.gridx = 0;
+    	gbc_p2.gridy = 1;
+    	add(p2, gbc_p2);
     	displayCalender();
-    	dateDialog.setAlwaysOnTop(true);
-    	dateDialog.setVisible(true);
+    	
     	}
 	
 	public void displayCalender() {

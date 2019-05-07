@@ -124,6 +124,7 @@ public class AddProject extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dateChooser = new DateChooser(contentPanel, textField_1);
+				dateChooser.setFrame(new CustomWidgetFrame());
 			}
 		});
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
@@ -136,6 +137,7 @@ public class AddProject extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dateChooser = new DateChooser(contentPanel, textField_2);
+				dateChooser.setFrame(new CustomWidgetFrame());
 			}
 		});
 		label.setIcon(calenderIcon);
