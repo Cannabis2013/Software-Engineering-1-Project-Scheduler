@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class CustomTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;
-	private int columnCount = 1;
+	private int columnCount = 3;
 	
 	public CustomTable()
 	{

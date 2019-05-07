@@ -5,12 +5,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Application_Facade.ApplicationFrontEnd;
+import abstractions.CustomFrame;
+import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
 
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -142,7 +145,8 @@ public class AddActivity extends JDialog {
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new DateChooser(contentPanel, textField_2);
+				DateChooser dateDialog = new DateChooser(contentPanel, textField_2);
+				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
 		lblNewLabel_1.setIcon(calenderIcon);
@@ -155,7 +159,8 @@ public class AddActivity extends JDialog {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new DateChooser(contentPanel, textField_3);
+				DateChooser dateDialog = new DateChooser(contentPanel, textField_3);
+				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
 		label.setIcon(calenderIcon);

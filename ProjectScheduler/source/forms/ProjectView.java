@@ -121,7 +121,6 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_2.setBounds(31, 65, 590, 443);
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
-		
 		activityView = new CustomTable();
 		activityView.setBounds(6, 6, 578, 431);
 		panel_2.add(activityView);
@@ -290,9 +289,13 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 	@Override
 	public void updateView() {
+		String[] cols = new String[3];
+		cols[0] = "TestCol1";
+		cols[1] = "TestCol2";
+		cols[2] = "TestCol3";
 		ItemModel model1 = new ItemModel("GUI Test");
-		ItemModel model2 = new ItemModel("Menues");
-		
+		ItemModel model2 = new ItemModel(cols);
+		activityView.setColumnCount(3);
 		activityView.addItem(model1);
 		activityView.addItem(model2);
 	}
