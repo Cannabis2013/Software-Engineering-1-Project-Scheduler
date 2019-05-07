@@ -279,12 +279,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
 		
-		ap.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				ap.dispose();
-			}
-		});
+		ap.setFrame(new CustomWidgetFrame());
 	}
 
 	@Override

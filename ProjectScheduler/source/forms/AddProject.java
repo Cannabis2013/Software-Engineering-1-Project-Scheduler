@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class AddProject extends JDialog implements FrameImplementable {
+public class AddProject extends JPanel implements FrameImplementable {
 
 	/**
 	 * 
@@ -46,17 +46,15 @@ public class AddProject extends JDialog implements FrameImplementable {
 	 */
 	public AddProject(IApplicationProgrammingInterface service) {
 		initialize();
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(true);
 		
 	}
 	
 		private void initialize() {
 		setBounds(100, 100, 610, 316);
-		getContentPane().setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 224, 230));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		add(contentPanel, BorderLayout.CENTER);
 		JLabel lblFillInInformation = new JLabel("Fill in information");
 		lblFillInInformation.setBounds(58, 28, 184, 39);
 		lblFillInInformation.setFont(new Font("Rockwell", Font.PLAIN, 21));
@@ -94,7 +92,8 @@ public class AddProject extends JDialog implements FrameImplementable {
 		btnNewButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				if(frame != null)
+					frame.close();
 			}
 		});
 		
@@ -154,21 +153,22 @@ public class AddProject extends JDialog implements FrameImplementable {
 		comboBox.setBounds(146, 210, 176, 26);
 		comboBox.addItem("clair");
 		contentPanel.add(comboBox);
+		setPreferredSize(getSize());
 	}
 
-		@Override
-		public void setFrame(CustomFrame frame) {
-			// TODO Auto-generated method stub
-			this.frame = frame;
-			frame.setWidget(this);
-			frame.setWindowModality(true);
-			frame.ShowDialog();
-		}
+	@Override
+	public void setFrame(CustomFrame frame) {
+		// TODO Auto-generated method stub
+		this.frame = frame;
+		frame.setWidget(this);
+		frame.setWindowModality(true);
+		frame.ShowDialog();
+	}
 
-		@Override
-		public void close() {
-			
-			frame.close();
-		}
+	@Override
+	public void close() {
+		
+		frame.close();
+	}
 
 }

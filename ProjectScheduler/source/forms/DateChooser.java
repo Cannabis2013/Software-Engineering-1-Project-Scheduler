@@ -86,8 +86,6 @@ public class DateChooser extends JPanel implements FrameImplementable {
     			}
     		});
     	
-    
-    	
     	GridBagConstraints gbc_p1 = new GridBagConstraints();
     	gbc_p1.fill = GridBagConstraints.BOTH;
     	gbc_p1.insets = new Insets(0, 0, 5, 0);
