@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Application_Facade.ApplicationFrontEnd;
-import formComponents.DateChooser;
 
 import java.awt.Color;
 import javax.swing.GroupLayout;
@@ -42,6 +41,7 @@ public class AddActivity extends JDialog {
 
 
 	public AddActivity(ApplicationFrontEnd parent) {
+		setModal(true);
 		this.parent = parent;
 		initialize();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -49,7 +49,7 @@ public class AddActivity extends JDialog {
 	}
 	
 	public void initialize() {
-		setBounds(100, 100, 700, 469);
+		setBounds(100, 100, 700, 472);
 		getContentPane().setLayout(null);
 		contentPanel.setBounds(0, 0, 700, 450);
 		contentPanel.setBackground(new Color(176, 224, 230));

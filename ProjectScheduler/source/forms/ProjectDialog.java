@@ -55,6 +55,8 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	private JTable table;
 	
 	public ProjectDialog(ApplicationFrontEnd parent) {
+		this.parent = parent;
+
 		setPreferredSize(new Dimension(700, 370));
 		setBorder(null);
 		
@@ -64,7 +66,7 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 		setBackground(new Color(176, 196, 222));
 		
 		
-		this.parent = parent;
+		
 		setBounds(100, 100, 334, 270);
 		setLayout(null);
 		contentPanel.setBounds(22, 37, 655, 292);

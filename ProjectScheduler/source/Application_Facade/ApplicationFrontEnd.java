@@ -22,7 +22,6 @@ public class ApplicationFrontEnd {
 	public void launchMainView()
 	{
 		ProjectView pView = new ProjectView(this);
-		
 	}
 	
 	public void launchAddProject() {
@@ -49,6 +48,7 @@ public class ApplicationFrontEnd {
 		dialog.setFrame(new CustomWidgetFrame());
 		
 		dialog.setVisible(true);
+	
 	}
 
 	public void launchAddActivity() {
