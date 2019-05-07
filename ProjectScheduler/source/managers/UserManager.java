@@ -106,12 +106,16 @@ public class UserManager extends AbstractManager {
         UserModel nUser3 = new UserModel("BB", UserModel.userRole.Employee);
         UserModel nUser4 = new UserModel("FL", UserModel.userRole.Employee);
         UserModel nUser5 = new UserModel("TT", UserModel.userRole.Employee);
+        UserModel nUser6 = new UserModel("HT", UserModel.userRole.Employee);
+        UserModel nUser7 = new UserModel("PB", UserModel.userRole.Employee);
         
         users.add(nUser1);
         users.add(nUser2);
         users.add(nUser3);
         users.add(nUser4);
         users.add(nUser5);
+        users.add(nUser6);
+        users.add(nUser7);
     }
 
 	@Override

@@ -1,8 +1,7 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -219,5 +218,49 @@ public class ActivitySteps {
 			
 		}
 		
+	}
+	@Given("a user with username {string} is logged in and is not projectleader for Project CANVAS")
+	public void aUserWithUsernameIsLoggedInAndIsNotProjectleaderForProjectCANVAS(String string) {
+	    try{
+	    	coreApp.login(string);
+	    } catch (Exception e) {
+	    	fail();
+	    }
+	    
+	    try {
+			 String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
+			 assertEquals(string, currentUserLoggedIn);
+			 String projectLeaderId = coreApp.project(projectName).projectLeaderId();
+			 assertNotSame(string, projectLeaderId);
+			} catch (NullPointerException e) {
+				fail();
+			}
+	    
+	}
+
+	@Given("an activity {string} exists")
+	public void anActivityExists(String string) {
+		try {
+			assertEquals(true, coreApp.activity(projectName, string) != null);
+		} catch(Exception e) {
+			fail();
+		}
+	    
+	}
+
+	@Given("that {string} is not assigned to {string} and is available")
+	public void thatIsNotAssignedToAndIsAvailable(String string, String string2) {
+	   //Add availability check
+		try {
+			assertEquals(false, coreApp.activity(projectName, string2).isUserAssignedToActivity(string));
+	    // doesn't work currently due to lack of privileges	
+	    } catch (Exception e) {
+	    	fail();
+	    }
+	}
+
+	@Then("{string} fails to assign {string} to {string}")
+	public void failsToAssignTo(String string, String string2, String string3) {
+	    //to be done after code update
 	}
 }
