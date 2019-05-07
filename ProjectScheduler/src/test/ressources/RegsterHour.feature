@@ -14,3 +14,9 @@ Scenario: User register hour unsuccesfully
     Given a user with userName "NE" is logged in
     When he fills an application with the title "Worked at menus" for registering 4 hours to the activity "GUI Test"
     Then the registered hour is not stored in the system.
+
+Scenario: User edits already registered hours successfully
+	Given a user with username "JW" is logged in
+	And that this user has already registered an hour object
+	When he edits the object
+	Then the edit is stored in the system

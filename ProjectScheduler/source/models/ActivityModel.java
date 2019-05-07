@@ -157,10 +157,15 @@ public class ActivityModel extends Model {
             assignedUserIdentities.add(userId);
     }
 
-    public boolean IsUserAssigned(UserManager uManager)
+    public boolean isUserAssigned(UserManager uManager)
     {
         String currentUserName = uManager.currentUser().modelId();
         return assignedUserIdentities.stream().anyMatch(item -> item.equals(currentUserName));
+    }
+    
+    public boolean isUserAssignedToActivity(String user)
+    {
+    	return assignedUserIdentities.contains(user);
     }
 
     public List<String> AssignedUsers()

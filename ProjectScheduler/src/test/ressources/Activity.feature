@@ -29,3 +29,11 @@ Scenario: A user fails to remove acitivty from Project CANVAS
 	Given a user with username "FL" is logged in and is project leader for Project CANVAS
 	And he creates an activity with title "GUI Test", some random date intervals and assigns a user with username "BB".
 	Then "TT" logs in and fails to remove the activity "GUI Test".
+
+Scenario: An unauthorized user fails to assign employee
+	Given a user with username "HT" is logged in and is not projectleader for Project CANVAS
+	And an activity "GUI Test" exists
+	And that "PB" is not assigned to "GUI Test" and is available
+	Then "HT" fails to assign "PB" to "GUI Test"
+
+
