@@ -276,7 +276,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
-		ap.setWindowModality(true);
+		
 		ap.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -287,6 +287,12 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 	@Override
 	public void updateView() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setWindowModality(boolean modal) {
 		// TODO Auto-generated method stub
 		
 	}

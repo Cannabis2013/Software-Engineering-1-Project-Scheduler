@@ -30,6 +30,10 @@ import javax.swing.DefaultComboBoxModel;
 
 public class AddProject extends JDialog implements FrameImplementable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
@@ -44,12 +48,11 @@ public class AddProject extends JDialog implements FrameImplementable {
 	 * Create the dialog.
 	 */
 	public AddProject(IApplicationProgrammingInterface service) {
+		this.service = service;
 		initialize();
-		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		
-		this.service = service;
 	}
 	
 		private void initialize() {

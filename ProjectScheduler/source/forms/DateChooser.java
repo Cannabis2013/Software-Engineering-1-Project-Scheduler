@@ -135,6 +135,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 		this.frame.setWidget(this);
+		setWindowModality(true);
 		this.frame.ShowDialog();
 	}
 

@@ -54,7 +54,6 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	private JButton btnLogin;
 	private JTable table;
 	private IApplicationProgrammingInterface service;
-	private CustomFrame frame;
 	
 	public ProjectDialog(IApplicationProgrammingInterface service) {
 		this.parent = parent;
