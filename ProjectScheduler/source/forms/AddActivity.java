@@ -1,32 +1,24 @@
 package forms;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Application_Facade.ApplicationFrontEnd;
+import abstractions.IApplicationProgrammingInterface;
 
 import java.awt.Color;
-import javax.swing.GroupLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import formComponents.CustomTable;
-import javax.swing.JTextPane;
 
 public class AddActivity extends JDialog {
 
@@ -34,19 +26,21 @@ public class AddActivity extends JDialog {
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private DateChooser dateChooser;
 	ApplicationFrontEnd parent;
 	private CustomTable table;
 	private CustomTable table_1;
+	private IApplicationProgrammingInterface service;
 
 
-	public AddActivity(JDialog parent) {
+	public AddActivity(IApplicationProgrammingInterface service) {
 		setModal(true);
 		initialize();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
+		this.service = service;
 	}
 	
+
 	public void initialize() {
 		setBounds(100, 100, 700, 472);
 		getContentPane().setLayout(null);
@@ -148,7 +142,7 @@ public class AddActivity extends JDialog {
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, textField_2);
+				new DateChooser(contentPanel, textField_2);
 			}
 		});
 		lblNewLabel_1.setIcon(calenderIcon);
@@ -161,7 +155,7 @@ public class AddActivity extends JDialog {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, textField_3);
+				new DateChooser(contentPanel, textField_3);
 			}
 		});
 		label.setIcon(calenderIcon);

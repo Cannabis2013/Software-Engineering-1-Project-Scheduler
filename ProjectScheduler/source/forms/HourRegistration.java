@@ -95,7 +95,7 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		mntmAddProject.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				parent.launchAddProject();
+				
 			}
 		});
 		
@@ -124,7 +124,7 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent.launchAddActivity();
+				
 			}
 		});
 		btnAddActivity.setBounds(637, 77, 117, 29);
@@ -224,7 +224,7 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		btnAddActivty.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				parent.launchAddProject();
+				
 			}
 		});
 		btnAddActivty.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -232,7 +232,7 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		JButton btnProjectOverview = new JButton("Project Overview");
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent.launchProjectDialog();
+				
 			}
 		});
 		btnProjectOverview.setBounds(34, 383, 136, 29);
@@ -249,5 +249,11 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	@Override
 	public void close() {
 		frame.close();
+	}
+
+	@Override
+	public void setWindowModality(boolean modal) {
+		// TODO Auto-generated method stub
+		
 	}
 }

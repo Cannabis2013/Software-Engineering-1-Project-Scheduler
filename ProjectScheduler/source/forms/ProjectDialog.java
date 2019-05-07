@@ -53,8 +53,10 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	private JLabel lblUsername;
 	private JButton btnLogin;
 	private JTable table;
+	private IApplicationProgrammingInterface service;
+	private CustomFrame frame;
 	
-	public ProjectDialog(ApplicationFrontEnd parent) {
+	public ProjectDialog(IApplicationProgrammingInterface service) {
 		this.parent = parent;
 
 		setPreferredSize(new Dimension(700, 370));
@@ -64,8 +66,6 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 		
 		
 		setBackground(new Color(176, 196, 222));
-		
-		
 		
 		setBounds(100, 100, 334, 270);
 		setLayout(null);
@@ -86,6 +86,8 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 			lblUsername.setForeground(Color.DARK_GRAY);
 			lblUsername.setFont(new Font("Tahoma", Font.BOLD, 20));
 		}
+		
+		this.service = service;
 	}
 
 
@@ -101,5 +103,12 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	public void close() {
 		// TODO Auto-generated method stub
 		frame.close();
+	}
+
+
+	@Override
+	public void setWindowModality(boolean modal) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -2,6 +2,9 @@ package forms;
 
 import java.awt.BorderLayout;
 import Application_Facade.ApplicationFrontEnd;
+import abstractions.CustomFrame;
+import abstractions.FrameImplementable;
+import abstractions.IApplicationProgrammingInterface;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -25,7 +28,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class AddProject extends JDialog {
+public class AddProject extends JDialog implements FrameImplementable {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
@@ -34,18 +37,19 @@ public class AddProject extends JDialog {
 	private ApplicationFrontEnd parent;
 	private JTextField textField_4;
 	private DateChooser dateChooser;
-
-
+	private IApplicationProgrammingInterface service;
+	private CustomFrame frame;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public AddProject(ApplicationFrontEnd parent) {
-		this.parent = parent;
+	public AddProject(IApplicationProgrammingInterface service) {
 		initialize();
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
+		
+		this.service = service;
 	}
 	
 		private void initialize() {
@@ -152,4 +156,22 @@ public class AddProject extends JDialog {
 		comboBox.addItem("clair");
 		contentPanel.add(comboBox);
 	}
+
+		@Override
+		public void setFrame(CustomFrame frame) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void close() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void setWindowModality(boolean modal) {
+			// TODO Auto-generated method stub
+			
+		}
 }

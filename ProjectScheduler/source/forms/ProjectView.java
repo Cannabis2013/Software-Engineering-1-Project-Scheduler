@@ -98,7 +98,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		mntmAddProject.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				parent.launchAddProject();
+				launchAddProject();
 			}
 		});
 		
@@ -127,7 +127,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent.launchAddActivity();
+				launchAddActivity();
 			}
 		});
 		btnAddActivity.setBounds(637, 77, 117, 29);
@@ -227,7 +227,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		btnAddActivty.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				parent.launchAddProject();
+				launchAddProject();
 			}
 		});
 		btnAddActivty.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -235,7 +235,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		JButton btnProjectOverview = new JButton("Project Overview");
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent.launchProjectDialog();
+				launchProjectDialog();
 			}
 		});
 		btnProjectOverview.setBounds(34, 383, 136, 29);
@@ -256,7 +256,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	
 	public void launchProjectDialog()
 	{
-		ProjectDialog dialog = new ProjectDialog(this);
+		ProjectDialog dialog = new ProjectDialog(service);
 		dialog.setFrame(new CustomWidgetFrame());
 		
 		dialog.setVisible(true);
@@ -264,11 +264,23 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	}
 
 	public void launchAddActivity() {
-		AddActivity aa = new AddActivity(this);
+		
+		AddActivity aa = new AddActivity(service);
 		aa.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				aa.dispose();
+			}
+		});
+	}
+	
+	public void launchAddProject() {
+		AddProject ap = new AddProject(service);
+		ap.setWindowModality(true);
+		ap.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ap.dispose();
 			}
 		});
 	}

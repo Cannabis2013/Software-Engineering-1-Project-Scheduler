@@ -3,6 +3,7 @@ package forms;
 import java.awt.EventQueue;
 
 import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -29,7 +30,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
-public class CustomWidgetFrame extends JFrame implements CustomFrame{
+public class CustomWidgetFrame extends JDialog implements CustomFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -60,7 +61,7 @@ public class CustomWidgetFrame extends JFrame implements CustomFrame{
 	 */
 	public CustomWidgetFrame() {
 		setUndecorated(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
@@ -207,8 +208,11 @@ public class CustomWidgetFrame extends JFrame implements CustomFrame{
 		layoutConstraints.gridy = 2;
 		contentPane.add(widget, layoutConstraints);
 		layoutConstraints.insets.bottom = 0;
-		
-		
+	}
+	
+	public void setModality(boolean modal)
+	{
+		setModal(modal);
 	}
 
 }
