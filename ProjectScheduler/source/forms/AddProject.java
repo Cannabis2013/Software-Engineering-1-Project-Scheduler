@@ -9,6 +9,7 @@ import abstractions.IApplicationProgrammingInterface;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
@@ -38,7 +39,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_4;
+	private JTextArea textField_4;
 	private DateChooser dateChooser;
 	private CustomFrame frame = null;
 	/**
@@ -106,7 +107,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 			}
 		});
 		
-		textField_4 = new JTextField();
+		textField_4 = new JTextArea();
 		textField_4.setBounds(342, 89, 183, 145);
 		textField_4.setColumns(10);
 		contentPanel.setLayout(null);
