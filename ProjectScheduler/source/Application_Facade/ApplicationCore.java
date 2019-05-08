@@ -312,13 +312,4 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         pManager.UnSubScribeAll();
     }
-
-	@Override
-	public Model modelBySerial(String serialId) {
-		try {
-			return pManager.ModelBySerial(serialId);
-		} catch (Exception e) {
-			return null;
-		}
-	}
 }
