@@ -165,7 +165,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/Users/davidtran/git/Software-Engineering-1-Project-Scheduler/ProjectScheduler/Ressource/userIcon.png"));
+		lblNewLabel.setIcon(new ImageIcon("./Ressource/userIcon.png"));
 		lblNewLabel.setBounds(27, 60, 167, 167);
 		panel.add(lblNewLabel);
 		
