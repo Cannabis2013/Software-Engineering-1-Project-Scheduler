@@ -47,6 +47,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
     		button[i] = new JButton();
         
     		if (i > 6) {
+    			button[i].setForeground(Color.red);
     			button[i].addActionListener(new ActionListener() {
     				public void actionPerformed(ActionEvent e) {
     					if (button[selected].getActionCommand() == "") {

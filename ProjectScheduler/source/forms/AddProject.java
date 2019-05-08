@@ -156,6 +156,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		projectLeaderSelector.addItem("clair");
 		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
+		
 	}
 
 	@Override

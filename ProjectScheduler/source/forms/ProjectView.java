@@ -221,6 +221,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				launchProjectDialog();
+				
 			}
 		});
 		btnProjectOverview.setBounds(41, 383, 126, 29);
@@ -233,6 +234,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		this.frame.setWidget(this);
 		this.frame.setMenuBar(menuBar);
 		this.frame.ShowDialog();
+		
 	}
 
 	@Override
@@ -243,21 +245,18 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	public void launchProjectDialog()
 	{
 		ProjectDialog dialog = new ProjectDialog(service);
-		dialog.setFrame(new CustomWidgetFrame());
-		
 		dialog.setVisible(true);
+		dialog.setFrame(new CustomWidgetFrame());
 	
 	}
 
 	public void launchAddActivity() {
-		
 		AddActivity aa = new AddActivity(service);
 		aa.setFrame(new CustomWidgetFrame());
 	}
 	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
-		
 		ap.setFrame(new CustomWidgetFrame());
 	}
 	
