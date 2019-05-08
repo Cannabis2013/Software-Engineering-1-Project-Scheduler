@@ -16,6 +16,7 @@ import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ItemModel;
 import models.ProjectModel;
+import models.UserModel;
 
 public class ProjectManager extends AbstractManager implements ICustomObservable, Serializable {
 	
@@ -305,6 +306,16 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return partlyOccurrences + fullOccurrences >= 20
             ? "Partly available"
             : "Available";
+    }
+    
+    public ArrayList<String> allUserAvailability (UserManager uManager, LocalDate fromDate, LocalDate toDate)
+    {
+    	ArrayList<String> availability = new ArrayList<String>();
+    	for (String z : uManager.allUserNames())
+    	{
+    		availability.add(z+" "+userAvailability(z,fromDate,toDate));
+    	}
+    	return availability;
     }
 
     private List<ActivityEntity> UserActivityEntities(String userName)

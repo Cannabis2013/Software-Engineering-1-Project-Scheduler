@@ -17,6 +17,7 @@ import models.ProjectModel;
 import models.UserModel;
 import models.HourRegistrationModel;
 import models.ItemModel;
+import java.util.ArrayList;
 
 public class ApplicationCore implements IApplicationProgrammingInterface {
 	
@@ -95,6 +96,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     }
     
+    public ArrayList<String> allUserAvailability(LocalDate sDate, LocalDate eDate)
+    {
+    	return pManager.allUserAvailability(uManager,sDate, eDate);
+    }
     // Models
     public void addProject(ProjectModel newProject) throws Exception
     {
