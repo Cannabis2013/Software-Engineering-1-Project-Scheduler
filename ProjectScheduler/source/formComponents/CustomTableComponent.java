@@ -26,7 +26,6 @@ public class CustomTableComponent extends JPanel {
 	
 	public void setHeaderLabels(String[] labels)
 	{
-		int columnCount = columnCount();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setColumnIdentifiers(labels);
 		table.setModel(model);
