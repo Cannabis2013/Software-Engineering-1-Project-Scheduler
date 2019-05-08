@@ -85,9 +85,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public ItemModel[] userListModels(Boolean IncludeAdmin)
     {
         if(uManager.isAdmin())
-            return uManager.itemModels(IncludeAdmin);
+            return uManager.userItemModels(IncludeAdmin);
         else
-            return uManager.itemModels(false);
+            return uManager.userItemModels(false);
     }
 
     public String userAvailability(String username, LocalDate sDate, LocalDate eDate)

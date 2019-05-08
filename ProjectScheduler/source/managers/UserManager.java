@@ -83,7 +83,7 @@ public class UserManager extends AbstractManager {
         return result;
     }
 	
-	public ItemModel[] itemModels(Boolean fullList)
+	public ItemModel[] userItemModels(Boolean fullList)
     {
         if(fullList)
         	return models().stream().map(item -> item.itemModel()).toArray(ItemModel[]::new);
