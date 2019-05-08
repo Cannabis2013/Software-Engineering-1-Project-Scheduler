@@ -308,10 +308,10 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             : "Available";
     }
     
-    public ArrayList<ItemModel> allUserAvailability (UserManager uManager, LocalDate fromDate, LocalDate toDate)
+    public ArrayList<ItemModel> allUserAvailability (List<ItemModel> userItemModel, LocalDate fromDate, LocalDate toDate)
     {
     	ArrayList<String> availability = new ArrayList<String>();
-    	for (ItemModel z : uManager.itemModels(false))
+    	for (ItemModel z : userItemModel)
     	{
     		
     	}
