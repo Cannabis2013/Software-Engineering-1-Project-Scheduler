@@ -308,14 +308,14 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             : "Available";
     }
     
-    public ArrayList<String> allUserAvailability (UserManager uManager, LocalDate fromDate, LocalDate toDate)
+    public ArrayList<ItemModel> allUserAvailability (UserManager uManager, LocalDate fromDate, LocalDate toDate)
     {
     	ArrayList<String> availability = new ArrayList<String>();
-    	for (String z : uManager.allUserNames())
+    	for (ItemModel z : uManager.itemModels(false))
     	{
-    		availability.add(z+" "+userAvailability(z,fromDate,toDate));
+    		
     	}
-    	return availability;
+		return null;
     }
 
     private List<ActivityEntity> UserActivityEntities(String userName)
