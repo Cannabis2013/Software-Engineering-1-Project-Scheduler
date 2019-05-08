@@ -12,7 +12,6 @@ import models.ItemModel;
 public class CustomTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;
-	private int columnCount = 3;
 	private String[] columns = {"col1","col2","col3"};
 	
 	public CustomTable(TableModel model)
@@ -24,12 +23,14 @@ public class CustomTable extends JTable {
 	
 	public int columnCount()
 	{
-		return columnCount;
+		return getModel().getColumnCount();
 	}
 	
 	public void setColumnCount(int count)
 	{
-		columnCount = count;
+		DefaultTableModel model = (DefaultTableModel) getModel();
+		model.setColumnCount(count);
+		setModel(model);
 	}
 	
 	
@@ -37,7 +38,7 @@ public class CustomTable extends JTable {
 	{
 		DefaultTableModel model = (DefaultTableModel) getModel();
 		
-		model.setColumnCount(columnCount);
+		model.setColumnCount(columnCount());
 		model.addRow(item.data());
 		setModel(model);
 	}
@@ -88,10 +89,11 @@ public class CustomTable extends JTable {
 	
 	private ItemModel createItemModel(int index)
 	{
-		String[] data = new String[columnCount];
+		String[] data = new String[columnCount()];
 		
-		for (int i = 0; i < columnCount; i++)
-			data[columnCount] = (String) getValueAt(index, i);
+		for (int i = 0; i < columnCount(); i++)
+			data[i] = (String) getValueAt(index, i);
+		
 		
 		return new ItemModel(data);
 	}

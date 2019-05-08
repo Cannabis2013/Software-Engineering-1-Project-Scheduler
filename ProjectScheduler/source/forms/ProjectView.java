@@ -124,7 +124,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		activityView.setBounds(31, 65, 590, 443);
 		panel_1.add(activityView);
 		
-		String[] labels = {"Col1", "Col2", "Col3"};
+		String[] labels = {"Col1", "Col2", "Col3", "Col4"};
 		activityView.setHeaderLabels(labels);
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {

@@ -18,17 +18,19 @@ public class CustomTableComponent extends JPanel {
 	private CustomTable table;
 	public CustomTableComponent() {
 		setLayout(new BorderLayout(0, 0));
-		
-		
-		table = new CustomTable(new DefaultTableModel());
+		DefaultTableModel model = new DefaultTableModel();
+		model.setColumnCount(3);
+		table = new CustomTable(model);
 		add(table, BorderLayout.CENTER);
 		add(table.getTableHeader(),BorderLayout.NORTH);
 	}
 	
 	public void setHeaderLabels(String[] labels)
 	{
+		int columnCount = columnCount();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setColumnIdentifiers(labels);
+		model.setColumnCount(columnCount);
 		table.setModel(model);
 	}
 	
