@@ -36,10 +36,11 @@ public class AddProject extends JPanel implements FrameImplementable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextArea textField_4;
+
+	private JTextField projectTitleTextField;
+	private JTextField startDateTextField;
+	private JTextField endDateTextField;
+	private JTextField descriptionTextBox;
 	private DateChooser dateChooser;
 	private CustomFrame frame = null;
 	/**
@@ -72,44 +73,44 @@ public class AddProject extends JPanel implements FrameImplementable {
 		lblLeader.setBounds(58, 214, 60, 24);
 		lblLeader.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		
-		textField = new JTextField();
-		textField.setBounds(146, 90, 176, 26);
-		textField.setColumns(10);
+		projectTitleTextField = new JTextField();
+		projectTitleTextField.setBounds(146, 90, 176, 26);
+		projectTitleTextField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(146, 130, 155, 26);
-		textField_1.setColumns(10);
+		startDateTextField = new JTextField();
+		startDateTextField.setBounds(146, 130, 176, 26);
+		startDateTextField.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(146, 170, 155, 26);
-		textField_2.setColumns(10);
+		endDateTextField = new JTextField();
+		endDateTextField.setBounds(146, 170, 176, 26);
+		endDateTextField.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
 		lblEnterShortDescription.setBounds(345, 61, 141, 16);
 		lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 		
-		JButton btnNewButton = new JButton("Cancel");
-		btnNewButton.setBounds(345, 252, 86, 29);
-		btnNewButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(345, 252, 86, 29);
+		cancelButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
+		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(frame != null)
 					frame.close();
 			}
 		});
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(449, 252, 86, 29);
-		btnSave.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		btnSave.addActionListener(new ActionListener() {
+		JButton saveButton = new JButton("Save");
+		saveButton.setBounds(449, 252, 86, 29);
+		saveButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
 		});
 		
-		textField_4 = new JTextArea();
-		textField_4.setBounds(342, 89, 183, 145);
-		textField_4.setColumns(10);
+		descriptionTextBox = new JTextField();
+		descriptionTextBox.setBounds(342, 89, 183, 145);
+		descriptionTextBox.setColumns(10);
 		contentPanel.setLayout(null);
 		contentPanel.add(lblFillInInformation);
 		contentPanel.add(lblEnterShortDescription);
@@ -117,18 +118,18 @@ public class AddProject extends JPanel implements FrameImplementable {
 		contentPanel.add(lblEndDate);
 		contentPanel.add(lblLeader);
 		contentPanel.add(lblProjectId);
-		contentPanel.add(textField);
-		contentPanel.add(textField_2);
-		contentPanel.add(textField_1);
-		contentPanel.add(btnNewButton);
-		contentPanel.add(btnSave);
-		contentPanel.add(textField_4);
+		contentPanel.add(projectTitleTextField);
+		contentPanel.add(endDateTextField);
+		contentPanel.add(startDateTextField);
+		contentPanel.add(cancelButton);
+		contentPanel.add(saveButton);
+		contentPanel.add(descriptionTextBox);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, textField_1);
+				dateChooser = new DateChooser(contentPanel, startDateTextField);
 				dateChooser.setFrame(new CustomWidgetFrame());
 			}
 		});
@@ -141,7 +142,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, textField_2);
+				dateChooser = new DateChooser(contentPanel, endDateTextField);
 				dateChooser.setFrame(new CustomWidgetFrame());
 			}
 		});
@@ -149,11 +150,11 @@ public class AddProject extends JPanel implements FrameImplementable {
 		label.setBounds(298, 175, 16, 16);
 		contentPanel.add(label);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Clair", "David", "Martin", "Peter"}));
-		comboBox.setBounds(146, 210, 176, 26);
-		comboBox.addItem("clair");
-		contentPanel.add(comboBox);
+		JComboBox projectLeaderSelector = new JComboBox();
+		projectLeaderSelector.setModel(new DefaultComboBoxModel(new String[] {"Clair", "David", "Martin", "Peter"}));
+		projectLeaderSelector.setBounds(146, 210, 176, 26);
+		projectLeaderSelector.addItem("clair");
+		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
 	}
 
