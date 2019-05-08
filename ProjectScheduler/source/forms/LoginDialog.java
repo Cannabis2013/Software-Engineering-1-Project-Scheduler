@@ -114,7 +114,11 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 						} catch (Exception e) {
 							return;
 						}
+						if(service.isAdmin()) {
 						parent.launchMainView();
+						} else {
+							parent.launchUserView();
+						}
 						
 					}
 						

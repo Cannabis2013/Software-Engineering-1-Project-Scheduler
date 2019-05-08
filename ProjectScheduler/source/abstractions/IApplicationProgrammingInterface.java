@@ -15,6 +15,7 @@ public interface IApplicationProgrammingInterface {
     void logut();
 
     Boolean isAdmin();
+ 
 
     UserModel currentUserLoggedIn();
 

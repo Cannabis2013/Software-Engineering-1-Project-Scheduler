@@ -29,7 +29,7 @@ import javax.swing.SwingConstants;
 import formComponents.CustomTableComponent;
 import models.ItemModel;
 
-public class UserInterface extends JPanel implements FrameImplementable, ICustomObserver {
+public class UserView extends JPanel implements FrameImplementable, ICustomObserver {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
@@ -39,14 +39,14 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView;
 	
-	public UserInterface(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
 		setForeground(Color.WHITE);
 		setBorder(null);
-		setPreferredSize(new Dimension(1000, 540));
+		setPreferredSize(new Dimension(1000, 560));
 		setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(1000, 540));
+		setMinimumSize(new Dimension(1000, 560));
 		this.parent = parent;
 		initialize();
 		updateView();
@@ -60,7 +60,7 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 	 * @param parent 
 	 */
 	private void initialize() {
-		setBounds(100, 100, 1000, 540);
+		setBounds(100, 100, 1000, 560);
 		
 		menuBar = new JMenuBar();
 		
@@ -103,7 +103,7 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(200, 0, 800, 540);
+		panel_1.setBounds(200, 0, 800, 560);
 		panel_1.setBackground(new Color(176, 224, 230));
 		add(panel_1);
 		panel_1.setLayout(null);
@@ -132,7 +132,7 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		panel_1.add(customTableComponent);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 200, 540);
+		panel.setBounds(0, 0, 200, 560);
 		add(panel);
 		panel.setBorder(null);
 		panel.setBackground(new Color(176, 224, 230));
@@ -145,8 +145,8 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		
 		JLabel lblManagement = new JLabel("My Page");
 		lblManagement.setHorizontalAlignment(SwingConstants.CENTER);
-		lblManagement.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblManagement.setBounds(13, 6, 169, 45);
+		lblManagement.setFont(new Font("Lucida Grande", Font.BOLD, 18));
+		lblManagement.setBounds(26, 6, 169, 42);
 
 		panel.add(lblManagement);
 		
@@ -156,26 +156,33 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		JButton btnProjectOverview = new JButton("Management");
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				launchProjectDialog();
+				frame.close();
+				parent.launchMainView();
 			}
 		});
-		btnProjectOverview.setBounds(26, 383, 141, 29);
+		btnProjectOverview.setBounds(41, 383, 141, 29);
 		panel.add(btnProjectOverview);
 		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("/Users/davidtran/git/Software-Engineering-1-Project-Scheduler/ProjectScheduler/Ressource/userIcon.png"));
-		lblNewLabel.setBounds(15, 60, 167, 167);
+		lblNewLabel.setBounds(27, 60, 167, 167);
 		panel.add(lblNewLabel);
 		
 		String username =  service.currentUserLoggedIn().UserName();
 		JLabel lblWelcome = new JLabel("Welcome " + username);
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcome.setBounds(13, 239, 169, 16);
+		lblWelcome.setBounds(26, 239, 169, 16);
 		panel.add(lblWelcome);
 		
 		JButton btnRegisterHours_1 = new JButton("Register Hours");
-		btnRegisterHours_1.setBounds(26, 303, 141, 29);
+		btnRegisterHours_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterHour rh = new RegisterHour(service);
+				rh.setFrame(new CustomWidgetFrame());
+			}
+		});
+		btnRegisterHours_1.setBounds(41, 302, 141, 29);
 		panel.add(btnRegisterHours_1);
 	}
 	

@@ -152,10 +152,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		button.setBounds(666, 225, 128, 29);
 		panel_1.add(button);
 		
-		JButton btnRegisterHours = new JButton("Register Hours");
+		JButton btnRegisterHours = new JButton("Back to My Page");
 		btnRegisterHours.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				launchRegisterHours();
+				launchUserView();
 			}
 		});
 		btnRegisterHours.setBounds(666, 265, 128, 29);
@@ -261,9 +261,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		ap.setFrame(new CustomWidgetFrame());
 	}
 	
-	public void launchRegisterHours() {
-		RegisterHour rh = new RegisterHour(service);
-		rh.setFrame(new CustomWidgetFrame());
+	public void launchUserView() {
+		frame.close();
+		parent.launchUserView();
 	}
 
 	@Override
