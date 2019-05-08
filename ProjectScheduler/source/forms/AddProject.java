@@ -9,6 +9,7 @@ import abstractions.IApplicationProgrammingInterface;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
@@ -35,6 +36,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+
 	private JTextField projectTitleTextField;
 	private JTextField startDateTextField;
 	private JTextField endDateTextField;

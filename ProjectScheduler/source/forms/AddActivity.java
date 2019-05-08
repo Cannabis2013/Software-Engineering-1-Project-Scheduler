@@ -21,6 +21,8 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import formComponents.CustomTable;
 import formComponents.CustomTableComponent;
 import java.awt.Dimension;
@@ -35,7 +37,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	ApplicationFrontEnd parent;
 	CustomFrame frame = null;
 	private IApplicationProgrammingInterface service;
-	private JTextField textField_1;
+	private JTextArea textField_1;
 
 
 	public AddActivity(IApplicationProgrammingInterface service) {
@@ -61,7 +63,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		textField.setColumns(10);
 		JLabel lblStart = new JLabel("End week");
 		lblStart.setHorizontalAlignment(SwingConstants.CENTER);
-		lblStart.setBounds(239, 116, 90, 26);
+		lblStart.setBounds(239, 102, 90, 26);
 		JLabel lblEndWeek = new JLabel("Start week");
 		lblEndWeek.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEndWeek.setBounds(239, 55, 90, 26);
@@ -71,7 +73,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		textField_2.setColumns(10);
 		
 		textField_3 = new JTextField();
-		textField_3.setBounds(326, 116, 110, 26);
+		textField_3.setBounds(326, 102, 110, 26);
 		textField_3.setColumns(10);
 		
 		JLabel lblProject = new JLabel("Project ID");
@@ -80,7 +82,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		
 		JLabel lblNewLabel = new JLabel("Assign users to activity");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(15, 165, 774, 20);
+		lblNewLabel.setBounds(15, 160, 774, 20);
 		lblNewLabel.setBackground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		
@@ -91,7 +93,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblFillInInformation.setBackground(Color.BLACK);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(105, 117, 122, 27);
+		comboBox.setBounds(105, 103, 122, 27);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(9, 187, 785, 307);
@@ -187,7 +189,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		btnCancel.setBounds(662, 102, 117, 29);
 		contentPanel.add(btnCancel);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextArea();
 		textField_1.setBounds(479, 54, 175, 88);
 		contentPanel.add(textField_1);
 		textField_1.setColumns(10);
@@ -196,6 +198,11 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		label_3.setHorizontalAlignment(SwingConstants.CENTER);
 		label_3.setBounds(479, 31, 171, 26);
 		contentPanel.add(label_3);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(Color.BLACK);
+		panel_3.setBounds(0, 154, 800, 2);
+		contentPanel.add(panel_3);
 	}
 
 
