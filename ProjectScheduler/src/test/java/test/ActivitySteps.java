@@ -27,7 +27,7 @@ public class ActivitySteps {
 		
 		String pLeader = "FL";
 		String startDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
-		String endDate =DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
+		String endDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
 		currentProject = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
