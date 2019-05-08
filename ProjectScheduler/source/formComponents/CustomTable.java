@@ -18,6 +18,8 @@ public class CustomTable extends JTable {
 		super(model);
 		
 		setShowGrid(false);
+		
+		
 	}
 	
 	public int columnCount()
@@ -78,6 +80,12 @@ public class CustomTable extends JTable {
 	public ItemModel itemAt(int index)
 	{
 		return createItemModel(index);
+	}
+	
+	public ItemModel currentItem()
+	{
+		int currentRow = this.getSelectedRow();
+		return itemAt(currentRow);
 	}
 	
 	@Override

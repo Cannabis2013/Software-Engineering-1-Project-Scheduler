@@ -195,7 +195,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return models;
     }
 
-    public List<ItemModel> activityItemModels(UserManager uManager)
+    public List<ItemModel> activityItemModels(UserManager uManager) throws Exception
     {
         if (uManager.isAdmin())
         {
@@ -210,7 +210,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         	return activityItemModels(uManager.currentUser().modelId());
     }
 
-    public List<ItemModel> activityItemModels(String userName)
+    public List<ItemModel> activityItemModels(String userName) throws Exception
     {
     	List<ItemModel> allModels = new ArrayList<ItemModel>();
     	for (ProjectModel project : allProjects()) {
