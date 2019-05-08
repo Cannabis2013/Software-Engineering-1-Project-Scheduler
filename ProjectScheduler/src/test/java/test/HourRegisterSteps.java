@@ -110,4 +110,28 @@ public class HourRegisterSteps {
 	    assertEquals(false, regObject != null);
 	}
 	
+	@Given("a user with username {string} is logged in")
+	public void aUserWithUsernameIsLoggedIn(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Given("that this user has already registered an hour object")
+	public void thatThisUserHasAlreadyRegisteredAnHourObject() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@When("he edits the object")
+	public void heEditsTheObject() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Then("the edit is stored in the system")
+	public void theEditIsStoredInTheSystem() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+	
 }

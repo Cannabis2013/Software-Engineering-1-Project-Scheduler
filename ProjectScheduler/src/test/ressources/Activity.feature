@@ -36,4 +36,14 @@ Scenario: An unauthorized user fails to assign employee
 	And that "PB" is not assigned to "GUI Test" and is available
 	Then "HT" fails to assign "PB" to "GUI Test"
 
+Scenario: A projectleader reviews available employees
+	Given a user with "FL" is logged in and is projectleader for Project CANVAS
+	Then he can check the availability status of employees
+
+Scenario: A projectleader tries to assign an employee to more than twenty activities
+	Given that a user "FL" is logged in and is projectleader
+	And an activity "GUI Test" exists
+	And that a user "MH" is already assigned to twenty activities in the timespan
+	Then the projectleader "FL" fails to assign "MH" to activity "GUI Test"
+	
 

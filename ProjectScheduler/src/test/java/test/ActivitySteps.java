@@ -318,4 +318,51 @@ public class ActivitySteps {
 			
 		}
 	}
+	@Given("a user with {string} is logged in and is projectleader for Project CANVAS")
+	public void aUserWithIsLoggedInAndIsProjectleaderForProjectCANVAS(String string) {
+		try{
+	    	coreApp.login(string);
+	    } catch (Exception e) {
+	    	fail();
+	    }
+	    
+	    try {
+			 String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
+			 assertEquals(string, currentUserLoggedIn);
+			 String projectLeaderId = currentProject.projectLeaderId();
+			
+			 assertEquals(string, projectLeaderId);
+			} catch (NullPointerException e) {
+				fail();
+			}
+	}
+
+	@Then("he can check the availability status of employees")
+	public void heCanCheckTheAvailabilityStatusOfEmployees() {
+		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
+		try {
+	    	coreApp.allUserAvailability(startDate,endDate);
+	    } catch (Exception e) {
+	    	fail();
+	    }
+	}
+	
+	@Given("that a user {string} is logged in and is projectleader")
+	public void thatAUserIsLoggedInAndIsProjectleader(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Given("that a user {string} is already assigned to twenty activities in the timespan")
+	public void thatAUserIsAlreadyAssignedToTwentyActivitiesInTheTimespan(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
+
+	@Then("the projectleader {string} fails to assign {string} to activity {string}")
+	public void theProjectleaderFailsToAssignToActivity(String string, String string2, String string3) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new cucumber.api.PendingException();
+	}
 }
