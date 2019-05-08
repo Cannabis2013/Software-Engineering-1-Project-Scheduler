@@ -292,6 +292,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	@Override
 	public void updateView() {
 		
+		projectView.clear();
+		activityView.clear();
+		
 		List<ItemModel> assignedProjects = service.projectItemModels();
 		
 		projectView.addItems(assignedProjects);
