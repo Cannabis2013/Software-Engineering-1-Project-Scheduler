@@ -108,57 +108,28 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		add(panel_1);
 		panel_1.setLayout(null);
 		activityView = new CustomTableComponent();
-		activityView.setBounds(31, 65, 623, 443);
+		activityView.setBounds(31, 45, 685, 233);
 		panel_1.add(activityView);
 		
 		String[] labels = {"Title", "Estimated working hours", "Total registered hours", "Parent project"};
 		activityView.setHeaderLabels(labels);
-		JButton btnAddActivity = new JButton("Add Activity");
-		btnAddActivity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				launchAddActivity();
-			}
-		});
-		btnAddActivity.setBounds(666, 65, 128, 29);
-		panel_1.add(btnAddActivity);
 		
-		JButton btnEditActivity = new JButton("Edit Activity");
-		btnEditActivity.setBounds(666, 105, 128, 29);
-		panel_1.add(btnEditActivity);
-		
-		JButton btnRemoveActivty = new JButton("Remove Activty");
-
-		btnRemoveActivty.setBounds(664, 145, 130, 29);
-
-		panel_1.add(btnRemoveActivty);
-		
-		JLabel lblActivityOverview = new JLabel("Activity Overview");
-		lblActivityOverview.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblActivityOverview = new JLabel("My Assigned Activities");
+		lblActivityOverview.setHorizontalAlignment(SwingConstants.LEFT);
 		lblActivityOverview.setFont(new Font("Lucida Grande", Font.BOLD, 15));
-		lblActivityOverview.setBounds(31, 8, 253, 45);
+		lblActivityOverview.setBounds(31, 6, 253, 45);
 		panel_1.add(lblActivityOverview);
 		
-		JButton btnCheckUsers = new JButton("Check Users");
-		btnCheckUsers.setBounds(666, 185, 128, 29);
-		panel_1.add(btnCheckUsers);
+		JLabel lblRegisteredHoursEntities = new JLabel("Registered Hours Entities");
+		lblRegisteredHoursEntities.setHorizontalAlignment(SwingConstants.LEFT);
+		lblRegisteredHoursEntities.setFont(new Font("Lucida Grande", Font.BOLD, 15));
+		lblRegisteredHoursEntities.setBounds(31, 270, 253, 45);
+		panel_1.add(lblRegisteredHoursEntities);
 		
-		JButton button = new JButton("Check Description");
-		button.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		button.setBounds(666, 225, 128, 29);
-		panel_1.add(button);
-		
-		JButton btnRegisterHours = new JButton("Register Hours");
-		btnRegisterHours.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				launchRegisterHours();
-			}
-		});
-		btnRegisterHours.setBounds(666, 265, 128, 29);
-		panel_1.add(btnRegisterHours);
+		CustomTableComponent customTableComponent = new CustomTableComponent();
+		customTableComponent.setHeaderLabels(new String[] {"Title", "Estimated working hours", "Total registered hours", "Parent project"});
+		customTableComponent.setBounds(31, 307, 685, 233);
+		panel_1.add(customTableComponent);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 200, 540);
@@ -182,42 +153,13 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		
 		String[] projectViewHeaderLabels = {"Project title"};
 		
-		JButton btnRemoveActivity = new JButton("Remove Project");
-		btnRemoveActivity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnRemoveActivity.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		btnRemoveActivity.setBounds(41, 477, 126, 29);
-		panel.add(btnRemoveActivity);
-		
-		JButton btnProjectView = new JButton("Edit Project");
-		btnProjectView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnProjectView.setBounds(41, 447, 126, 29);
-		panel.add(btnProjectView);
-		
-		JButton btnAddActivty = new JButton("Add Project");
-		btnAddActivty.setBounds(41, 414, 126, 29);
-		panel.add(btnAddActivty);
-		btnAddActivty.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				launchAddProject();
-			}
-		});
-		btnAddActivty.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		
-		JButton btnProjectOverview = new JButton("Project Overview");
+		JButton btnProjectOverview = new JButton("Management");
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				launchProjectDialog();
 			}
 		});
-		btnProjectOverview.setBounds(41, 383, 126, 29);
+		btnProjectOverview.setBounds(26, 383, 141, 29);
 		panel.add(btnProjectOverview);
 		
 		
@@ -231,6 +173,10 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcome.setBounds(13, 239, 169, 16);
 		panel.add(lblWelcome);
+		
+		JButton btnRegisterHours_1 = new JButton("Register Hours");
+		btnRegisterHours_1.setBounds(26, 303, 141, 29);
+		panel.add(btnRegisterHours_1);
 	}
 	
 	@Override
@@ -254,22 +200,11 @@ public class UserInterface extends JPanel implements FrameImplementable, ICustom
 		dialog.setVisible(true);
 	
 	}
-
-	public void launchAddActivity() {
-		
-		AddActivity aa = new AddActivity(service);
-		aa.setFrame(new CustomWidgetFrame());
-	}
 	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
 		
 		ap.setFrame(new CustomWidgetFrame());
-	}
-	
-	public void launchRegisterHours() {
-		RegisterHour rh = new RegisterHour(service);
-		rh.setFrame(new CustomWidgetFrame());
 	}
 
 	@Override
