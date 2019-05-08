@@ -47,7 +47,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		initialize();
 	}
 	
-		private void initialize() {
+	private void initialize() {
 		setBounds(100, 100, 610, 316);
 		setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 224, 230));
@@ -155,8 +155,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		projectLeaderSelector.setBounds(146, 210, 176, 26);
 		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
-		
-	}
+	}	
 
 	@Override
 	public void setFrame(CustomFrame frame) {
@@ -165,6 +164,11 @@ public class AddProject extends JPanel implements FrameImplementable {
 		frame.setWidget(this);
 		frame.setWindowModality(true);
 		frame.ShowDialog();
+	}
+	
+	public void initializeFromProject(ProjectModel project)
+	{
+		
 	}
 
 	@Override

@@ -26,6 +26,10 @@ import javax.swing.JButton;
 
 public class AddActivity extends JPanel implements FrameImplementable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_2;
