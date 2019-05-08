@@ -12,7 +12,6 @@ import models.ItemModel;
 public class CustomTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;
-	private String[] columns = {"col1","col2","col3"};
 	
 	public CustomTable(TableModel model)
 	{

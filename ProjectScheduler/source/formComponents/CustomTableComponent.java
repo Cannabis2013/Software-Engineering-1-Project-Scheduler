@@ -19,7 +19,6 @@ public class CustomTableComponent extends JPanel {
 	public CustomTableComponent() {
 		setLayout(new BorderLayout(0, 0));
 		DefaultTableModel model = new DefaultTableModel();
-		model.setColumnCount(3);
 		table = new CustomTable(model);
 		add(table, BorderLayout.CENTER);
 		add(table.getTableHeader(),BorderLayout.NORTH);
@@ -30,7 +29,6 @@ public class CustomTableComponent extends JPanel {
 		int columnCount = columnCount();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.setColumnIdentifiers(labels);
-		model.setColumnCount(columnCount);
 		table.setModel(model);
 	}
 	
