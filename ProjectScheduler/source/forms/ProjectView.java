@@ -25,14 +25,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
 import formComponents.CustomTableComponent;
 import models.ItemModel;
 
@@ -45,8 +38,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView;
+	private CustomTableComponent projectView;
 	
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+		this.service = service;
 		setForeground(Color.WHITE);
 		setBorder(null);
 		setPreferredSize(new Dimension(1000, 540));
@@ -57,7 +52,6 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		initialize();
 		updateView();
 		
-		this.service = service;
 		
 		this.service.subScribe(this);
 	}
@@ -181,7 +175,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 		panel.add(lblManagement);
 		
-		CustomTableComponent projectView = new CustomTableComponent();
+		projectView = new CustomTableComponent();
 		projectView.setBounds(24, 65, 158, 303);
 		panel.add(projectView);
 		
@@ -204,11 +198,11 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnProjectView.setBounds(41, 447, 127, 29);
+		btnProjectView.setBounds(41, 447, 126, 29);
 		panel.add(btnProjectView);
 		
 		JButton btnAddActivty = new JButton("Add Project");
-		btnAddActivty.setBounds(40, 414, 127, 29);
+		btnAddActivty.setBounds(41, 414, 126, 29);
 		panel.add(btnAddActivty);
 		btnAddActivty.addMouseListener(new MouseAdapter() {
 			@Override
@@ -224,7 +218,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 				launchProjectDialog();
 			}
 		});
-		btnProjectOverview.setBounds(34, 383, 136, 29);
+		btnProjectOverview.setBounds(41, 383, 126, 29);
 		panel.add(btnProjectOverview);
 	}
 	
@@ -265,6 +259,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	@Override
 	public void updateView() {
 		
+		List<ItemModel> assignedProjects = service.projectItemModels();
+		
+		projectView.addItems(assignedProjects);
 		
 		List<ItemModel> activities;
 		try {
