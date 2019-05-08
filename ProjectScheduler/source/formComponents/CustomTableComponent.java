@@ -3,11 +3,7 @@ package formComponents;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
-
-import org.eclipse.jface.viewers.deferred.SetModel;
-
 import models.ItemModel;
 
 public class CustomTableComponent extends JPanel {
@@ -57,4 +53,8 @@ public class CustomTableComponent extends JPanel {
 		return table.columnCount();
 	}
 	
+	public void setColumnCount(int count)
+	{
+		table.setColumnCount(count);
+	}
 }
