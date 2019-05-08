@@ -55,10 +55,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setForeground(Color.WHITE);
 		setBorder(null);
-		setPreferredSize(new Dimension(960, 540));
+		setPreferredSize(new Dimension(1000, 540));
 		setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(960, 540));
+		setMinimumSize(new Dimension(1000, 540));
 		this.parent = parent;
 		initialize();
 		updateView();
@@ -73,7 +73,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	 * @param parent 
 	 */
 	private void initialize() {
-		setBounds(100, 100, 960, 540);
+		setBounds(100, 100, 1000, 540);
 		
 		menuBar = new JMenuBar();
 		
@@ -116,12 +116,12 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(200, 0, 760, 540);
+		panel_1.setBounds(200, 0, 800, 540);
 		panel_1.setBackground(new Color(176, 224, 230));
 		add(panel_1);
 		panel_1.setLayout(null);
 		activityView = new CustomTableComponent();
-		activityView.setBounds(31, 65, 590, 443);
+		activityView.setBounds(31, 65, 623, 443);
 		panel_1.add(activityView);
 		
 		String[] labels = {"Col1", "Col2", "Col3", "Col4"};
@@ -132,15 +132,15 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 				launchAddActivity();
 			}
 		});
-		btnAddActivity.setBounds(637, 77, 117, 29);
+		btnAddActivity.setBounds(666, 65, 128, 29);
 		panel_1.add(btnAddActivity);
 		
 		JButton btnEditActivity = new JButton("Edit Activity");
-		btnEditActivity.setBounds(637, 111, 117, 29);
+		btnEditActivity.setBounds(666, 105, 128, 29);
 		panel_1.add(btnEditActivity);
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
-		btnRemoveActivty.setBounds(633, 143, 128, 29);
+		btnRemoveActivty.setBounds(666, 145, 128, 29);
 		panel_1.add(btnRemoveActivty);
 		
 		JLabel lblActivityOverview = new JLabel("Activity Overview");
@@ -150,8 +150,21 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_1.add(lblActivityOverview);
 		
 		JButton btnCheckUsers = new JButton("Check Users");
-		btnCheckUsers.setBounds(637, 174, 117, 29);
+		btnCheckUsers.setBounds(666, 185, 128, 29);
 		panel_1.add(btnCheckUsers);
+		
+		JButton button = new JButton("Check Description");
+		button.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(666, 225, 128, 29);
+		panel_1.add(button);
+		
+		JButton btnRegisterHours = new JButton("Register Hours");
+		btnRegisterHours.setBounds(666, 265, 128, 29);
+		panel_1.add(btnRegisterHours);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 200, 540);
