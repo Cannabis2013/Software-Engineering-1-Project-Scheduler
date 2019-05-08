@@ -2,18 +2,27 @@
 package formComponents;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class CustomTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;
 	private int columnCount = 3;
+	private String[] columns = {"col1","col2","col3"};
 	
-	public CustomTable()
+	public CustomTable(TableModel model)
 	{
-		setColumnCount(columnCount);
+		super(model);
 		
 		setShowGrid(false);
+	}
+	
+	public int columnCount()
+	{
+		return columnCount;
 	}
 	
 	public void setColumnCount(int count)

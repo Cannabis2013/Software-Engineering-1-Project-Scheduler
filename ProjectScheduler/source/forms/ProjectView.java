@@ -36,7 +36,11 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.event.TreeSelectionEvent;
+import java.awt.BorderLayout;
+import javax.swing.JTable;
+import formComponents.CustomTableComponent;
 
 public class ProjectView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -44,9 +48,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private static final long serialVersionUID = 1L;
 	private CustomFrame frame;
 	DateChooser dateChooser;
-	private CustomTable activityView;
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
+	private CustomTableComponent activityView;
 	
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setForeground(Color.WHITE);
@@ -116,15 +120,12 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_1.setBackground(new Color(176, 224, 230));
 		add(panel_1);
 		panel_1.setLayout(null);
+		activityView = new CustomTableComponent();
+		activityView.setBounds(31, 65, 590, 443);
+		panel_1.add(activityView);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(31, 65, 590, 443);
-		panel_1.add(panel_2);
-		panel_2.setLayout(null);
-		activityView = new CustomTable();
-		activityView.setBounds(6, 6, 578, 431);
-		panel_2.add(activityView);
-		
+		String[] labels = {"Col1", "Col2", "Col3"};
+		activityView.setHeaderLabels(labels);
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -290,7 +291,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		cols[2] = "TestCol3";
 		ItemModel model1 = new ItemModel("GUI Test");
 		ItemModel model2 = new ItemModel(cols);
-		activityView.setColumnCount(3);
+		
 		activityView.addItem(model1);
 		activityView.addItem(model2);
 	}

@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import formComponents.CustomTable;
+import formComponents.CustomTableComponent;
 
 public class AddActivity extends JDialog {
 
@@ -30,8 +31,6 @@ public class AddActivity extends JDialog {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	ApplicationFrontEnd parent;
-	private CustomTable table;
-	private CustomTable table_1;
 	private IApplicationProgrammingInterface service;
 
 
@@ -96,20 +95,6 @@ public class AddActivity extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(6, 25, 320, 254);
-		panel.add(scrollPane);
-		
-		table = new CustomTable();
-		scrollPane.setViewportView(table);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(364, 25, 320, 254);
-		panel.add(scrollPane_1);
-		
-		table_1 = new CustomTable();
-		scrollPane_1.setViewportView(table_1);
-		
 		JLabel label_1 = new JLabel(">>");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setBounds(313, 120, 61, 16);
@@ -131,6 +116,20 @@ public class AddActivity extends JDialog {
 		lblAssignedUsers.setForeground(Color.RED);
 		lblAssignedUsers.setBounds(468, 6, 120, 16);
 		panel.add(lblAssignedUsers);
+		
+		CustomTableComponent panel_1 = new CustomTableComponent();
+		panel_1.setBounds(10, 25, 316, 254);
+		panel.add(panel_1);
+		
+		String[] labels = {"Col1", "Col2", "Col3"};
+		panel_1.setHeaderLabels(labels);
+		
+		CustomTableComponent panel_2 = new CustomTableComponent();
+		panel_2.setBounds(363, 25, 306, 254);
+		panel.add(panel_2);
+		
+		panel_2.setHeaderLabels(labels);
+		
 		contentPanel.add(lblActivity);
 		contentPanel.add(lblProject);
 		contentPanel.add(comboBox);
