@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import formComponents.CustomTable;
-
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,21 +22,10 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.event.TreeSelectionEvent;
-import java.awt.BorderLayout;
-import javax.swing.JTable;
 import formComponents.CustomTableComponent;
 import models.ItemModel;
 
@@ -51,8 +38,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView;
+	private CustomTableComponent projectView;
 	
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+		this.service = service;
 		setForeground(Color.WHITE);
 		setBorder(null);
 		setPreferredSize(new Dimension(1000, 540));
@@ -64,8 +53,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		updateView();
 		
 		
-		
-		service.subScribe(this);
+		this.service.subScribe(this);
 	}
 
 	/**
@@ -192,43 +180,18 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 		panel.add(lblManagement);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(24, 65, 158, 303);
-		panel.add(scrollPane_2);
+		projectView = new CustomTableComponent();
+		projectView.setBounds(24, 65, 158, 303);
+		panel.add(projectView);
 		
-		JTree tree = new JTree();
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			public void valueChanged(TreeSelectionEvent e) {
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-			}
-		});
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("Projects") {
-				{
-					add(new DefaultMutableTreeNode("Show All Projects"));
-					add(new DefaultMutableTreeNode("Project 1"));
-					add(new DefaultMutableTreeNode("Project 2"));
-					add(new DefaultMutableTreeNode("Project 3"));
-				}
-			}
-		));
-		scrollPane_2.setColumnHeaderView(tree);
+		
+		String[] projectViewHeaderLabels = {"Project title"};
+		projectView.setHeaderLabels(projectViewHeaderLabels);
 		
 		JButton btnRemoveActivity = new JButton("Remove Project");
 		btnRemoveActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				
-				TreePath[] paths = tree.getSelectionPaths();
-				if(paths != null) {
-					for(TreePath path: paths) { DefaultMutableTreeNode node = (DefaultMutableTreeNode) 
-                            path.getLastPathComponent();
-                        if (node.getParent() != null) {
-                            model.removeNodeFromParent(node);
-                        }
-                    }
-
-				}
 			}
 		});
 		btnRemoveActivity.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -240,11 +203,11 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnProjectView.setBounds(41, 447, 127, 29);
+		btnProjectView.setBounds(41, 447, 126, 29);
 		panel.add(btnProjectView);
 		
 		JButton btnAddActivty = new JButton("Add Project");
-		btnAddActivty.setBounds(40, 414, 127, 29);
+		btnAddActivty.setBounds(41, 414, 126, 29);
 		panel.add(btnAddActivty);
 		btnAddActivty.addMouseListener(new MouseAdapter() {
 			@Override
@@ -260,7 +223,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 				launchProjectDialog();
 			}
 		});
-		btnProjectOverview.setBounds(34, 383, 136, 29);
+		btnProjectOverview.setBounds(41, 383, 126, 29);
 		panel.add(btnProjectOverview);
 	}
 	
@@ -305,49 +268,17 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 	@Override
 	public void updateView() {
-		String[] cols = new String[3];
-		cols[0] = "TestCol1";
-		cols[1] = "TestCol2";
-		cols[2] = "TestCol3";
-		ItemModel model1 = new ItemModel("GUI Test");
-		ItemModel model2 = new ItemModel(cols);
 		
-		activityView.addItem(model1);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model1);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model1);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-		activityView.addItem(model2);
-
+		List<ItemModel> assignedProjects = service.projectItemModels();
+		
+		projectView.addItems(assignedProjects);
+		
+		List<ItemModel> activities;
+		try {
+			activities = service.activityItemModels();
+		} catch (Exception e) {
+			return;
+		}
+		activityView.addItems(activities);
 	}
 }
