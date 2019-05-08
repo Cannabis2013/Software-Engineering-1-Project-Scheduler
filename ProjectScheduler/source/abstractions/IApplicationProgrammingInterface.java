@@ -39,7 +39,7 @@ public interface IApplicationProgrammingInterface {
     ProjectModel project(int index) throws NullPointerException;
     ProjectModel project(String title) throws NullPointerException, Exception;
 
-    ItemModel[] projectItemModels();
+    List<ItemModel> projectItemModels();
     ItemModel[] projectItemModels(String UserIdentity);
 
     // Activities

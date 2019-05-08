@@ -172,13 +172,12 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     
     // Item models
     
-    public ItemModel[] ProjectItemModels()
+    public List<ItemModel> ProjectItemModels()
     {
-        int count = models().size(), index = 0;
-        ItemModel[] models = new ItemModel[count];
+        List<ItemModel> models = new ArrayList<>();
 
         for (Model p : models())
-            models[index++] = p.itemModel();
+            models.add(p.itemModel());
 
         return models;
     }
