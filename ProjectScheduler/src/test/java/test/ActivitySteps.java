@@ -234,7 +234,7 @@ public class ActivitySteps {
 	}
 	@Given("a user with username {string} is logged in and is not projectleader for Project CANVAS")
 	public void aUserWithUsernameIsLoggedInAndIsNotProjectleaderForProjectCANVAS(String string) {
-	    try{
+		 try{
 	    	coreApp.login(string);
 	    } catch (Exception e) {
 	    	fail();
@@ -254,8 +254,11 @@ public class ActivitySteps {
 
 	@Given("an activity {string} exists")
 	public void anActivityExists(String string) {
+		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+	    LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		try {
-			coreApp.activity(projectName, string);
+			ActivityModel activity = new ActivityModel(string,startDate,endDate);
+			assertTrue(activity != null);
 		} catch(Exception e) {
 			fail();
 		}
@@ -350,19 +353,66 @@ public class ActivitySteps {
 	
 	@Given("that a user {string} is logged in and is projectleader")
 	public void thatAUserIsLoggedInAndIsProjectleader(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		try{
+	    	coreApp.login(string);
+	    } catch (Exception e) {
+	    	fail();
+	    }
+	    
+	    try {
+			 String currentUserLoggedIn = coreApp.currentUserLoggedIn().UserName();
+			 assertEquals(string, currentUserLoggedIn);
+			 String projectLeaderId = currentProject.projectLeaderId();
+			
+			 assertEquals(string, projectLeaderId);
+			} catch (NullPointerException e) {
+				fail();
+			}
+
 	}
 
 	@Given("that a user {string} is already assigned to twenty activities in the timespan")
 	public void thatAUserIsAlreadyAssignedToTwentyActivitiesInTheTimespan(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
-	}
+		try {
+			LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+			LocalDate endDate = TestUnit.DateFromString("19-05-2019");
+			for (int i = 1; i<21;i++) {
+				String activityName = i + "test";
+				
+				ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
+				activity.assignUser(string);
+	    
+	    
+				coreApp.addActivity(currentProject.modelId(), activity);
+				
+				
+			}
+			assertEquals("Not available",coreApp.userAvailability(string,startDate,endDate));
+		} catch (Exception e) {
+			fail();
+		}
+			
+			
+		}
+	
 
 	@Then("the projectleader {string} fails to assign {string} to activity {string}")
 	public void theProjectleaderFailsToAssignToActivity(String string, String string2, String string3) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	   try {
+		   String activityName = "test21";
+			LocalDate startDate = TestUnit.DateFromString("05-05-2019");
+			LocalDate endDate = TestUnit.DateFromString("19-05-2019");
+   
+   
+			ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
+			
+   
+   
+			coreApp.addActivity(currentProject.modelId(), activity);
+			activity.assignUser(string2);
+			fail();
+	   } catch(Exception e) {
+		   assertTrue(true);
+	   }
 	}
 }
