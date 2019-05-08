@@ -124,7 +124,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		activityView.setBounds(31, 65, 590, 443);
 		panel_1.add(activityView);
 		
-		String[] labels = {"Col1", "Col2", "Col3", "Col4"};
+		String[] labels = {"Title", "Total registered hours", "Parent project"};
 		activityView.setHeaderLabels(labels);
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
@@ -140,7 +140,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_1.add(btnEditActivity);
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
-		btnRemoveActivty.setBounds(633, 143, 128, 29);
+		btnRemoveActivty.setBounds(637, 143, 117, 29);
 		panel_1.add(btnRemoveActivty);
 		
 		JLabel lblActivityOverview = new JLabel("Activity Overview");
