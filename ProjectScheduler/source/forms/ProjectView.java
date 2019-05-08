@@ -124,7 +124,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		activityView.setBounds(31, 65, 623, 443);
 		panel_1.add(activityView);
 		
-		String[] labels = {"Title", "Total registered hours", "Parent project"};
+		String[] labels = {"Title", "Estimated working hours", "Total registered hours", "Parent project"};
 		activityView.setHeaderLabels(labels);
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
@@ -304,5 +304,40 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		
 		activityView.addItem(model1);
 		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model1);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model1);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+		activityView.addItem(model2);
+
 	}
 }
