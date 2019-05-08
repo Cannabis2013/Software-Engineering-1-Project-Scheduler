@@ -74,11 +74,13 @@ public class AddProject extends JPanel implements FrameImplementable {
 		projectTitleTextField.setColumns(10);
 		
 		startDateTextField = new JTextField();
-		startDateTextField.setBounds(146, 130, 134, 26);
+
+		startDateTextField.setBounds(146, 130, 155, 26);
 		startDateTextField.setColumns(10);
 		
 		endDateTextField = new JTextField();
-		endDateTextField.setBounds(146, 170, 134, 26);
+		endDateTextField.setBounds(146, 170, 155, 26);
+
 		endDateTextField.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
@@ -153,6 +155,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		projectLeaderSelector.setBounds(146, 210, 176, 26);
 		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
+		
 	}
 
 	@Override
