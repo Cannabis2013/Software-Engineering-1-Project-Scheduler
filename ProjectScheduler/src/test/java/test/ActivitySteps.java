@@ -23,14 +23,15 @@ public class ActivitySteps {
 	
 	public ActivitySteps()
 	{
-		projectName = "Project CANVAS";
+		
 		
 		String pLeader = "FL";
 		String startDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
-		String endDate =DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
+		String endDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
-		currentProject = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
+		currentProject = new ProjectModel(pLeader, startDate, endDate, shortDescription);
+		projectName = currentProject.projectName();
 		try {
 			coreApp.login("admin");
 			coreApp.addProject(currentProject);
@@ -40,16 +41,10 @@ public class ActivitySteps {
 		}
 	}
 	
-	@Given("a project with name {string} exists")
-	public void a_project_with_name_exists(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-		try {
-			coreApp.login("admin");
-			coreApp.project(string);
-			coreApp.logut();
-		} catch (Exception e) {
-			fail();
-		}
+	
+	@Given("is projectleader for a project")
+	public void is_projectleader_for_a_project() {
+		assertTrue(currentProject.projectLeaderId().equals(coreApp.currentUserLoggedIn().UserName()));
 	}
 
 	@Given("the projectleader is a user with username {string}")
@@ -399,20 +394,16 @@ public class ActivitySteps {
 	@Then("the projectleader {string} fails to assign {string} to activity {string}")
 	public void theProjectleaderFailsToAssignToActivity(String string, String string2, String string3) {
 	   try {
-		   String activityName = "test21";
+		   	String activityName = "test21";
 			LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 			LocalDate endDate = TestUnit.DateFromString("19-05-2019");
    
-   
 			ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
-			
-   
-   
+	
 			coreApp.addActivity(currentProject.modelId(), activity);
 			activity.assignUser(string2);
 			fail();
 	   } catch(Exception e) {
-		   assertTrue(true);
 	   }
 	}
 }

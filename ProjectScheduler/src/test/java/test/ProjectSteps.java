@@ -35,15 +35,15 @@ public class ProjectSteps {
 	public void the_currently_logged_in_user_is_admin() {
 		assertEquals(true, coreApp.isAdmin());
 	}
+
 	
-	@Given("he fills an project application with the following information: Title {string}, start date today, end date at {string}, projectleaderid {string} , short description {string}")
-	public void he_fills_an_project_application_with_the_following_information_Title_start_date_today_end_date_at_projectleaderid_short_description(String string, String string2, String string3, String string4) {
-		tempString = string;
-		
+	@Given("he fills an project application with the following information: start date today, end date five days later, projectleaderid {string} , short description {string}")
+	public void he_fills_an_project_application_with_the_following_information_start_date_today_end_date_five_days_later_projectleaderid_short_description(String string, String string2) {
 		ProjectModel project;
 		try {
-			project = new ProjectModel(string, string3, "21-04-2019", string2, string4);
+			project = new ProjectModel(string, LocalDate.now(),LocalDate.now().plusDays(5),string2);
 			tempProject = project;
+			tempString = project.projectName();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			fail();
@@ -54,9 +54,9 @@ public class ProjectSteps {
 		}
 	}
 
-	@Then("the project with the title {string} can be retrieved at the ProjectManager database.")
-	public void the_project_with_the_title_can_be_retrieved_at_the_ProjectManager_database(String string) {
-		
+	@Then("the project can be retrieved at the ProjectManager database.")
+	public void the_project_can_be_retrieved_at_the_ProjectManager_database() {
+	    
 		try {
 			coreApp.addProject(tempProject);
 		} catch (Exception e) {
@@ -86,7 +86,7 @@ public class ProjectSteps {
 		if(!retrievedProject.description().equals(tempProject.description()))
 			fail();
 		
-		assertEquals(true, true);
+		assertEquals(true, true);	
 		
 	}
 	
@@ -111,15 +111,20 @@ public class ProjectSteps {
 	
 	@Given("a project exists with the name {string}")
 	public void a_project_exists_with_the_name(String string) {
-		tempString = string;
-	    ProjectModel project = new ProjectModel(string, "FL", LocalDate.now(), LocalDate.now(), "");
+		
+	}
+	@Given("a project exists")
+	public void a_project_exists() {
+	    
+	    ProjectModel project = new ProjectModel("FL", LocalDate.now(), LocalDate.now(), "");
+	    tempString = project.projectName();
 	    try {
 			coreApp.addProject(project);
 		} catch (Exception e) {
 			fail();
 		}
 	    try {
-			coreApp.project(string);
+			coreApp.project(tempString);
 		} catch (Exception e) {
 			fail();
 		}

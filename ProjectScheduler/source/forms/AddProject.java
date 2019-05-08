@@ -1,27 +1,21 @@
 package forms;
 
 import java.awt.BorderLayout;
-import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
+import models.ProjectModel;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
-import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -42,13 +36,15 @@ public class AddProject extends JPanel implements FrameImplementable {
 	private JTextField endDateTextField;
 	private JTextField descriptionTextBox;
 	private DateChooser dateChooser;
+	private JComboBox<String> projectLeaderSelector;
 	private CustomFrame frame = null;
+	private IApplicationProgrammingInterface service;
 	/**
 	 * Create the dialog.
 	 */
 	public AddProject(IApplicationProgrammingInterface service) {
+		this.service = service;
 		initialize();
-		
 	}
 	
 		private void initialize() {
@@ -74,15 +70,17 @@ public class AddProject extends JPanel implements FrameImplementable {
 		lblLeader.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		
 		projectTitleTextField = new JTextField();
-		projectTitleTextField.setBounds(146, 90, 176, 26);
+		projectTitleTextField.setBounds(146, 90, 134, 26);
 		projectTitleTextField.setColumns(10);
 		
 		startDateTextField = new JTextField();
+
 		startDateTextField.setBounds(146, 130, 155, 26);
 		startDateTextField.setColumns(10);
 		
 		endDateTextField = new JTextField();
 		endDateTextField.setBounds(146, 170, 155, 26);
+
 		endDateTextField.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
@@ -104,7 +102,8 @@ public class AddProject extends JPanel implements FrameImplementable {
 		saveButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				assembleProject();
+				close();
 			}
 		});
 		
@@ -150,10 +149,10 @@ public class AddProject extends JPanel implements FrameImplementable {
 		label.setBounds(298, 175, 16, 16);
 		contentPanel.add(label);
 		
-		JComboBox projectLeaderSelector = new JComboBox();
-		projectLeaderSelector.setModel(new DefaultComboBoxModel(new String[] {"Clair", "David", "Martin", "Peter"}));
+		projectLeaderSelector = new JComboBox<String>();
+		String[] allUserNames = service.allUserNames();
+		projectLeaderSelector.setModel(new DefaultComboBoxModel<String>(allUserNames));
 		projectLeaderSelector.setBounds(146, 210, 176, 26);
-		projectLeaderSelector.addItem("clair");
 		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
 		
@@ -172,6 +171,20 @@ public class AddProject extends JPanel implements FrameImplementable {
 	public void close() {
 		
 		frame.close();
+	}
+	
+	public void assembleProject()
+	{
+		String startDate = startDateTextField.getText(),
+				endDate = endDateTextField.getText(),
+				pLeader = (String) projectLeaderSelector.getSelectedItem(),
+				description = descriptionTextBox.getText();
+		ProjectModel newProject = new ProjectModel(pLeader, startDate, endDate, description);
+		try {
+			service.addProject(newProject);
+		} catch (Exception e) {
+			return;
+		}
 	}
 
 }

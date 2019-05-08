@@ -23,10 +23,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
 	
-	public Model ModelBySerial(String serial) throws Exception
-	{
-		return modelBySerial(serial);
-	}
+	
 	
 	public void addProject(ProjectModel project)
 	{
@@ -195,7 +192,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return models;
     }
 
-    public List<ItemModel> activityItemModels(UserManager uManager) throws Exception
+    public List<ItemModel> activityItemModels(UserManager uManager)
     {
         if (uManager.isAdmin())
         {
@@ -210,7 +207,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         	return activityItemModels(uManager.currentUser().modelId());
     }
 
-    public List<ItemModel> activityItemModels(String userName) throws Exception
+    public List<ItemModel> activityItemModels(String userName)
     {
     	List<ItemModel> allModels = new ArrayList<ItemModel>();
     	for (ProjectModel project : allProjects()) {

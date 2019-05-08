@@ -76,7 +76,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return uManager.currentUser();
     }
 
-    public List<String> userNames()
+    public String[] allUserNames()
     {
         return uManager.listModelIdentities();
     }
@@ -266,14 +266,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	return pManager.ProjectItemModels(UserIdentity);
     }
 
-    public List<ItemModel> activityItemModels() throws Exception
+    public List<ItemModel> activityItemModels()
     {
     	String currentLoggedinUserName = uManager.currentUser().UserName();
         return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
             activityItemModels(currentLoggedinUserName);
     }
 
-    public List<ItemModel> activityItemModels(String userName) throws Exception
+    public List<ItemModel> activityItemModels(String userName)
     {
         return pManager.activityItemModels(userName);
     }
@@ -312,13 +312,4 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         pManager.UnSubScribeAll();
     }
-
-	@Override
-	public Model modelBySerial(String serialId) {
-		try {
-			return pManager.ModelBySerial(serialId);
-		} catch (Exception e) {
-			return null;
-		}
-	}
 }

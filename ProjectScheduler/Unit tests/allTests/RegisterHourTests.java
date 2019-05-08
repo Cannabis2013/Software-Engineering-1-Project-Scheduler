@@ -15,16 +15,15 @@ public class RegisterHourTests extends TestTemplate {
 	
 	public RegisterHourTests() 
 	{
-		String projectName = "Project TEST";
 		String activityName = "GUI Test";
 		String projectLeaderId = "FL";
 		
-		if(!addProject("admin", projectName, projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
+		if(!addProject("admin", projectLeaderId, "05-05-2019", "19-05-2019", "Test project"))
 			fail();
 		
 		ProjectModel project;
 		try {
-			project = coreApp.project("Project TEST");
+			project = coreApp.project(projectName);
 		} catch (Exception e) {
 			fail();
 			return;
@@ -33,19 +32,6 @@ public class RegisterHourTests extends TestTemplate {
 		if(!addActivity(project.projectLeaderId(), activityName, project, "05-05-2019", "15-05-2019", 
 				20,userNames,""))
 			fail();
-	}
-	
-	@Test
-	public void registerHour_InputSet_A()
-	{
-		String projectName = "Project PEPSI MAX";
-		String activityName = "GUI Test";
-		String userId = "TT";
-		String regName = "Menus";
-		int workHours = 4;
-		boolean result = addRegistrationObject(userId, projectName, activityName, regName, workHours, "");
-		
-		assertEquals(false, result);
 	}
 	
 	@Test
@@ -64,7 +50,6 @@ public class RegisterHourTests extends TestTemplate {
 	@Test
 	public void registerHour_InputSet_C()
 	{
-		String projectName = "Project TEST";
 		String activityName = "GUI Test";
 		String userId = "NE";
 		String regName = "Menus";
@@ -77,7 +62,6 @@ public class RegisterHourTests extends TestTemplate {
 	@Test
 	public void registerHour_InputSet_D()
 	{
-		String projectName = "Project TEST";
 		String activityName = "GUI Test";
 		String userId = "TT";
 		String regName = "Menus";

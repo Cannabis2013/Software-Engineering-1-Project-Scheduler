@@ -57,20 +57,6 @@ public abstract class AbstractManager {
     	throw new NullPointerException("No model with the given identity exists within the current context.");
     }
     
-    protected Model modelBySerial(String serial) throws Exception
-    {
-    	for (Model model : models()) {
-			if(model.serialId().equals(serial))
-				return model;
-			
-			Model childModel = iterateModel(model,serial);
-			if(childModel != null)
-				return childModel;
-		}
-		
-		throw new Exception("Model not found");
-    }
-    
     protected Model modelAt(int index)
     {
     	if(index > models.size())
@@ -98,19 +84,5 @@ public abstract class AbstractManager {
     }
 
 	public abstract void requestUpdate();
-	
-	private Model iterateModel(Model model, String serialId)
-	{
-		if(model.serialId().equals(serialId))
-			return model;
-		List<Model> models = model.subModels();
-		for (Model aModel : models) {
-			Model aM = iterateModel(aModel, serialId);
-			if(aM != null)
-				return aM;
-		}
-
-		return null;
-	}
 	
 }

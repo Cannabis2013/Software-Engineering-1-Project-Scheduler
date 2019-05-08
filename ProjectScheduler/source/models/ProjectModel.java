@@ -12,13 +12,12 @@ import abstractions.Model;
 public class ProjectModel extends Model
 {
 	private static final long serialVersionUID = 1L;
-	private static int id = 1000;
+	private static int id = 1;
 	private String projectLeaderId;
     private LocalDate sDate, eDate;
     
-    public ProjectModel(String name, String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
+    public ProjectModel(String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
     {	
-    	setModelidentity(name);
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
@@ -26,11 +25,11 @@ public class ProjectModel extends Model
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
     	
+    	setModelidentity(generateSerialId());
     	setDescription(description);
-    	setSerialId(generateSerialId());
     }
     
-    public ProjectModel(String name, String projectLeaderId, String startDate, String endDate, String description) 
+    public ProjectModel(String projectLeaderId, String startDate, String endDate, String description) 
     		throws IllegalArgumentException
     {
     	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -45,15 +44,14 @@ public class ProjectModel extends Model
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
     	
-    	setModelidentity(name);
-    	setSerialId(generateSerialId());
+    	setModelidentity(generateSerialId());
     	setProjectLeaderId(projectLeaderId);
     	setDescription(description);
     }
     
     public String projectName()
     {
-    	return serialId();
+    	return modelId();
     }
     
     public LocalDate startDate()
@@ -143,7 +141,6 @@ public class ProjectModel extends Model
 		return new ItemModel(itemData);
     }
 
-	@Override
 	protected String generateSerialId() {
 		
 		if(id > 9999)

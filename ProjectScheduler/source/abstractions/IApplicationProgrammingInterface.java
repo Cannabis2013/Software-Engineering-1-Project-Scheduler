@@ -19,16 +19,14 @@ public interface IApplicationProgrammingInterface {
 
     UserModel currentUserLoggedIn();
 
-    List<String> userNames();
+    String[] allUserNames();
 
     List<ItemModel> userListModels(Boolean IncludeAdmin);
 
     String userAvailability(String username, 
         LocalDate sDate, LocalDate eDate);
 
-    // General model section
     
-    Model modelBySerial(String serialId);
     
     // Project section
 
@@ -57,7 +55,7 @@ public interface IApplicationProgrammingInterface {
     List<ActivityModel> activities();
     List<ActivityModel> activities(String userName);
 
-    List<ItemModel> activityItemModels() throws Exception;
+    List<ItemModel> activityItemModels();
     List<ItemModel> activityItemModels(String userName) throws Exception;
 
     // Hour registrations

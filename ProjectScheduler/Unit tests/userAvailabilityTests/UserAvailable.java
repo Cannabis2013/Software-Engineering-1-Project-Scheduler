@@ -16,7 +16,7 @@ import models.ProjectModel;
 
 public class UserAvailable extends TestTemplate {
 	
-	private String projectName = "Project TEST", activityName = "GUI Test", projectLeaderId = "FL";
+	private String activityName = "GUI Test", projectLeaderId = "FL";
 	private List<String> userNames;
 	private int numberOfActivities;
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -29,8 +29,7 @@ public class UserAvailable extends TestTemplate {
 		endDate = LocalDate.parse("05-06-2019",dateFormatter);
 		
 		try {
-			addProject("admin", 
-					projectName, 
+			addProject("admin",  
 					projectLeaderId, 
 					startDate.format(dateFormatter), 
 					endDate.format(dateFormatter), 

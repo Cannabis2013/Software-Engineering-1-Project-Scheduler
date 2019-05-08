@@ -28,17 +28,17 @@ public class HourRegisterSteps {
 		} catch (Exception e1) {
 			fail();
 		}
-		String projectTitle = string, projectLeaderUserName = string2;
+		String projectLeaderUserName = string2;
 		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		
-		currentProject = new ProjectModel(projectTitle, projectLeaderUserName, startDate, endDate, "");
+		currentProject = new ProjectModel(projectLeaderUserName, startDate, endDate, "");
 		try {
 			coreApp.addProject(currentProject);
 		} catch (Exception e) {
 			fail();
 		}
-		projectName = projectTitle;
+		projectName = currentProject.projectName();
 	}
 	
 	@Given("an activity extists with name {string} with some random chosen date intervals chosen")
