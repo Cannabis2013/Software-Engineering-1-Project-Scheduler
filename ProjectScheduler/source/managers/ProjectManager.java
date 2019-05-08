@@ -308,7 +308,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             : "Available";
     }
     
-    public ArrayList<ItemModel> allUserAvailability (List<ItemModel> userItemModel, LocalDate fromDate, LocalDate toDate)
+    public List<ItemModel> allUserAvailability (List<ItemModel> userItemModel, LocalDate fromDate, LocalDate toDate)
     {
     	ArrayList<ItemModel> result = new ArrayList<ItemModel>();
     	for (ItemModel z : userItemModel)

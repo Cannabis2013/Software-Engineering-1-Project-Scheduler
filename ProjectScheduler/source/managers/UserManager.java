@@ -2,6 +2,7 @@ package managers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import abstractions.AbstractManager;
 import abstractions.Model;
@@ -83,13 +84,13 @@ public class UserManager extends AbstractManager {
         return result;
     }
 	
-	public ItemModel[] userItemModels(Boolean fullList)
+	public List<ItemModel> userItemModels(Boolean fullList)
     {
         if(fullList)
-        	return models().stream().map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        	return models().stream().map(item -> item.itemModel()).collect(Collectors.toList());
         else
         	return models().stream().filter(subItem -> ((UserModel) subItem).Role() != userRole.Admin).
-        			map(item -> item.itemModel()).toArray(ItemModel[]::new);
+        			map(item -> item.itemModel()).collect(Collectors.toList());
     }
 	
 	private void createUserPrototypes()

@@ -20,7 +20,7 @@ public interface IApplicationProgrammingInterface {
 
     List<String> userNames();
 
-    ItemModel[] userListModels(Boolean IncludeAdmin);
+    List<ItemModel> userListModels(Boolean IncludeAdmin);
 
     String userAvailability(String username, 
         LocalDate sDate, LocalDate eDate);
