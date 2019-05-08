@@ -40,7 +40,7 @@ public class TestTemplate {
 		
 		ProjectModel project;
 		try {
-			project = new ProjectModel(projectTitle, projectLeaderId, sDate, eDate, description);
+			project = new ProjectModel(projectLeaderId, sDate, eDate, description);
 		} catch (Exception e) {
 			return false;
 		}

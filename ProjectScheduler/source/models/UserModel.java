@@ -48,18 +48,4 @@ public class UserModel extends Model {
 		
 		return new ItemModel(itemData);
     }
-	
-	@Override
-	protected String generateSerialId()
-    {
-    	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelId());
-    	long currentTimeInMs = Calendar.getInstance().getTimeInMillis();
-    	int hashedId = (int) (currentTimeInMs % (long) parentModelId().hashCode());
-    	
-    	serialBuilder.append(Integer.toString(hashedId));
-    	
-    	return serialBuilder.toString();
-    }
-
 }

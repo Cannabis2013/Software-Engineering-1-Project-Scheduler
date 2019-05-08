@@ -1,6 +1,5 @@
 package forms;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -13,17 +12,14 @@ import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import formComponents.CustomTable;
 import formComponents.CustomTableComponent;
 import java.awt.Dimension;
 import javax.swing.JButton;
