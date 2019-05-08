@@ -1,7 +1,7 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
 
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -112,26 +112,52 @@ public class HourRegisterSteps {
 	
 	@Given("a user with username {string} is logged in")
 	public void aUserWithUsernameIsLoggedIn(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		try {
+			coreApp.login(string);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
-	@Given("that this user has already registered an hour object")
-	public void thatThisUserHasAlreadyRegisteredAnHourObject() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+	@Given("that this user has already registered an application with the title {string} for registering {int} hours to the activity {string}")
+	public void thatThisUserHasAlreadyRegisteredAnApplicationWithTheTitleForRegisteringHoursToTheActivity(String string, Integer int1, String string2) {
+		try {
+			coreApp.registerHour(projectName, string2, string, int1, "");
+			tempRegName = string;
+		} catch (Exception e) {
+			
+		}
+		HourRegistrationModel regObject = null;
+		try {
+			regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+		} catch (Exception e) {
+			
+		}
+	    assertEquals(true, regObject != null);
 	}
+	
+	
 
 	@When("he edits the object")
 	public void heEditsTheObject() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		try {
+		HourRegistrationModel regObject = null;
+		regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+		regObject.setHours(5);
+		} catch(Exception e){
+			fail();
+		}
 	}
 
 	@Then("the edit is stored in the system")
 	public void theEditIsStoredInTheSystem() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new cucumber.api.PendingException();
+		try {
+		HourRegistrationModel regObject = null;
+		regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+		assertTrue(regObject.hours() == 5);
+		} catch(Exception e) {
+			fail();
+		}
 	}
 	
 }
