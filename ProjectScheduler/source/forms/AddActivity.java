@@ -7,6 +7,7 @@ import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
+import entities.DateEntity;
 
 import java.awt.Color;
 import javax.swing.Icon;
@@ -18,11 +19,18 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+
 import javax.swing.JTextArea;
 
 import formComponents.CustomTableComponent;
+import models.ItemModel;
+
 import java.awt.Dimension;
 import javax.swing.JButton;
+import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
+import java.beans.PropertyChangeEvent;
 
 public class AddActivity extends JPanel implements FrameImplementable{
 
@@ -32,18 +40,19 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	ApplicationFrontEnd parent;
-	CustomFrame frame = null;
+	private JTextField startWeekTextBox;
+	private JTextField endWeekTextBox;
+	private JLabel addUserLinkLabel, removeUserLinkLabel;
+	private CustomTableComponent availableUserView,assignedUserView;
+	private CustomFrame frame = null;
 	private IApplicationProgrammingInterface service;
 	private JTextArea textField_1;
-
+	private DateEntity startDate = new DateEntity(), endDate = new DateEntity();
 
 	public AddActivity(IApplicationProgrammingInterface service) {
+		this.service = service;
 		setPreferredSize(new Dimension(800, 520));
 		initialize();
-		this.service = service;
 	}
 	
 
@@ -68,13 +77,20 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblEndWeek.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEndWeek.setBounds(239, 55, 90, 26);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(326, 55, 110, 26);
-		textField_2.setColumns(10);
+		startWeekTextBox = new JTextField();
+		startWeekTextBox.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				initializeViews();
+			}
+		});
+		startWeekTextBox.setEditable(false);
+		startWeekTextBox.setBounds(326, 55, 110, 26);
+		startWeekTextBox.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(326, 102, 110, 26);
-		textField_3.setColumns(10);
+		endWeekTextBox = new JTextField();
+		endWeekTextBox.setEditable(false);
+		endWeekTextBox.setBounds(326, 102, 110, 26);
+		endWeekTextBox.setColumns(10);
 		
 		JLabel lblProject = new JLabel("Project ID");
 		lblProject.setHorizontalAlignment(SwingConstants.CENTER);
@@ -92,7 +108,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblFillInInformation.setFont(new Font("Lucida Grande", Font.BOLD, 19));
 		lblFillInInformation.setBackground(Color.BLACK);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<?> comboBox = new JComboBox<Object>();
 		comboBox.setBounds(105, 103, 122, 27);
 		
 		JPanel panel = new JPanel();
@@ -103,15 +119,16 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel label_1 = new JLabel(">>");
-		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setBounds(373, 118, 40, 16);
-		panel.add(label_1);
+		addUserLinkLabel = new JLabel(">>");
 		
-		JLabel label_2 = new JLabel("<<");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		label_2.setBounds(373, 146, 38, 16);
-		panel.add(label_2);
+		addUserLinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		addUserLinkLabel.setBounds(373, 118, 40, 16);
+		panel.add(addUserLinkLabel);
+		
+		removeUserLinkLabel = new JLabel("<<");
+		removeUserLinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		removeUserLinkLabel.setBounds(373, 146, 38, 16);
+		panel.add(removeUserLinkLabel);
 		
 		JLabel lblAvailableUsers = new JLabel("Available Users");
 		lblAvailableUsers.setForeground(new Color(0, 128, 0));
@@ -125,55 +142,55 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblAssignedUsers.setBounds(419, 6, 360, 16);
 		panel.add(lblAssignedUsers);
 		
-		CustomTableComponent panel_1 = new CustomTableComponent();
-		panel_1.setBounds(8, 25, 363, 276);
-		panel.add(panel_1);
+		availableUserView = new CustomTableComponent();
+		availableUserView.setBounds(8, 25, 363, 276);
+		panel.add(availableUserView);
 		
-		String[] labels = {"Col1", "Col2", "Col3"};
-		panel_1.setHeaderLabels(labels);
+		String[] labels = {"Username", "Role", "Availability"};
+		availableUserView.setHeaderLabels(labels);
 		
-		CustomTableComponent panel_2 = new CustomTableComponent();
-		panel_2.setBounds(414, 25, 363, 276);
-		panel.add(panel_2);
+		assignedUserView = new CustomTableComponent();
+		assignedUserView.setBounds(414, 25, 363, 276);
+		panel.add(assignedUserView);
 		
-		panel_2.setHeaderLabels(labels);
+		assignedUserView.setHeaderLabels(labels);
 		
 		contentPanel.add(lblActivity);
 		contentPanel.add(lblProject);
 		contentPanel.add(comboBox);
 		contentPanel.add(textField);
 		contentPanel.add(lblStart);
-		contentPanel.add(textField_3);
+		contentPanel.add(endWeekTextBox);
 		contentPanel.add(lblEndWeek);
-		contentPanel.add(textField_2);
+		contentPanel.add(startWeekTextBox);
 		
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+		JLabel startDateSelectorDialog = new JLabel("");
+		startDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, textField_2);
+				DateChooser dateDialog = new DateChooser(contentPanel, startWeekTextBox);
 				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
-		lblNewLabel_1.setIcon(calenderIcon);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(432, 58, 20, 20);
-		contentPanel.add(lblNewLabel_1);
+		startDateSelectorDialog.setIcon(calenderIcon);
+		startDateSelectorDialog.setHorizontalAlignment(SwingConstants.CENTER);
+		startDateSelectorDialog.setBounds(432, 58, 20, 20);
+		contentPanel.add(startDateSelectorDialog);
 		
 		
-		JLabel label = new JLabel("");
-		label.addMouseListener(new MouseAdapter() {
+		JLabel endDateSelectorDialog = new JLabel("");
+		endDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, textField_3);
+				DateChooser dateDialog = new DateChooser(contentPanel, endWeekTextBox);
 				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
-		label.setIcon(calenderIcon);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(432, 107, 20, 20);
-		contentPanel.add(label);
+		endDateSelectorDialog.setIcon(calenderIcon);
+		endDateSelectorDialog.setHorizontalAlignment(SwingConstants.CENTER);
+		endDateSelectorDialog.setBounds(432, 107, 20, 20);
+		contentPanel.add(endDateSelectorDialog);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.setBounds(662, 54, 117, 29);
@@ -206,6 +223,11 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	}
 
 
+	public void initializeViews()
+	{
+		
+	}
+	
 	@Override
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
@@ -213,7 +235,6 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		frame.setWindowModality(true);
 		frame.ShowDialog();
 	}
-
 
 	@Override
 	public void close() {

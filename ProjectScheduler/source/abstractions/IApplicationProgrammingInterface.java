@@ -15,8 +15,7 @@ public interface IApplicationProgrammingInterface {
     void logut();
 
     Boolean isAdmin();
- 
-
+    
     UserModel currentUserLoggedIn();
 
     String[] allUserNames();
@@ -26,7 +25,7 @@ public interface IApplicationProgrammingInterface {
     String userAvailability(String username, 
         LocalDate sDate, LocalDate eDate);
 
-    
+    List<ItemModel> allUserAvailability(LocalDate sDate, LocalDate eDate);
     
     // Project section
 

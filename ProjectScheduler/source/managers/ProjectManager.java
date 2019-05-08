@@ -23,8 +23,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
 	
-	
-	
 	public void addProject(ProjectModel project)
 	{
 		addModel(project);

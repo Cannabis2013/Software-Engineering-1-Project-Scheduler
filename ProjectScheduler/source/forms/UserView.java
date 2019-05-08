@@ -34,10 +34,9 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	private CustomFrame frame;
-	DateChooser dateChooser;
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
-	private CustomTableComponent activityView;
+	private CustomTableComponent activityView, registerHourView;
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -100,7 +99,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
 		setLayout(null);
-		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
+		new ImageIcon("./Ressource/calendericon.png");
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(200, 0, 800, 560);
@@ -126,10 +125,10 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblRegisteredHoursEntities.setBounds(31, 270, 253, 45);
 		panel_1.add(lblRegisteredHoursEntities);
 		
-		CustomTableComponent customTableComponent = new CustomTableComponent();
-		customTableComponent.setHeaderLabels(new String[] {"Title", "Estimated working hours", "Total registered hours", "Parent project"});
-		customTableComponent.setBounds(31, 307, 685, 233);
-		panel_1.add(customTableComponent);
+		registerHourView = new CustomTableComponent();
+		registerHourView.setHeaderLabels(new String[] {"Title", "Estimated working hours", "Total registered hours", "Parent project"});
+		registerHourView.setBounds(31, 307, 685, 233);
+		panel_1.add(registerHourView);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 200, 560);
@@ -150,8 +149,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 
 		panel.add(lblManagement);
 		
-		
-		String[] projectViewHeaderLabels = {"Project title"};
 		
 		JButton btnProjectOverview = new JButton("Management");
 		btnProjectOverview.addActionListener(new ActionListener() {
@@ -217,14 +214,17 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	@Override
 	public void updateView() {
 		
-		List<ItemModel> assignedProjects = service.projectItemModels();
+		activityView.clear();
 		
-		List<ItemModel> activities;
-		try {
-			activities = service.activityItemModels();
-		} catch (Exception e) {
-			return;
-		}
+		service.projectItemModels();
+		List<ItemModel> activities = service.activityItemModels();
+		
 		activityView.addItems(activities);
+		
+		registerHourView.clear();
+		
+		List<ItemModel> registeredHours = service.hourRegistrationItemModels();
+		
+		registerHourView.addItems(registeredHours);
 	}
 }

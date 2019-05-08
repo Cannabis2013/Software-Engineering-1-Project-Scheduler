@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 public class AddProject extends JPanel implements FrameImplementable {
 
@@ -32,7 +33,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField startDateTextField;
 	private JTextField endDateTextField;
-	private JTextField descriptionTextBox;
+	private JTextArea descriptionTextBox;
 	private DateChooser dateChooser;
 	private JComboBox<String> projectLeaderSelector;
 	private CustomFrame frame = null;
@@ -98,7 +99,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 			}
 		});
 		
-		descriptionTextBox = new JTextField();
+		descriptionTextBox = new JTextArea();
 		descriptionTextBox.setBounds(342, 89, 183, 145);
 		descriptionTextBox.setColumns(10);
 		contentPanel.setLayout(null);

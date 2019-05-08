@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
+import entities.DateEntity;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -37,11 +38,9 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	CustomFrame frame = null;
 
 	public DateChooser(JPanel panel, JTextField text) {
-		
 		p1 = new JPanel(new GridLayout(7, 7));
 		p1.setPreferredSize(new Dimension(420, 120));
 	    
-		
     	for (int i = 0; i < button.length; i++) {
     		int selected = i;
     		button[i] = new JButton();
@@ -52,11 +51,13 @@ public class DateChooser extends JPanel implements FrameImplementable {
     				public void actionPerformed(ActionEvent e) {
     					if (button[selected].getActionCommand() == "") {
     						return;
-        					} else {
+        					} 
+    					else 
+        					{
         						day = button[selected].getActionCommand();
         						frame.close();
         						text.setText(setPickedDate());
-                            	}
+                        	}
         				}
         			});
         		}
@@ -106,8 +107,9 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	gbc_p2.gridy = 1;
     	add(p2, gbc_p2);
     	displayCalender();
-    	
     	}
+	
+
 	
 	public void displayCalender() {
 		for (int i = 7; i < button.length; i++) {
@@ -128,6 +130,11 @@ public class DateChooser extends JPanel implements FrameImplementable {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		calender.set(year, month, Integer.parseInt(day));
 		return sdf.format(calender.getTime());
+	}
+	
+	public LocalDate getPickedLocalDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		return LocalDate.of(year, month,Integer.parseInt(day));
 	}
 
 	@Override

@@ -1,7 +1,11 @@
 
 package formComponents;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -18,8 +22,6 @@ public class CustomTable extends JTable {
 		super(model);
 		
 		setShowGrid(false);
-		
-		
 	}
 	
 	public int columnCount()
@@ -86,6 +88,17 @@ public class CustomTable extends JTable {
 	{
 		int currentRow = this.getSelectedRow();
 		return itemAt(currentRow);
+	}
+	
+	public List<ItemModel> currentItems()
+	{
+		List<ItemModel> selectedItems = new ArrayList<ItemModel>();
+		
+		int[] selectedIndexes = getSelectedRows();
+		for(int index : selectedIndexes)
+			selectedItems.add(itemAt(index));
+		
+		return selectedItems;
 	}
 	
 	public void clear()

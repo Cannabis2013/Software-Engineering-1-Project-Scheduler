@@ -2,6 +2,7 @@ package formComponents;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
 import java.util.List;
@@ -68,5 +69,13 @@ public class CustomTableComponent extends JPanel {
 	public void clear()
 	{
 		table.clear();
+	}
+	
+	public void setMultipleSelectionMode(boolean mode)
+	{
+		if(mode)
+			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		else
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 }
