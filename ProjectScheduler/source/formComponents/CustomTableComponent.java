@@ -50,6 +50,11 @@ public class CustomTableComponent extends JPanel {
 		return table.itemAt(index);
 	}
 	
+	public ItemModel currentItem()
+	{
+		return table.currentItem();
+	}
+	
 	public int columnCount()
 	{
 		return table.columnCount();

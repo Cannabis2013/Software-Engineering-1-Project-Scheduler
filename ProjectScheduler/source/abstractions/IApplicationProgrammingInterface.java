@@ -56,8 +56,8 @@ public interface IApplicationProgrammingInterface {
     List<ActivityModel> activities();
     List<ActivityModel> activities(String userName);
 
-    List<ItemModel> activityItemModels();
-    List<ItemModel> activityItemModels(String userName);
+    List<ItemModel> activityItemModels() throws Exception;
+    List<ItemModel> activityItemModels(String userName) throws Exception;
 
     // Hour registrations
 
