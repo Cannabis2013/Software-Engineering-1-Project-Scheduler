@@ -168,7 +168,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		});
 		label.setIcon(calenderIcon);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(432, 119, 20, 20);
+		label.setBounds(432, 107, 20, 20);
 		contentPanel.add(label);
 		
 		JButton btnSave = new JButton("Save");

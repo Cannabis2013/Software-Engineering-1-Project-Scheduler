@@ -158,10 +158,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		button.setBounds(666, 225, 128, 29);
 		panel_1.add(button);
 		
-		JButton btnRegisterHours = new JButton("Register Hours");
+		JButton btnRegisterHours = new JButton("Back to My Page");
 		btnRegisterHours.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				launchRegisterHours();
+				launchUserView();
 			}
 		});
 		btnRegisterHours.setBounds(666, 265, 128, 29);
@@ -240,6 +240,16 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 			panel.add(projectOverViewButton);
 		}
 		
+		JButton btnProjectOverview = new JButton("Project Overview");
+		btnProjectOverview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				launchProjectDialog();
+				
+			}
+		});
+		btnProjectOverview.setBounds(41, 383, 126, 29);
+		panel.add(btnProjectOverview);
+
 	}
 	
 	@Override
@@ -248,6 +258,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		this.frame.setWidget(this);
 		this.frame.setMenuBar(menuBar);
 		this.frame.ShowDialog();
+		
 	}
 
 	@Override
@@ -258,27 +269,24 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	public void launchProjectDialog()
 	{
 		ProjectDialog dialog = new ProjectDialog(service);
-		dialog.setFrame(new CustomWidgetFrame());
-		
 		dialog.setVisible(true);
+		dialog.setFrame(new CustomWidgetFrame());
 	
 	}
 
 	public void launchAddActivity() {
-		
 		AddActivity aa = new AddActivity(service);
 		aa.setFrame(new CustomWidgetFrame());
 	}
 	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
-		
 		ap.setFrame(new CustomWidgetFrame());
 	}
 	
-	public void launchRegisterHours() {
-		RegisterHour rh = new RegisterHour(service);
-		rh.setFrame(new CustomWidgetFrame());
+	public void launchUserView() {
+		frame.close();
+		parent.launchUserView();
 	}
 
 	@Override

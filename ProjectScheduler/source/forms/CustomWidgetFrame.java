@@ -45,6 +45,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 	 */
 	public CustomWidgetFrame() {
 		setUndecorated(true);
+		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
