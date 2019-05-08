@@ -64,7 +64,6 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 		
 		setBackground(new Color(176, 196, 222));
 		
-		
 		this.parent = parent;
 		setBounds(100, 100, 334, 270);
 		setLayout(new BorderLayout());

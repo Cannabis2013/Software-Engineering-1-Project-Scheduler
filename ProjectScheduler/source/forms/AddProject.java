@@ -30,8 +30,6 @@ public class AddProject extends JPanel implements FrameImplementable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-
-	private JTextField projectTitleTextField;
 	private JTextField startDateTextField;
 	private JTextField endDateTextField;
 	private JTextField descriptionTextBox;
@@ -54,37 +52,30 @@ public class AddProject extends JPanel implements FrameImplementable {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		add(contentPanel, BorderLayout.CENTER);
 		JLabel lblFillInInformation = new JLabel("Fill in information");
-		lblFillInInformation.setBounds(58, 28, 184, 39);
-		lblFillInInformation.setFont(new Font("Rockwell", Font.PLAIN, 21));
-		JLabel lblProjectId = new JLabel("Project ID");
-		lblProjectId.setBounds(58, 94, 70, 24);
-		lblProjectId.setFont(new Font("Rockwell", Font.PLAIN, 13));
+		lblFillInInformation.setBounds(58, 28, 207, 39);
+		lblFillInInformation.setFont(new Font("Rockwell", Font.PLAIN, 24));
 		JLabel lblStartDate = new JLabel("Start Date");
-		lblStartDate.setBounds(58, 134, 63, 22);
+		lblStartDate.setBounds(58, 93, 63, 22);
 		lblStartDate.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		JLabel lblEndDate = new JLabel("End Date");
-		lblEndDate.setBounds(58, 174, 60, 22);
+		lblEndDate.setBounds(58, 133, 60, 22);
 		lblEndDate.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		JLabel lblLeader = new JLabel("Leader");
-		lblLeader.setBounds(58, 214, 60, 24);
+		lblLeader.setBounds(58, 173, 60, 24);
 		lblLeader.setFont(new Font("Rockwell", Font.PLAIN, 13));
-		
-		projectTitleTextField = new JTextField();
-		projectTitleTextField.setBounds(146, 90, 134, 26);
-		projectTitleTextField.setColumns(10);
 		
 		startDateTextField = new JTextField();
 
-		startDateTextField.setBounds(146, 130, 155, 26);
+		startDateTextField.setBounds(146, 89, 155, 26);
 		startDateTextField.setColumns(10);
 		
 		endDateTextField = new JTextField();
-		endDateTextField.setBounds(146, 170, 155, 26);
+		endDateTextField.setBounds(146, 129, 155, 26);
 
 		endDateTextField.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
-		lblEnterShortDescription.setBounds(345, 61, 141, 16);
+		lblEnterShortDescription.setBounds(345, 61, 180, 16);
 		lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 		
 		JButton cancelButton = new JButton("Cancel");
@@ -116,8 +107,6 @@ public class AddProject extends JPanel implements FrameImplementable {
 		contentPanel.add(lblStartDate);
 		contentPanel.add(lblEndDate);
 		contentPanel.add(lblLeader);
-		contentPanel.add(lblProjectId);
-		contentPanel.add(projectTitleTextField);
 		contentPanel.add(endDateTextField);
 		contentPanel.add(startDateTextField);
 		contentPanel.add(cancelButton);
@@ -134,7 +123,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 		});
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		lblNewLabel.setIcon(calenderIcon);
-		lblNewLabel.setBounds(298, 135, 16, 16);
+		lblNewLabel.setBounds(298, 93, 16, 16);
 		contentPanel.add(lblNewLabel);
 		
 		JLabel label = new JLabel("");
@@ -146,13 +135,13 @@ public class AddProject extends JPanel implements FrameImplementable {
 			}
 		});
 		label.setIcon(calenderIcon);
-		label.setBounds(298, 175, 16, 16);
+		label.setBounds(298, 134, 16, 16);
 		contentPanel.add(label);
 		
 		projectLeaderSelector = new JComboBox<String>();
 		String[] allUserNames = service.allUserNames();
 		projectLeaderSelector.setModel(new DefaultComboBoxModel<String>(allUserNames));
-		projectLeaderSelector.setBounds(146, 210, 176, 26);
+		projectLeaderSelector.setBounds(146, 169, 176, 26);
 		contentPanel.add(projectLeaderSelector);
 		setPreferredSize(getSize());
 	}	
@@ -166,11 +155,6 @@ public class AddProject extends JPanel implements FrameImplementable {
 		frame.ShowDialog();
 	}
 	
-	public void initializeFromProject(ProjectModel project)
-	{
-		
-	}
-
 	@Override
 	public void close() {
 		
