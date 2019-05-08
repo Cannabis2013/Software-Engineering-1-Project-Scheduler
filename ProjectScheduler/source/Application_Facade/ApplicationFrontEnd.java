@@ -1,18 +1,8 @@
 package Application_Facade;
 
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JMenuBar;
-
-import abstractions.CustomFrame;
-import abstractions.FrameImplementable;
-import forms.AddActivity;
-import forms.AddProject;
 import forms.CustomWidgetFrame;
 import forms.LoginDialog;
-import forms.ProjectDialog;
 import forms.ProjectView;
 
 public class ApplicationFrontEnd {
@@ -29,8 +19,6 @@ public class ApplicationFrontEnd {
 		pView.setFrame(new CustomWidgetFrame());
 	}
 	
-	
-	
 	public void launchLoginDialog()
 	{
 		LoginDialog dialog = new LoginDialog(this, coreApp);
@@ -38,7 +26,4 @@ public class ApplicationFrontEnd {
 		
 		dialog.setVisible(true);
 	}
-	
-	
-
 }

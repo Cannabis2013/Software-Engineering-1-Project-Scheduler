@@ -274,11 +274,9 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		projectView.addItems(assignedProjects);
 		
 		List<ItemModel> activities;
-		try {
-			activities = service.activityItemModels();
-		} catch (Exception e) {
-			return;
-		}
+		
+		activities = service.activityItemModels();
+		
 		activityView.addItems(activities);
 	}
 }

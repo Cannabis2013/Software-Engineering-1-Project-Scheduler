@@ -266,14 +266,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	return pManager.ProjectItemModels(UserIdentity);
     }
 
-    public List<ItemModel> activityItemModels() throws Exception
+    public List<ItemModel> activityItemModels()
     {
     	String currentLoggedinUserName = uManager.currentUser().UserName();
         return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
             activityItemModels(currentLoggedinUserName);
     }
 
-    public List<ItemModel> activityItemModels(String userName) throws Exception
+    public List<ItemModel> activityItemModels(String userName)
     {
         return pManager.activityItemModels(userName);
     }
