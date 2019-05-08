@@ -141,7 +141,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
 
-		btnRemoveActivty.setBounds(637, 143, 117, 29);
+		btnRemoveActivty.setBounds(664, 145, 130, 29);
 
 		panel_1.add(btnRemoveActivty);
 		
