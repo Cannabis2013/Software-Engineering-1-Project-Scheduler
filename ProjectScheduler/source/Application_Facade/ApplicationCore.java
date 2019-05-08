@@ -261,25 +261,25 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.ProjectItemModels();
     }
 
-    public ItemModel[] projectItemModels(String UserIdentity)
+    public List<ItemModel> projectItemModels(String UserIdentity)
     {
     	return pManager.ProjectItemModels(UserIdentity);
     }
 
-    public ItemModel[] activityItemModels()
+    public List<ItemModel> activityItemModels()
     {
     	String currentLoggedinUserName = uManager.currentUser().UserName();
         return uManager.isAdmin() ? pManager.activityItemModels(uManager) :
             activityItemModels(currentLoggedinUserName);
     }
 
-    public ItemModel[] activityItemModels(String userName)
+    public List<ItemModel> activityItemModels(String userName)
     {
         return pManager.activityItemModels(userName);
     }
     
 	@Override
-	public ItemModel[] hourRegistrationItemModels() {
+	public List<ItemModel> hourRegistrationItemModels() {
 		if (uManager.isAdmin())
             return pManager.RegistrationItemModels();
 		
@@ -289,7 +289,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 	}
     
     @Override
-    public ItemModel[] hourRegistrationItemModels(String userName)
+    public List<ItemModel> hourRegistrationItemModels(String userName)
     {
         return pManager.RegistrationItemModels(userName);
     }

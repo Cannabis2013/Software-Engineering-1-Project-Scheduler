@@ -182,21 +182,20 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
         return models;
     }
     
-    public ItemModel[] ProjectItemModels(String username)
+    public List<ItemModel> ProjectItemModels(String username)
     {
-        int count = models().size(), index = 0;
-        ItemModel[] models = new ItemModel[count];
+        List<ItemModel> models = new ArrayList<>();
 
         for (ProjectModel project : allProjects())
         {
         	if(project.projectLeaderId().equals(username))
-        		models[index++] = project.itemModel();        	
+        		models.add(project.itemModel());
         }
 
         return models;
     }
 
-    public ItemModel[] activityItemModels(UserManager uManager)
+    public List<ItemModel> activityItemModels(UserManager uManager)
     {
         if (uManager.isAdmin())
         {
@@ -205,13 +204,13 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 				Stream<ItemModel> activityItemModels = project.Activities().stream().map(item -> item.itemModel());
 				allModels.addAll(activityItemModels.collect(Collectors.toList()));
 			}
-        	return allModels.toArray(new ItemModel[allModels.size()]);
+        	return allModels;
         }
         else
         	return activityItemModels(uManager.currentUser().modelId());
     }
 
-    public ItemModel[] activityItemModels(String userName)
+    public List<ItemModel> activityItemModels(String userName)
     {
     	List<ItemModel> allModels = new ArrayList<ItemModel>();
     	for (ProjectModel project : allProjects()) {
@@ -222,10 +221,10 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 			allModels.addAll(itemModels.collect(Collectors.toList()));
 		}
     	
-    	return allModels.toArray(new ItemModel[allModels.size()]);
+    	return allModels;
     }
 
-    public ItemModel[] RegistrationItemModels()
+    public List<ItemModel> RegistrationItemModels()
     {
         List<ItemModel> regModels = new ArrayList<ItemModel>();
         for (ProjectModel project : allProjects())
@@ -237,10 +236,10 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
             }
         }
 
-        return regModels.toArray(new ItemModel[regModels.size()]);
+        return regModels;
     }
 
-    public ItemModel[] RegistrationItemModels(String userName)
+    public List<ItemModel> RegistrationItemModels(String userName)
     {
     	List<ItemModel> regItemModels = new ArrayList<ItemModel>();
         for (ProjectModel project : allProjects())
@@ -251,11 +250,9 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
                 		filter(item -> item.userId() == userName).collect(Collectors.toList());
                 for(HourRegistrationModel rModel : models)
                 	regItemModels.add(rModel.itemModel());
-                
             }
         }
-
-        return regItemModels.toArray(new ItemModel[regItemModels.size()]);
+        return regItemModels;
     }
 
     public String userAvailability(String userName, LocalDate fromDate, LocalDate toDate)

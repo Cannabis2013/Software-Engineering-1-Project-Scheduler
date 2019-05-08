@@ -40,7 +40,7 @@ public interface IApplicationProgrammingInterface {
     ProjectModel project(String title) throws NullPointerException, Exception;
 
     List<ItemModel> projectItemModels();
-    ItemModel[] projectItemModels(String UserIdentity);
+    List<ItemModel> projectItemModels(String UserIdentity);
 
     // Activities
     
@@ -56,8 +56,8 @@ public interface IApplicationProgrammingInterface {
     List<ActivityModel> activities();
     List<ActivityModel> activities(String userName);
 
-    ItemModel[] activityItemModels();
-    ItemModel[] activityItemModels(String userName);
+    List<ItemModel> activityItemModels();
+    List<ItemModel> activityItemModels(String userName);
 
     // Hour registrations
 
@@ -67,8 +67,8 @@ public interface IApplicationProgrammingInterface {
     void unRegisterHour(String projectId, String activityId, String regId) throws Exception;
 
     HourRegistrationModel hourRegistrationModel(String activityId, String regId) throws Exception;
-    ItemModel[] hourRegistrationItemModels();
-    ItemModel[] hourRegistrationItemModels(String userNames);
+    List<ItemModel> hourRegistrationItemModels();
+    List<ItemModel> hourRegistrationItemModels(String userNames);
 
     // Observer
 
