@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 
 import org.eclipse.jface.viewers.deferred.SetModel;
 
+import models.ItemModel;
+
 public class CustomTableComponent extends JPanel {
 	/**
 	 * 

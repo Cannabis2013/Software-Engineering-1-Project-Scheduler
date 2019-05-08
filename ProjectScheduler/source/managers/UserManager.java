@@ -5,7 +5,7 @@ import java.util.List;
 
 import abstractions.AbstractManager;
 import abstractions.Model;
-import formComponents.ItemModel;
+import models.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;
 

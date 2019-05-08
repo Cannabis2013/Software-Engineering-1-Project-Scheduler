@@ -1,4 +1,4 @@
-package formComponents;
+package models;
 
 public class ItemModel {
 	

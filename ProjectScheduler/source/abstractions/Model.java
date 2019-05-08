@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import formComponents.ItemModel;
+import models.ItemModel;
 
 public abstract class Model implements Serializable {
 

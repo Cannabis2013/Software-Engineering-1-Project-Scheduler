@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import abstractions.Model;
-import formComponents.ItemModel;
 
 public class ProjectModel extends Model
 {

@@ -41,22 +41,6 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 	private JPanel topBar;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CustomWidgetFrame frame = new CustomWidgetFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public CustomWidgetFrame() {

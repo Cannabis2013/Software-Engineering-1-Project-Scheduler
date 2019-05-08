@@ -3,11 +3,11 @@ package abstractions;
 import java.time.LocalDate;
 import java.util.List;
 
-import formComponents.ItemModel;
 import models.ActivityModel;
 import models.ProjectModel;
 import models.UserModel;
 import models.HourRegistrationModel;
+import models.ItemModel;
 
 public interface IApplicationProgrammingInterface {
 	// User section

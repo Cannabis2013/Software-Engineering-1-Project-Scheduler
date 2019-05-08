@@ -3,7 +3,6 @@ package models;
 import java.util.Calendar;
 
 import abstractions.Model;
-import formComponents.ItemModel;
 
 public class UserModel extends Model {
 

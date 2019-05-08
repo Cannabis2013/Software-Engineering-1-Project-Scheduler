@@ -14,7 +14,6 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import formComponents.CustomTable;
-import formComponents.ItemModel;
 
 import java.awt.Dimension;
 import java.awt.Color;
@@ -41,6 +40,7 @@ import javax.swing.event.TreeSelectionEvent;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import formComponents.CustomTableComponent;
+import models.ItemModel;
 
 public class ProjectView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -269,12 +269,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	public void launchAddActivity() {
 		
 		AddActivity aa = new AddActivity(service);
-		aa.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				aa.dispose();
-			}
-		});
+		aa.setFrame(new CustomWidgetFrame());
 	}
 	
 	public void launchAddProject() {

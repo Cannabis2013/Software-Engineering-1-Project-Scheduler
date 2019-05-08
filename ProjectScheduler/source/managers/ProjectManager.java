@@ -12,9 +12,9 @@ import abstractions.ICustomObservable;
 import abstractions.ICustomObserver;
 import abstractions.Model;
 import entities.ActivityEntity;
-import formComponents.ItemModel;
 import models.ActivityModel;
 import models.HourRegistrationModel;
+import models.ItemModel;
 import models.ProjectModel;
 
 public class ProjectManager extends AbstractManager implements ICustomObservable, Serializable {

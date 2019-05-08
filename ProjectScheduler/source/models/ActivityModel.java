@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import abstractions.Model;
-import formComponents.ItemModel;
 import managers.UserManager;
 
 public class ActivityModel extends Model {

@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
+import models.ItemModel;
+
 public class CustomTable extends JTable {
 	
 	private static final long serialVersionUID = 1L;

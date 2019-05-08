@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 import abstractions.IApplicationProgrammingInterface;
 import abstractions.ICustomObserver;
 import abstractions.Model;
-import formComponents.ItemModel;
 import managers.ProjectManager;
 import managers.UserManager;
 import models.ActivityModel;
 import models.ProjectModel;
 import models.UserModel;
 import models.HourRegistrationModel;
+import models.ItemModel;
 
 public class ApplicationCore implements IApplicationProgrammingInterface {
 	

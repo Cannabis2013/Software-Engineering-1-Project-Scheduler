@@ -24,20 +24,20 @@ import javax.swing.JScrollPane;
 import formComponents.CustomTable;
 import formComponents.CustomTableComponent;
 
-public class AddActivity extends JDialog {
+public class AddActivity extends JPanel implements FrameImplementable{
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	ApplicationFrontEnd parent;
+	CustomFrame frame = null;
 	private IApplicationProgrammingInterface service;
 
 
 	public AddActivity(IApplicationProgrammingInterface service) {
-		setModal(true);
+		
 		initialize();
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		this.service = service;
 	}
@@ -45,12 +45,12 @@ public class AddActivity extends JDialog {
 
 	public void initialize() {
 		setBounds(100, 100, 700, 472);
-		getContentPane().setLayout(null);
+		setLayout(null);
 		contentPanel.setBounds(0, 0, 700, 450);
 		contentPanel.setBackground(new Color(176, 224, 230));
 		contentPanel.setForeground(new Color(135, 206, 235));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel);
+		add(contentPanel);
 		JLabel lblActivity = new JLabel("Activity ID");
 		lblActivity.setBounds(41, 54, 84, 26);
 		textField = new JTextField();
@@ -88,7 +88,7 @@ public class AddActivity extends JDialog {
 		comboBox.setBounds(137, 85, 154, 27);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 156, 690, 285);
+		panel.setBounds(5, 156, 690, 283);
 		contentPanel.setLayout(null);
 		contentPanel.add(lblNewLabel);
 		contentPanel.add(lblFillInInformation);
@@ -166,5 +166,22 @@ public class AddActivity extends JDialog {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(605, 92, 16, 16);
 		contentPanel.add(label);
+		setPreferredSize(getSize());
+	}
+
+
+	@Override
+	public void setFrame(CustomFrame frame) {
+		this.frame = frame;
+		frame.setWidget(this);
+		frame.setWindowModality(true);
+		frame.ShowDialog();
+	}
+
+
+	@Override
+	public void close() {
+		// TODO Auto-generated method stub
+		
 	}
 }
