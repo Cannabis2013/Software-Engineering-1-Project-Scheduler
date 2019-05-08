@@ -88,6 +88,14 @@ public class CustomTable extends JTable {
 		return itemAt(currentRow);
 	}
 	
+	public void clear()
+	{
+		DefaultTableModel model = (DefaultTableModel) getModel();
+		for (int i = 0; i < model.getRowCount(); i++) {
+			model.removeRow(i);
+		}
+	}
+	
 	@Override
 	public boolean isCellEditable(int row, int column)
 	{

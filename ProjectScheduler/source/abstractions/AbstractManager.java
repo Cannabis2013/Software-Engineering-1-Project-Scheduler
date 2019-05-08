@@ -22,6 +22,7 @@ public abstract class AbstractManager {
             if (model.modelId().equals(identity))
             {
                 models.remove(i);
+                requestUpdate();
                 return;
             }
         }

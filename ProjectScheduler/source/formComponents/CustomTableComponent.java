@@ -64,4 +64,9 @@ public class CustomTableComponent extends JPanel {
 	{
 		table.setColumnCount(count);
 	}
+	
+	public void clear()
+	{
+		table.clear();
+	}
 }
