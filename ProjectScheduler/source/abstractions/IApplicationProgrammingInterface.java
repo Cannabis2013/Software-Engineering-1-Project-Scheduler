@@ -25,9 +25,7 @@ public interface IApplicationProgrammingInterface {
     String userAvailability(String username, 
         LocalDate sDate, LocalDate eDate);
 
-    // General model section
     
-    Model modelBySerial(String serialId);
     
     // Project section
 

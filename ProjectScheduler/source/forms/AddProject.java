@@ -172,12 +172,11 @@ public class AddProject extends JPanel implements FrameImplementable {
 	
 	public void assembleProject()
 	{
-		String pTitle = projectTitleTextField.getText(),
-				startDate = startDateTextField.getText(),
+		String startDate = startDateTextField.getText(),
 				endDate = endDateTextField.getText(),
 				pLeader = (String) projectLeaderSelector.getSelectedItem(),
 				description = descriptionTextBox.getText();
-		ProjectModel newProject = new ProjectModel(pTitle, pLeader, startDate, endDate, description);
+		ProjectModel newProject = new ProjectModel(pLeader, startDate, endDate, description);
 		try {
 			service.addProject(newProject);
 		} catch (Exception e) {

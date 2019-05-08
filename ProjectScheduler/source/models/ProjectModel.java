@@ -18,7 +18,6 @@ public class ProjectModel extends Model
     
     public ProjectModel(String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
     {	
-    	setModelidentity(generateSerialId());
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
@@ -26,6 +25,7 @@ public class ProjectModel extends Model
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
     	
+    	setModelidentity(generateSerialId());
     	setDescription(description);
     }
     

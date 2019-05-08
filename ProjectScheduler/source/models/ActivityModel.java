@@ -271,6 +271,4 @@ public class ActivityModel extends Model {
 		
 		return itemData;
     }
-    
-    
 }

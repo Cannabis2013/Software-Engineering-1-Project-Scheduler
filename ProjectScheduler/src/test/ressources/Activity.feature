@@ -1,14 +1,14 @@
 Feature: Activities
 
 Background: a project exists
-	Given a project with name "Project CANVAS" exists
+	Given a project exists
 	And the projectleader is a user with username "FL"
 	Then FL should be able to add an activity to project CANVAS
 	And other users shouldn't
 
 Scenario: FL is able to add a actvity to Project CANVAS
 	Given the user currently logged in has username "FL"
-	And is projectleader for "Project CANVAS"
+	And is projectleader for a project
 	When he creates an activity with title "GUI Test" and some random interval dates
 	And assigns "BB" , "JW" and "TT"
 	Then he succesfully manage to add the activity to "Project CANVAS"
