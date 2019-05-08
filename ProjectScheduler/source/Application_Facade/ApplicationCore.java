@@ -92,7 +92,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public String userAvailability(String username, LocalDate sDate, LocalDate eDate)
     {
         return pManager.userAvailability(username, sDate, eDate);
-
     }
     
     public List<ItemModel> allUserAvailability(LocalDate sDate, LocalDate eDate)
@@ -257,7 +256,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     // Item models
     
-    public ItemModel[] projectItemModels()
+    public List<ItemModel> projectItemModels()
     {
         return pManager.ProjectItemModels();
     }
