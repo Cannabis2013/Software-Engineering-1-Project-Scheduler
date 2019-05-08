@@ -18,7 +18,7 @@ public interface IApplicationProgrammingInterface {
 
     UserModel currentUserLoggedIn();
 
-    List<String> userNames();
+    String[] allUserNames();
 
     List<ItemModel> userListModels(Boolean IncludeAdmin);
 

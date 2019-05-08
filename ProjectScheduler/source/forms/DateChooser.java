@@ -109,7 +109,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 		for (int i = 7; i < button.length; i++) {
 			button[i].setText("");
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("en"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", new Locale("en"));
 		calender.set(year, month, 1);
 	
 		int dayOfWeek = calender.get(java.util.Calendar.DAY_OF_WEEK);
@@ -122,7 +122,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	}
 
 	public String setPickedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		calender.set(year, month, Integer.parseInt(day));
 		return sdf.format(calender.getTime());
 	}

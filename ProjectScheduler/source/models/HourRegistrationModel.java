@@ -26,7 +26,6 @@ public class HourRegistrationModel extends Model {
 
         
         originalRegistrationDate = LocalDate.now();
-        setSerialId(generateSerialId());
     }
 
     public int hours()
@@ -71,20 +70,9 @@ public class HourRegistrationModel extends Model {
 		itemData[2] = Integer.toString(hours());
 		itemData[3] = originalRegistrationDate.format(formatter);
 		itemData[4] = parentModelId();
-		itemData[5] = serialId();
 		
 		return new ItemModel(itemData);
     }
     
-    @Override
-    protected String generateSerialId()
-    {
-    	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelId());
-    	int hashedId = hashCode();
-    	
-    	serialBuilder.append(Integer.toString(hashedId));
-    	
-    	return serialBuilder.toString();
-    }
+    
 }

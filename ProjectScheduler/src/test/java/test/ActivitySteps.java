@@ -30,7 +30,8 @@ public class ActivitySteps {
 		String endDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
-		currentProject = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
+		currentProject = new ProjectModel(pLeader, startDate, endDate, shortDescription);
+		projectName = currentProject.projectName();
 		try {
 			coreApp.login("admin");
 			coreApp.addProject(currentProject);

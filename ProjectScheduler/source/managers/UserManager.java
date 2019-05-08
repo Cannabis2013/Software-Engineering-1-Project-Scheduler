@@ -53,16 +53,6 @@ public class UserManager extends AbstractManager {
         }
         return null;
     }
-
-    public List<String> allUserNames()
-    {
-        List<String> result = new ArrayList<String>();
-        for (UserModel u : users)
-            result.add(u.UserName());
-
-        return result;
-    }
-	
 	
 	private UserModel verifyCredentials(String userName)
     {
@@ -75,11 +65,15 @@ public class UserManager extends AbstractManager {
 		return null;
     }
 	
-	public List<String> listModelIdentities()
+	public String[] listModelIdentities()
     {
-        List<String> result = new ArrayList<String>();
-        for (Model u : models())
-            result.add(u.modelId());
+		String[] result = new String[users.size() - 1];
+		int index = 0;
+        for (int i = 0; i < users.size(); i++) {
+			String userName = users.get(i).modelId();
+			if(!userName.equals("admin"))
+				result[index++] = userName;
+		}
 
         return result;
     }

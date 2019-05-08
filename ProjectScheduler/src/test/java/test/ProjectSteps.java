@@ -42,7 +42,7 @@ public class ProjectSteps {
 		
 		ProjectModel project;
 		try {
-			project = new ProjectModel(string, string3, "21-04-2019", string2, string4);
+			project = new ProjectModel(string3, "21-04-2019", string2, string4);
 			tempProject = project;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -112,7 +112,7 @@ public class ProjectSteps {
 	@Given("a project exists with the name {string}")
 	public void a_project_exists_with_the_name(String string) {
 		tempString = string;
-	    ProjectModel project = new ProjectModel(string, "FL", LocalDate.now(), LocalDate.now(), "");
+	    ProjectModel project = new ProjectModel("FL", LocalDate.now(), LocalDate.now(), "");
 	    try {
 			coreApp.addProject(project);
 		} catch (Exception e) {

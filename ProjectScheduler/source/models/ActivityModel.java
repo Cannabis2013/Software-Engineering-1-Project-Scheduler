@@ -50,8 +50,6 @@ public class ActivityModel extends Model {
             	assignedUserIdentities = assignedUsers;            
             
             setDescription(description);
-            
-            assignSerialId();
         }
     
     public ActivityModel(String activityTitle,
@@ -65,9 +63,6 @@ public class ActivityModel extends Model {
         
         if(eDate.compareTo(sDate) < 0)
         	throw new IllegalArgumentException("The end date is before the start date.");
-        
-        
-        assignSerialId();
     }
 
     public ActivityModel(String activityTitle,String reason, LocalDate sDate, LocalDate eDate, String userId)
@@ -273,29 +268,9 @@ public class ActivityModel extends Model {
 		itemData[1] = sDate.format(formatter);
 		itemData[2] = eDate.format(formatter);
 		itemData[3] = Integer.toString(totalRegisteredHours());
-		itemData[4] = serialId();
 		
 		return itemData;
     }
     
-    public void assignSerialId()
-    {
-    	setSerialId(generateSerialId());
-    }
     
-    @Override
-    protected String generateSerialId()
-    {
-    	StringBuilder serialBuilder = new StringBuilder();
-    	serialBuilder.append(modelId());
-    	int hashedId = 0;
-    	if(Type == ActivityType.Work_Related)
-    		 hashedId = this.hashCode();
-    	else
-    		hashedId = reason.hashCode();
-    	
-    	serialBuilder.append(Integer.toString(hashedId));
-    	
-    	return serialBuilder.toString();
-    }
 }

@@ -79,7 +79,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		endDateTextField.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
-		lblEnterShortDescription.setBounds(345, 61, 141, 16);
+		lblEnterShortDescription.setBounds(345, 61, 255, 16);
 		lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 		
 		JButton cancelButton = new JButton("Cancel");
@@ -102,7 +102,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		});
 		
 		descriptionTextBox = new JTextArea();
-		descriptionTextBox.setBounds(342, 89, 183, 145);
+		descriptionTextBox.setBounds(342, 89, 258, 145);
 		descriptionTextBox.setColumns(10);
 		contentPanel.setLayout(null);
 		contentPanel.add(lblFillInInformation);

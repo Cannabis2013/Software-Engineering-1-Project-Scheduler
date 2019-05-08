@@ -26,6 +26,9 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import org.eclipse.swt.widgets.MessageBox;
+
 import formComponents.CustomTableComponent;
 import models.ItemModel;
 
@@ -51,7 +54,6 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		this.parent = parent;
 		initialize();
 		updateView();
-		
 		
 		this.service.subScribe(this);
 	}
@@ -88,15 +90,18 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmAddProject = new JMenuItem("Add Project");
-		mntmAddProject.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				launchAddProject();
-			}
-		});
+		if(service.isAdmin())
+		{
+			JMenuItem mntmAddProject = new JMenuItem("Add Project");
+			mnEdit.add(mntmAddProject);
+			mntmAddProject.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					launchAddProject();
+				}
+			});
+		}
 		
-		mnEdit.add(mntmAddProject);
 		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
@@ -128,6 +133,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel_1.add(btnEditActivity);
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
+		
 
 		btnRemoveActivty.setBounds(664, 145, 130, 29);
 
@@ -188,43 +194,52 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		String[] projectViewHeaderLabels = {"Project title"};
 		projectView.setHeaderLabels(projectViewHeaderLabels);
 		
-		JButton btnRemoveActivity = new JButton("Remove Project");
-		btnRemoveActivity.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnRemoveActivity.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		btnRemoveActivity.setBounds(41, 477, 126, 29);
-		panel.add(btnRemoveActivity);
+		if(service.isAdmin())
+		{
+			JButton removeProjectButton = new JButton("Remove Project");
+			removeProjectButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String pTitle = projectView.currentItem().text(0);
+					try {
+						service.removeProject(pTitle);
+					} catch (Exception e1) {
+						
+					}
+				}
+			});
+			removeProjectButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+			removeProjectButton.setBounds(41, 477, 126, 29);
+			panel.add(removeProjectButton);
+			
+			JButton editProjectButton = new JButton("Edit Project");
+			editProjectButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			editProjectButton.setBounds(41, 447, 126, 29);
+			panel.add(editProjectButton);
+			
+			JButton addProjectButton = new JButton("Add Project");
+			addProjectButton.setBounds(41, 414, 126, 29);
+			panel.add(addProjectButton);
+			addProjectButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					launchAddProject();
+				}
+			});
+			addProjectButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+			
+			JButton projectOverViewButton = new JButton("Project Overview");
+			projectOverViewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					launchProjectDialog();
+				}
+			});
+			projectOverViewButton.setBounds(41, 383, 126, 29);
+			panel.add(projectOverViewButton);
+		}
 		
-		JButton btnProjectView = new JButton("Edit Project");
-		btnProjectView.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnProjectView.setBounds(41, 447, 126, 29);
-		panel.add(btnProjectView);
-		
-		JButton btnAddActivty = new JButton("Add Project");
-		btnAddActivty.setBounds(41, 414, 126, 29);
-		panel.add(btnAddActivty);
-		btnAddActivty.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				launchAddProject();
-			}
-		});
-		btnAddActivty.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		
-		JButton btnProjectOverview = new JButton("Project Overview");
-		btnProjectOverview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				launchProjectDialog();
-			}
-		});
-		btnProjectOverview.setBounds(41, 383, 126, 29);
-		panel.add(btnProjectOverview);
 	}
 	
 	@Override

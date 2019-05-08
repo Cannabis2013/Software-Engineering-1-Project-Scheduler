@@ -76,7 +76,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return uManager.currentUser();
     }
 
-    public List<String> userNames()
+    public String[] allUserNames()
     {
         return uManager.listModelIdentities();
     }

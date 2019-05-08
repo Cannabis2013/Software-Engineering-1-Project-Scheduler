@@ -34,7 +34,7 @@ public class ProjectCreationSteps {
 
 	@Then("he fails to create a project called {string}")
 	public void heFailsToCreateAProjectCalled(String string) {
-		projectName = "Test";
+		
 		
 		String pLeader = "FL";
 		String startDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
@@ -42,7 +42,8 @@ public class ProjectCreationSteps {
 		String shortDescription = "This is a test project";
 		
 		try {
-			ProjectModel project = new ProjectModel(projectName, pLeader, startDate, endDate, shortDescription);
+			ProjectModel project = new ProjectModel(pLeader, startDate, endDate, shortDescription);
+			projectName = project.projectName();
 			coreApp.addProject(project);
 			fail();
 			} catch (Exception e) {
