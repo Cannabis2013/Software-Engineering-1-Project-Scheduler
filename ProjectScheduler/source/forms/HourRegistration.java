@@ -36,6 +36,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+import formComponents.CustomTableComponent;
 
 public class HourRegistration extends JPanel implements FrameImplementable {
 	
@@ -43,7 +44,6 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	private static final long serialVersionUID = 1L;
 	CustomFrame frame;
 	DateChooser dateChooser;
-	private CustomTable table;
 	
 	public HourRegistration(ApplicationFrontEnd parent) {
 		setForeground(Color.WHITE);
@@ -112,14 +112,10 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		add(panel_1);
 		panel_1.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
+		CustomTableComponent panel_2 = new CustomTableComponent();
 		panel_2.setBounds(31, 65, 590, 443);
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
-		
-		table = new CustomTable();
-		table.setBounds(6, 6, 578, 431);
-		panel_2.add(table);
 		
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {

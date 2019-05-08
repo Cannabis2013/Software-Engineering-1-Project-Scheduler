@@ -42,6 +42,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.GridBagConstraints;
 import javax.swing.JTable;
+import formComponents.CustomTableComponent;
 
 public class ProjectDialog extends JPanel implements FrameImplementable {
 
@@ -52,7 +53,7 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel lblUsername;
 	private JButton btnLogin;
-	private JTable table;
+	private CustomTableComponent table;
 	private IApplicationProgrammingInterface service;
 	
 	public ProjectDialog(IApplicationProgrammingInterface service) {
@@ -74,7 +75,7 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 		add(contentPanel);
 		contentPanel.setLayout(null);
 		{
-			table = new CustomTable();
+			table = new CustomTableComponent();
 			table.setBounds(6, 6, 643, 282);
 			contentPanel.add(table);
 		}
