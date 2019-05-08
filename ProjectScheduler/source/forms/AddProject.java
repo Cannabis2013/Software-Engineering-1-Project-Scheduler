@@ -87,20 +87,20 @@ public class AddProject extends JPanel implements FrameImplementable {
 		lblEnterShortDescription.setBounds(345, 61, 141, 16);
 		lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 		
-		JButton btnNewButton = new JButton("Cancel");
-		btnNewButton.setBounds(345, 252, 86, 29);
-		btnNewButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.setBounds(345, 252, 86, 29);
+		cancelButton.setFont(new Font("Lucida Console", Font.PLAIN, 13));
+		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(frame != null)
 					frame.close();
 			}
 		});
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(449, 252, 86, 29);
-		btnSave.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		btnSave.addActionListener(new ActionListener() {
+		JButton saveButton = new JButton("Save");
+		saveButton.setBounds(449, 252, 86, 29);
+		saveButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 			}
@@ -119,8 +119,8 @@ public class AddProject extends JPanel implements FrameImplementable {
 		contentPanel.add(textField);
 		contentPanel.add(textField_2);
 		contentPanel.add(textField_1);
-		contentPanel.add(btnNewButton);
-		contentPanel.add(btnSave);
+		contentPanel.add(cancelButton);
+		contentPanel.add(saveButton);
 		contentPanel.add(textField_4);
 		
 		JLabel lblNewLabel = new JLabel("");
