@@ -310,12 +310,15 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     
     public ArrayList<ItemModel> allUserAvailability (List<ItemModel> userItemModel, LocalDate fromDate, LocalDate toDate)
     {
-    	ArrayList<String> availability = new ArrayList<String>();
+    	ArrayList<ItemModel> result = new ArrayList<ItemModel>();
     	for (ItemModel z : userItemModel)
     	{
-    		
+    		String userName = z.text(0);
+    		String availabilityStatus = userAvailability(userName, fromDate, toDate);
+    		z.setText(availabilityStatus, 2);
+    		result.add(z);
     	}
-		return null;
+		return result;
     }
 
     private List<ActivityEntity> UserActivityEntities(String userName)
