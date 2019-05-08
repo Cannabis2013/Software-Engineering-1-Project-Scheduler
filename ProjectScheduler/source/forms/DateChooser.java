@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 
@@ -111,18 +114,17 @@ public class DateChooser extends JPanel implements FrameImplementable {
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("en"));
 		calender.set(year, month, 1);
-	
 		int dayOfWeek = calender.get(java.util.Calendar.DAY_OF_WEEK);
 		int dayOfMonth = calender.getActualMaximum(Calendar.DAY_OF_MONTH);
 		
 		for (int i = 5 + dayOfWeek, day = 1; day <= dayOfMonth; i++, day++) {
 			button[i].setText("" + day);
-			dateLabel.setText(sdf.format(calender.getTime()));
 		}
+		dateLabel.setText(sdf.format(calender.getTime()));
 	}
 
 	public String setPickedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		calender.set(year, month, Integer.parseInt(day));
 		return sdf.format(calender.getTime());
 	}
