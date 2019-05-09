@@ -169,10 +169,17 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     public List<ItemModel> ProjectItemModels()
     {
         List<ItemModel> models = new ArrayList<>();
-
-        for (Model p : models())
-            models.add(p.itemModel());
-
+        
+        for (ProjectModel p : allProjects())
+        {
+        	ItemModel model = p.itemModel();
+        	int column = model.columnCount(),
+        			totalProjectHours = totalHoursRegistered(p);
+        	model.setText(Integer.toString(totalProjectHours), column);
+        	
+        	models.add(model);
+        }
+        
         return models;
     }
     
@@ -317,12 +324,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		return result;
     }
 
-    private List<ActivityEntity> UserActivityEntities(String userName)
-    {
-    	return activityModels().stream().map(item -> new ActivityEntity(item.modelId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
-        
-    }
-
     public List<String> allProjectNames()
     {
     	return models().stream().map(item -> item.modelId()).collect(Collectors.toList());
@@ -360,5 +361,24 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 	public void requestUpdate() {
 		for (ICustomObserver observer : observers)
 			observer.updateView();
+	}
+	
+	/*
+	 * Private methods
+	 */
+	
+	private List<ActivityEntity> UserActivityEntities(String userName)
+    {
+    	return activityModels().stream().map(item -> new ActivityEntity(item.modelId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
+        
+    }
+	
+	private int totalHoursRegistered(ProjectModel project)
+	{
+		int totalHours = 0;
+		for(ActivityModel activity : project.Activities())
+			totalHours += activity.totalRegisteredHours();
+		
+		return totalHours;
 	}
 }

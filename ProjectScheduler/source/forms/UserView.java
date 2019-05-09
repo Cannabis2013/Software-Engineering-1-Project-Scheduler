@@ -110,7 +110,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		activityView.setBounds(31, 45, 685, 233);
 		panel_1.add(activityView);
 		
-		String[] labels = {"Title", "Start date", "End date", "Total hours", "Project"};
+		String[] labels = {"Title", "Start date", "End date", "Total hours", "P"};
 		activityView.setHeaderLabels(labels);
 		
 		JLabel lblActivityOverview = new JLabel("My Assigned Activities");
