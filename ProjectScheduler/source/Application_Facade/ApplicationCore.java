@@ -145,10 +145,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public ProjectModel project(String identity) throws Exception
     {
-    	if(uManager.isAdmin())
-    		return pManager.project(identity);
+    	String userId = uManager.currentUser().UserName();
+    	ProjectModel project = pManager.project(identity);
+    	if(project.projectLeaderId().equals(userId) || isAdmin())
+    		return project;
     	
-    	throw new Exception("Not admin");
+    	throw new Exception("Not admin or projectleader for this project");
     }
     
     @Override
@@ -277,13 +279,14 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     @Override
-	public List<ItemModel> activitiyitemModels(ProjectModel model) throws Exception
+	public List<ItemModel> projectActivityItemModels(String projectId) throws Exception
     {
 		String userId = uManager.currentUser().UserName();
-		if(!model.projectLeaderId().equals(userId))
+		ProjectModel project = pManager.project(projectId);
+		if(!project.projectLeaderId().equals(userId))
 			throw new Exception("User is not project leader for the selected project");
 		
-		return pManager.activityItemModels(model);
+		return pManager.projectActivityItemModels(project);
 	}
     
 	@Override

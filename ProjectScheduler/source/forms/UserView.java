@@ -216,7 +216,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		
 		activityView.clear();
 		
-		service.projectItemModels();
 		List<ItemModel> activities = service.activityItemModels();
 		
 		activityView.addItems(activities);

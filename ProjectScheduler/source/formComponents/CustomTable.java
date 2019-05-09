@@ -22,6 +22,7 @@ public class CustomTable extends JTable {
 		super(model);
 		
 		setShowGrid(false);
+		
 	}
 	
 	public int columnCount()

@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import formComponents.CustomTableComponent;
 import models.ItemModel;
+import models.ProjectModel;
 
 public class ProjectView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -41,7 +42,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView;
-	private CustomTableComponent projectView;
+	private CustomTableComponent projectSelectorView;
 	
 	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -185,13 +186,13 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 
 		panel.add(lblManagement);
 		
-		projectView = new CustomTableComponent();
-		projectView.setBounds(24, 65, 158, 303);
-		panel.add(projectView);
+		projectSelectorView = new CustomTableComponent();
+		projectSelectorView.setBounds(24, 65, 158, 303);
+		panel.add(projectSelectorView);
 		
 		
 		String[] projectViewHeaderLabels = {"Project title"};
-		projectView.setHeaderLabels(projectViewHeaderLabels);
+		projectSelectorView.setHeaderLabels(projectViewHeaderLabels);
 		
 		if(service.isAdmin())
 		{
@@ -200,7 +201,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 				public void actionPerformed(ActionEvent e) {
 					String pTitle;
 					try {
-						pTitle = projectView.currentItem().text(0);
+						pTitle = projectSelectorView.currentItem().text(0);
 					} catch (Exception e2) {
 						return;
 					}
@@ -296,17 +297,24 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	@Override
 	public void updateView() {
 		
-		projectView.clear();
-		activityView.clear();
+		int projectCurrentIndex = projectSelectorView.currentIndex();
+		
+		projectSelectorView.clear();
 		List<ItemModel> assignedProjects = service.projectItemModels();
-		projectView.addItems(assignedProjects);
+		projectSelectorView.addItems(assignedProjects);
+		projectSelectorView.setCurrentIndex(projectCurrentIndex);
+		String currentProjectId;
+		List<ItemModel> activityItemModels;
+		try {
+			currentProjectId = projectSelectorView.currentItem().text(0);
+			activityItemModels = service.projectActivityItemModels(currentProjectId);
+			
+		} catch (Exception e) {
+			activityView.clear();
+			return;
+		}
 		
-		
-		
-		List<ItemModel> activities;
-		
-		activities = service.activityItemModels();
-		
-		activityView.addItems(activities);
+		activityView.clear();
+		activityView.addItems(activityItemModels);
 	}
 }

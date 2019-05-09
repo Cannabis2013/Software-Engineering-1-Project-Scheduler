@@ -218,7 +218,7 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     	return allModels;
     }
     
-    public List<ItemModel> activityItemModels(ProjectModel project)
+    public List<ItemModel> projectActivityItemModels(ProjectModel project)
     {
     	return project.Activities().
     			stream().map(item -> item.itemModel()).collect(Collectors.toList());
