@@ -206,9 +206,9 @@ public class ActivityModel extends Model {
     	return models.stream().filter(item -> item.userId().equals(userName)).collect(Collectors.toList());
     }
     
-    public int totalRegisteredHours()
+    public double totalRegisteredHours()
     {
-        int totalHours = 0;
+        double totalHours = 0;
         List<HourRegistrationModel> models = subModels();
         for(HourRegistrationModel hourModel : models)
     		totalHours += hourModel.hours();
