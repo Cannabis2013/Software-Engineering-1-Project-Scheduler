@@ -268,7 +268,7 @@ public class ActivityModel extends Model {
 		itemData[1] = sDate.format(formatter);
 		itemData[2] = eDate.format(formatter);
 		itemData[3] = Integer.toString(estimatedWorkHours);
-		itemData[3] = Integer.toString(totalRegisteredHours());
+		itemData[3] = Double.toString(totalRegisteredHours());
 		itemData[4] = parentModelId();
 		
 		return itemData;
