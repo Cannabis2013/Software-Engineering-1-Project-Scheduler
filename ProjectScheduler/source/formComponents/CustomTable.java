@@ -84,6 +84,16 @@ public class CustomTable extends JTable {
 		return createItemModel(index);
 	}
 	
+	public List<ItemModel> items()
+	{
+		List<ItemModel> result = new ArrayList<ItemModel>();
+		
+		for (int i = 0; i < getRowCount(); i++)
+			result.add(itemAt(i));
+		
+		return result;
+	}
+	
 	public ItemModel currentItem()
 	{
 		int currentRow = this.getSelectedRow();
@@ -105,7 +115,7 @@ public class CustomTable extends JTable {
 	{
 		DefaultTableModel model = (DefaultTableModel) getModel();
 		for (int i = 0; i < model.getRowCount(); i++) {
-			model.removeRow(i);
+			model.removeRow(i--);
 		}
 	}
 	
@@ -120,7 +130,7 @@ public class CustomTable extends JTable {
 		String[] data = new String[columnCount()];
 		
 		for (int i = 0; i < columnCount(); i++)
-			data[i] = (String) getValueAt(index, i);
+			data[i] = (String) getValueAt(index,i);
 		
 		
 		return new ItemModel(data);

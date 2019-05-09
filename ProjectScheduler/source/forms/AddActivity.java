@@ -3,12 +3,9 @@ package forms;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
-import entities.DateEntity;
-
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,18 +16,21 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
-
 import javax.swing.JTextArea;
 
 import formComponents.CustomTableComponent;
 import models.ItemModel;
+import static_Domain.DateFormatizer;
 
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.beans.PropertyChangeEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class AddActivity extends JPanel implements FrameImplementable{
 
@@ -47,12 +47,13 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private CustomFrame frame = null;
 	private IApplicationProgrammingInterface service;
 	private JTextArea textField_1;
-	private DateEntity startDate = new DateEntity(), endDate = new DateEntity();
 
 	public AddActivity(IApplicationProgrammingInterface service) {
 		this.service = service;
 		setPreferredSize(new Dimension(800, 520));
 		initialize();
+		availableUserView.addItems(this.service.userListModels());
+		initializeViews();
 	}
 	
 
@@ -78,16 +79,22 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblEndWeek.setBounds(239, 55, 90, 26);
 		
 		startWeekTextBox = new JTextField();
-		startWeekTextBox.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
+		startWeekTextBox.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
 				initializeViews();
 			}
 		});
+		
 		startWeekTextBox.setEditable(false);
 		startWeekTextBox.setBounds(326, 55, 110, 26);
 		startWeekTextBox.setColumns(10);
 		
 		endWeekTextBox = new JTextField();
+		endWeekTextBox.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				initializeViews();
+			}
+		});
 		endWeekTextBox.setEditable(false);
 		endWeekTextBox.setBounds(326, 102, 110, 26);
 		endWeekTextBox.setColumns(10);
@@ -222,9 +229,46 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(panel_3);
 	}
 
-
 	public void initializeViews()
 	{
+		LocalDate sDate = null, eDate = null;
+		try {
+			sDate = DateFormatizer.dateFromString(startWeekTextBox.getText());
+		} catch (DateTimeParseException e) {
+			return;
+		}
+		
+		try {
+			eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
+		} catch (DateTimeParseException e) {
+			return;
+		}
+		
+		List<ItemModel> availableUsermodels = availableUserView.allItems();
+		availableUserView.clear();
+		
+		for(ItemModel item : availableUsermodels)
+		{
+			String availability = service.userAvailability(item.text(0), sDate, eDate);
+			item.setText(availability, 2);
+		}
+		
+		availableUserView.addItems(availableUsermodels);
+		
+		List<ItemModel> assignedUserModels = assignedUserView.allItems();
+		assignedUserView.clear();
+		
+		for(ItemModel item : assignedUserModels)
+		{
+			String availability = service.userAvailability(item.text(0), sDate, eDate);
+			if(availability.equals("Not available"))
+			{
+				assignedUserModels.remove(item);
+				availableUserView.addItem(item);
+			}
+		}
+		
+		assignedUserView.addItems(assignedUserModels);
 		
 	}
 	

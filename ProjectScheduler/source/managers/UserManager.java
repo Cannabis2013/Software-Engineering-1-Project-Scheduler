@@ -78,13 +78,10 @@ public class UserManager extends AbstractManager {
         return result;
     }
 	
-	public List<ItemModel> userItemModels(Boolean fullList)
+	public List<ItemModel> userItemModels()
     {
-        if(fullList)
-        	return models().stream().map(item -> item.itemModel()).collect(Collectors.toList());
-        else
-        	return models().stream().filter(subItem -> ((UserModel) subItem).Role() != userRole.Admin).
-        			map(item -> item.itemModel()).collect(Collectors.toList());
+    	return users.stream().filter(subItem -> subItem.Role() != userRole.Admin).
+    			map(item -> item.itemModel()).collect(Collectors.toList());
     }
 	
 	private void createUserPrototypes()

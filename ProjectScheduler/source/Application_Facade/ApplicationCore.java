@@ -81,12 +81,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return uManager.listModelIdentities();
     }
 
-    public List<ItemModel> userListModels(Boolean IncludeAdmin)
+    public List<ItemModel> userListModels()
     {
-        if(uManager.isAdmin())
-            return uManager.userItemModels(IncludeAdmin);
-        else
-            return uManager.userItemModels(false);
+            return uManager.userItemModels();
     }
 
     public String userAvailability(String username, LocalDate sDate, LocalDate eDate)
@@ -96,7 +93,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public List<ItemModel> allUserAvailability(LocalDate sDate, LocalDate eDate)
     {
-    	List<ItemModel> listModels = uManager.userItemModels(false);
+    	List<ItemModel> listModels = uManager.userItemModels();
     	return pManager.allUserAvailability(listModels,sDate, eDate);
     }
     // Models

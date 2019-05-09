@@ -41,14 +41,24 @@ public class CustomTableComponent extends JPanel {
 			table.addItem(item);
 	}
 	
-	public void removeItem(int index)
+	public void removeItemAt(int index)
 	{
 		table.removeItem(index);
+	}
+	
+	public void removeItem(ItemModel item)
+	{
+		table.removeFirstOccurence(item);
 	}
 	
 	public ItemModel itemAt(int index)
 	{
 		return table.itemAt(index);
+	}
+	
+	public List<ItemModel> allItems()
+	{
+		return table.items();
 	}
 	
 	public ItemModel currentItem()
