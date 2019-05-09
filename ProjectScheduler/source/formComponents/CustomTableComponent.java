@@ -76,6 +76,14 @@ public class CustomTableComponent extends JPanel {
 		return table.getSelectedRow();
 	}
 	
+	public void setCurrentIndex(int index)
+	{
+		if(index >= columnCount() || index < 0)
+			return;
+		
+		table.setRowSelectionInterval(index, index);
+	}
+	
 	public int columnCount()
 	{
 		return table.columnCount();
