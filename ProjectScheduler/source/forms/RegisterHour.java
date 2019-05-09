@@ -37,8 +37,8 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField projectTitleTextField;
-	private JTextField endDateTextField;
+	private JTextField registrationTextbox;
+	private JTextField hourTextBox;
 	private JTextArea descriptionTextBox;
 	private DateChooser dateChooser;
 	private CustomFrame frame = null;
@@ -70,13 +70,13 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		lblEndDate.setBounds(58, 194, 91, 22);
 		lblEndDate.setFont(new Font("Rockwell", Font.PLAIN, 13));
 		
-		projectTitleTextField = new JTextField();
-		projectTitleTextField.setBounds(161, 90, 161, 26);
-		projectTitleTextField.setColumns(10);
+		registrationTextbox = new JTextField();
+		registrationTextbox.setBounds(161, 90, 161, 26);
+		registrationTextbox.setColumns(10);
 		
-		endDateTextField = new JTextField();
-		endDateTextField.setBounds(161, 190, 161, 26);
-		endDateTextField.setColumns(10);
+		hourTextBox = new JTextField();
+		hourTextBox.setBounds(161, 190, 161, 26);
+		hourTextBox.setColumns(10);
 		
 		JLabel lblEnterShortDescription = new JLabel("Enter short description");
 		lblEnterShortDescription.setBounds(345, 61, 255, 16);
@@ -110,8 +110,8 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		contentPanel.add(lblStartDate);
 		contentPanel.add(lblEndDate);
 		contentPanel.add(lblProjectId);
-		contentPanel.add(projectTitleTextField);
-		contentPanel.add(endDateTextField);
+		contentPanel.add(registrationTextbox);
+		contentPanel.add(hourTextBox);
 		contentPanel.add(cancelButton);
 		contentPanel.add(saveButton);
 		contentPanel.add(descriptionTextBox);
@@ -139,6 +139,11 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	public void close() {
 		
 		frame.close();
+	}
+	
+	public void assembleRegistrationObject()
+	{
+		
 	}
 
 }

@@ -117,7 +117,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		activityView.setBounds(31, 65, 623, 443);
 		panel_1.add(activityView);
 		
-		String[] labels = {"Title", "Estimated working hours", "Total registered hours", "Parent project"};
+		String[] labels = {"Title", "Start date", "End date", "Total hours", "Project"};
 		activityView.setHeaderLabels(labels);
 		JButton btnAddActivity = new JButton("Add Activity");
 		btnAddActivity.addActionListener(new ActionListener() {
@@ -157,15 +157,6 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		});
 		button.setBounds(666, 225, 128, 29);
 		panel_1.add(button);
-		
-		JButton btnRegisterHours = new JButton("Back to My Page");
-		btnRegisterHours.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				launchUserView();
-			}
-		});
-		btnRegisterHours.setBounds(666, 265, 128, 29);
-		panel_1.add(btnRegisterHours);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 200, 540);
@@ -278,6 +269,15 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		});
 		btnProjectOverview.setBounds(41, 383, 126, 29);
 		panel.add(btnProjectOverview);
+		
+		JButton btnRegisterHours = new JButton("User page");
+		btnRegisterHours.setBounds(39, 423, 128, 29);
+		panel.add(btnRegisterHours);
+		btnRegisterHours.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				launchUserView();
+			}
+		});
 
 	}
 	
