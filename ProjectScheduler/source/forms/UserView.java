@@ -156,7 +156,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.close();
-				if(service.isUserProjectLeader())
+				if(service.isUserProjectLeader() || service.isAdmin())
 					parent.launchMainView();
 			}
 		});
