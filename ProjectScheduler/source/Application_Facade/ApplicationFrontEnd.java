@@ -8,7 +8,7 @@ import java.util.List;
 
 import forms.CustomWidgetFrame;
 import forms.LoginDialog;
-import forms.ProjectView;
+import forms.ProjectManagement;
 import forms.UserView;
 import models.ActivityModel;
 import models.ProjectModel;
@@ -24,7 +24,7 @@ public class ApplicationFrontEnd {
 	
 	public void launchMainView()
 	{
-		ProjectView pView = new ProjectView(this,coreApp);
+		ProjectManagement pView = new ProjectManagement(this,coreApp);
 		pView.setFrame(new CustomWidgetFrame());
 	}
 	

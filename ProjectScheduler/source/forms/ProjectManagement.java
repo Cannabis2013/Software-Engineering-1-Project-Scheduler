@@ -37,7 +37,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.BorderLayout;
 
-public class ProjectView extends JPanel implements FrameImplementable, ICustomObserver {
+public class ProjectManagement extends JPanel implements FrameImplementable, ICustomObserver {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	private CustomTableComponent activityView;
 	private CustomTableComponent projectSelectorView;
 	
-	public ProjectView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+	public ProjectManagement(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
 		setForeground(Color.WHITE);
 		setBorder(null);
