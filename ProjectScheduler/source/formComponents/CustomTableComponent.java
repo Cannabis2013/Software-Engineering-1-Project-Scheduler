@@ -61,7 +61,7 @@ public class CustomTableComponent extends JPanel {
 		return table.items();
 	}
 	
-	public ItemModel currentItem()
+	public ItemModel currentItem() throws Exception
 	{
 		return table.currentItem();
 	}

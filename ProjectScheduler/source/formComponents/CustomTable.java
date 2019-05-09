@@ -94,10 +94,13 @@ public class CustomTable extends JTable {
 		return result;
 	}
 	
-	public ItemModel currentItem()
+	public ItemModel currentItem() throws Exception
 	{
 		int currentRow = this.getSelectedRow();
-		return itemAt(currentRow);
+		if(currentRow > -1)
+			return itemAt(currentRow);
+		else
+			throw new Exception();
 	}
 	
 	public List<ItemModel> currentItems()

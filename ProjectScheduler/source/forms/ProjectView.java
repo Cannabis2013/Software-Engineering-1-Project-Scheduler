@@ -199,7 +199,12 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 			JButton removeProjectButton = new JButton("Remove Project");
 			removeProjectButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String pTitle = projectView.currentItem().text(0);
+					String pTitle;
+					try {
+						pTitle = projectView.currentItem().text(0);
+					} catch (Exception e2) {
+						return;
+					}
 					try {
 						service.removeProject(pTitle);
 					} catch (Exception e1) {

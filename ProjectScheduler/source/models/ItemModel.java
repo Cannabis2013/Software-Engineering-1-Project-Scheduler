@@ -37,7 +37,7 @@ public class ItemModel {
 	
 	public int columnCount()
 	{
-		return itemData.length + 1;
+		return itemData.length;
 	}
 	
 	public boolean equals(ItemModel compare)

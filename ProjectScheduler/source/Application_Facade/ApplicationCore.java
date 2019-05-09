@@ -255,7 +255,8 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public List<ItemModel> projectItemModels()
     {
-        return pManager.ProjectItemModels();
+    	return uManager.isAdmin() ?  pManager.ProjectItemModels() : 
+    		 pManager.ProjectItemModels(currentUserLoggedIn().UserName());
     }
 
     public List<ItemModel> projectItemModels(String UserIdentity)
