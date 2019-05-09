@@ -5,6 +5,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.ItemModel;
@@ -105,5 +107,10 @@ public class CustomTableComponent extends JPanel {
 			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		else
 			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	}
+	
+	public void addMouseListener(MouseListener l)
+	{
+		table.addMouseListener(l);
 	}
 }

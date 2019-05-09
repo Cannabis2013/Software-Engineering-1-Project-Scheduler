@@ -187,6 +187,30 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		panel.add(lblManagement);
 		
 		projectSelectorView = new CustomTableComponent();
+		projectSelectorView.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String projectId;
+				try {
+					projectId = projectSelectorView.currentItem().text(0);
+				} catch (Exception e1) {
+					return;
+				}
+				
+				List<ItemModel> activityItemModels;
+				try {
+					activityItemModels = service.projectActivityItemModels(projectId);
+				} catch (Exception e1) {
+					return;
+				}
+				
+				activityView.clear();
+				activityView.addItems(activityItemModels);
+			}
+		});
+		
 		projectSelectorView.setBounds(24, 65, 158, 303);
 		panel.add(projectSelectorView);
 		

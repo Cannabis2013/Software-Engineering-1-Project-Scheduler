@@ -370,7 +370,12 @@ public class AddActivity extends JPanel implements FrameImplementable{
 				projectId = (String) projectSelector.getSelectedItem(),
 				description = descriptionTextBox.getText();
 		
-		int workHours = Integer.parseInt(workHourSelector.getText());
+		int workHours;
+		try {
+			workHours = Integer.parseInt(workHourSelector.getText());
+		} catch (NumberFormatException e1) {
+			workHours = 0;
+		}
 		
 		LocalDate sDate = DateFormatizer.dateFromString(startWeekTextBox.getText()), 
 				eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
