@@ -4,8 +4,11 @@ package formComponents;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -21,8 +24,8 @@ public class CustomTable extends JTable {
 	{
 		super(model);
 		
+	
 		setShowGrid(false);
-		
 	}
 	
 	public int columnCount()
@@ -139,7 +142,6 @@ public class CustomTable extends JTable {
 		
 		for (int i = 0; i < columnCount(); i++)
 			data[i] = (String) getValueAt(index,i);
-		
 		
 		return new ItemModel(data);
 	}

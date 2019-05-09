@@ -129,6 +129,7 @@ setLayout(new BorderLayout(0, 0));
 				try {
 					activityItemModels = service.projectActivityItemModels(projectId);
 				} catch (Exception e1) {
+					e1.printStackTrace();
 					return;
 				}
 				

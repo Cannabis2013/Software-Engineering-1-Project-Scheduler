@@ -1,14 +1,20 @@
 package formComponents;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.List;
+
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import models.ItemModel;
 
 public class CustomTableComponent extends JPanel {
@@ -21,8 +27,11 @@ public class CustomTableComponent extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		DefaultTableModel model = new DefaultTableModel();
 		table = new CustomTable(model);
+		
 		add(new JScrollPane(table), BorderLayout.CENTER);
 		add(table.getTableHeader(),BorderLayout.NORTH);
+		
+		
 	}
 	
 	public void setHeaderLabels(String[] labels)
