@@ -13,7 +13,7 @@ public class HourRegistrationModel extends Model {
 	
 	private static final long serialVersionUID = 1L;
 	private LocalDate originalRegistrationDate;
-    private int workHours;
+    private double workHours;
     private String userId;
 
 
@@ -23,12 +23,11 @@ public class HourRegistrationModel extends Model {
         this.workHours = hours;
         this.userId = userId;
         setDescription(shortDescription);
-
         
         originalRegistrationDate = LocalDate.now();
     }
 
-    public int hours()
+    public double hours()
     {
         return workHours;
     }
@@ -67,7 +66,7 @@ public class HourRegistrationModel extends Model {
 		
 		itemData[0] = modelId();
 		itemData[1] = userId();
-		itemData[2] = Integer.toString(hours());
+		itemData[2] = Double.toString(hours());
 		itemData[3] = originalRegistrationDate.format(formatter);
 		itemData[4] = parentModelId();
 		

@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,6 +31,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
+import javax.swing.JSpinner;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class RegisterHour extends JPanel implements FrameImplementable {
 
@@ -75,6 +84,12 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		registrationTextbox.setColumns(10);
 		
 		hourTextBox = new JTextField();
+		hourTextBox.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				String currentText = hourTextBox.getText();
+				
+			}
+		});
 		hourTextBox.setBounds(161, 190, 161, 26);
 		hourTextBox.setColumns(10);
 		
@@ -122,6 +137,25 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		projectLeaderSelector.setBounds(161, 140, 161, 26);
 		projectLeaderSelector.addItem("clair");
 		contentPanel.add(projectLeaderSelector);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				Double number = (Double) spinner.getValue();
+				
+				if(number % 0.5 != 0.0)
+				{
+					int val = (int) number.doubleValue();
+					spinner.setValue((double) val);
+				}
+			}
+		});
+		
+		SpinnerNumberModel model = new SpinnerNumberModel(1.0, 0.5, 48.0, 0.5);
+		spinner.setModel(model);
+		
+		spinner.setBounds(78, 241, 177, 20);
+		contentPanel.add(spinner);
 		setPreferredSize(getSize());
 	}
 
@@ -145,5 +179,4 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	{
 		
 	}
-
 }

@@ -216,9 +216,9 @@ public class ActivityModel extends Model {
         return totalHours;
     }
 
-    public int totalRegisteredHours(String userName)
+    public double totalRegisteredHours(String userName)
     {
-        int totalHours = 0;
+        double totalHours = 0;
         List<HourRegistrationModel> models = subModels();
         for(HourRegistrationModel hourModel : models)
         {

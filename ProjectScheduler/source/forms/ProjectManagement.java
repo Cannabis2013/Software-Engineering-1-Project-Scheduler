@@ -42,7 +42,6 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
 	private CustomFrame frame;
-	private DateChooser dateChooser;
 	private JButton addProjectButton, removeProjectButton;
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
@@ -166,7 +165,6 @@ setLayout(new BorderLayout(0, 0));
 		gbc_activityView.gridx = 0;
 		gbc_activityView.gridy = 1;
 		panel_3.add(activityView, gbc_activityView);
-		String[] aLabels = {"Title", "Start date", "End date", "Total hours", "Project"};
 		activityView.setHeaderLabels(new String[] {"Title", "Start date", "End date", "Estimated hours", "Total hours", "Project"});
 		
 		JPanel panel = new JPanel();
@@ -298,7 +296,7 @@ setLayout(new BorderLayout(0, 0));
 		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
-		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
+		new ImageIcon("./Ressource/calendericon.png");
 	}
 	
 	@Override
