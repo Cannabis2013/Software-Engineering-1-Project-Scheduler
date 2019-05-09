@@ -102,7 +102,6 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 			});
 		}
 		
-		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
 		setLayout(null);
@@ -299,10 +298,10 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 		
 		projectView.clear();
 		activityView.clear();
-		
 		List<ItemModel> assignedProjects = service.projectItemModels();
-		
 		projectView.addItems(assignedProjects);
+		
+		
 		
 		List<ItemModel> activities;
 		

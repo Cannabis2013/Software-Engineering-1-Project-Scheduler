@@ -276,6 +276,16 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.activityItemModels(userName);
     }
     
+    @Override
+	public List<ItemModel> activitiyitemModels(ProjectModel model) throws Exception
+    {
+		String userId = uManager.currentUser().UserName();
+		if(!model.projectLeaderId().equals(userId))
+			throw new Exception("User is not project leader for the selected project");
+		
+		return pManager.activityItemModels(model);
+	}
+    
 	@Override
 	public List<ItemModel> hourRegistrationItemModels() {
 		if (uManager.isAdmin())

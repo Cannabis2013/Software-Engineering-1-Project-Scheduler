@@ -75,7 +75,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 
     public boolean removeActivityModel(String projectId, String activityId) throws Exception
     {
-    	
         ProjectModel project = project(projectId);
         ActivityModel activity = project.activity(activityId);
         if (activity == null)
@@ -217,6 +216,12 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
 		}
     	
     	return allModels;
+    }
+    
+    public List<ItemModel> activityItemModels(ProjectModel project)
+    {
+    	return project.Activities().
+    			stream().map(item -> item.itemModel()).collect(Collectors.toList());
     }
 
     public List<ItemModel> RegistrationItemModels()
