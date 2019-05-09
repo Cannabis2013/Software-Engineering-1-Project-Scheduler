@@ -358,7 +358,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 
 	@Override
 	public void close() {
-		close();
+		frame.close();
 	}
 	
 	public void assembleActivity()
