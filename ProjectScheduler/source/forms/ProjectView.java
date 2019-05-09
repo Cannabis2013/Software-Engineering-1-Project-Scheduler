@@ -297,24 +297,11 @@ public class ProjectView extends JPanel implements FrameImplementable, ICustomOb
 	@Override
 	public void updateView() {
 		
-		int projectCurrentIndex = projectSelectorView.currentIndex();
-		
 		projectSelectorView.clear();
 		List<ItemModel> assignedProjects = service.projectItemModels();
 		projectSelectorView.addItems(assignedProjects);
-		projectSelectorView.setCurrentIndex(projectCurrentIndex);
-		String currentProjectId;
-		List<ItemModel> activityItemModels;
-		try {
-			currentProjectId = projectSelectorView.currentItem().text(0);
-			activityItemModels = service.projectActivityItemModels(currentProjectId);
-			
-		} catch (Exception e) {
-			activityView.clear();
-			return;
-		}
 		
 		activityView.clear();
-		activityView.addItems(activityItemModels);
+		
 	}
 }
