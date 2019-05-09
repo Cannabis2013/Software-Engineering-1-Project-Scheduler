@@ -39,6 +39,8 @@ public interface IApplicationProgrammingInterface {
 
     List<ItemModel> projectItemModels();
     List<ItemModel> projectItemModels(String UserIdentity);
+    
+    boolean isUserProjectLeader();
 
     // Activities
     

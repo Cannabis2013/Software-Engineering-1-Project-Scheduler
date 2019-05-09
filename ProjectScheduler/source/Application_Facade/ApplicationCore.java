@@ -323,4 +323,12 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
         pManager.UnSubScribeAll();
     }
+
+	@Override
+	public boolean isUserProjectLeader() {
+		
+		String userId = uManager.currentUser().UserName();
+		return pManager.isProjectLeaderForAnyProject(userId);
+		
+	}
 }

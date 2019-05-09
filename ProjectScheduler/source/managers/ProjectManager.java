@@ -164,6 +164,19 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     	return project(projectId).activity(activityId).hourRegistrationModel(regId);
     }
     
+    // More models
+    
+    public boolean isProjectLeaderForAnyProject(String userId)
+    {
+    	for(ProjectModel project : allProjects())
+    	{
+    		if(project.projectLeaderId().equals(userId))
+    			return true;
+    	}
+    	
+    	return false;
+    }
+    
     // Item models
     
     public List<ItemModel> ProjectItemModels()

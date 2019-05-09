@@ -151,10 +151,13 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		
 		
 		JButton btnProjectOverview = new JButton("Management");
+		if(!service.isUserProjectLeader())
+			btnProjectOverview.setEnabled(false);
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.close();
-				parent.launchMainView();
+				if(service.isUserProjectLeader())
+					parent.launchMainView();
 			}
 		});
 		btnProjectOverview.setBounds(41, 383, 141, 29);

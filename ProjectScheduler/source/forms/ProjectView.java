@@ -167,7 +167,7 @@ setLayout(new BorderLayout(0, 0));
 		gbc_activityView.gridy = 1;
 		panel_3.add(activityView, gbc_activityView);
 		String[] aLabels = {"Title", "Start date", "End date", "Total hours", "Project"};
-		activityView.setHeaderLabels(aLabels);
+		activityView.setHeaderLabels(new String[] {"Title", "Start date", "End date", "Estimated hours", "Total hours", "Project"});
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
