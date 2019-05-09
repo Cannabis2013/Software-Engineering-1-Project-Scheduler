@@ -283,7 +283,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
 		String userId = uManager.currentUser().UserName();
 		ProjectModel project = pManager.project(projectId);
-		if(!project.projectLeaderId().equals(userId))
+		if(!project.projectLeaderId().equals(userId) && !isAdmin())
 			throw new Exception("User is not project leader for the selected project");
 		
 		return pManager.projectActivityItemModels(project);
