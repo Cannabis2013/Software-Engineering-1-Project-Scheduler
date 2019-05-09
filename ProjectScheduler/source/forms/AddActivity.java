@@ -67,7 +67,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		setBounds(100, 100, 800, 520);
 		setBackground(new Color(176, 224, 230));
 		setLayout(null);
-		contentPanel.setBounds(0, 0, 800, 509);
+		contentPanel.setBounds(0, 0, 800, 566);
 		contentPanel.setBackground(new Color(176, 224, 230));
 		contentPanel.setForeground(new Color(135, 206, 235));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -117,9 +117,9 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		
 		JLabel lblFillInInformation = new JLabel("Fill in information");
-		lblFillInInformation.setBounds(15, 16, 764, 20);
+		lblFillInInformation.setBounds(15, 16, 764, 26);
 		lblFillInInformation.setHorizontalAlignment(SwingConstants.LEFT);
-		lblFillInInformation.setFont(new Font("Lucida Grande", Font.BOLD, 19));
+		lblFillInInformation.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		lblFillInInformation.setBackground(Color.BLACK);
 		
 		projectSelector = new JComboBox<String>();
@@ -130,7 +130,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			projectSelector.addItem(model.text(0));
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(15, 242, 780, 322);
+		panel.setBounds(10, 243, 780, 323);
 		contentPanel.setLayout(null);
 		contentPanel.add(lblNewLabel);
 		contentPanel.add(lblFillInInformation);
@@ -156,7 +156,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		});
 		
 		addUserLinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		addUserLinkLabel.setBounds(373, 118, 40, 16);
+		addUserLinkLabel.setBounds(370, 118, 40, 16);
 		panel.add(addUserLinkLabel);
 		
 		removeUserLinkLabel = new JLabel("<<");
@@ -175,30 +175,30 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			}
 		});
 		removeUserLinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		removeUserLinkLabel.setBounds(373, 146, 38, 16);
+		removeUserLinkLabel.setBounds(370, 146, 40, 16);
 		panel.add(removeUserLinkLabel);
 		
 		JLabel lblAvailableUsers = new JLabel("Available Users");
 		lblAvailableUsers.setForeground(new Color(0, 128, 0));
 		lblAvailableUsers.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAvailableUsers.setBounds(5, 6, 360, 16);
+		lblAvailableUsers.setBounds(8, 6, 357, 16);
 		panel.add(lblAvailableUsers);
 		
 		JLabel lblAssignedUsers = new JLabel("Assigned Users");
 		lblAssignedUsers.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAssignedUsers.setForeground(Color.RED);
-		lblAssignedUsers.setBounds(419, 6, 360, 16);
+		lblAssignedUsers.setBounds(411, 6, 360, 16);
 		panel.add(lblAssignedUsers);
 		
 		availableUserView = new CustomTableComponent();
-		availableUserView.setBounds(8, 25, 363, 276);
+		availableUserView.setBounds(8, 25, 360, 292);
 		panel.add(availableUserView);
 		
 		String[] labels = {"Username", "Role", "Availability"};
 		availableUserView.setHeaderLabels(labels);
 		
 		assignedUserView = new CustomTableComponent();
-		assignedUserView.setBounds(414, 25, 363, 276);
+		assignedUserView.setBounds(411, 25, 360, 292);
 		panel.add(assignedUserView);
 		
 		assignedUserView.setHeaderLabels(labels);
@@ -241,7 +241,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(endDateSelectorDialog);
 		
 		descriptionTextBox = new JTextArea();
-		descriptionTextBox.setBounds(479, 54, 175, 78);
+		descriptionTextBox.setBounds(479, 54, 175, 111);
 		contentPanel.add(descriptionTextBox);
 		descriptionTextBox.setColumns(10);
 		
@@ -260,17 +260,23 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(btnCancel);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(664, 54, 117, 29);
+		btnSave.setBounds(662, 54, 117, 29);
 		contentPanel.add(btnSave);
 		
-		JLabel lblEstimatedWorkHours = new JLabel("Work hours ETA");
-		lblEstimatedWorkHours.setBounds(15, 155, 84, 14);
+		JLabel lblEstimatedWorkHours = new JLabel("Estimated ");
+		lblEstimatedWorkHours.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstimatedWorkHours.setBounds(15, 140, 84, 26);
 		contentPanel.add(lblEstimatedWorkHours);
 		
 		workHourSelector = new JTextField();
-		workHourSelector.setBounds(105, 149, 122, 26);
+		workHourSelector.setBounds(105, 147, 122, 26);
 		contentPanel.add(workHourSelector);
 		workHourSelector.setColumns(10);
+		
+		JLabel lblWorkHours = new JLabel("Work Hours");
+		lblWorkHours.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWorkHours.setBounds(15, 155, 84, 26);
+		contentPanel.add(lblWorkHours);
 		btnCancel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
