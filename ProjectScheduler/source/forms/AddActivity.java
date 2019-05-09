@@ -141,17 +141,23 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		addUserLinkLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ItemModel currentItem;
+				if(!isDatesInitialized())
+					return;
+				
+				List<ItemModel> currentItems;
 				try {
-					currentItem = availableUserView.currentItem();
+					currentItems = availableUserView.currentItems();
 				} catch (Exception e1) {
 					return;
 				}
-				if(currentItem.text(2) == null || currentItem.text(2).equals("Not available"))
-					return;
-				
-				availableUserView.removeItem(currentItem);
-				assignedUserView.addItem(currentItem);
+				for(ItemModel item : currentItems)
+				{
+					if(!item.text(2).equals("Not available"))
+					{
+						assignedUserView.addItem(item);
+						availableUserView.removeItem(item);
+					}	
+				}
 			}
 		});
 		
@@ -163,15 +169,17 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		removeUserLinkLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ItemModel currentItem;
+				List<ItemModel> currentItems;
 				try {
-					currentItem = assignedUserView.currentItem();
+					currentItems = assignedUserView.currentItems();
 				} catch (Exception e1) {
 					return;
 				}
-				
-				assignedUserView.removeItem(currentItem);
-				availableUserView.addItem(currentItem);
+				for(ItemModel item : currentItems)
+				{
+					assignedUserView.removeItem(item);
+					availableUserView.addItem(item);
+				}
 			}
 		});
 		removeUserLinkLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -192,6 +200,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		
 		availableUserView = new CustomTableComponent();
 		availableUserView.setBounds(8, 25, 363, 276);
+		availableUserView.setMultipleSelectionMode(true);
 		panel.add(availableUserView);
 		
 		String[] labels = {"Username", "Role", "Availability"};
@@ -199,6 +208,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		
 		assignedUserView = new CustomTableComponent();
 		assignedUserView.setBounds(414, 25, 363, 276);
+		assignedUserView.setMultipleSelectionMode(true);
 		panel.add(assignedUserView);
 		
 		assignedUserView.setHeaderLabels(labels);
@@ -260,6 +270,13 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(btnCancel);
 		
 		JButton btnSave = new JButton("Save");
+		btnSave.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				assembleActivity();
+				close();
+			}
+		});
 		btnSave.setBounds(664, 54, 117, 29);
 		contentPanel.add(btnSave);
 		
@@ -318,8 +335,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			}
 		}
 		
-		assignedUserView.addItems(assignedUserModels);
-		
+		assignedUserView.addItems(assignedUserModels);	
 	}
 	
 	@Override
@@ -332,11 +348,14 @@ public class AddActivity extends JPanel implements FrameImplementable{
 
 	@Override
 	public void close() {
-		frame.close();
+		close();
 	}
 	
 	public void assembleActivity()
 	{
+		if(projectSelector.getItemCount() < 1)
+			return;
+		
 		String activityId = activityTitleTextBox.getText(),
 				projectId = (String) projectSelector.getSelectedItem(),
 				description = descriptionTextBox.getText();
@@ -355,6 +374,23 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		} catch (Exception e) {
 			return;
 		}
+	}
+	
+	public boolean isDatesInitialized()
+	{
+		LocalDate sDate = null, eDate = null;
+		try {
+			sDate = DateFormatizer.dateFromString(startWeekTextBox.getText());
+		} catch (DateTimeParseException e) {
+			return false;
+		}
 		
+		try {
+			eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+		
+		return true;
 	}
 }

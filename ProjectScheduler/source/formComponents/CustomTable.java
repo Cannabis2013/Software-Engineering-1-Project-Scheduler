@@ -103,11 +103,15 @@ public class CustomTable extends JTable {
 			throw new Exception();
 	}
 	
-	public List<ItemModel> currentItems()
+	public List<ItemModel> currentItems() throws Exception
 	{
 		List<ItemModel> selectedItems = new ArrayList<ItemModel>();
 		
 		int[] selectedIndexes = getSelectedRows();
+		
+		if(selectedIndexes.length < 1)
+			throw new Exception();
+		
 		for(int index : selectedIndexes)
 			selectedItems.add(itemAt(index));
 		

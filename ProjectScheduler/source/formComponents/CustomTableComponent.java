@@ -66,6 +66,12 @@ public class CustomTableComponent extends JPanel {
 		return table.currentItem();
 	}
 	
+	public List<ItemModel> currentItems() throws Exception
+	{
+		return table.currentItems();
+		
+	}
+	
 	public int columnCount()
 	{
 		return table.columnCount();
