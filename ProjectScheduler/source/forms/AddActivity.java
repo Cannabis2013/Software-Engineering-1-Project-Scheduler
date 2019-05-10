@@ -32,7 +32,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.event.CaretListener;
+
+import org.eclipse.swt.widgets.Item;
+
 import javax.swing.event.CaretEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddActivity extends JPanel implements FrameImplementable{
 
@@ -42,8 +47,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField activityTitleTextBox;
-	private JTextField startWeekTextBox;
-	private JTextField endWeekTextBox;
+	private JTextField startDateSelector;
+	private JTextField endDateSelector;
 	private JLabel addUserLinkLabel, removeUserLinkLabel;
 	private CustomTableComponent availableUserView,assignedUserView;
 	private CustomFrame frame = null;
@@ -51,13 +56,31 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private JTextArea descriptionTextBox;
 	private JComboBox<String> projectSelector;
 	private JTextField workHourSelector;
+	private ActivityModel activity;
+	private enum openMode {add,edit};
+	private openMode mode;
 	
-	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public AddActivity(IApplicationProgrammingInterface service) {
 		this.service = service;
 		setPreferredSize(new Dimension(800, 572));
 		initialize();
 		availableUserView.addItems(this.service.userListModels());
+		
+		mode = openMode.add;
+	}
+	
+	public AddActivity(IApplicationProgrammingInterface service, ActivityModel activity)
+	{
+		this.service = service;
+		this.activity = activity;
+		setPreferredSize(new Dimension(800, 572));
+		initialize();
+		initializeSelectors();
+		
+		mode = openMode.edit;
 	}
 	
 
@@ -76,33 +99,33 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		activityTitleTextBox = new JTextField();
 		activityTitleTextBox.setBounds(105, 55, 122, 26);
 		activityTitleTextBox.setColumns(10);
-		JLabel lblStart = new JLabel("End week");
+		JLabel lblStart = new JLabel("End date");
 		lblStart.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStart.setBounds(239, 102, 90, 26);
-		JLabel lblEndWeek = new JLabel("Start week");
+		JLabel lblEndWeek = new JLabel("Start date");
 		lblEndWeek.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEndWeek.setBounds(239, 55, 90, 26);
 		
-		startWeekTextBox = new JTextField();
-		startWeekTextBox.addCaretListener(new CaretListener() {
+		startDateSelector = new JTextField();
+		startDateSelector.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
 				initializeViews();
 			}
 		});
 		
-		startWeekTextBox.setEditable(false);
-		startWeekTextBox.setBounds(326, 55, 110, 26);
-		startWeekTextBox.setColumns(10);
+		startDateSelector.setEditable(false);
+		startDateSelector.setBounds(326, 55, 110, 26);
+		startDateSelector.setColumns(10);
 		
-		endWeekTextBox = new JTextField();
-		endWeekTextBox.addCaretListener(new CaretListener() {
+		endDateSelector = new JTextField();
+		endDateSelector.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
 				initializeViews();
 			}
 		});
-		endWeekTextBox.setEditable(false);
-		endWeekTextBox.setBounds(326, 102, 110, 26);
-		endWeekTextBox.setColumns(10);
+		endDateSelector.setEditable(false);
+		endDateSelector.setBounds(326, 102, 110, 26);
+		endDateSelector.setColumns(10);
 		
 		JLabel lblProject = new JLabel("Project ID");
 		lblProject.setHorizontalAlignment(SwingConstants.CENTER);
@@ -220,16 +243,16 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(projectSelector);
 		contentPanel.add(activityTitleTextBox);
 		contentPanel.add(lblStart);
-		contentPanel.add(endWeekTextBox);
+		contentPanel.add(endDateSelector);
 		contentPanel.add(lblEndWeek);
-		contentPanel.add(startWeekTextBox);
+		contentPanel.add(startDateSelector);
 		
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
 		JLabel startDateSelectorDialog = new JLabel("");
 		startDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, startWeekTextBox);
+				DateChooser dateDialog = new DateChooser(contentPanel, startDateSelector);
 				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
@@ -243,7 +266,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		endDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, endWeekTextBox);
+				DateChooser dateDialog = new DateChooser(contentPanel, endDateSelector);
 				dateDialog.setFrame(new CustomWidgetFrame());
 			}
 		});
@@ -268,18 +291,20 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(panel_3);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(662, 101, 117, 29);
+		btnCancel.setBounds(664, 101, 117, 29);
 		contentPanel.add(btnCancel);
 		
 		JButton btnSave = new JButton("Save");
-
-		btnSave.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				assembleActivity();
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(mode == openMode.add)
+					assembleActivity();
+				else
+					reAssembleActivity();
 				close();
 			}
 		});
+
 		btnSave.setBounds(664, 54, 117, 29);
 
 		contentPanel.add(btnSave);
@@ -310,13 +335,13 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	{
 		LocalDate sDate = null, eDate = null;
 		try {
-			sDate = DateFormatizer.dateFromString(startWeekTextBox.getText());
+			sDate = DateFormatizer.dateFromString(startDateSelector.getText());
 		} catch (DateTimeParseException e) {
 			return;
 		}
 		
 		try {
-			eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
+			eDate = DateFormatizer.dateFromString(endDateSelector.getText());
 		} catch (DateTimeParseException e) {
 			return;
 		}
@@ -348,6 +373,33 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		assignedUserView.addItems(assignedUserModels);	
 	}
 	
+	public void initializeSelectors()
+	{
+		activityTitleTextBox.setText(activity.modelId());
+		
+		projectSelector.setSelectedItem(activity.parentModelId());
+		
+		String startDate = DateFormatizer.dateToString(activity.startDate()),
+				endDate = DateFormatizer.dateToString(activity.endDate());
+		
+		workHourSelector.setText(Integer.toString(activity.estimatedHours()));
+		
+		startDateSelector.setText(startDate);
+		endDateSelector.setText(endDate);
+		
+		descriptionTextBox.setText(activity.description());
+		
+		List<String> currentAssignedUsers = activity.AssignedUsers();
+		List<ItemModel> restUsers = this.service.userListModels().
+				stream().filter(item -> !currentAssignedUsers.contains(item.text(0))).collect(Collectors.toList());
+		
+		List<ItemModel> assignedUsers = currentAssignedUsers.
+				stream().map(item -> new ItemModel(item)).collect(Collectors.toList());
+		
+		availableUserView.addItems(restUsers);
+		assignedUserView.addItems(assignedUsers);
+	}
+	
 	@Override
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
@@ -377,8 +429,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			workHours = 0;
 		}
 		
-		LocalDate sDate = DateFormatizer.dateFromString(startWeekTextBox.getText()), 
-				eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
+		LocalDate sDate = DateFormatizer.dateFromString(startDateSelector.getText()), 
+				eDate = DateFormatizer.dateFromString(endDateSelector.getText());
 		
 		List<String> assignedUsers = assignedUserView.allItems().
 				stream().map(item -> item.text(0)).collect(Collectors.toList());
@@ -391,17 +443,60 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		}
 	}
 	
+	public void reAssembleActivity()
+	{
+		if(projectSelector.getItemCount() < 1)
+			return;
+		
+		try {
+			service.removeActivity(activity.parentModelId(), activity.modelId());
+		} catch (Exception e) {
+			return;
+		}
+		
+		String activityId = activityTitleTextBox.getText(),
+				projectId = (String) projectSelector.getSelectedItem(),
+				description = descriptionTextBox.getText();
+		
+		int workHours;
+		try {
+			workHours = Integer.parseInt(workHourSelector.getText());
+		} catch (NumberFormatException e1) {
+			workHours = 0;
+		}
+		
+		LocalDate sDate = DateFormatizer.dateFromString(startDateSelector.getText()), 
+				eDate = DateFormatizer.dateFromString(endDateSelector.getText());
+		
+		List<String> assignedUsers = assignedUserView.allItems().
+				stream().map(item -> item.text(0)).collect(Collectors.toList());
+		
+		activity.setModelidentity(activityId);
+		activity.setEstimatedHours(workHours);
+		activity.setStartDate(sDate);
+		activity.setEndDate(eDate);
+		activity.ClearAssignedUserIdentities();
+		activity.AssignUsers(assignedUsers);
+		activity.setDescription(description);
+		
+		try {
+			service.addActivity(projectId, activity);
+		} catch (Exception e) {
+			return;
+		}
+	}
+	
 	public boolean isDatesInitialized()
 	{
 		LocalDate sDate = null, eDate = null;
 		try {
-			sDate = DateFormatizer.dateFromString(startWeekTextBox.getText());
+			sDate = DateFormatizer.dateFromString(startDateSelector.getText());
 		} catch (DateTimeParseException e) {
 			return false;
 		}
 		
 		try {
-			eDate = DateFormatizer.dateFromString(endWeekTextBox.getText());
+			eDate = DateFormatizer.dateFromString(endDateSelector.getText());
 		} catch (DateTimeParseException e) {
 			return false;
 		}

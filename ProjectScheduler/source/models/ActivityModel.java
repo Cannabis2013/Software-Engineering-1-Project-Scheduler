@@ -86,6 +86,11 @@ public class ActivityModel extends Model {
     	return estimatedWorkHours;
     }
     
+    public void setEstimatedHours(int hours)
+    {
+    	estimatedWorkHours = hours;
+    }
+    
     public String Reason()
     {
     	return reason;

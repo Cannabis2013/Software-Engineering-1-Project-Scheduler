@@ -30,6 +30,7 @@ import javax.swing.SwingConstants;
 import org.eclipse.swt.widgets.MessageBox;
 
 import formComponents.CustomTableComponent;
+import models.ActivityModel;
 import models.ItemModel;
 import models.ProjectModel;
 import java.awt.GridBagLayout;
@@ -213,6 +214,23 @@ setLayout(new BorderLayout(0, 0));
 		panel.add(btnAddActivity, gbc_btnAddActivity);
 		
 		JButton btnEditActivity = new JButton("Edit Activity");
+		btnEditActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try {
+					String projectId = projectSelectorView.currentItem().text(0);
+					String activityId = activityView.currentItem().text(0);;
+					ActivityModel activity = service.activity(projectId, activityId);
+					
+					AddActivity addDialog = new AddActivity(service, activity);
+					addDialog.setFrame(new CustomWidgetFrame());
+				} catch (Exception e) {
+					return;
+				}
+				
+
+			}
+		});
 		GridBagConstraints gbc_btnEditActivity = new GridBagConstraints();
 		gbc_btnEditActivity.fill = GridBagConstraints.BOTH;
 		gbc_btnEditActivity.gridx = 1;
