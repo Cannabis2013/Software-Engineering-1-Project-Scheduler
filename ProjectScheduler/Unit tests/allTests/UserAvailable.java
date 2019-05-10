@@ -250,8 +250,8 @@ public class UserAvailable extends TestTemplate {
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 
-					sDate.minusDays(5).format(dateFormatter), 
-					eDate.plusDays(5).format(dateFormatter), 25, 
+					sDate.minusDays(4).format(dateFormatter), 
+					eDate.plusDays(4).format(dateFormatter), 25, 
 					userNames, 
 					"Test");
 		}
