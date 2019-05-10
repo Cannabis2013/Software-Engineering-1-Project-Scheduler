@@ -1,10 +1,15 @@
 package abstractions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractManager {
+public abstract class AbstractManager implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3209292946300694287L;
 	private List<Model> models = new ArrayList<Model>();
     
     protected void addModel(Model item)

@@ -214,7 +214,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         return pManager.activityModels(userName);
     }
     
-    public void registerHour(String projectId, String activityId, String regId, int hours, String shortDescription) throws Exception
+    public void registerHour(String projectId, String activityId, String regId, double hours, String shortDescription) throws Exception
     {
     	
         ActivityModel activity = pManager.activityById(projectId, activityId);

@@ -17,7 +17,7 @@ public class HourRegistrationModel extends Model {
     private String userId;
 
 
-    public HourRegistrationModel(String identity,int hours, String userId, String shortDescription)
+    public HourRegistrationModel(String identity,double hours, String userId, String shortDescription)
     {
         setModelidentity(identity);;
         this.workHours = hours;

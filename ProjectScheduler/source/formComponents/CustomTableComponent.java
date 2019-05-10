@@ -100,6 +100,11 @@ public class CustomTableComponent extends JPanel {
 		return table.columnCount();
 	}
 	
+	public int rowCount()
+	{
+		return table.getRowCount();
+	}
+	
 	public void setColumnCount(int count)
 	{
 		table.setColumnCount(count);

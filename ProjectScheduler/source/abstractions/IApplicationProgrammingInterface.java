@@ -63,7 +63,7 @@ public interface IApplicationProgrammingInterface {
     // Hour registrations
 
     void registerHour(String projectId, String activityId,
-        String regId, int hours, String shortDescription) throws Exception;
+        String regId, double hours, String shortDescription) throws Exception;
 
     void unRegisterHour(String projectId, String activityId, String regId) throws Exception;
 

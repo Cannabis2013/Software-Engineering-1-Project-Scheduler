@@ -37,6 +37,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	private IApplicationProgrammingInterface service;
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView, registerHourView;
+	private JButton registerButton;
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -111,7 +112,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		panel_1.add(activityView);
 		
 		String[] labels = {"Title", "Start date", "End date", "Total hours", "P"};
-		activityView.setHeaderLabels(labels);
+		activityView.setHeaderLabels(new String[] {"Title", "Start date", "End date", "EstimatedHours", "Total hours", "Project"});
 		
 		JLabel lblActivityOverview = new JLabel("My Assigned Activities");
 		lblActivityOverview.setHorizontalAlignment(SwingConstants.LEFT);
@@ -175,15 +176,17 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblWelcome.setBounds(26, 239, 169, 16);
 		panel.add(lblWelcome);
 		
-		JButton btnRegisterHours_1 = new JButton("Register Hours");
-		btnRegisterHours_1.addActionListener(new ActionListener() {
+		registerButton = new JButton("Register Hours");
+		
+		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				RegisterHour rh = new RegisterHour(service);
 				rh.setFrame(new CustomWidgetFrame());
 			}
 		});
-		btnRegisterHours_1.setBounds(41, 302, 141, 29);
-		panel.add(btnRegisterHours_1);
+		registerButton.setBounds(41, 302, 141, 29);
+		panel.add(registerButton);
 	}
 	
 	@Override
@@ -222,11 +225,15 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		List<ItemModel> activities = service.activityItemModels();
 		
 		activityView.addItems(activities);
-		
 		registerHourView.clear();
 		
 		List<ItemModel> registeredHours = service.hourRegistrationItemModels();
-		
 		registerHourView.addItems(registeredHours);
+		
+		
+		if(activityView.rowCount() > 0)
+			registerButton.setEnabled(true);
+		else
+			registerButton.setEnabled(false);
 	}
 }

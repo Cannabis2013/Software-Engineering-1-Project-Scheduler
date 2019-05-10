@@ -1,6 +1,5 @@
 package managers;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +15,8 @@ import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ItemModel;
 import models.ProjectModel;
-import models.UserModel;
 
-public class ProjectManager extends AbstractManager implements ICustomObservable, Serializable {
+public class ProjectManager extends AbstractManager implements ICustomObservable {
 	
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
