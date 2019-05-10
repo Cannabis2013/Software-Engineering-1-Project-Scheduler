@@ -9,4 +9,5 @@ public interface CustomFrame {
 	void close();
 	
 	void setMenuBar(JMenuBar menuBar);
+	public void setWindowTitle(String title);
 }

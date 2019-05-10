@@ -59,7 +59,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private ActivityModel activity;
 	private enum openMode {add,edit};
 	private openMode mode;
-	
+	private String componentTitle;
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -70,6 +70,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		availableUserView.addItems(this.service.userListModels());
 		
 		mode = openMode.add;
+		
+		componentTitle = "Add activity";
 	}
 	
 	public AddActivity(IApplicationProgrammingInterface service, ActivityModel activity)
@@ -502,5 +504,15 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

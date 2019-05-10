@@ -42,8 +42,9 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	
 	private ApplicationFrontEnd parent;
 	private static final long serialVersionUID = 1L;
-	CustomFrame frame;
-	DateChooser dateChooser;
+	private CustomFrame frame;
+	private DateChooser dateChooser;
+	private String componentTitle = "Hour registration dialog";
 	
 	public HourRegistration(ApplicationFrontEnd parent) {
 		setForeground(Color.WHITE);
@@ -245,5 +246,15 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	@Override
 	public void close() {
 		frame.close();
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

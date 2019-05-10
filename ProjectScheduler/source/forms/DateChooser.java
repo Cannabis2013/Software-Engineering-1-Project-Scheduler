@@ -25,16 +25,19 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	private static final long serialVersionUID = 1L;
 	int month = Calendar.getInstance().get(Calendar.MONTH);
 	int year = Calendar.getInstance().get(Calendar.YEAR);
-	JLabel dateLabel = new JLabel("", JLabel.CENTER);
-	String day = "";
-	Calendar calender = Calendar.getInstance();
-	JPanel p1, p2;
-	JButton next, previous;
-	String[] header = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
-	JButton[] button = new JButton[49];
-	CustomFrame frame = null;
+	private JLabel dateLabel = new JLabel("", JLabel.CENTER);
+	private String day = "";
+	private Calendar calender = Calendar.getInstance();
+	private JPanel p1, p2;
+	private JButton next, previous;
+	private String[] header = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+	private JButton[] button = new JButton[49];
+	private CustomFrame frame = null;
+	private String componentTitle;
 
 	public DateChooser(JPanel panel, JTextField text) {
+		componentTitle = "Choose date";
+		
 		p1 = new JPanel(new GridLayout(7, 7));
 		p1.setPreferredSize(new Dimension(420, 120));
 	    
@@ -145,6 +148,20 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	@Override
 	public void close() {
 		frame.close();
+	}
+
+
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 
 }

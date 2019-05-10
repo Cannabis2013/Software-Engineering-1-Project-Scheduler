@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import formComponents.CustomTableComponent;
 import models.ItemModel;
+import javax.swing.JPopupMenu;
 
 public class UserView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -38,6 +39,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView, registerHourView;
 	private JButton registerButton;
+	private String componentTitle;
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -51,6 +53,8 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		initialize();
 		updateView();
 		
+		String userId = service.currentUserLoggedIn().UserName();
+		setTitle(String.format("User view : %s", userId));
 		
 		this.service.subScribe(this);
 	}
@@ -113,6 +117,18 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		
 		String[] labels = {"Title", "Start date", "End date", "Total hours", "P"};
 		activityView.setHeaderLabels(new String[] {"Title", "Start date", "End date", "EstimatedHours", "Total hours", "Project"});
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(activityView, popupMenu);
+		
+		JMenuItem mntmRegisterHour = new JMenuItem("Register hour");
+		mntmRegisterHour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterHour rh = new RegisterHour(service);
+				rh.setFrame(new CustomWidgetFrame());
+			}
+		});
+		popupMenu.add(mntmRegisterHour);
 		
 		JLabel lblActivityOverview = new JLabel("My Assigned Activities");
 		lblActivityOverview.setHorizontalAlignment(SwingConstants.LEFT);
@@ -180,7 +196,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				RegisterHour rh = new RegisterHour(service);
 				rh.setFrame(new CustomWidgetFrame());
 			}
@@ -192,6 +207,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	@Override
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
+		
 		this.frame.setWidget(this);
 		this.frame.setMenuBar(menuBar);
 		this.frame.ShowDialog();
@@ -235,5 +251,32 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 			registerButton.setEnabled(true);
 		else
 			registerButton.setEnabled(false);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

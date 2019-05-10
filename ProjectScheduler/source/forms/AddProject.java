@@ -38,6 +38,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 	private JComboBox<String> projectLeaderSelector;
 	private CustomFrame frame = null;
 	private IApplicationProgrammingInterface service;
+	private String componentTitle = "Add project";
 	/**
 	 * Create the dialog.
 	 */
@@ -174,6 +175,16 @@ public class AddProject extends JPanel implements FrameImplementable {
 		} catch (Exception e) {
 			return;
 		}
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 
 }

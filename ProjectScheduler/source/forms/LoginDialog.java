@@ -52,6 +52,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 	private JTextField textField;
 	private JLabel lblUsername;
 	private JButton btnLogin;
+	private String componentTitle = "Login dialog";
 	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		setPreferredSize(new Dimension(275, 320));
@@ -208,5 +209,18 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 	public void close() {
 		// TODO Auto-generated method stub
 		frame.close();
+	}
+
+
+	@Override
+	public void setTitle(String title) {
+		// TODO Auto-generated method stub
+		componentTitle = title;
+	}
+
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

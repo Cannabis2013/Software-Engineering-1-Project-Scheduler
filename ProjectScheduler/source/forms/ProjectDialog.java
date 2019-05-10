@@ -23,7 +23,7 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	private JLabel lblUsername;
 	private CustomTableComponent table;
 	private IApplicationProgrammingInterface service;
-	
+	private String componentTitle;
 	public ProjectDialog(IApplicationProgrammingInterface service) {
 		this.service = service;
 		setPreferredSize(new Dimension(700, 370));
@@ -67,5 +67,17 @@ public class ProjectDialog extends JPanel implements FrameImplementable {
 	@Override
 	public void close() {
 		frame.close();
+	}
+
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

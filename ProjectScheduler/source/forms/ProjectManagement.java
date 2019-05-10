@@ -15,9 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
@@ -27,15 +24,11 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-import org.eclipse.swt.widgets.MessageBox;
-
 import formComponents.CustomTableComponent;
 import models.ActivityModel;
 import models.ItemModel;
-import models.ProjectModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.BorderLayout;
 
 public class ProjectManagement extends JPanel implements FrameImplementable, ICustomObserver {
@@ -48,6 +41,7 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 	private JMenuBar menuBar;
 	private CustomTableComponent activityView;
 	private CustomTableComponent projectSelectorView;
+	private String componentTitle = "Management";
 	
 	public ProjectManagement(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -371,5 +365,15 @@ setLayout(new BorderLayout(0, 0));
 		List<ItemModel> assignedProjects = service.projectItemModels();
 		projectSelectorView.addItems(assignedProjects);
 		activityView.clear();
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

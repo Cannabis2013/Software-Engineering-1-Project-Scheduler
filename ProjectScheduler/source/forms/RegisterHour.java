@@ -57,13 +57,14 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	private IApplicationProgrammingInterface service;
 	private JComboBox<?> activitySelector;
 	private List<ActivityModel> activities;
+	private String componentTitle = "Register hour";
 	/**
 	 * Create the dialog.
 	 */
 	public RegisterHour(IApplicationProgrammingInterface service) {
 		this.service = service;
-		
 		initialize();
+		
 		
 	}
 	
@@ -193,5 +194,15 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 			return;
 		}
 		
+	}
+
+	@Override
+	public void setTitle(String title) {
+		componentTitle = title;
+	}
+
+	@Override
+	public String title() {
+		return componentTitle;
 	}
 }

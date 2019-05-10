@@ -1,10 +1,7 @@
 package forms;
 
-import java.awt.EventQueue;
-
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
@@ -18,11 +15,8 @@ import javax.swing.border.Border;
 
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
-import javafx.scene.control.Menu;
-
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,6 +33,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 	private int X, Y;
 	private GridBagLayout gbl_contentPane;
 	private JPanel topBar;
+	private JLabel windowTitle;
 
 	/**
 	 * Create the frame.
@@ -49,6 +44,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.BLACK);
 		contentPane.setBorder(null);
 		setContentPane(contentPane);
 		gbl_contentPane = new GridBagLayout();
@@ -90,8 +86,6 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		});
 		
 		topBar.setBorder(null);
-		FlowLayout flowLayout = (FlowLayout) topBar.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
 		topBar.setPreferredSize(new Dimension(100, 30));
 		topBar.setMinimumSize(new Dimension(0, 0));
 		topBar.setBackground(new Color(0, 0, 128));
@@ -100,6 +94,12 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 		contentPane.add(topBar, gbc_panel);
+		GridBagLayout gbl_topBar = new GridBagLayout();
+		gbl_topBar.columnWidths = new int[]{436, 9, 0};
+		gbl_topBar.rowHeights = new int[]{16, 0};
+		gbl_topBar.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_topBar.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		topBar.setLayout(gbl_topBar);
 		
 		
 		JLabel label = new JLabel("X");
@@ -132,25 +132,40 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 				label.setBorder(border);
 			}
 		});
+		
+		windowTitle = new JLabel("New label");
+		windowTitle.setForeground(Color.WHITE);
+		windowTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_windowTitle = new GridBagConstraints();
+		gbc_windowTitle.anchor = GridBagConstraints.WEST;
+		gbc_windowTitle.insets = new Insets(0, 5, 0, 0);
+		gbc_windowTitle.gridx = 0;
+		gbc_windowTitle.gridy = 0;
+		topBar.add(windowTitle, gbc_windowTitle);
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Tahoma", Font.BOLD, 13));
-		topBar.add(label);
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 0, 5);
+		gbc_label.fill = GridBagConstraints.HORIZONTAL;
+		gbc_label.gridx = 1;
+		gbc_label.gridy = 0;
+		topBar.add(label, gbc_label);
 		
 		
 	}
 
 	@Override
 	public void setWidget(FrameImplementable implementable) {
+		setWindowTitle(implementable.title());
 		Component widget = (JPanel) implementable;
-		
 		this.setSize(widget.getPreferredSize());
 		GridBagConstraints layoutConstraints = new GridBagConstraints();
 		layoutConstraints.fill = GridBagConstraints.BOTH;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 1;
-		layoutConstraints.insets.top = 0;
+		layoutConstraints.insets = new Insets(0, 2, 2, 2);
 		
 		contentPane.add(widget,layoutConstraints);
 		
@@ -185,12 +200,14 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		layoutConstraints.fill = GridBagConstraints.BOTH;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 1;
+		layoutConstraints.insets = new Insets(0,2,0,2);
 		contentPane.add(menuBar,layoutConstraints);
 		
 		layoutConstraints = new GridBagConstraints();
 		layoutConstraints.fill = GridBagConstraints.BOTH;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 2;
+		layoutConstraints.insets = new Insets(0, 2, 2, 2);
 		contentPane.add(widget, layoutConstraints);
 		layoutConstraints.insets.bottom = 0;
 	}
@@ -198,6 +215,11 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 	@Override
 	public void setWindowModality(boolean modal) {
 		setModal(modal);
+	}
+	
+	public void setWindowTitle(String title)
+	{
+		windowTitle.setText(title);
 	}
 
 }
