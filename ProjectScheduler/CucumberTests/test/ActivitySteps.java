@@ -123,7 +123,7 @@ public class ActivitySteps {
 		}
 		ActivityModel activity;
 		try {
-			activity = coreApp.activity(projectName, tempActivity.modelId());
+			activity = coreApp.activity(projectName, tempActivity.activityName());
 			assertEquals(true, activity != null);
 		} catch (Exception e) {
 			
@@ -170,7 +170,7 @@ public class ActivitySteps {
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(currentProject.modelId(), activity);
+			coreApp.addActivity(currentProject.projectName(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
@@ -204,7 +204,7 @@ public class ActivitySteps {
 	    activity.assignUser(string2);
 	    
 	    try {
-			coreApp.addActivity(currentProject.modelId(), activity);
+			coreApp.addActivity(currentProject.projectName(), activity);
 			assertEquals(true, coreApp.activity(projectName, string) != null);
 		} catch (Exception e) {
 			fail();
@@ -310,7 +310,7 @@ public class ActivitySteps {
 			fail();
 		}
 		try {
-			coreApp.activity(projectName, tempActivity.modelId());
+			coreApp.activity(projectName, tempActivity.activityName());
 			fail();
 		} catch (Exception e) {
 			
@@ -378,7 +378,7 @@ public class ActivitySteps {
 				activity.assignUser(string);
 	    
 	    
-				coreApp.addActivity(currentProject.modelId(), activity);
+				coreApp.addActivity(currentProject.projectName(), activity);
 				
 				
 			}
@@ -400,7 +400,7 @@ public class ActivitySteps {
    
 			ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
 	
-			coreApp.addActivity(currentProject.modelId(), activity);
+			coreApp.addActivity(currentProject.projectName(), activity);
 			if(coreApp.userAvailability(string2, startDate, endDate).equals("Not available"))
 					activity.assignUser(string2);
 			else

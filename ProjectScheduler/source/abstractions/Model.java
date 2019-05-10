@@ -15,7 +15,7 @@ public abstract class Model implements Serializable {
 	private String id, text;
 	
 	
-	public String modelId()
+	protected String modelId()
 	{
 		return id;
 	}

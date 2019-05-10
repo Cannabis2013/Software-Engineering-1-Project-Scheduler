@@ -135,7 +135,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		activitySelector = new JComboBox();
 		
 		activities = service.activities();
-		String[] allActivityIdentitties = activities.stream().map(item -> item.modelId()).toArray(String[]::new);
+		String[] allActivityIdentitties = activities.stream().map(item -> item.activityName()).toArray(String[]::new);
 		
 		activitySelector.setModel(new DefaultComboBoxModel(allActivityIdentitties));
 		activitySelector.setBounds(161, 140, 161, 26);
@@ -184,8 +184,8 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		String title = titleTextbox.getText(), 
 				description = descriptionTextBox.getText(), 
 				userId = service.currentUserLoggedIn().UserName(),
-				activityId = activities.get(currentIndex).modelId(), 
-				projectId = activities.get(currentIndex).parentModelId();;
+				activityId = activities.get(currentIndex).activityName(), 
+				projectId = activities.get(currentIndex).parentModelId();
 		double hour = ((Double) hourSpinBox.getValue()).doubleValue();
 		
 		try {

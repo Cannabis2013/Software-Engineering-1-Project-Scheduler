@@ -1,12 +1,9 @@
 package baseClass;
 
-import static org.junit.Assert.fail;
-
 import java.time.LocalDate;
 import java.util.List;
 
 import Application_Facade.ApplicationCore;
-import abstractions.Model;
 import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ProjectModel;
@@ -57,7 +54,7 @@ public class TestTemplate {
 	
 	protected boolean addActivity(String loggedInUserName, 
 			String activityName,
-			Model parentModel,
+			ProjectModel parentModel,
 			String startDate, String endDate,
 			int estimatedWorkHours,
 			List<String> assignUsers, 
@@ -87,7 +84,7 @@ public class TestTemplate {
 		}
 		
 		try {
-			coreApp.addActivity(parentModel.modelId(), activity);
+			coreApp.addActivity(parentModel.projectName(), activity);
 		} catch (Exception e) {
 			return false;
 		}

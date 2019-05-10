@@ -26,6 +26,11 @@ public class HourRegistrationModel extends Model {
         
         originalRegistrationDate = LocalDate.now();
     }
+    
+    public String registrationId()
+    {
+    	return modelId();
+    }
 
     public double hours()
     {
@@ -53,9 +58,9 @@ public class HourRegistrationModel extends Model {
     	return originalRegistrationDate.get(tempField);
     }
 
-    public String parentProjectId(ProjectManager pManager)
+    public String parentProjectName(ProjectManager pManager)
     {
-    	return root(this).modelId();
+    	return ((ProjectModel) root(this)).projectName();
     }
     
     public ItemModel itemModel()

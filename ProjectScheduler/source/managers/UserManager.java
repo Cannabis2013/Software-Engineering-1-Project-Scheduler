@@ -71,7 +71,7 @@ public class UserManager extends AbstractManager {
 		String[] result = new String[users.size() - 1];
 		int index = 0;
         for (int i = 0; i < users.size(); i++) {
-			String userName = users.get(i).modelId();
+			String userName = users.get(i).UserName();
 			if(!userName.equals("admin"))
 				result[index++] = userName;
 		}

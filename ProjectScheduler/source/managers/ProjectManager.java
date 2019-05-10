@@ -84,14 +84,14 @@ public class ProjectManager extends AbstractManager {
     {
         ProjectModel project = project(projectIdentity);
         return project.Activities().stream().
-				filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
+				filter(item -> item.activityName().equals(activityId)).collect(Collectors.toList()).get(0);
     }
     
     public ActivityModel activityById(String activityId) throws Exception
     {
     	try {
 			return activityModels().stream().
-					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
+					filter(item -> item.activityName().equals(activityId)).collect(Collectors.toList()).get(0);
 		} catch (Exception e) {
 			throw new Exception("Activity by the given id doesn't exists.");
 		}
@@ -145,10 +145,10 @@ public class ProjectManager extends AbstractManager {
         Stream<List<HourRegistrationModel>> hourRegModels = activityModels.map(item -> item.hourRegistrationModels());
         List<HourRegistrationModel> modelsContainsRegId = 
         		hourRegModels.filter(item -> item.stream().
-        				anyMatch(subItem -> subItem.modelId().equals(regId))).collect(Collectors.toList()).get(0);
+        				anyMatch(subItem -> subItem.registrationId().equals(regId))).collect(Collectors.toList()).get(0);
         
         return (HourRegistrationModel) modelsContainsRegId.stream().
-        		filter(item -> item.modelId().equals(regId)).distinct().collect(Collectors.toList()).get(0);
+        		filter(item -> item.registrationId().equals(regId)).distinct().collect(Collectors.toList()).get(0);
     }
 
     public HourRegistrationModel getHourRegistrationModel(String projectId, String activityId,String regId) throws Exception
@@ -213,7 +213,7 @@ public class ProjectManager extends AbstractManager {
         	return allModels;
         }
         else
-        	return activityItemModels(uManager.currentUser().modelId());
+        	return activityItemModels(uManager.currentUser().UserName());
     }
 
     public List<ItemModel> activityItemModels(String userName)
@@ -331,7 +331,7 @@ public class ProjectManager extends AbstractManager {
 
     public List<String> allProjectNames()
     {
-    	return models().stream().map(item -> item.modelId()).collect(Collectors.toList());
+    	return models().stream().map(item -> ((ProjectModel) item).projectName()).collect(Collectors.toList());
     }
 
     public void SubScribe(ICustomObserver observer)
@@ -361,7 +361,7 @@ public class ProjectManager extends AbstractManager {
 	
 	private List<ActivityEntity> UserActivityEntities(String userName)
     {
-    	return activityModels().stream().map(item -> new ActivityEntity(item.modelId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
+    	return activityModels().stream().map(item -> new ActivityEntity(item.activityName(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
         
     }
 	

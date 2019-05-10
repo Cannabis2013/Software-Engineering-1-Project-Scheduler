@@ -81,6 +81,11 @@ public class ActivityModel extends Model {
         Type = ActivityType.Absent_Related;
     }
     
+    public String activityName()
+    {
+    	return modelId();
+    }
+    
     public int estimatedHours()
     {
     	return estimatedWorkHours;
@@ -156,7 +161,7 @@ public class ActivityModel extends Model {
 
     public boolean isUserAssigned(UserManager uManager)
     {
-        String currentUserName = uManager.currentUser().modelId();
+        String currentUserName = uManager.currentUser().UserName();
         return assignedUserIdentities.stream().anyMatch(item -> item.equals(currentUserName));
     }
     

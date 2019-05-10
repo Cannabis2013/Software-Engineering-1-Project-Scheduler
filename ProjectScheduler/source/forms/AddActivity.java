@@ -377,7 +377,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	
 	public void initializeSelectors()
 	{
-		activityTitleTextBox.setText(activity.modelId());
+		activityTitleTextBox.setText(activity.activityName());
 		
 		projectSelector.setSelectedItem(activity.parentModelId());
 		
@@ -451,7 +451,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			return;
 		
 		try {
-			service.removeActivity(activity.parentModelId(), activity.modelId());
+			service.removeActivity(activity.parentModelId(), activity.activityName());
 		} catch (Exception e) {
 			return;
 		}
