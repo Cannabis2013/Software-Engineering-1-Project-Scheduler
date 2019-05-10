@@ -192,4 +192,72 @@ public class UserAvailable extends TestTemplate {
 		
 		assertEquals("Partly available", availability);
 	}
+	
+	@Test
+	public void userIsFullOccupied_H()
+	{
+		currentProject.removeAllActivities();
+		ActivityModel activity = new ActivityModel("Absence", 
+				"Vacation", 
+				startDate.minusDays(2), 
+				endDate.plusDays(2),
+				"TT");
+		coreApp.addAbsenceActivity(activity);
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Not available", availability);
+	}
+	
+	@Test
+	public void userIsPartlyOccupied_I()
+	{
+		currentProject.removeAllActivities();
+		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate,"TT");
+		coreApp.addAbsenceActivity(activity);
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		
+		assertEquals("Partly available", availability);
+	}
+	
+	@Test
+	public void userIsPartlyOccupied_J()
+	{
+		currentProject.removeAllActivities();
+		ActivityModel activity = new ActivityModel("Absence",
+				"Vacation", 
+				startDate.minusDays(4), 
+				endDate.minusDays(1),
+				"TT");
+		coreApp.addAbsenceActivity(activity);
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		
+		assertEquals("Partly available", availability);
+	}
+	
+	@Test
+	public void userIsNotAvailable_K()
+	{
+		numberOfActivities = 20;
+		LocalDate sDate = startDate, eDate = endDate;
+		userNames = Arrays.asList("BB", "TT", "JW");
+		int activityIndex = 0;
+		currentProject.removeAllActivities();
+		
+		String aName = String.format(activityName + "(%d)", activityIndex);
+		for (int i = 0; i < numberOfActivities; i++) {
+			addActivity(projectLeaderId, 
+					aName, 
+					currentProject, 
+					sDate.minusDays(5).format(dateFormatter), 
+					eDate.plusDays(5).format(dateFormatter), 25, 
+					userNames, 
+					"Test");
+		}
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Not available", availability);	
+	}
+	
 }
