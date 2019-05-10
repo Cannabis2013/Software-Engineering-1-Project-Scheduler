@@ -331,4 +331,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		return pManager.isProjectLeaderForAnyProject(userId);
 		
 	}
+
+	@Override
+	public void requestUpdate() {
+		
+	}
 }

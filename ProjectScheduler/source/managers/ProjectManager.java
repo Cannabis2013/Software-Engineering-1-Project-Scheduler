@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import abstractions.AbstractManager;
-import abstractions.ICustomObservable;
 import abstractions.ICustomObserver;
 import abstractions.Model;
 import entities.ActivityEntity;
@@ -16,7 +15,7 @@ import models.HourRegistrationModel;
 import models.ItemModel;
 import models.ProjectModel;
 
-public class ProjectManager extends AbstractManager implements ICustomObservable {
+public class ProjectManager extends AbstractManager {
 	
 	private static final long serialVersionUID = -5891942827829344046L;
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
@@ -338,19 +337,6 @@ public class ProjectManager extends AbstractManager implements ICustomObservable
     public List<String> allProjectNames()
     {
     	return models().stream().map(item -> item.modelId()).collect(Collectors.toList());
-    }
-
-    public void RequestUpdate()
-    {
-        NotifyObservers();
-    }
-
-    public void NotifyObservers()
-    {
-        for (ICustomObserver observer : observers)
-        {
-            observer.updateView();
-        }
     }
 
     public void SubScribe(ICustomObserver observer)

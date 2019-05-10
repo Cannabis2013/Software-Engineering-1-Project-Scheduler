@@ -9,6 +9,7 @@ import abstractions.Model;
 import models.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UserManager extends AbstractManager {
 
@@ -115,7 +116,7 @@ public class UserManager extends AbstractManager {
 	@Override
 	public void requestUpdate() {
 		// TODO Auto-generated method stub
-		
+		throw new NotImplementedException();
 	}
 
 }

@@ -72,7 +72,8 @@ public interface IApplicationProgrammingInterface {
     List<ItemModel> hourRegistrationItemModels(String userNames);
 
     // Observer
-
+    
+    void requestUpdate();
     void subScribe(ICustomObserver observer);
     void unSubScribe(ICustomObserver observer);
     void unSubScribeAll();
