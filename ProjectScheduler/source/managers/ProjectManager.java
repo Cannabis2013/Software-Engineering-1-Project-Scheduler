@@ -88,7 +88,7 @@ public class ProjectManager extends AbstractManager {
 			return project.Activities().stream().
 					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
 		} catch (Exception e) {
-			throw new Exception("The list probably return a null point which means the object doesn't exists");
+			throw new Exception("The list probably returned a null pointer which means the object doesn't exists");
 		}   
     }
     
