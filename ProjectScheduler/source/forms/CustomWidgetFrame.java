@@ -49,7 +49,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		setContentPane(contentPane);
 		gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};
-		gbl_contentPane.rowHeights = new int[]{21, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{32, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
@@ -134,6 +134,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		});
 		
 		windowTitle = new JLabel("New label");
+		windowTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		windowTitle.setForeground(Color.WHITE);
 		windowTitle.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_windowTitle = new GridBagConstraints();
@@ -145,7 +146,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		label.setHorizontalTextPosition(SwingConstants.CENTER);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Tahoma", Font.BOLD, 13));
+		label.setFont(new Font("Tahoma", Font.BOLD, 16));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 0, 5);
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
@@ -193,8 +194,10 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		
 		LayoutManager mng = contentPane.getLayout();
 		
+		int menuHeight = 32;
+		
 		int height = (int) (topBar.getPreferredSize().getHeight() + widget.getPreferredSize().getHeight() + 
-				16);
+				menuHeight);
 		setSize(widget.getWidth(), height);
 		GridBagConstraints layoutConstraints = new GridBagConstraints();
 		layoutConstraints.fill = GridBagConstraints.BOTH;
