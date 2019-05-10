@@ -35,9 +35,8 @@ public class RegisterHourTests extends TestTemplate {
 	}
 	
 	@Test
-	public void registerHour_InputSet_B()
+	public void registerHour_InputSet_A()
 	{
-		String projectName = "Project TEST";
 		String activityName = "GUI Run";
 		String userId = "TT";
 		String regName = "Menus";
@@ -48,7 +47,7 @@ public class RegisterHourTests extends TestTemplate {
 	}
 	
 	@Test
-	public void registerHour_InputSet_C()
+	public void registerHour_InputSet_B()
 	{
 		String activityName = "GUI Test";
 		String userId = "NE";
@@ -60,7 +59,7 @@ public class RegisterHourTests extends TestTemplate {
 	}
 	
 	@Test
-	public void registerHour_InputSet_D()
+	public void registerHour_InputSet_C()
 	{
 		String activityName = "GUI Test";
 		String userId = "TT";

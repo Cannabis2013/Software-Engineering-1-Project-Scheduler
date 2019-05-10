@@ -80,16 +80,11 @@ public class ProjectManager extends AbstractManager {
         return true;
     }
 
-    public ActivityModel activityById(String projectIdentity, String activityId) throws Exception
+    public ActivityModel activityById(String projectIdentity, String activityId)
     {
         ProjectModel project = project(projectIdentity);
-        
-        try {
-			return project.Activities().stream().
-					filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
-		} catch (Exception e) {
-			throw new Exception("The list probably returned a null pointer which means the object doesn't exists");
-		}   
+        return project.Activities().stream().
+				filter(item -> item.modelId().equals(activityId)).collect(Collectors.toList()).get(0);
     }
     
     public ActivityModel activityById(String activityId) throws Exception
@@ -308,7 +303,7 @@ public class ProjectManager extends AbstractManager {
                 else if (item.withinTimespan(fromDate) && toDate.compareTo(item.EndDate()) > 0)
                     return "Partly available";
                 else if (item.strictlyWithinTimespan(fromDate) && item.strictlyWithinTimespan(toDate))
-                    return "Partly available";
+                    return "Not available";
                 else if (item.withinTimespan(fromDate) && item.withinTimespan(toDate))
                     return "Not available";
             }
