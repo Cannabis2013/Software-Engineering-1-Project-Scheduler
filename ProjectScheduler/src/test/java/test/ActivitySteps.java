@@ -370,7 +370,7 @@ public class ActivitySteps {
 	public void thatAUserIsAlreadyAssignedToTwentyActivitiesInTheTimespan(String string) {
 		try {
 			LocalDate startDate = TestUnit.DateFromString("05-05-2019");
-			LocalDate endDate = TestUnit.DateFromString("19-05-2019");
+			LocalDate endDate = TestUnit.DateFromString("05-06-2019");
 			for (int i = 1; i<21;i++) {
 				String activityName = i + "test";
 				
@@ -401,8 +401,10 @@ public class ActivitySteps {
 			ActivityModel activity = new ActivityModel(activityName, startDate, endDate);
 	
 			coreApp.addActivity(currentProject.modelId(), activity);
-			activity.assignUser(string2);
-			fail();
+			if(coreApp.userAvailability(string2, startDate, endDate).equals("Not available"))
+					activity.assignUser(string2);
+			else
+				fail();
 	   } catch(Exception e) {
 	   }
 	}

@@ -7,6 +7,9 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
 </listAttribute>
+<listAttribute key="org.eclipse.eclemma.core.SCOPE_IDS">
+<listEntry value="=ProjectScheduler/source"/>
+</listAttribute>
 <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value="=ProjectScheduler"/>
 <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
 <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>

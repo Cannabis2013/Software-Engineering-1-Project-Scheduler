@@ -46,16 +46,7 @@ public class UserAvailable extends TestTemplate {
 	}
 	
 	@Test
-	public void isUserAvailable()
-	{
-		assertEquals("Available", userIsAvailable());
-		assertEquals("Partly available", userIsPartlyAvailable());
-		assertEquals("Not available", userIsNotAvailable());
-		assertEquals("Partly available", userIsPartlyOccupied());
-		assertEquals("Not available", userIsFullOccupied());
-	}
-	
-	public String userIsAvailable()
+	public void userIsAvailable_A()
 	{
 		numberOfActivities = 15;
 		LocalDate sDate = startDate, eDate = endDate;
@@ -75,10 +66,12 @@ public class UserAvailable extends TestTemplate {
 					"Test");
 		}
 		
-		return coreApp.userAvailability("TT", startDate, endDate);
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Available", availability);
 	}
 	
-	public String userIsPartlyAvailable()
+	@Test
+	public void userIsPartlyAvailable_B()
 	{
 		numberOfActivities = 20;
 		LocalDate sDate = startDate, eDate = endDate;
@@ -98,10 +91,12 @@ public class UserAvailable extends TestTemplate {
 			sDate = sDate.plusDays(1);
 		}
 		
-		return coreApp.userAvailability("TT", startDate, endDate);
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Partly available", availability);
 	}
 	
-	public String userIsNotAvailable()
+	@Test
+	public void userIsNotAvailable_C()
 	{
 		numberOfActivities = 20;
 		LocalDate sDate = startDate, eDate = endDate;
@@ -120,24 +115,81 @@ public class UserAvailable extends TestTemplate {
 					"Test");
 		}
 		
-		return coreApp.userAvailability("TT", startDate, endDate);
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Not available", availability);	
 	}
 	
-	public String userIsPartlyOccupied()
+	@Test
+	public void userIsPartlyOccupied_D()
 	{
 		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate.minusDays(1),"TT");
 		coreApp.addAbsenceActivity(activity);
 		
-		return coreApp.userAvailability("TT", startDate, endDate);
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		
+		assertEquals("Partly available", availability);
 	}
 	
-	public String userIsFullOccupied()
+	@Test
+	public void userIsFullOccupied_E()
 	{
 		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate, endDate,"TT");
 		coreApp.addAbsenceActivity(activity);
 		
-		return coreApp.userAvailability("TT", startDate, endDate);
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		assertEquals("Not available", availability);
+	}
+	
+	@Test
+	public void userIsPartlyAvailable_F()
+	{
+		numberOfActivities = 20;
+		LocalDate sDate = startDate, eDate = endDate;
+		userNames = Arrays.asList("BB", "TT", "JW");
+		int activityIndex = 0;
+		currentProject.removeAllActivities();
+		
+		String aName = String.format(activityName + "(%d)", activityIndex);
+		for (int i = 0; i < numberOfActivities; i++) {
+			addActivity(projectLeaderId, 
+					aName, 
+					currentProject, 
+					sDate.format(dateFormatter), 
+					eDate.format(dateFormatter), 25, 
+					userNames, 
+					"Test");
+			eDate = eDate.minusDays(1);
+		}
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		
+		assertEquals("Partly available", availability);
+	}
+	
+	@Test
+	public void userIsPartlyAvailable_G()
+	{
+		numberOfActivities = 20;
+		LocalDate sDate = startDate, eDate = endDate;
+		userNames = Arrays.asList("BB", "TT", "JW");
+		int activityIndex = 0;
+		currentProject.removeAllActivities();
+		
+		String aName = String.format(activityName + "(%d)", activityIndex);
+		for (int i = 0; i < numberOfActivities; i++) {
+			addActivity(projectLeaderId, 
+					aName, 
+					currentProject, 
+					sDate.plusDays(2).format(dateFormatter), 
+					eDate.minusDays(2).format(dateFormatter), 25, 
+					userNames, 
+					"Test");
+		}
+		
+		String availability = coreApp.userAvailability("TT", startDate, endDate);
+		
+		assertEquals("Partly available", availability);
 	}
 }

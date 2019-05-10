@@ -295,7 +295,7 @@ public class ProjectManager extends AbstractManager {
                 else if (item.withinTimespan(fromDate) && toDate.compareTo(item.EndDate()) > 0)
                     partlyOccurrences++;
                 else if (item.strictlyWithinTimespan(fromDate) && item.strictlyWithinTimespan(toDate))
-                	partlyOccurrences++;
+                	fullOccurrences++;
                 else if (item.withinTimespan(fromDate) && item.withinTimespan(toDate))
                     fullOccurrences++;
             }
