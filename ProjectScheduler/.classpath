@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="source"/>
-	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="Unit tests"/>
+	<classpathentry kind="src" path="CucumberTests"/>
 	<classpathentry kind="lib" path="Lib/byte-buddy-1.9.3.jar"/>
 	<classpathentry kind="lib" path="Lib/byte-buddy-agent-1.9.3.jar"/>
 	<classpathentry kind="lib" path="Lib/com.ibm.icu_63.1.0.v20181030-1705.jar"/>
