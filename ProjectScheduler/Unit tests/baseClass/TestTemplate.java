@@ -1,9 +1,12 @@
 package baseClass;
 
+import static org.junit.Assert.fail;
+
 import java.time.LocalDate;
 import java.util.List;
 
 import Application_Facade.ApplicationCore;
+import abstractions.Model;
 import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ProjectModel;
