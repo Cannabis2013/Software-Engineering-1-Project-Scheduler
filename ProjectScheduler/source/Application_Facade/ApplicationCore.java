@@ -127,14 +127,15 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public void removeProject(ProjectModel project) throws Exception 
     {
-    	if(uManager.isAdmin())
-    	{
-    		try {
+    	if(!uManager.isAdmin())
+    		throw new Exception("Admin privileges required");
+    		
+    	try {
 				pManager.removeProject(project.projectName());
 			} catch (Exception e) {
 				throw e;
 			}
-    	}
+    	
     }
 
     public ProjectModel project(int index) throws NullPointerException
