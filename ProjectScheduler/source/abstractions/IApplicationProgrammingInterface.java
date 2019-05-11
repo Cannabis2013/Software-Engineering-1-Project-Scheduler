@@ -44,7 +44,7 @@ public interface IApplicationProgrammingInterface {
 
     // Activities
     
-    void addAbsenceActivity(ActivityModel activtity);
+    void addAbsenceActivity(ActivityModel activity);
     void addActivity(String projectTitle, ActivityModel activity) throws Exception;
     void removeAbsenceActivity(String id);
     

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import forms.CustomWidgetFrame;
+import forms.CustomDialog;
 import forms.LoginDialog;
 import forms.ProjectManagement;
 import forms.UserView;
@@ -25,18 +25,18 @@ public class ApplicationFrontEnd {
 	public void launchMainView()
 	{
 		ProjectManagement pView = new ProjectManagement(this,coreApp);
-		pView.setFrame(new CustomWidgetFrame());
+		pView.setFrame(new CustomDialog());
 	}
 	
 	public void launchUserView()
 	{
 		UserView uView = new UserView(this, coreApp);
-		uView.setFrame(new CustomWidgetFrame());
+		uView.setFrame(new CustomDialog());
 	}
 	public void launchLoginDialog()
 	{
 		LoginDialog dialog = new LoginDialog(this, coreApp);
-		dialog.setFrame(new CustomWidgetFrame());
+		dialog.setFrame(new CustomDialog());
 		dialog.setVisible(true);
 	}
 	

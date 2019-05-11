@@ -54,7 +54,7 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 		setBackground(Color.WHITE);
 		setMinimumSize(new Dimension(960, 540));
 		this.parent = parent;
-		setFrame(new CustomWidgetFrame());
+		setFrame(new CustomDialog());
 		initialize();
 		setVisible(true);
 	}

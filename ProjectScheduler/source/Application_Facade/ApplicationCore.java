@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import abstractions.IApplicationProgrammingInterface;
 import abstractions.ICustomObserver;
-import abstractions.Model;
 import managers.ProjectManager;
 import managers.UserManager;
 import models.ActivityModel;
@@ -164,9 +163,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 			throw new Exception();
 	}
 
-    public void addAbsenceActivity(ActivityModel activtity)
+    public void addAbsenceActivity(ActivityModel activity)
     {
-    	pManager.addAbsenceActivity(activtity);
+    	
+    	pManager.addAbsenceActivity(activity);
     }
 
     public void removeAbsenceActivity(String id)

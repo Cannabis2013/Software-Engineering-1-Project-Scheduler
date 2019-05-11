@@ -50,7 +50,7 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 		setPreferredSize(new Dimension(1000, 540));
 		setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(1000, 540));
+		setMinimumSize(new Dimension(640, 400));
 		this.parent = parent;
 		initialize();
 		setButtonsEnabled();
@@ -217,7 +217,7 @@ setLayout(new BorderLayout(0, 0));
 					ActivityModel activity = service.activity(projectId, activityId);
 					
 					AddActivity addDialog = new AddActivity(service, activity);
-					addDialog.setFrame(new CustomWidgetFrame());
+					addDialog.setFrame(new CustomDialog());
 				} catch (Exception e) {
 					return;
 				}
@@ -330,18 +330,18 @@ setLayout(new BorderLayout(0, 0));
 	{
 		ProjectDialog dialog = new ProjectDialog(service);
 		dialog.setVisible(true);
-		dialog.setFrame(new CustomWidgetFrame());
+		dialog.setFrame(new CustomDialog());
 	
 	}
 
 	public void launchAddActivity() {
 		AddActivity aa = new AddActivity(service);
-		aa.setFrame(new CustomWidgetFrame());
+		aa.setFrame(new CustomDialog());
 	}
 	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
-		ap.setFrame(new CustomWidgetFrame());
+		ap.setFrame(new CustomDialog());
 	}
 	
 	public void launchUserView() {

@@ -35,7 +35,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	private CustomFrame frame = null;
 	private String componentTitle;
 
-	public DateChooser(JPanel panel, JTextField text) {
+	public DateChooser(JTextField text) {
 		componentTitle = "Choose date";
 		
 		p1 = new JPanel(new GridLayout(7, 7));
@@ -141,7 +141,8 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 		this.frame.setWidget(this);
-		frame.setWindowModality(true);
+		this.frame.setWindowModality(true);
+		this.frame.setResizeable(false);
 		this.frame.ShowDialog();
 	}
 

@@ -184,6 +184,13 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 				buttonGroup.add(registerButton, gbc_registerButton);
 				
 				JButton btnFillAbsenceActivity = new JButton("Fill absence activity");
+				btnFillAbsenceActivity.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						
+						AbsentActivityDialog absenceDialog = new AbsentActivityDialog(service);
+						absenceDialog.setFrame(new CustomDialog());
+					}
+				});
 				GridBagConstraints gbc_btnFillAbsenceActivity = new GridBagConstraints();
 				gbc_btnFillAbsenceActivity.fill = GridBagConstraints.BOTH;
 				gbc_btnFillAbsenceActivity.gridx = 0;
@@ -208,7 +215,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 				registerButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						RegisterHour rh = new RegisterHour(service);
-						rh.setFrame(new CustomWidgetFrame());
+						rh.setFrame(new CustomDialog());
 					}
 				});
 		
@@ -283,7 +290,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	public void launchProjectDialog()
 	{
 		ProjectDialog dialog = new ProjectDialog(service);
-		dialog.setFrame(new CustomWidgetFrame());
+		dialog.setFrame(new CustomDialog());
 		
 		dialog.setVisible(true);
 	
@@ -292,7 +299,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
 		
-		ap.setFrame(new CustomWidgetFrame());
+		ap.setFrame(new CustomDialog());
 	}
 
 	@Override

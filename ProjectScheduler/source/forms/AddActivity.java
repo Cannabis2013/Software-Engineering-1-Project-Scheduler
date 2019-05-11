@@ -254,8 +254,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		startDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, startDateSelector);
-				dateDialog.setFrame(new CustomWidgetFrame());
+				DateChooser dateDialog = new DateChooser(startDateSelector);
+				dateDialog.setFrame(new CustomDialog());
 			}
 		});
 		startDateSelectorDialog.setIcon(calenderIcon);
@@ -268,8 +268,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		endDateSelectorDialog.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DateChooser dateDialog = new DateChooser(contentPanel, endDateSelector);
-				dateDialog.setFrame(new CustomWidgetFrame());
+				DateChooser dateDialog = new DateChooser(endDateSelector);
+				dateDialog.setFrame(new CustomDialog());
 			}
 		});
 		endDateSelectorDialog.setIcon(calenderIcon);

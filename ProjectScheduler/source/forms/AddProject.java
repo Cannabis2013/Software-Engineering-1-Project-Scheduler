@@ -119,8 +119,8 @@ public class AddProject extends JPanel implements FrameImplementable {
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, startDateTextField);
-				dateChooser.setFrame(new CustomWidgetFrame());
+				dateChooser = new DateChooser(startDateTextField);
+				dateChooser.setFrame(new CustomDialog());
 			}
 		});
 		Icon calenderIcon = new ImageIcon("./Ressource/calendericon.png");
@@ -132,8 +132,8 @@ public class AddProject extends JPanel implements FrameImplementable {
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dateChooser = new DateChooser(contentPanel, endDateTextField);
-				dateChooser.setFrame(new CustomWidgetFrame());
+				dateChooser = new DateChooser(endDateTextField);
+				dateChooser.setFrame(new CustomDialog());
 			}
 		});
 		label.setIcon(calenderIcon);

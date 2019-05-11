@@ -23,11 +23,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseWheelEvent;
 
-public class CustomWidgetFrame extends JDialog implements CustomFrame{
+public class CustomDialog extends JDialog implements CustomFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,9 +42,14 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 	/**
 	 * Create the frame.
 	 */
-	public CustomWidgetFrame() {
+	public CustomDialog() {
 		setUndecorated(true);
+		initializeComponents();
 		
+	}
+	
+	public void initializeComponents()
+	{
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -59,9 +61,7 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 				Y = (int) arg0.getLocationOnScreen().getY();
 				
 				tempWidth = getWidth();
-				tempHeight = getHeight();
-				
-				
+				tempHeight = getHeight();	
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -86,8 +86,8 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 			}
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(e.getX() < borderWidth || e.getX() > getWidth() - borderWidth || 
-						e.getY() > getHeight() - borderWidth)
+				if((e.getX() < borderWidth || e.getX() > getWidth() - borderWidth || 
+						e.getY() > getHeight() - borderWidth) && resizeable)
 				{
 					Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
 					setCursor(cursor);
@@ -120,6 +120,11 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 				int mouseY = (int) (e.getLocationOnScreen().getY() - tempMouseY);
 				
 				setLocation(X + mouseX, Y + mouseY);
+			}
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Cursor cursor = new Cursor(Cursor.MOVE_CURSOR);
+				setCursor(cursor);
 			}
 		});
 		topBar.addMouseListener(new MouseAdapter() {
@@ -158,6 +163,13 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		
 		
 		JLabel label = new JLabel("X");
+		label.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
+				setCursor(cursor);
+			}
+		});
 		label.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -208,8 +220,6 @@ public class CustomWidgetFrame extends JDialog implements CustomFrame{
 		gbc_label.gridx = 1;
 		gbc_label.gridy = 0;
 		topBar.add(label, gbc_label);
-		
-		
 	}
 
 	@Override
