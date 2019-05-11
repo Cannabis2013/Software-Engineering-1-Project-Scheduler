@@ -4,21 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import abstractions.AbstractManager;
-import abstractions.Model;
+import abstractions.Manager;
+import abstractions.AbstractModel;
 import models.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class UserManager extends AbstractManager {
+public class UserManager extends Manager {
 
-	private List<UserModel> users = new ArrayList<UserModel>();
+	private static final long serialVersionUID = -7803978115663211042L;
 	private UserModel currentlyLoggedIn = null;
 	public UserManager() {
 		createUserPrototypes();
 	}
-	
 	public Boolean logIn(String userName) throws Exception
     {
         UserModel user = verifyCredentials(userName);
@@ -47,20 +46,22 @@ public class UserManager extends AbstractManager {
 
     public UserModel user(String userName)
     {
-        for (UserModel u : users)
-        {        	
-        	if (u.UserName().equals(userName))
-        		return u;
+        for (AbstractModel model : models())
+        {
+        	UserModel user = (UserModel) model;
+        	if (user.UserName().equals(userName))
+        		return user;
         }
         return null;
     }
 	
 	private UserModel verifyCredentials(String userName)
     {
-		for(UserModel u : users)
+		for(AbstractModel model : models())
 		{
-			if(u.UserName().equals(userName))
-				return u;
+			UserModel user = (UserModel) model;
+			if(user.UserName().equals(userName))
+				return user;
 		}
 		
 		return null;
@@ -68,20 +69,14 @@ public class UserManager extends AbstractManager {
 	
 	public String[] listModelIdentities()
     {
-		String[] result = new String[users.size() - 1];
-		int index = 0;
-        for (int i = 0; i < users.size(); i++) {
-			String userName = users.get(i).UserName();
-			if(!userName.equals("admin"))
-				result[index++] = userName;
-		}
-
-        return result;
+		
+        return allModelIdentities().stream().filter(item -> !item.equals("admin")).toArray(String[]::new);
+        
     }
 	
 	public List<ItemModel> userItemModels()
     {
-    	return users.stream().filter(subItem -> subItem.Role() != userRole.Admin).
+    	return models().stream().filter(subItem -> ((UserModel)subItem).Role() != userRole.Admin).
     			map(item -> item.itemModel()).collect(Collectors.toList());
     }
 	
@@ -89,7 +84,7 @@ public class UserManager extends AbstractManager {
     {
 		UserModel admin = new UserModel("admin", UserModel.userRole.Admin);
 
-        users.add(admin);
+		addModel(admin);
         
         /*
          * Initialize five users for testing purposes
@@ -103,20 +98,13 @@ public class UserManager extends AbstractManager {
         UserModel nUser7 = new UserModel("PB", UserModel.userRole.Employee);
         UserModel nUser8 = new UserModel("MH", UserModel.userRole.Employee);
         
-        users.add(nUser1);
-        users.add(nUser2);
-        users.add(nUser3);
-        users.add(nUser4);
-        users.add(nUser5);
-        users.add(nUser6);
-        users.add(nUser7);
-        users.add(nUser8);
+        addModel(nUser1);
+        addModel(nUser2);
+        addModel(nUser3);
+        addModel(nUser4);
+        addModel(nUser5);
+        addModel(nUser6);
+        addModel(nUser7);
+        addModel(nUser8);
     }
-
-	@Override
-	public void requestUpdate() {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
-	}
-
 }

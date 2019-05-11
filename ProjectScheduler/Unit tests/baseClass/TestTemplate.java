@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import Application_Facade.ApplicationCore;
-import abstractions.Model;
+import abstractions.AbstractModel;
 import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ProjectModel;

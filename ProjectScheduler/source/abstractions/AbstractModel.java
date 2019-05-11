@@ -6,12 +6,12 @@ import java.util.List;
 
 import models.ItemModel;
 
-public abstract class Model implements Serializable {
+public abstract class AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 440923988337809655L;
-	private Model parent = null;
-	private AbstractManager parentManager = null;
-	private List<Model> subModels = new ArrayList<Model>();
+	private AbstractModel parent = null;
+	private Manager parentManager = null;
+	private List<AbstractModel> subModels = new ArrayList<AbstractModel>();
 	private String id, text;
 	
 	
@@ -35,22 +35,22 @@ public abstract class Model implements Serializable {
 		this.text = text;
 	}
 	
-	public Model Parent()
+	public AbstractModel Parent()
 	{
 		return parent;
     }
 	
-	public void setParent(Model parent)
+	public void setParent(AbstractModel parent)
 	{
 		this.parent = parent;
 	}
 
-	protected AbstractManager parentManager()
+	protected Manager parentManager()
 	{
 		return parentManager;
     }
 	
-	protected void setParentManager(AbstractManager parentManager)
+	protected void setParentManager(Manager parentManager)
 	{
 		this.parentManager = parentManager;
 	}
@@ -59,13 +59,13 @@ public abstract class Model implements Serializable {
 		return parent.modelId();
 	}
 
-	protected void addSubModel(Model subModel) {
+	protected void addSubModel(AbstractModel subModel) {
 		subModels.add(subModel);
 		subModel.setParent(this);
 		StateChanged();
 	}
 
-	protected void removeSubModel(Model SubModel) {
+	protected void removeSubModel(AbstractModel SubModel) {
 		subModels.remove(SubModel);
 		SubModel.parent = null;
 		StateChanged();
@@ -73,7 +73,7 @@ public abstract class Model implements Serializable {
 
 	protected void removeSubModel(String identity) {
 		for (int i = 0; i < subModels.size(); i++) {
-			Model model = subModels.get(i);
+			AbstractModel model = subModels.get(i);
 			if (model.modelId().equals(identity)) {
 				subModels.remove(i);
 				StateChanged();
@@ -87,9 +87,9 @@ public abstract class Model implements Serializable {
 		StateChanged();
 	}
 	
-	protected Model subModel(String SubModelIdentity)
+	protected AbstractModel subModel(String SubModelIdentity)
 	{
-		for(Model model : subModels)
+		for(AbstractModel model : subModels)
 		{
 			if(model.modelId().equals(SubModelIdentity))
 				return model;
@@ -97,7 +97,7 @@ public abstract class Model implements Serializable {
 		throw new NullPointerException("No model with the given identity exists in the current context.");
 	}
 	
-	protected Model subModelAt(int index)
+	protected AbstractModel subModelAt(int index)
 	{
 		return subModels.get(index);
 	}
@@ -105,7 +105,7 @@ public abstract class Model implements Serializable {
 	protected <T> List<T> subModels()
 	{
 		List<T> result = new ArrayList<T>();
-        for (Model model : subModels)
+        for (AbstractModel model : subModels)
         {
         	if(model instanceof Object)
         	{
@@ -123,7 +123,7 @@ public abstract class Model implements Serializable {
 		subModels.clear();
 	}
 	
-	protected void setSubModels(List<Model> models)
+	protected void setSubModels(List<AbstractModel> models)
 	{
 		subModels = models;
 	}
@@ -131,7 +131,7 @@ public abstract class Model implements Serializable {
 	protected List<ItemModel> allSubItemModels()
 	{
 		List<ItemModel> itemModels = new ArrayList<>();
-		List<Model> models = subModels();
+		List<AbstractModel> models = subModels();
 		for(int i = 0;i <models.size();i++)
 			itemModels.add(models.get(i).itemModel());
 		
@@ -140,11 +140,11 @@ public abstract class Model implements Serializable {
 
 	private void StateChanged()
     {
-        Model ParentProject = root(this);
+        AbstractModel ParentProject = root(this);
         ParentProject.parentManager.requestUpdate();
     }
 
-	protected Model root(Model model) {
+	protected AbstractModel root(AbstractModel model) {
 		return model.parent != null ? root(model.parent) : model;
 	}
 	

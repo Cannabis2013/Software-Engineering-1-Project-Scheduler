@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import abstractions.AbstractManager;
+import abstractions.Manager;
 import abstractions.ICustomObserver;
-import abstractions.Model;
+import abstractions.AbstractModel;
 import entities.ActivityEntity;
 import models.ActivityModel;
 import models.HourRegistrationModel;
 import models.ItemModel;
 import models.ProjectModel;
 
-public class ProjectManager extends AbstractManager {
+public class ProjectManager extends Manager {
 	
 	private static final long serialVersionUID = -5891942827829344046L;
-	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
+	
 	
 	public void addProject(ProjectModel project)
 	{
@@ -112,7 +112,7 @@ public class ProjectManager extends AbstractManager {
     public List<ActivityModel> activityModels(String userName)
     {
         List<ActivityModel> resultingList = new ArrayList<ActivityModel>();
-        for (Model model : models())
+        for (AbstractModel model : models())
         {
             ProjectModel project = (ProjectModel) model;
             List<ActivityModel> userActivities = project.Activities(userName);
@@ -329,7 +329,7 @@ public class ProjectManager extends AbstractManager {
 		return result;
     }
 
-    public List<String> allProjectNames()
+    public List<String> allModelIdentities()
     {
     	return models().stream().map(item -> ((ProjectModel) item).projectName()).collect(Collectors.toList());
     }
@@ -349,11 +349,6 @@ public class ProjectManager extends AbstractManager {
         observers.clear();
     }
 
-	@Override
-	public void requestUpdate() {
-		for (ICustomObserver observer : observers)
-			observer.updateView();
-	}
 	
 	/*
 	 * Private methods

@@ -62,7 +62,7 @@ public class ApplicationFrontEnd {
 		assignedUsers.add("JW");
 		ActivityModel activity1 = new ActivityModel("GUI Test", 
 				LocalDate.now().plusDays(3), 
-				LocalDate.now().plusDays(6), 
+				LocalDate.now().plusDays(18), 
 				25, assignedUsers, "Testing some GUI features");
 		try {
 			coreApp.addActivity(project.projectName(), activity1);

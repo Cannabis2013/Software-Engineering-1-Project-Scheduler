@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import abstractions.Model;
+import abstractions.AbstractModel;
 
-public class ProjectModel extends Model
+public class ProjectModel extends AbstractModel
 {
 	private static final long serialVersionUID = 1L;
 	private static int id = 1;

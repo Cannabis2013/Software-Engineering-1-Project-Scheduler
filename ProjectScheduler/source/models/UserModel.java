@@ -2,9 +2,9 @@ package models;
 
 import java.util.Calendar;
 
-import abstractions.Model;
+import abstractions.AbstractModel;
 
-public class UserModel extends Model {
+public class UserModel extends AbstractModel {
 
 	private static final long serialVersionUID = 1L;
 	private userRole role = userRole.Employee;

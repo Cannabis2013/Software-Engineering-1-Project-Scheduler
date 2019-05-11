@@ -6,10 +6,10 @@ import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
-import abstractions.Model;
+import abstractions.AbstractModel;
 import managers.ProjectManager;
 
-public class HourRegistrationModel extends Model {
+public class HourRegistrationModel extends AbstractModel {
 	
 	private static final long serialVersionUID = 1L;
 	private LocalDate originalRegistrationDate;

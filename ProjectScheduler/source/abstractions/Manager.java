@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractManager implements Serializable {
+public abstract class Manager implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3209292946300694287L;
-	private List<Model> models = new ArrayList<Model>();
+	private List<AbstractModel> models = new ArrayList<AbstractModel>();
+	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
     
-    protected void addModel(Model item)
+    protected void addModel(AbstractModel item)
     {
         models.add(item);
         item.setParentManager(this);
@@ -23,7 +24,7 @@ public abstract class AbstractManager implements Serializable {
     {
         for (int i = 0; i < models.size(); i++)
         {
-            Model model = models.get(i);
+            AbstractModel model = models.get(i);
             if (model.modelId().equals(identity))
             {
                 models.remove(i);
@@ -41,9 +42,9 @@ public abstract class AbstractManager implements Serializable {
     	models.remove(index);
     }
     
-    protected Model model(Model item)
+    protected AbstractModel model(AbstractModel item)
     {
-    	for(Model model : models)
+    	for(AbstractModel model : models)
     	{
     		if(model == item)
     			return model;
@@ -52,9 +53,9 @@ public abstract class AbstractManager implements Serializable {
     	return null;
     }
     
-    protected Model model(String id)
+    protected AbstractModel model(String id)
     {
-    	for(Model model : models)
+    	for(AbstractModel model : models)
     	{
     		if(model.modelId().equals(id))
     			return model;
@@ -63,32 +64,34 @@ public abstract class AbstractManager implements Serializable {
     	throw new NullPointerException("No model with the given identity exists within the current context.");
     }
     
-    protected Model modelAt(int index)
+    protected AbstractModel modelAt(int index)
     {
     	if(index > models.size())
     		throw new NullPointerException("The model at the given index doesn't exist.");
     	return models.get(index);
     }
     
-    protected List<Model> models()
+    protected List<AbstractModel> models()
     {
     	return models;
     }
     
-    protected void setModels(List<Model> models)
+    protected void setModels(List<AbstractModel> models)
     {
     	this.models = models;
     }
 
-    protected List<String> allProjectNames()
+    protected List<String> allModelIdentities()
     {
     	List<String> result = new ArrayList<>();
-    	for(Model model : models)
+    	for(AbstractModel model : models)
     		result.add(model.modelId());
     	
     	return result;
     }
 
-	public abstract void requestUpdate();
-	
+    public void requestUpdate() {
+		for (ICustomObserver observer : observers)
+			observer.updateView();
+	}
 }

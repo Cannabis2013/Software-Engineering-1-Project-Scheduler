@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 import com.ibm.icu.impl.duration.DateFormatter;
 
-import abstractions.Model;
+import abstractions.AbstractModel;
 import managers.UserManager;
 
-public class ActivityModel extends Model {
+public class ActivityModel extends AbstractModel {
 	
 	private static final long serialVersionUID = 1L;
 	private List<String> assignedUserIdentities = new ArrayList<String>();
@@ -275,8 +275,8 @@ public class ActivityModel extends Model {
     	String[] itemData = new String[6];
 		
 		itemData[0] = modelId();
-		itemData[1] = sDate.format(formatter);
-		itemData[2] = eDate.format(formatter);
+		itemData[1] = Integer.toString(startWeek());
+		itemData[2] = Integer.toString(endWeek());
 		itemData[3] = Integer.toString(estimatedWorkHours);
 		itemData[4] = Double.toString(totalRegisteredHours());
 		itemData[5] = parentModelId();
