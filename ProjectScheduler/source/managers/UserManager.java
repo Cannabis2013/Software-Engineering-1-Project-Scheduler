@@ -1,6 +1,5 @@
 package managers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +8,6 @@ import abstractions.AbstractModel;
 import models.ItemModel;
 import models.UserModel;
 import models.UserModel.userRole;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UserManager extends Manager {
 
@@ -87,7 +85,7 @@ public class UserManager extends Manager {
 		addModel(admin);
         
         /*
-         * Initialize five users for testing purposes
+         * Initialize five dummy users for testing/demonstration purposes
          */
         UserModel nUser1 = new UserModel("JW", UserModel.userRole.Employee);
         UserModel nUser2 = new UserModel("NE", UserModel.userRole.Employee);

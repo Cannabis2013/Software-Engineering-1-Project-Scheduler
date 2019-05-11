@@ -52,7 +52,14 @@ public class TestTemplate {
 			return false;
 		}
 		projectName = project.projectName();
+		
+		coreApp.logut();
 		return true;
+	}
+	
+	protected ProjectModel getProject(String currentloggedinUser, String projectId)
+	{
+		return null;
 	}
 	
 	protected boolean addActivity(String loggedInUserName, 
@@ -89,9 +96,10 @@ public class TestTemplate {
 		try {
 			coreApp.addActivity(parentModel.projectName(), activity);
 		} catch (Exception e) {
+			coreApp.logut();
 			return false;
 		}
-		
+		coreApp.logut();
 		return true;
 	}
 	
@@ -107,8 +115,10 @@ public class TestTemplate {
 		try {
 			coreApp.removeActivity(projectName, activityName);
 		} catch (Exception e) {
+			coreApp.logut();
 			return false;
 		}
+		coreApp.logut();
 		return true;
 	}
 	
@@ -122,13 +132,17 @@ public class TestTemplate {
 		try {
 			coreApp.login(loggedInUserName);
 		} catch (Exception e1) {
+			e1.printStackTrace();
 			return false;
 		}
 		try {
 			coreApp.registerHour(projectName, activityName, registrationId, workHours, description);
 		} catch (Exception e) {
+			coreApp.logut();
+			e.printStackTrace();
 			return false;
 		}
+		coreApp.logut();
 		return true;
 	}
 	
@@ -145,8 +159,10 @@ public class TestTemplate {
 		try {
 			coreApp.unRegisterHour(projectName, activityName, registrationId);
 		} catch (Exception e) {
+			coreApp.logut();
 			return false;
 		}
+		coreApp.logut();
 		return true;
 	}
 	
@@ -165,6 +181,7 @@ public class TestTemplate {
 		try {
 			model = coreApp.hourRegistrationModel(activityName, registrationId);
 		} catch (Exception e) {
+			coreApp.logut();
 			return false;
 		}
 		
@@ -173,9 +190,10 @@ public class TestTemplate {
 		try {
 			model = coreApp.hourRegistrationModel(activityName, registrationId);
 		} catch (Exception e) {
+			coreApp.logut();
 			return false;
 		}
-		
+		coreApp.logut();
 		return model.hours() == newHour;
 	}
 	

@@ -40,7 +40,9 @@ public class CodeCoverage extends TestTemplate {
 		}
 		
 		try {
+			coreApp.login("admin");
 			currentProject = coreApp.project(projectName);
+			coreApp.logut();
 		} catch (Exception e) {
 			fail();
 		}

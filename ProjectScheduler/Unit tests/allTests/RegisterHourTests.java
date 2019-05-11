@@ -23,7 +23,9 @@ public class RegisterHourTests extends TestTemplate {
 		
 		ProjectModel project;
 		try {
+			coreApp.login("admin");
 			project = coreApp.project(projectName);
+			coreApp.logut();
 		} catch (Exception e) {
 			fail();
 			return;
