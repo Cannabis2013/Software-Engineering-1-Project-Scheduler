@@ -52,7 +52,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		setPreferredSize(new Dimension(1000, 560));
 		setBackground(new Color(176, 224, 230));
 		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(1000, 560));
+		setMinimumSize(new Dimension(640, 400));
 		this.parent = parent;
 		initialize();
 		updateView();
@@ -114,7 +114,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gridBagLayout.columnWidths = new int[]{200, 486, 0};
 		gridBagLayout.rowHeights = new int[]{560, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JPanel panel = new JPanel();
@@ -129,7 +129,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbl_panel.columnWidths = new int[]{169, 0};
 		gbl_panel.rowHeights = new int[]{1, 42, 167, 165, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblManagement = new JLabel("My Page");

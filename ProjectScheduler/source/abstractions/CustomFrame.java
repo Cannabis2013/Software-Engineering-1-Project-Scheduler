@@ -8,6 +8,8 @@ public interface CustomFrame {
 	public void setWindowModality(boolean modal);
 	void close();
 	
+	void setResizeable(boolean rz);
+	
 	void setMenuBar(JMenuBar menuBar);
 	public void setWindowTitle(String title);
 }

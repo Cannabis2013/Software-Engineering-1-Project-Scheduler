@@ -168,6 +168,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		this.frame = frame;
 		frame.setWidget(this);
 		frame.setWindowModality(true);
+		frame.setResizeable(false);
 		frame.ShowDialog();
 		
 	}

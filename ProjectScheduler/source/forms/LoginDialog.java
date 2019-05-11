@@ -55,8 +55,8 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 	private String componentTitle = "Login dialog";
 	
 	public LoginDialog(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
-		setPreferredSize(new Dimension(275, 320));
-		setMinimumSize(new Dimension(300, 400));
+		setPreferredSize(new Dimension(200, 320));
+		setMinimumSize(new Dimension(160, 300));
 		setMaximumSize(new Dimension(300, 400));
 		setBorder(null);
 		setBackground(new Color(160, 82, 45));
@@ -201,6 +201,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 	public void setFrame(CustomFrame frame) {
 		this.frame = frame;
 		this.frame.setWidget(this);
+		this.frame.setResizeable(false);
 		this.frame.ShowDialog();
 		
 	}
