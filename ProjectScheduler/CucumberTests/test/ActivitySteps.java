@@ -123,7 +123,7 @@ public class ActivitySteps {
 		}
 		ActivityModel activity;
 		try {
-			activity = coreApp.activity(projectName, tempActivity.activityName());
+			activity = coreApp.activity(projectName, tempActivity.activityId());
 			assertEquals(true, activity != null);
 		} catch (Exception e) {
 			
@@ -310,7 +310,7 @@ public class ActivitySteps {
 			fail();
 		}
 		try {
-			coreApp.activity(projectName, tempActivity.activityName());
+			coreApp.activity(projectName, tempActivity.activityId());
 			fail();
 		} catch (Exception e) {
 			

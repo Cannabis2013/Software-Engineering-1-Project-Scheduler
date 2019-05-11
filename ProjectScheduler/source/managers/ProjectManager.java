@@ -84,17 +84,7 @@ public class ProjectManager extends Manager {
     {
         ProjectModel project = project(projectIdentity);
         return project.Activities().stream().
-				filter(item -> item.activityName().equals(activityId)).collect(Collectors.toList()).get(0);
-    }
-    
-    public ActivityModel activityById(String activityId) throws Exception
-    {
-    	try {
-			return activityModels().stream().
-					filter(item -> item.activityName().equals(activityId)).collect(Collectors.toList()).get(0);
-		} catch (Exception e) {
-			throw new Exception("Activity by the given id doesn't exists.");
-		}
+				filter(item -> item.activityId().equals(activityId)).collect(Collectors.toList()).get(0);
     }
 
     public List<ActivityModel> activityModels()
@@ -356,7 +346,7 @@ public class ProjectManager extends Manager {
 	
 	private List<ActivityEntity> UserActivityEntities(String userName)
     {
-    	return activityModels().stream().map(item -> new ActivityEntity(item.activityName(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
+    	return activityModels().stream().map(item -> new ActivityEntity(item.activityId(), item.startDate(), item.endDate(), item.TypeOfActivity())).collect(Collectors.toList());
         
     }
 	

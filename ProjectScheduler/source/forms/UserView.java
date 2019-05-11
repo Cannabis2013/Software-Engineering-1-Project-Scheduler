@@ -27,6 +27,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import formComponents.CustomTableComponent;
+import models.HourRegistrationModel;
 import models.ItemModel;
 import javax.swing.JPopupMenu;
 import java.awt.GridBagLayout;
@@ -47,12 +48,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
-		setForeground(Color.WHITE);
-		setBorder(null);
-		setPreferredSize(new Dimension(1000, 560));
-		setBackground(new Color(176, 224, 230));
-		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(640, 400));
 		this.parent = parent;
 		initialize();
 		updateView();
@@ -68,6 +63,14 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	 * @param parent 
 	 */
 	private void initialize() {
+		
+		setForeground(Color.WHITE);
+		setBorder(null);
+		setPreferredSize(new Dimension(1000, 560));
+		setBackground(new Color(176, 224, 230));
+		setBackground(Color.WHITE);
+		setMinimumSize(new Dimension(640, 400));
+		
 		setBounds(100, 100, 1000, 560);
 		
 		menuBar = new JMenuBar();
@@ -136,88 +139,110 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblManagement.setHorizontalAlignment(SwingConstants.CENTER);
 		lblManagement.setFont(new Font("Lucida Grande", Font.BOLD, 18));
 		
-				GridBagConstraints gbc_lblManagement = new GridBagConstraints();
-				gbc_lblManagement.fill = GridBagConstraints.BOTH;
-				gbc_lblManagement.insets = new Insets(0, 0, 5, 0);
-				gbc_lblManagement.gridx = 0;
-				gbc_lblManagement.gridy = 0;
-				panel.add(lblManagement, gbc_lblManagement);
+		GridBagConstraints gbc_lblManagement = new GridBagConstraints();
+		gbc_lblManagement.fill = GridBagConstraints.BOTH;
+		gbc_lblManagement.insets = new Insets(0, 0, 5, 0);
+		gbc_lblManagement.gridx = 0;
+		gbc_lblManagement.gridy = 0;
+		panel.add(lblManagement, gbc_lblManagement);
+		
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("./Ressource/userIcon.png"));
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 1;
+		panel.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel lblWelcome = new JLabel("Welcome " + service.currentUserLoggedIn().UserName());
+		lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblWelcome = new GridBagConstraints();
+		gbc_lblWelcome.anchor = GridBagConstraints.NORTH;
+		gbc_lblWelcome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblWelcome.insets = new Insets(0, 0, 5, 0);
+		gbc_lblWelcome.gridx = 0;
+		gbc_lblWelcome.gridy = 2;
+		panel.add(lblWelcome, gbc_lblWelcome);
+		
+		JPanel buttonGroup = new JPanel();
+		GridBagConstraints gbc_buttonGroup = new GridBagConstraints();
+		gbc_buttonGroup.anchor = GridBagConstraints.SOUTH;
+		gbc_buttonGroup.fill = GridBagConstraints.HORIZONTAL;
+		gbc_buttonGroup.gridx = 0;
+		gbc_buttonGroup.gridy = 3;
+		panel.add(buttonGroup, gbc_buttonGroup);
+		GridBagLayout gbl_buttonGroup = new GridBagLayout();
+		gbl_buttonGroup.columnWidths = new int[]{0, 0};
+		gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_buttonGroup.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		buttonGroup.setLayout(gbl_buttonGroup);
+		
+		registerButton = new JButton("Register Hours");
+		GridBagConstraints gbc_registerButton = new GridBagConstraints();
+		gbc_registerButton.fill = GridBagConstraints.BOTH;
+		gbc_registerButton.gridx = 0;
+		gbc_registerButton.gridy = 0;
+		buttonGroup.add(registerButton, gbc_registerButton);
+		
+		JButton btnFillAbsenceActivity = new JButton("Fill absence activity");
+		btnFillAbsenceActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				
-				
-				JLabel lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(new ImageIcon("./Ressource/userIcon.png"));
-				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-				gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
-				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-				gbc_lblNewLabel.gridx = 0;
-				gbc_lblNewLabel.gridy = 1;
-				panel.add(lblNewLabel, gbc_lblNewLabel);
-				JLabel lblWelcome = new JLabel("Welcome " + service.currentUserLoggedIn().UserName());
-				lblWelcome.setHorizontalAlignment(SwingConstants.CENTER);
-				GridBagConstraints gbc_lblWelcome = new GridBagConstraints();
-				gbc_lblWelcome.anchor = GridBagConstraints.NORTH;
-				gbc_lblWelcome.fill = GridBagConstraints.HORIZONTAL;
-				gbc_lblWelcome.insets = new Insets(0, 0, 5, 0);
-				gbc_lblWelcome.gridx = 0;
-				gbc_lblWelcome.gridy = 2;
-				panel.add(lblWelcome, gbc_lblWelcome);
-				
-				JPanel buttonGroup = new JPanel();
-				GridBagConstraints gbc_buttonGroup = new GridBagConstraints();
-				gbc_buttonGroup.anchor = GridBagConstraints.SOUTH;
-				gbc_buttonGroup.fill = GridBagConstraints.HORIZONTAL;
-				gbc_buttonGroup.gridx = 0;
-				gbc_buttonGroup.gridy = 3;
-				panel.add(buttonGroup, gbc_buttonGroup);
-				GridBagLayout gbl_buttonGroup = new GridBagLayout();
-				gbl_buttonGroup.columnWidths = new int[]{0, 0};
-				gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0};
-				gbl_buttonGroup.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-				gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
-				buttonGroup.setLayout(gbl_buttonGroup);
-				
-				registerButton = new JButton("Register Hours");
-				GridBagConstraints gbc_registerButton = new GridBagConstraints();
-				gbc_registerButton.fill = GridBagConstraints.BOTH;
-				gbc_registerButton.gridx = 0;
-				gbc_registerButton.gridy = 0;
-				buttonGroup.add(registerButton, gbc_registerButton);
-				
-				JButton btnFillAbsenceActivity = new JButton("Fill absence activity");
-				btnFillAbsenceActivity.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
-						AbsentActivityDialog absenceDialog = new AbsentActivityDialog(service);
-						absenceDialog.setFrame(new CustomDialog());
-					}
-				});
-				GridBagConstraints gbc_btnFillAbsenceActivity = new GridBagConstraints();
-				gbc_btnFillAbsenceActivity.fill = GridBagConstraints.BOTH;
-				gbc_btnFillAbsenceActivity.gridx = 0;
-				gbc_btnFillAbsenceActivity.gridy = 1;
-				buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
-				
-				
-				JButton btnProjectOverview = new JButton("Management");
-				GridBagConstraints gbc_btnProjectOverview = new GridBagConstraints();
-				gbc_btnProjectOverview.fill = GridBagConstraints.BOTH;
-				gbc_btnProjectOverview.gridx = 0;
-				gbc_btnProjectOverview.gridy = 2;
-				buttonGroup.add(btnProjectOverview, gbc_btnProjectOverview);
-				btnProjectOverview.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						frame.close();
-						if(service.isUserProjectLeader() || service.isAdmin())
-							parent.launchMainView();
-					}
-				});
-				
-				registerButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						RegisterHour rh = new RegisterHour(service);
-						rh.setFrame(new CustomDialog());
-					}
-				});
+				AbsentActivityDialog absenceDialog = new AbsentActivityDialog(service);
+				absenceDialog.setFrame(new CustomDialog());
+			}
+		});
+		
+		JButton btnEditSelectedHour = new JButton("Edit selected hour");
+		btnEditSelectedHour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					ItemModel hourItemModel = hourRegistrationView.currentItem();
+					String projectId = hourItemModel.text(5);
+					String activityId = hourItemModel.text(4);
+					String regId = hourItemModel.text(0);
+					HourRegistrationModel regModel = service.hourRegistrationModel(projectId, activityId, regId);
+					RegisterHour hourDialog = new RegisterHour(service, regModel);
+					hourDialog.setFrame(new CustomDialog());
+				} catch (Exception e) {
+					return;
+				}
+			}
+		});
+		GridBagConstraints gbc_btnEditSelectedHour = new GridBagConstraints();
+		gbc_btnEditSelectedHour.fill = GridBagConstraints.BOTH;
+		gbc_btnEditSelectedHour.gridx = 0;
+		gbc_btnEditSelectedHour.gridy = 1;
+		buttonGroup.add(btnEditSelectedHour, gbc_btnEditSelectedHour);
+		GridBagConstraints gbc_btnFillAbsenceActivity = new GridBagConstraints();
+		gbc_btnFillAbsenceActivity.fill = GridBagConstraints.BOTH;
+		gbc_btnFillAbsenceActivity.gridx = 0;
+		gbc_btnFillAbsenceActivity.gridy = 2;
+		buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
+		
+		
+		JButton btnProjectOverview = new JButton("Management");
+		GridBagConstraints gbc_btnProjectOverview = new GridBagConstraints();
+		gbc_btnProjectOverview.fill = GridBagConstraints.BOTH;
+		gbc_btnProjectOverview.gridx = 0;
+		gbc_btnProjectOverview.gridy = 3;
+		buttonGroup.add(btnProjectOverview, gbc_btnProjectOverview);
+		btnProjectOverview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.close();
+				if(service.isUserProjectLeader() || service.isAdmin())
+					parent.launchMainView();
+			}
+		});
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterHour rh = new RegisterHour(service);
+				rh.setFrame(new CustomDialog());
+			}
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(176, 224, 230));
@@ -261,7 +286,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblRegisteredHoursEntities.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		
 		hourRegistrationView = new CustomTableComponent();
-		hourRegistrationView.setHeaderLabels(new String[] {"Title", "Username", "Hours", "Registration date", "Activity"});
+		hourRegistrationView.setHeaderLabels(new String[] {"Title", "Username", "Hours", "Registration date", "Activity", "Project"});
 		GridBagConstraints gbc_hourRegistrationView = new GridBagConstraints();
 		gbc_hourRegistrationView.fill = GridBagConstraints.BOTH;
 		gbc_hourRegistrationView.gridx = 0;
@@ -287,15 +312,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		frame.close();
 	}
 	
-	public void launchProjectDialog()
-	{
-		ProjectDialog dialog = new ProjectDialog(service);
-		dialog.setFrame(new CustomDialog());
-		
-		dialog.setVisible(true);
-	
-	}
-	
 	public void launchAddProject() {
 		AddProject ap = new AddProject(service);
 		
@@ -317,8 +333,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		hourRegistrationView.clear();
 		List<ItemModel> registeredHours = service.hourRegistrationItemModels();
 		hourRegistrationView.addItems(registeredHours);
-	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
 
 	@Override

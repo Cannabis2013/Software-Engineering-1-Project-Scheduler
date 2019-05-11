@@ -377,7 +377,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	
 	public void initializeSelectors()
 	{
-		activityTitleTextBox.setText(activity.activityName());
+		activityTitleTextBox.setText(activity.activityId());
 		
 		projectSelector.setSelectedItem(activity.parentModelId());
 		
@@ -450,11 +450,6 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		if(projectSelector.getItemCount() < 1)
 			return;
 		
-		try {
-			service.removeActivity(activity.parentModelId(), activity.activityName());
-		} catch (Exception e) {
-			return;
-		}
 		
 		String activityId = activityTitleTextBox.getText(),
 				projectId = (String) projectSelector.getSelectedItem(),
@@ -473,19 +468,13 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		List<String> assignedUsers = assignedUserView.allItems().
 				stream().map(item -> item.text(0)).collect(Collectors.toList());
 		
-		activity.setModelidentity(activityId);
+		activity.setActivityId(activityId);
 		activity.setEstimatedHours(workHours);
 		activity.setStartDate(sDate);
 		activity.setEndDate(eDate);
 		activity.ClearAssignedUserIdentities();
 		activity.AssignUsers(assignedUsers);
 		activity.setDescription(description);
-		
-		try {
-			service.addActivity(projectId, activity);
-		} catch (Exception e) {
-			return;
-		}
 	}
 	
 	public boolean isDatesInitialized()

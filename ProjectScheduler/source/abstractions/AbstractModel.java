@@ -20,9 +20,10 @@ public abstract class AbstractModel implements Serializable {
 		return id;
 	}
 	
-	public void setModelidentity(String id)
+	protected void setModelidentity(String id)
 	{
 		this.id = id;
+		StateChanged();
 	}
 	
 	public String description()
@@ -33,6 +34,7 @@ public abstract class AbstractModel implements Serializable {
 	public void setDescription(String text)
 	{
 		this.text = text;
+		StateChanged();
 	}
 	
 	public AbstractModel Parent()
@@ -43,6 +45,7 @@ public abstract class AbstractModel implements Serializable {
 	public void setParent(AbstractModel parent)
 	{
 		this.parent = parent;
+		StateChanged();
 	}
 
 	protected Manager parentManager()
@@ -53,6 +56,7 @@ public abstract class AbstractModel implements Serializable {
 	protected void setParentManager(Manager parentManager)
 	{
 		this.parentManager = parentManager;
+		StateChanged();
 	}
 
 	public String parentModelId() {
@@ -121,11 +125,13 @@ public abstract class AbstractModel implements Serializable {
 	protected void removeAllSubModels()
 	{
 		subModels.clear();
+		StateChanged();
 	}
 	
 	protected void setSubModels(List<AbstractModel> models)
 	{
 		subModels = models;
+		StateChanged();
 	}
 	
 	protected List<ItemModel> allSubItemModels()
@@ -138,10 +144,11 @@ public abstract class AbstractModel implements Serializable {
 		return itemModels;
 	}
 
-	private void StateChanged()
+	public void StateChanged()
     {
-        AbstractModel ParentProject = root(this);
-        ParentProject.parentManager.requestUpdate();
+        AbstractModel rootModel = root(this);
+        if(rootModel.parentManager != null)
+        	rootModel.parentManager.requestUpdate();
     }
 
 	protected AbstractModel root(AbstractModel model) {

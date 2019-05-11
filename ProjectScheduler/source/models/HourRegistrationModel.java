@@ -19,7 +19,7 @@ public class HourRegistrationModel extends AbstractModel {
 
     public HourRegistrationModel(String identity,double hours, String userId, String shortDescription)
     {
-        setModelidentity(identity);;
+        setModelidentity(identity);
         this.workHours = hours;
         this.userId = userId;
         setDescription(shortDescription);
@@ -31,15 +31,22 @@ public class HourRegistrationModel extends AbstractModel {
     {
     	return modelId();
     }
+    
+    public void setRegistrationId(String id)
+    {
+    	setModelidentity(id);
+    	
+    }
 
     public double hours()
     {
         return workHours;
     }
     
-    public void setHours(int hours)
+    public void setHours(double hours)
     {
     	workHours = hours;
+    	StateChanged();
     }
     
     public String userId()
@@ -58,7 +65,7 @@ public class HourRegistrationModel extends AbstractModel {
     	return originalRegistrationDate.get(tempField);
     }
 
-    public String parentProjectName(ProjectManager pManager)
+    public String parentProjectName()
     {
     	return ((ProjectModel) root(this)).projectName();
     }
@@ -74,9 +81,8 @@ public class HourRegistrationModel extends AbstractModel {
 		itemData[2] = Double.toString(hours());
 		itemData[3] = originalRegistrationDate.format(formatter);
 		itemData[4] = parentModelId();
+		itemData[5] = parentProjectName();
 		
 		return new ItemModel(itemData);
-    }
-    
-    
+    }   
 }

@@ -200,7 +200,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public List<ActivityModel> activitiesById(String activityId)
     {
         return pManager.activityModels().stream().
-        		filter(item -> item.activityName().equals(activityId)).collect(Collectors.toList());
+        		filter(item -> item.activityId().equals(activityId)).collect(Collectors.toList());
     }
 
     public List<ActivityModel> activities()
@@ -237,11 +237,11 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     }
     
     @Override
-    public HourRegistrationModel hourRegistrationModel(String activityId, String regId) throws Exception
+    public HourRegistrationModel hourRegistrationModel(String projectId,String activityId, String regId) throws Exception
     {
     	ActivityModel activity;
 		try {
-			activity = pManager.activityById(activityId);
+			activity = pManager.activityById(projectId,activityId);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -251,7 +251,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	if(!activity.isUserAssigned(userId) && !uManager.isAdmin())
     		throw new Exception("User is not assigned to this activity and is therefore not allowed to retrieve this object.");
     	
-        String projectId = activity.parentModelId();
         return pManager.getHourRegistrationModel(projectId, activityId, regId);
     }
     
@@ -336,6 +335,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
 	@Override
 	public void requestUpdate() {
-		
+		pManager.requestUpdate();
 	}
 }
