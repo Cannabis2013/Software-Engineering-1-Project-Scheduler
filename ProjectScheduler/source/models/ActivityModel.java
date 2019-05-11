@@ -81,9 +81,14 @@ public class ActivityModel extends AbstractModel {
         Type = ActivityType.Absent_Related;
     }
     
-    public String activityName()
+    public String activityId()
     {
     	return modelId();
+    }
+    
+    public void setActivityId(String id)
+    {
+    	setModelidentity(id);
     }
     
     public int estimatedHours()
@@ -94,6 +99,7 @@ public class ActivityModel extends AbstractModel {
     public void setEstimatedHours(int hours)
     {
     	estimatedWorkHours = hours;
+    	StateChanged();
     }
     
     public String Reason()
@@ -104,6 +110,7 @@ public class ActivityModel extends AbstractModel {
     public void setReason(String reason)
     {
     	this.reason = reason;
+    	StateChanged();
     }
 
     public ActivityType TypeOfActivity()
@@ -119,6 +126,7 @@ public class ActivityModel extends AbstractModel {
     public void setStartDate(LocalDate date)
     {
     	sDate = date;
+    	StateChanged();
     }
     
     public LocalDate endDate()
@@ -129,6 +137,7 @@ public class ActivityModel extends AbstractModel {
     public void setEndDate(LocalDate date)
     {
     	eDate = date;
+    	StateChanged();
     }
     
     public int startWeek()
@@ -151,12 +160,15 @@ public class ActivityModel extends AbstractModel {
     public void assignUser(String id)
     {
     	assignedUserIdentities.add(id);
+    	StateChanged();
     }
 
     public void AssignUsers(List<String> userIds)
     {
         for(String userId : userIds)
             assignedUserIdentities.add(userId);
+        
+        StateChanged();
     }
 
     public boolean isUserAssigned(UserManager uManager)
@@ -177,7 +189,8 @@ public class ActivityModel extends AbstractModel {
     
     public void ClearAssignedUserIdentities()
     {
-    	assignedUserIdentities.clear();;
+    	assignedUserIdentities.clear();
+    	StateChanged();
     }
     
     public boolean isUserAssigned(String userName)

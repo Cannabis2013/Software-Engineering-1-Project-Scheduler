@@ -192,7 +192,7 @@ public class TestTemplate {
 		}
 		HourRegistrationModel model = null;
 		try {
-			model = coreApp.hourRegistrationModel(activityName, registrationId);
+			model = coreApp.hourRegistrationModel(projectName,activityName, registrationId);
 		} catch (Exception e) {
 			coreApp.logut();
 			return false;
@@ -201,7 +201,7 @@ public class TestTemplate {
 		model.setHours(newHour);
 		
 		try {
-			model = coreApp.hourRegistrationModel(activityName, registrationId);
+			model = coreApp.hourRegistrationModel(projectName,activityName, registrationId);
 		} catch (Exception e) {
 			coreApp.logut();
 			return false;

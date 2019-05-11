@@ -325,14 +325,6 @@ setLayout(new BorderLayout(0, 0));
 	public void close() {
 		frame.close();
 	}
-	
-	public void launchProjectDialog()
-	{
-		ProjectDialog dialog = new ProjectDialog(service);
-		dialog.setVisible(true);
-		dialog.setFrame(new CustomDialog());
-	
-	}
 
 	public void launchAddActivity() {
 		AddActivity aa = new AddActivity(service);

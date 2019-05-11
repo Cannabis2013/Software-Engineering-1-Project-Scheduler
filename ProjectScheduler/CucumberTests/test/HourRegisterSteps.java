@@ -92,7 +92,7 @@ public class HourRegisterSteps {
 	public void the_registered_hour_object_is_stored_in_the_system() {
 	    HourRegistrationModel regObject = null;
 		try {
-			regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+			regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
 		} catch (Exception e) {
 			
 		}
@@ -103,7 +103,7 @@ public class HourRegisterSteps {
 	public void the_registered_hour_is_not_stored_in_the_system() {
 		HourRegistrationModel regObject = null;
 		try {
-			regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+			regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
 		} catch (Exception e) {
 			
 		}
@@ -129,7 +129,7 @@ public class HourRegisterSteps {
 		}
 		HourRegistrationModel regObject = null;
 		try {
-			regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+			regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
 		} catch (Exception e) {
 			
 		}
@@ -142,7 +142,7 @@ public class HourRegisterSteps {
 	public void heEditsTheObject() {
 		try {
 		HourRegistrationModel regObject = null;
-		regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+		regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
 		regObject.setHours(5);
 		} catch(Exception e){
 			fail();
@@ -153,7 +153,7 @@ public class HourRegisterSteps {
 	public void theEditIsStoredInTheSystem() {
 		try {
 		HourRegistrationModel regObject = null;
-		regObject = coreApp.hourRegistrationModel(activityName, tempRegName);
+		regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
 		assertTrue(regObject.hours() == 5);
 		} catch(Exception e) {
 			fail();

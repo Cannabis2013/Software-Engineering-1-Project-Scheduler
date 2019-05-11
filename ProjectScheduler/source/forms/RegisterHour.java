@@ -1,7 +1,6 @@
 package forms;
 
 import java.awt.BorderLayout;
-import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
@@ -9,37 +8,23 @@ import models.ActivityModel;
 import models.HourRegistrationModel;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
 import javax.swing.JSpinner;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -55,20 +40,31 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	private CustomFrame frame = null;
 	private JSpinner hourSpinBox;
 	private IApplicationProgrammingInterface service;
-	private JComboBox<?> activitySelector;
+	private JComboBox<String> activitySelector;
 	private List<ActivityModel> activities;
 	private String componentTitle = "Register hour";
+	private HourRegistrationModel regModel;
+	private enum openMode {add,edit};
+	private openMode mode;
 	/**
 	 * Create the dialog.
+	 * @wbp.parser.constructor
 	 */
 	public RegisterHour(IApplicationProgrammingInterface service) {
 		this.service = service;
 		initialize();
-		
-		
+		mode = openMode.add;
 	}
 	
-		private void initialize() {
+	public RegisterHour(IApplicationProgrammingInterface service, HourRegistrationModel regModel) {
+		this.service = service;
+		this.regModel = regModel;
+		initialize();
+		initializeSelectors();
+		mode = openMode.edit;
+	}
+	
+	private void initialize() {
 		setBounds(100, 100, 610, 316);
 		setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(176, 224, 230));
@@ -111,7 +107,10 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		saveButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				assembleRegistrationObject();
+				if(mode == openMode.add)
+					assembleRegistrationObject();
+				else
+					reAssembleRegistrationObject();
 				close();
 				
 			}
@@ -132,12 +131,12 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		contentPanel.add(descriptionTextBox);
 
 		
-		activitySelector = new JComboBox();
+		activitySelector = new JComboBox<String>();
 		
 		activities = service.activities();
-		String[] allActivityIdentitties = activities.stream().map(item -> item.activityName()).toArray(String[]::new);
+		String[] allActivityIdentitties = activities.stream().map(item -> item.activityId()).toArray(String[]::new);
 		
-		activitySelector.setModel(new DefaultComboBoxModel(allActivityIdentitties));
+		activitySelector.setModel(new DefaultComboBoxModel<String>(allActivityIdentitties));
 		activitySelector.setBounds(161, 140, 161, 26);
 		contentPanel.add(activitySelector);
 		
@@ -161,10 +160,17 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		contentPanel.add(hourSpinBox);
 		setPreferredSize(getSize());
 	}
+	
+	public void initializeSelectors()
+	{
+		titleTextbox.setText(regModel.registrationId());
+		activitySelector.setSelectedItem(regModel.parentModelId());
+		hourSpinBox.setValue(regModel.hours());
+		descriptionTextBox.setText(regModel.description());
+	}
 
 	@Override
 	public void setFrame(CustomFrame frame) {
-		// TODO Auto-generated method stub
 		this.frame = frame;
 		frame.setWidget(this);
 		frame.setWindowModality(true);
@@ -183,10 +189,9 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	{
 		int currentIndex = activitySelector.getSelectedIndex();
 		String title = titleTextbox.getText(), 
-				description = descriptionTextBox.getText(), 
-				userId = service.currentUserLoggedIn().UserName(),
-				activityId = activities.get(currentIndex).activityName(), 
-				projectId = activities.get(currentIndex).parentModelId();
+				description = descriptionTextBox.getText();
+		service.currentUserLoggedIn().UserName();
+		String activityId = activities.get(currentIndex).activityId(), projectId = activities.get(currentIndex).parentModelId();
 		double hour = ((Double) hourSpinBox.getValue()).doubleValue();
 		
 		try {
@@ -195,6 +200,20 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 			return;
 		}
 		
+	}
+	
+	public void reAssembleRegistrationObject()
+	{
+		int currentIndex = activitySelector.getSelectedIndex();
+		String title = titleTextbox.getText(), 
+				description = descriptionTextBox.getText();
+		double hour = ((Double) hourSpinBox.getValue()).doubleValue();
+		
+		regModel.setRegistrationId(title);
+		regModel.setParent(activities.get(currentIndex));
+		regModel.setHours(hour);
+		regModel.setDescription(description);
+		service.requestUpdate();
 	}
 
 	@Override
