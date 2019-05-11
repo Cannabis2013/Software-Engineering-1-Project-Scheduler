@@ -59,7 +59,12 @@ public class TestTemplate {
 	
 	protected ProjectModel getProject(String currentloggedinUser, String projectId)
 	{
-		return null;
+		try {
+			coreApp.login(currentloggedinUser);
+			return coreApp.project(projectId);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	protected boolean addActivity(String loggedInUserName, 
@@ -132,14 +137,12 @@ public class TestTemplate {
 		try {
 			coreApp.login(loggedInUserName);
 		} catch (Exception e1) {
-			e1.printStackTrace();
 			return false;
 		}
 		try {
 			coreApp.registerHour(projectName, activityName, registrationId, workHours, description);
 		} catch (Exception e) {
 			coreApp.logut();
-			e.printStackTrace();
 			return false;
 		}
 		coreApp.logut();
