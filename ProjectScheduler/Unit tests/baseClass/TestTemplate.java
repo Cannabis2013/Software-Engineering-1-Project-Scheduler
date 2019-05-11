@@ -108,6 +108,16 @@ public class TestTemplate {
 		return true;
 	}
 	
+	public ActivityModel getActivity(String currentLoggedInUser,String projectId,String activityId)
+	{
+		try {
+			coreApp.login(currentLoggedInUser);
+			return coreApp.activity(projectId, activityId);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	public boolean removeActivity(String loggedInUserName,
 			String projectName, 
 			String activityName)
