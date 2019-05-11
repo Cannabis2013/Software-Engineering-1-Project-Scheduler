@@ -38,7 +38,9 @@ public class CustomDialog extends JDialog implements CustomFrame{
 	private boolean widgetIsResizing = false;
 	private boolean resizeable = true;
 	private int borderWidth = 5;
-
+	private enum resizeMode {lowerBorderResize,leftBorderResize, 
+		rightBorderResize, leftCornerResize, rightCornerResize,noResize};
+	private resizeMode currentResizeMode = resizeMode.noResize;
 	/**
 	 * Create the frame.
 	 */
@@ -57,39 +59,97 @@ public class CustomDialog extends JDialog implements CustomFrame{
 		contentPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+				
+				if(arg0.getX() <= borderWidth && arg0.getY() >= getHeight() - borderWidth)
+					currentResizeMode = resizeMode.leftCornerResize;
+				else if(arg0.getX() >= getWidth() - borderWidth && arg0.getY() >= getHeight() - borderWidth)
+					currentResizeMode = resizeMode.rightCornerResize;
+				else if(arg0.getX() <= borderWidth)
+					currentResizeMode = resizeMode.leftBorderResize;
+				else if(arg0.getX() >= getWidth() - borderWidth)
+					currentResizeMode = resizeMode.rightBorderResize;
+				else if(arg0.getY() >= getHeight() - borderWidth)
+					currentResizeMode = resizeMode.lowerBorderResize;
+				
 				X = (int) arg0.getLocationOnScreen().getX();
 				Y = (int) arg0.getLocationOnScreen().getY();
 				
 				tempWidth = getWidth();
-				tempHeight = getHeight();	
+				tempHeight = getHeight();
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				widgetIsResizing = false;
+				currentResizeMode = resizeMode.noResize;
 			}
 		});
 		contentPane.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
+				if(!resizeable)
+					return;
 				
-				if(((arg0.getX() < borderWidth || arg0.getX() > getWidth() - borderWidth || 
-						arg0.getY() > getHeight() - borderWidth) || 
-						widgetIsResizing) && resizeable)
+				int diffY = 0;
+				int diffX = 0;
+				if(currentResizeMode == resizeMode.leftBorderResize)
 				{
-					widgetIsResizing = true;
-					int diffX = (int) (arg0.getLocationOnScreen().getX()- X);
-					int diffY = (int) (arg0.getLocationOnScreen().getY() -Y);
-					int newWidth = tempWidth + diffX, newHeight = tempHeight + diffY;
-					
-					setSize(new Dimension(newWidth, newHeight));
+					diffX =  (int) ((arg0.getLocationOnScreen().getX()- X)*(-1));
+					int dX = (int)(arg0.getLocationOnScreen().getX() - X),
+							newX = getX();
+					if(getWidth() > getMinimumSize().getWidth())
+						newX = X  + dX;
+					setBounds(newX, getY(), tempWidth + diffX, tempHeight + diffY);
 				}
+				else if( currentResizeMode == resizeMode.rightBorderResize)
+					diffX = (int) (arg0.getLocationOnScreen().getX()- X);
+				else if(currentResizeMode == resizeMode.lowerBorderResize)
+				{
+					diffY = (int) (arg0.getLocationOnScreen().getY() -Y);
+					setBounds(getX(), getY(), tempWidth + diffX, tempHeight + diffY);
+				}
+				else if(currentResizeMode == resizeMode.rightCornerResize)
+				{
+					diffX = (int) (arg0.getLocationOnScreen().getX()- X);
+					diffY = (int) (arg0.getLocationOnScreen().getY() -Y);
+					setBounds(getX(), getY(), tempWidth + diffX, tempHeight + diffY);
+				}
+				else if(currentResizeMode == resizeMode.leftCornerResize)
+				{
+					diffX = (int) ((arg0.getLocationOnScreen().getX()- X)*(-1));
+					diffY = (int) (arg0.getLocationOnScreen().getY() -Y);
+					int dX = (int)(arg0.getLocationOnScreen().getX() - X),
+							newX = getX();
+					if(getWidth() > getMinimumSize().getWidth())
+						newX = X  + dX;
+					setBounds(newX, getY(), tempWidth + diffX, tempHeight + diffY);
+				}
+				else
+					return;
 			}
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if((e.getX() < borderWidth || e.getX() > getWidth() - borderWidth || 
-						e.getY() > getHeight() - borderWidth) && resizeable)
+				if(e.getX() <= borderWidth && e.getY() >= getHeight() - borderWidth)
 				{
-					Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
+					Cursor cursor = new Cursor(Cursor.SW_RESIZE_CURSOR);
+					setCursor(cursor);
+				}
+				else if(e.getX() >= getWidth() - borderWidth && e.getY() >= getHeight() - borderWidth)
+				{
+					Cursor cursor = new Cursor(Cursor.SE_RESIZE_CURSOR);
+					setCursor(cursor);
+				}
+				else if(e.getX() <= borderWidth)
+				{
+					Cursor cursor = new Cursor(Cursor.W_RESIZE_CURSOR);
+					setCursor(cursor);
+				}
+				else if(e.getY() >= getHeight() - borderWidth)
+				{
+					Cursor cursor = new Cursor(Cursor.S_RESIZE_CURSOR);
+					setCursor(cursor);
+				}
+				else if(e.getX() >= getWidth() - borderWidth)
+				{
+					Cursor cursor = new Cursor(Cursor.E_RESIZE_CURSOR);
 					setCursor(cursor);
 				}
 				else
@@ -97,6 +157,7 @@ public class CustomDialog extends JDialog implements CustomFrame{
 					Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
 					setCursor(cursor);
 				}
+
 			}
 		});
 		contentPane.setBackground(new Color(0, 0, 128));

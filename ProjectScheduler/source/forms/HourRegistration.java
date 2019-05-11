@@ -47,16 +47,8 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	private String componentTitle = "Hour registration dialog";
 	
 	public HourRegistration(ApplicationFrontEnd parent) {
-		setForeground(Color.WHITE);
-		setBorder(null);
-		setPreferredSize(new Dimension(960, 540));
-		setBackground(new Color(176, 224, 230));
-		setBackground(Color.WHITE);
-		setMinimumSize(new Dimension(960, 540));
-		this.parent = parent;
-		setFrame(new CustomDialog());
+		
 		initialize();
-		setVisible(true);
 	}
 
 	/**
@@ -64,6 +56,15 @@ public class HourRegistration extends JPanel implements FrameImplementable {
 	 * @param parent 
 	 */
 	private void initialize() {
+		
+		setForeground(Color.WHITE);
+		setBorder(null);
+		setPreferredSize(new Dimension(960, 540));
+		setBackground(new Color(176, 224, 230));
+		setBackground(Color.WHITE);
+		setMinimumSize(new Dimension(960, 540));
+		setFrame(new CustomDialog());
+		
 		setBounds(100, 100, 960, 540);
 		
 		JMenuBar menuBar = new JMenuBar();
