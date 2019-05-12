@@ -265,6 +265,12 @@ setLayout(new BorderLayout(0, 0));
 		panel.add(btnEditActivity, gbc_btnEditActivity);
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
+		btnRemoveActivty.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int currentIndex = activityView.currentIndex();
+				activityView.removeItemAt(currentIndex);
+			}
+		});
 		GridBagConstraints gbc_btnRemoveActivty = new GridBagConstraints();
 		gbc_btnRemoveActivty.fill = GridBagConstraints.BOTH;
 		gbc_btnRemoveActivty.gridx = 2;

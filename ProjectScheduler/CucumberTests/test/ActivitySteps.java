@@ -100,10 +100,10 @@ public class ActivitySteps {
 	    
 	    try {
 			tempActivity = new ActivityModel(activityId,startDate,enddDate,4, null, "");
-			currentProject.addActivity(tempActivity);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
+	    
 	}
 
 	@When("assigns {string} , {string} and {string}")

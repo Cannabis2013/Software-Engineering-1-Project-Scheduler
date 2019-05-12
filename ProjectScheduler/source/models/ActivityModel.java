@@ -201,7 +201,7 @@ public class ActivityModel extends AbstractModel {
         return false;
     }
     
-    public void addRegistrationModel(HourRegistrationModel model)
+    public void addRegistrationModel(HourRegistrationModel model) throws Exception
     {
     	addSubModel(model);
     }

@@ -97,7 +97,7 @@ public class ProjectModel extends AbstractModel
     	projectLeaderId = id;
     }
     
-    public void addActivity(ActivityModel activity)
+    public void addActivity(ActivityModel activity) throws Exception
     {
     	addSubModel(activity);
     }

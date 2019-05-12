@@ -81,8 +81,8 @@ public class UserAvailable extends TestTemplate {
 		int activityIndex = 0;
 		currentProject.removeAllActivities();
 		
-		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
+			String aName = String.format(activityName + "(%d)", activityIndex++);
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 
@@ -106,8 +106,8 @@ public class UserAvailable extends TestTemplate {
 		int activityIndex = 0;
 		currentProject.removeAllActivities();
 		
-		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
+			String aName = String.format(activityName + "(%d)", activityIndex++);
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 
@@ -126,7 +126,11 @@ public class UserAvailable extends TestTemplate {
 	{
 		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate.minusDays(1),"TT");
-		coreApp.addAbsenceActivity(activity);
+		try {
+			coreApp.addAbsenceActivity(activity);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		String availability = coreApp.userAvailability("TT", startDate, endDate);
 		
@@ -138,7 +142,11 @@ public class UserAvailable extends TestTemplate {
 	{
 		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate, endDate,"TT");
-		coreApp.addAbsenceActivity(activity);
+		try {
+			coreApp.addAbsenceActivity(activity);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		String availability = coreApp.userAvailability("TT", startDate, endDate);
 		assertEquals("Not available", availability);
@@ -153,8 +161,8 @@ public class UserAvailable extends TestTemplate {
 		int activityIndex = 0;
 		currentProject.removeAllActivities();
 		
-		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
+			String aName = String.format(activityName + "(%d)", activityIndex++);
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 
@@ -179,8 +187,8 @@ public class UserAvailable extends TestTemplate {
 		int activityIndex = 0;
 		currentProject.removeAllActivities();
 		
-		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
+			String aName = String.format(activityName + "(%d)", activityIndex++);
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 
@@ -204,7 +212,11 @@ public class UserAvailable extends TestTemplate {
 				startDate.minusDays(2), 
 				endDate.plusDays(2),
 				"TT");
-		coreApp.addAbsenceActivity(activity);
+		try {
+			coreApp.addAbsenceActivity(activity);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		String availability = coreApp.userAvailability("TT", startDate, endDate);
 		assertEquals("Not available", availability);
@@ -215,7 +227,11 @@ public class UserAvailable extends TestTemplate {
 	{
 		currentProject.removeAllActivities();
 		ActivityModel activity = new ActivityModel("Absence", "Vacation", startDate.plusDays(4), endDate,"TT");
-		coreApp.addAbsenceActivity(activity);
+		try {
+			coreApp.addAbsenceActivity(activity);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		String availability = coreApp.userAvailability("TT", startDate, endDate);
 		
@@ -231,7 +247,11 @@ public class UserAvailable extends TestTemplate {
 				startDate.minusDays(4), 
 				endDate.minusDays(1),
 				"TT");
-		coreApp.addAbsenceActivity(activity);
+		try {
+			coreApp.addAbsenceActivity(activity);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		String availability = coreApp.userAvailability("TT", startDate, endDate);
 		
@@ -247,8 +267,8 @@ public class UserAvailable extends TestTemplate {
 		int activityIndex = 0;
 		currentProject.removeAllActivities();
 		
-		String aName = String.format(activityName + "(%d)", activityIndex);
 		for (int i = 0; i < numberOfActivities; i++) {
+			String aName = String.format(activityName + "(%d)", activityIndex++);
 			addActivity(projectLeaderId, 
 					aName, 
 					currentProject, 

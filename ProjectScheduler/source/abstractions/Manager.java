@@ -13,10 +13,12 @@ public abstract class Manager implements Serializable {
 	private List<AbstractModel> models = new ArrayList<AbstractModel>();
 	protected List<ICustomObserver> observers = new ArrayList<ICustomObserver>();
     
-    protected void addModel(AbstractModel item)
+    protected void addModel(AbstractModel model) throws Exception
     {
-        models.add(item);
-        item.setParentManager(this);
+    	if(models.stream().anyMatch(item -> item.modelId().equals(model.modelId())))
+    		throw new Exception("Duplicate");
+        models.add(model);
+        model.setParentManager(this);
         requestUpdate();
     }
 

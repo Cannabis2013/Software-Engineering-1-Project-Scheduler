@@ -164,7 +164,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 			throw new Exception();
 	}
 
-    public void addAbsenceActivity(ActivityModel activity)
+    public void addAbsenceActivity(ActivityModel activity) throws Exception
     {
     	
     	pManager.addAbsenceActivity(activity);
@@ -217,7 +217,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     
     public void registerHour(String projectId, String activityId, String regId, double hours, String shortDescription) throws Exception
     {
-    	
     	ActivityModel activity = pManager.activityById(projectId, activityId);
         	
         String userId = uManager.currentUser().UserName();
@@ -225,7 +224,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         	throw new Exception("User isn't assigned to the selected activity");
         
         HourRegistrationModel regModel = new HourRegistrationModel(regId, hours, userId, shortDescription);
-        activity.addRegistrationModel(regModel);
+        pManager.registerHour(projectId, activityId, regModel);
     }
 
     public void unRegisterHour(String projectId, String activityId, String regId) throws Exception

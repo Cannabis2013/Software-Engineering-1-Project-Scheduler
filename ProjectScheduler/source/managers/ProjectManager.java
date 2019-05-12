@@ -20,7 +20,7 @@ public class ProjectManager extends Manager {
 	private static final long serialVersionUID = -5891942827829344046L;
 	
 	
-	public void addProject(ProjectModel project)
+	public void addProject(ProjectModel project) throws Exception
 	{
 		addModel(project);
 	}
@@ -50,7 +50,7 @@ public class ProjectManager extends Manager {
 		return models().stream().map(item -> (ProjectModel) item).collect(Collectors.toList());
 	}
 	
-	public void addAbsenceActivity(ActivityModel activityAbsence)
+	public void addAbsenceActivity(ActivityModel activityAbsence) throws Exception
 	{
 		for (ProjectModel project : allProjects()) {
 			project.addActivity(activityAbsence);
@@ -112,7 +112,7 @@ public class ProjectManager extends Manager {
         return resultingList;
     }
 
-    public void RegisterHour(String projectId, String activityId, HourRegistrationModel obj) throws Exception
+    public void registerHour(String projectId, String activityId, HourRegistrationModel obj) throws Exception
     {
         ActivityModel activity;
 		try {
@@ -120,6 +120,9 @@ public class ProjectManager extends Manager {
 		} catch (Exception e) {
 			throw new Exception("The activity doesn't exists");
 		}
+		
+		String regId = obj.registrationId();
+		
         activity.addRegistrationModel(obj);
     }
 

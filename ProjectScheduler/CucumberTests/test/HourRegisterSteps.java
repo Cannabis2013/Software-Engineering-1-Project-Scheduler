@@ -20,6 +20,7 @@ public class HourRegisterSteps {
 	ApplicationCore coreApp = new ApplicationCore();
 	String projectName = "Project CANVAS", activityName, tempRegName;
 	ProjectModel currentProject;
+	HourRegistrationModel tempRegObj = null;
 	
 	@Given("a project with name {string} exists with a user with username {string} as projectleader")
 	public void a_project_with_name_exists_with_a_user_with_username_as_projectleader(String string, String string2) {
@@ -49,6 +50,7 @@ public class HourRegisterSteps {
 			coreApp.addActivity(projectName, activity);
 			activityName = string;
 		} catch (Exception e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -80,8 +82,8 @@ public class HourRegisterSteps {
 	@When("he fills an application with the title {string} for registering {int} hours to the activity {string}")
 	public void he_fills_an_application_with_the_title_for_registering_hours_to_the_activity(String string, Integer int1, String string2) {
 		try {
-			coreApp.registerHour(projectName, string2, string, int1, "");
-			tempRegName = string;
+			String userId = coreApp.currentUserLoggedIn().UserName();
+			tempRegObj = new HourRegistrationModel(string, int1, userId, "");
 		} catch (Exception e) {
 			
 		}
@@ -89,24 +91,40 @@ public class HourRegisterSteps {
 
 	@Then("the registered hour object is stored in the system.")
 	public void the_registered_hour_object_is_stored_in_the_system() {
-	    HourRegistrationModel regObject = null;
+	    
 		try {
-			regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
+			coreApp.registerHour(projectName, activityName, tempRegObj.registrationId(), tempRegObj.hours(), "");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			fail();
+		}
+		
+		try {
+			tempRegObj = coreApp.hourRegistrationModel(projectName,activityName, tempRegObj.registrationId());
 		} catch (Exception e) {
 			
 		}
-	    assertEquals(true, regObject != null);
+	    assertEquals(true, tempRegObj != null);
+	    tempRegObj = null;
 	}
 	
 	@Then("the registered hour is not stored in the system.")
 	public void the_registered_hour_is_not_stored_in_the_system() {
-		HourRegistrationModel regObject = null;
 		try {
-			regObject = coreApp.hourRegistrationModel(projectName,activityName, tempRegName);
-		} catch (Exception e) {
+			coreApp.registerHour(projectName, 
+					activityName, 
+					tempRegObj.registrationId(), tempRegObj.hours(), "");
+			fail();
+			
+		} catch (Exception e1) {
 			
 		}
-	    assertEquals(false, regObject != null);
+		try {
+			tempRegObj = coreApp.hourRegistrationModel(projectName,activityName, tempRegObj.registrationId());
+		} catch (Exception e) {
+			return;
+		}
+	    fail();
 	}
 	
 	@Given("a user with username {string} is logged in")

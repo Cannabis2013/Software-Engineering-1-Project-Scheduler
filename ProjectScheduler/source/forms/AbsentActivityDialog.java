@@ -265,7 +265,11 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 				sDate, 
 				eDate, service.currentUserLoggedIn().UserName());
 		
-		service.addAbsenceActivity(absence);
+		try {
+			service.addAbsenceActivity(absence);
+		} catch (Exception e) {
+			titleSelector.setText("Choose another title. Duplicate.");
+		}
 	}
 
 	@Override

@@ -14,7 +14,11 @@ public class UserManager extends Manager {
 	private static final long serialVersionUID = -7803978115663211042L;
 	private UserModel currentlyLoggedIn = null;
 	public UserManager() {
-		createUserPrototypes();
+		try {
+			createUserPrototypes();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	public Boolean logIn(String userName) throws Exception
     {
@@ -78,7 +82,7 @@ public class UserManager extends Manager {
     			map(item -> item.itemModel()).collect(Collectors.toList());
     }
 	
-	private void createUserPrototypes()
+	private void createUserPrototypes() throws Exception
     {
 		UserModel admin = new UserModel("admin", UserModel.userRole.Admin);
 

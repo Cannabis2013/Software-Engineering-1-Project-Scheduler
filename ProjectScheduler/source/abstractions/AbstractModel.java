@@ -63,7 +63,9 @@ public abstract class AbstractModel implements Serializable {
 		return parent.modelId();
 	}
 
-	protected void addSubModel(AbstractModel subModel) {
+	protected void addSubModel(AbstractModel subModel) throws Exception {
+		if(subModels.stream().anyMatch(item -> item.modelId().equals(subModel.modelId())))
+			throw new Exception();
 		subModels.add(subModel);
 		subModel.setParent(this);
 		StateChanged();

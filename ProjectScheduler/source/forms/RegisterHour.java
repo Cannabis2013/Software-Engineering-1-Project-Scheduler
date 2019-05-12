@@ -193,11 +193,13 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 				description = descriptionTextBox.getText();
 		service.currentUserLoggedIn().UserName();
 		String activityId = activities.get(currentIndex).activityId(), projectId = activities.get(currentIndex).parentModelId();
+		
 		double hour = ((Double) hourSpinBox.getValue()).doubleValue();
 		
 		try {
 			service.registerHour(projectId, activityId, title, hour, description);
 		} catch (Exception e) {
+			titleTextbox.setText("Choose another name. Duplicate.");
 			return;
 		}
 		
