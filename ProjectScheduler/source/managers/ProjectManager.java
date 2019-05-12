@@ -301,9 +301,8 @@ public class ProjectManager extends Manager {
 
         if (fullOccurrences >= 20)
             return "Not available";
-        return partlyOccurrences + fullOccurrences >= 20
-            ? "Partly available"
-            : "Available";
+        return "Partly available";
+            
     }
     
     public List<ItemModel> allUserAvailability (List<ItemModel> userItemModel, LocalDate fromDate, LocalDate toDate)
