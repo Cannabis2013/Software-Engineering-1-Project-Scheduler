@@ -108,18 +108,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 				public void keyPressed(java.awt.event.KeyEvent arg0) {
 					if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
 					{
-						try {
-							service.login(textField.getText());
-							close();
-						} catch (Exception e) {
-							return;
-						}
-						if(service.isAdmin()) {
-						parent.launchMainView();
-						} else {
-							parent.launchUserView();
-						}
-						
+						launch();
 					}
 						
 				}
@@ -168,17 +157,7 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 			btnLogin = new JButton("Login");
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						service.login(textField.getText());
-						close();
-					} catch (Exception e1) {
-						return;
-					}
-					if(service.isAdmin()) {
-					parent.launchMainView();
-					} else {
-						parent.launchUserView();
-					}
+					launch();
 				}
 			});
 		}
@@ -208,6 +187,20 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 		this.frame.setResizeable(false);
 		this.frame.ShowDialog();
 		
+	}
+	
+	private void launch()
+	{
+		try {
+			service.login(textField.getText());
+			close();
+		} catch (Exception e) {
+			return;
+		}
+		if(service.isAdmin())
+		parent.launchMainView(); 
+		else
+			parent.launchUserView();
 	}
 
 	@Override
