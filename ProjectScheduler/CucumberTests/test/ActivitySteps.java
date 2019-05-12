@@ -24,13 +24,13 @@ public class ActivitySteps {
 	public ActivitySteps()
 	{
 		
-		
+		projectName = "Project CANVAS";
 		String pLeader = "FL";
 		String startDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now());
 		String endDate = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(LocalDate.now().plusDays(2));
 		String shortDescription = "This is a test project";
 		
-		currentProject = new ProjectModel(pLeader, startDate, endDate, shortDescription);
+		currentProject = new ProjectModel(projectName,pLeader, startDate, endDate, shortDescription);
 		projectName = currentProject.projectName();
 		try {
 			coreApp.login("admin");

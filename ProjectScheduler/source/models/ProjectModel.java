@@ -30,9 +30,10 @@ public class ProjectModel extends AbstractModel
     	setDescription(description);
     }
     
-    public ProjectModel(String projectLeaderId, String startDate, String endDate, String description) 
+    public ProjectModel(String projectId ,String projectLeaderId, String startDate, String endDate, String description) 
     		throws IllegalArgumentException
     {
+    	setModelidentity(projectId);
     	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     	try {
 			sDate = LocalDate.parse(startDate,dateFormat);
@@ -45,7 +46,7 @@ public class ProjectModel extends AbstractModel
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
     	
-    	setModelidentity(generateSerialId());
+    	setSerialId(generateSerialId());
     	setProjectLeaderId(projectLeaderId);
     	setDescription(description);
     }

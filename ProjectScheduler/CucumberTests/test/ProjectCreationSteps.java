@@ -15,7 +15,7 @@ import models.ProjectModel;
 public class ProjectCreationSteps {
 	
 	ApplicationCore coreApp = new ApplicationCore();
-	String projectName;
+	String projectName = "Project CANVAS";
 	
 	public ProjectCreationSteps() {
 		
@@ -42,7 +42,7 @@ public class ProjectCreationSteps {
 		String shortDescription = "This is a test project";
 		
 		try {
-			ProjectModel project = new ProjectModel(pLeader, startDate, endDate, shortDescription);
+			ProjectModel project = new ProjectModel(projectName,pLeader, startDate, endDate, shortDescription);
 			projectName = project.projectName();
 			coreApp.addProject(project);
 			fail();
