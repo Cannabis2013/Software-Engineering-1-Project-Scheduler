@@ -170,10 +170,14 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						service.login(textField.getText());
-						parent.launchMainView();
-						frame.close();
+						close();
 					} catch (Exception e1) {
-						
+						return;
+					}
+					if(service.isAdmin()) {
+					parent.launchMainView();
+					} else {
+						parent.launchUserView();
 					}
 				}
 			});
