@@ -5,12 +5,15 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
 import models.ItemModel;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomTableComponent extends JPanel {
 	/**
@@ -23,7 +26,15 @@ public class CustomTableComponent extends JPanel {
 		DefaultTableModel model = new DefaultTableModel();
 		table = new CustomTable(model);
 		
-		add(new JScrollPane(table), BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
+				setCursor(cursor);
+			}
+		});
+		add(scrollPane, BorderLayout.CENTER);
 		add(table.getTableHeader(),BorderLayout.NORTH);
 		
 		
