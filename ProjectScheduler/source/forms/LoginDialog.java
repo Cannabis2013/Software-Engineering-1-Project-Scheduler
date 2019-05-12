@@ -22,23 +22,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.GridBagConstraints;
 
 public class LoginDialog extends JPanel implements FrameImplementable {
@@ -100,7 +89,6 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 				
 				@Override
 				public void keyReleased(java.awt.event.KeyEvent arg0) {
-					// TODO Auto-generated method stub
 				
 				}
 				
@@ -205,14 +193,12 @@ public class LoginDialog extends JPanel implements FrameImplementable {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
 		frame.close();
 	}
 
 
 	@Override
 	public void setTitle(String title) {
-		// TODO Auto-generated method stub
 		componentTitle = title;
 	}
 
