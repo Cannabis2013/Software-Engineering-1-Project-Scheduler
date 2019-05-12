@@ -1,19 +1,14 @@
 package formComponents;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import models.ItemModel;
 

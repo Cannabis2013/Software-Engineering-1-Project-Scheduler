@@ -1,6 +1,5 @@
 package forms;
 
-import java.awt.BorderLayout;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
@@ -26,9 +25,6 @@ import javax.swing.JTextArea;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.Dimension;
 
 public class AddProject extends JPanel implements FrameImplementable {

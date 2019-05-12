@@ -5,13 +5,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.JPanel;
+
 
 import customGraphics.GraphicsPlot2D.axis;
 import models.HourRegistrationModel;

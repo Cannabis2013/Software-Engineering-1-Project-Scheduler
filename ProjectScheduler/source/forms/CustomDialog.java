@@ -35,7 +35,6 @@ public class CustomDialog extends JDialog implements CustomFrame{
 	private GridBagLayout gbl_contentPane;
 	private JPanel topBar;
 	private JLabel windowTitle;
-	private boolean widgetIsResizing = false;
 	private boolean resizeable = true;
 	private int borderWidth = 5;
 	private enum resizeMode {lowerBorderResize,leftBorderResize, 
@@ -357,7 +356,6 @@ public class CustomDialog extends JDialog implements CustomFrame{
 
 	@Override
 	public void setResizeable(boolean rz) {
-		// TODO Auto-generated method stub
 		resizeable = rz;
 	}
 

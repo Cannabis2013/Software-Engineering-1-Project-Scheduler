@@ -197,14 +197,13 @@ setLayout(new BorderLayout(0, 0));
 		gbc_btnRegisterHours.gridy = 0;
 		panel.add(btnRegisterHours, gbc_btnRegisterHours);
 		
-		addProjectButton = new JButton("addProject");
+		addProjectButton = new JButton("Add Project");
 		
 		GridBagConstraints gbc_addProjectButton = new GridBagConstraints();
 		gbc_addProjectButton.fill = GridBagConstraints.BOTH;
 		gbc_addProjectButton.gridx = 1;
 		gbc_addProjectButton.gridy = 0;
 		panel.add(addProjectButton, gbc_addProjectButton);
-		addProjectButton.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		
 		removeProjectButton = new JButton("Remove project");
 		

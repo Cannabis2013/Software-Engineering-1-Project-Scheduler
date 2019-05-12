@@ -7,15 +7,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JTextField;
 
 import abstractions.CustomFrame;

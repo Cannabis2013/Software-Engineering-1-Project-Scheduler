@@ -15,9 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
@@ -29,11 +26,9 @@ import javax.swing.SwingConstants;
 import formComponents.CustomTableComponent;
 import models.HourRegistrationModel;
 import models.ItemModel;
-import javax.swing.JPopupMenu;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTable;
 
 public class UserView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -112,7 +107,6 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		mnEdit.add(mntmAddActivity);
 		new ImageIcon("./Ressource/calendericon.png");
 		
-		String[] labels = {"Title", "Start date", "End date", "Total hours", "P"};
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{200, 486, 0};
 		gridBagLayout.rowHeights = new int[]{560, 0};
@@ -294,8 +288,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		panel_2.add(hourRegistrationView, gbc_hourRegistrationView);
 		if(!service.isUserProjectLeader() && !service.isAdmin())
 			btnProjectOverview.setEnabled(false);
-		
-		String username =  service.currentUserLoggedIn().UserName();
+
 	}
 	
 	@Override

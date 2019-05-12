@@ -109,8 +109,6 @@ public class DateChooser extends JPanel implements FrameImplementable {
     	displayCalender();
     	}
 	
-
-	
 	public void displayCalender() {
 		for (int i = 7; i < button.length; i++) {
 			button[i].setText("");
@@ -133,7 +131,7 @@ public class DateChooser extends JPanel implements FrameImplementable {
 	}
 	
 	public LocalDate getPickedLocalDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		new SimpleDateFormat("dd-MM-yyyy");
 		return LocalDate.of(year, month,Integer.parseInt(day));
 	}
 

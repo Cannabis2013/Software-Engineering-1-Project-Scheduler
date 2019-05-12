@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.event.CaretListener;
 
-import org.eclipse.swt.widgets.Item;
 
 import javax.swing.event.CaretEvent;
 import java.awt.event.ActionListener;

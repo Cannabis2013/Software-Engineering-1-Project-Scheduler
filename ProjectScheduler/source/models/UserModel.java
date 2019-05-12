@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Calendar;
-
 import abstractions.AbstractModel;
 
 public class UserModel extends AbstractModel {
