@@ -23,37 +23,7 @@ public abstract class AbstractModel implements Serializable {
 	
 	protected void setModelidentity(String id)
 	{
-		int index = 0;
-		StringBuilder buildedString = new StringBuilder(id);
-		if(parent != null)
-		{
-			AbstractModel parentModel;
-			parentModel = parent;
-			
-			List<AbstractModel> parentChildrens = parentModel.subModels();
-			for(AbstractModel model : parentChildrens)
-			{
-				if(model.modelId().equals(id))
-					index++;
-			}
-			String indexString = String.format("(%d)", index++);
-			buildedString.append(indexString);	
-		}
-		else if(parentManager != null)
-		{
-			Manager parentModel = parentManager();
-			
-			List<AbstractModel> parentChildrens = parentModel.models();
-			for(AbstractModel model : parentChildrens)
-			{
-				if(model.modelId().equals(id))
-					index++;
-			}
-			String indexString = String.format("(%d)", index++);
-			buildedString.append(indexString);
-		}
-		
-		this.id = buildedString.toString();
+		this.id = id;
 		StateChanged();
 	}
 	
@@ -97,6 +67,42 @@ public abstract class AbstractModel implements Serializable {
 	protected void addSubModel(AbstractModel subModel) {
 		subModels.add(subModel);
 		subModel.setParent(this);
+		
+		int index = 0;
+		StringBuilder buildedString = new StringBuilder(modelId());
+		if(parent != null)
+		{
+			AbstractModel parentModel;
+			parentModel = parent;
+			
+			List<AbstractModel> parentChildrens = parentModel.subModels();
+			for(AbstractModel model : parentChildrens)
+			{
+				if(model.modelId().equals(modelId()))
+					index++;
+			}
+			String indexString = String.format("(%d)", index++);
+			buildedString.append(indexString);	
+		}
+		else if(parentManager != null)
+		{
+			Manager parentModel = parentManager();
+			
+			List<AbstractModel> parentChildrens = parentModel.models();
+			for(AbstractModel model : parentChildrens)
+			{
+				if(model.modelId().equals(id))
+					index++;
+			}
+			if(index > 1)
+			{
+				String indexString = String.format("(%d)", index++);
+				buildedString.append(indexString);				
+			}
+		}
+		
+		setModelidentity(buildedString.toString());
+		
 		StateChanged();
 	}
 

@@ -223,7 +223,7 @@ public class ActivityModel extends AbstractModel {
     	return subModels();
     }
     
-    public List<HourRegistrationModel> HourRegistrationObjects(String userName)
+    public List<HourRegistrationModel> hourRegistrationObjects(String userName)
     {
     	List<HourRegistrationModel> models = subModels();
     	return models.stream().filter(item -> item.userId().equals(userName)).collect(Collectors.toList());
