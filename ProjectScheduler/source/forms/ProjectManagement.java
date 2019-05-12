@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 
 import formComponents.CustomTableComponent;
 import models.ActivityModel;
+import models.HourRegistrationModel;
 import models.ItemModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -45,6 +46,7 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 	private CustomTableComponent activityView;
 	private CustomTableComponent projectSelectorView;
 	private String componentTitle = "Management";
+	private GraphicsPlot2D graphView;
 	
 	public ProjectManagement(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -154,27 +156,46 @@ setLayout(new BorderLayout(0, 0));
 		lblActivityOverview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActivityOverview_1.setFont(new Font("Dialog", Font.BOLD, 15));
 		GridBagConstraints gbc_lblActivityOverview_1 = new GridBagConstraints();
-		gbc_lblActivityOverview_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActivityOverview_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblActivityOverview_1.gridx = 0;
 		gbc_lblActivityOverview_1.gridy = 0;
 		panel_3.add(lblActivityOverview_1, gbc_lblActivityOverview_1);
 		activityView = new CustomTableComponent();
+		activityView.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				try {
+					ItemModel model = activityView.currentItem();
+					String projectId = model.text(5);
+					String activityId = model.text(0);
+					
+					ActivityModel activity = service.activity(projectId, activityId);
+					List<HourRegistrationModel> regObjects = activity.hourRegistrationModels();
+					
+					graphView.setData(regObjects);
+					
+				} catch (Exception e) {
+					
+				}
+				
+				
+			}
+		});
 		GridBagConstraints gbc_activityView = new GridBagConstraints();
-		gbc_activityView.insets = new Insets(0, 0, 5, 0);
 		gbc_activityView.fill = GridBagConstraints.BOTH;
 		gbc_activityView.gridx = 0;
 		gbc_activityView.gridy = 1;
 		panel_3.add(activityView, gbc_activityView);
 		activityView.setHeaderLabels(new String[] {"Title", "Start week", "End week", "Estimated hours", "Total hours", "Project"});
 		
-		GraphicsPlot2D panel_4 = new GraphicsPlot2D();
-		panel_4.setPreferredSize(new Dimension(10, 400));
-		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.fill = GridBagConstraints.BOTH;
-		gbc_panel_4.gridx = 0;
-		gbc_panel_4.gridy = 2;
-		panel_3.add(panel_4, gbc_panel_4);
+		graphView = new GraphicsPlot2D();
+		graphView.setPreferredSize(new Dimension(10, 400));
+		GridBagConstraints gbc_graphView = new GridBagConstraints();
+		gbc_graphView.fill = GridBagConstraints.BOTH;
+		gbc_graphView.gridx = 0;
+		gbc_graphView.gridy = 2;
+		panel_3.add(graphView, gbc_graphView);
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();

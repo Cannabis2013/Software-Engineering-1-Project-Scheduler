@@ -42,11 +42,13 @@ public class GraphicsPlot2D extends JPanel {
 
 	public void setData(List<HourRegistrationModel> cachedData) {
 		
-		this.cachedData = (List<myPoint<Integer,Double>>) cachedData.stream().
-				map(item -> new myPoint(DateFormatizer.getWeekOfDate(item.registrationDate()),item.hours()));
+		this.cachedData =  cachedData.stream().
+				map(item -> new myPoint(DateFormatizer.getWeekOfDate(item.registrationDate()),item.hours())).collect(Collectors.toList());
 		
 		setMaxValAxis(axis.xAxis, this.cachedData.size());
 		setMaxValAxis(axis.yAxis, getSum(this.cachedData, axis.yAxis));
+		
+		paint(this.getGraphics());
 	}
 
 	@Override

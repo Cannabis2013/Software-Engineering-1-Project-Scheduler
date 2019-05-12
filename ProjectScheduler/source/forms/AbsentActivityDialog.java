@@ -136,7 +136,7 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		startDateField.setColumns(10);
 		
 		JLabel startDateIcon = new JLabel("");
-		startDateIcon.setIcon(new ImageIcon(".\\Ressource\\calendericon.png"));
+		startDateIcon.setIcon(new ImageIcon("./Ressource/calendericon.png"));
 		startDateIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
