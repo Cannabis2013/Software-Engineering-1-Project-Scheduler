@@ -7,8 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JPanel;
+
+
+import customGraphics.GraphicsPlot2D.axis;
+import models.HourRegistrationModel;
+import static_Domain.DateFormatizer;
 																																			
 public class GraphicsPlot2D extends JPanel {
 
@@ -21,31 +28,25 @@ public class GraphicsPlot2D extends JPanel {
 	enum axis{xAxis,yAxis};
 	private String graphTitle = "GraphTitle";
 	
-	List<Point> cachedData = new ArrayList<Point>();
+	private List<myPoint<Integer, Double>> cachedData = new ArrayList<myPoint<Integer,Double>>();
 	
 	public GraphicsPlot2D() {
 		internalOrigoCoordinates = new Point(50,50);
 		
-		cachedData.add(new Point(1, 2));
-		cachedData.add(new Point(2, 3));
-		cachedData.add(new Point(3, 5));
-		cachedData.add(new Point(4,12));
-		cachedData.add(new Point(8,23));
-		cachedData.add(new Point(9,29));
-		cachedData.add(new Point(10,29));
-		cachedData.add(new Point(12,36));
-		setData(cachedData);
 		setOrigoCoordinates(50, 50);
-		setMaxValAxis(axis.xAxis, cachedData.get(cachedData.size() - 1).x);
-		setMaxValAxis(axis.yAxis, getSum(cachedData, axis.yAxis));
 	}
 	
-	public List<Point> getData() {
+	public List<myPoint<Integer,Double>> getData() {
 		return cachedData;
 	}
 
-	public void setData(List<Point> cachedData) {
-		this.cachedData = cachedData;
+	public void setData(List<HourRegistrationModel> cachedData) {
+		
+		this.cachedData = (List<myPoint<Integer,Double>>) cachedData.stream().
+				map(item -> new myPoint(DateFormatizer.getWeekOfDate(item.registrationDate()),item.hours()));
+		
+		setMaxValAxis(axis.xAxis, this.cachedData.size());
+		setMaxValAxis(axis.yAxis, getSum(this.cachedData, axis.yAxis));
 	}
 
 	@Override
@@ -55,12 +56,12 @@ public class GraphicsPlot2D extends JPanel {
 		setSize(getSize());
 	}
 	
-	private int getSum(List<Point> list,axis ax)
+	private int getSum(List<myPoint<Integer,Double>> list,axis ax)
 	{
 		int sum = 0;
 		
-		for (Point point : list)
-			sum += (ax == axis.xAxis) ? point.x : point.y;
+		for (myPoint<Integer, Double> point : list)
+			sum += (ax == axis.xAxis) ? point.getX() : point.getY();
 		
 		return sum;
 	}
@@ -68,6 +69,9 @@ public class GraphicsPlot2D extends JPanel {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		if(cachedData.isEmpty())
+			return;
+		
 		Graphics2D g2d = (Graphics2D) g;
 		setAxisResolutions();
 		
@@ -194,12 +198,13 @@ public class GraphicsPlot2D extends JPanel {
 	private void drawCachedData(Graphics2D g)
 	{
 		g.setColor(Color.green);
-		int precedingYCoordinate = 0, currentIndex = 0;
+		double precedingYCoordinate = 0;
+		int currentIndex = 0;
 		for(double i = 1;i <= maxHorizontalValue;i++)
 		{
-			int currentYVal;
-			if(cachedData.get(currentIndex).x == i)
-				currentYVal = cachedData.get(currentIndex++).y + precedingYCoordinate;
+			double currentYVal;
+			if(cachedData.get(currentIndex).getX() == i)
+				currentYVal = cachedData.get(currentIndex++).getY() + precedingYCoordinate;
 			else
 				currentYVal = precedingYCoordinate;
 			

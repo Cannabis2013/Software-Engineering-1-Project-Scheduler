@@ -30,6 +30,9 @@ import models.ItemModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
+import java.awt.Insets;
+import java.awt.Canvas;
+import customGraphics.GraphicsPlot2D;
 
 public class ProjectManagement extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -142,26 +145,36 @@ setLayout(new BorderLayout(0, 0));
 		panel_1.add(panel_3, gbc_panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{0, 0};
-		gbl_panel_3.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_3.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_panel_3.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
 		JLabel lblActivityOverview_1 = new JLabel("Activity overview");
 		lblActivityOverview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActivityOverview_1.setFont(new Font("Dialog", Font.BOLD, 15));
 		GridBagConstraints gbc_lblActivityOverview_1 = new GridBagConstraints();
+		gbc_lblActivityOverview_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActivityOverview_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblActivityOverview_1.gridx = 0;
 		gbc_lblActivityOverview_1.gridy = 0;
 		panel_3.add(lblActivityOverview_1, gbc_lblActivityOverview_1);
 		activityView = new CustomTableComponent();
 		GridBagConstraints gbc_activityView = new GridBagConstraints();
+		gbc_activityView.insets = new Insets(0, 0, 5, 0);
 		gbc_activityView.fill = GridBagConstraints.BOTH;
 		gbc_activityView.gridx = 0;
 		gbc_activityView.gridy = 1;
 		panel_3.add(activityView, gbc_activityView);
 		activityView.setHeaderLabels(new String[] {"Title", "Start week", "End week", "Estimated hours", "Total hours", "Project"});
+		
+		GraphicsPlot2D panel_4 = new GraphicsPlot2D();
+		panel_4.setPreferredSize(new Dimension(10, 400));
+		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.fill = GridBagConstraints.BOTH;
+		gbc_panel_4.gridx = 0;
+		gbc_panel_4.gridy = 2;
+		panel_3.add(panel_4, gbc_panel_4);
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
