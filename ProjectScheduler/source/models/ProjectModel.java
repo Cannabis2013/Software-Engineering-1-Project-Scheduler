@@ -13,11 +13,12 @@ public class ProjectModel extends AbstractModel
 {
 	private static final long serialVersionUID = 1L;
 	private static int id = 1;
-	private String projectLeaderId;
+	private String projectLeaderId, serialId;
     private LocalDate sDate, eDate;
     
-    public ProjectModel(String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
+    public ProjectModel(String projectId, String projectLeaderId, LocalDate startDate, LocalDate endDate, String description) throws IllegalArgumentException
     {	
+    	setModelidentity(projectId);
     	setProjectLeaderId(projectLeaderId);
     	sDate = startDate;
     	eDate = endDate;
@@ -25,7 +26,7 @@ public class ProjectModel extends AbstractModel
     	if(eDate.compareTo(sDate) < 0)
     		throw new IllegalArgumentException("The end date is before the start date.");
     	
-    	setModelidentity(generateSerialId());
+    	setSerialId(generateSerialId());
     	setDescription(description);
     }
     
@@ -57,6 +58,16 @@ public class ProjectModel extends AbstractModel
     public LocalDate startDate()
     {
     	return sDate;
+    }
+    
+    public String serialId()
+    {
+    	return serialId;
+    }
+    
+    public void setSerialId(String serial)
+    {
+    	serialId = serial;
     }
     
     public LocalDate endDate()

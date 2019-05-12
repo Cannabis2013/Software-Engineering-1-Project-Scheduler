@@ -49,7 +49,7 @@ public class ApplicationFrontEnd {
 		}
 		
 		ProjectModel project = 
-				new ProjectModel("FL", LocalDate.now(), LocalDate.now().plusMonths(1), "Test project");
+				new ProjectModel("Project CANVAS","FL", LocalDate.now(), LocalDate.now().plusMonths(1), "Test project");
 		try {
 			coreApp.addProject(project);
 		} catch (Exception e) {
