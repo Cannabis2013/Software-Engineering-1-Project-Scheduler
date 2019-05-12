@@ -46,7 +46,6 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 	private CustomTableComponent activityView;
 	private CustomTableComponent projectSelectorView;
 	private String componentTitle = "Management";
-	private GraphicsPlot2D graphView;
 	
 	public ProjectManagement(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
 		this.service = service;
@@ -77,7 +76,7 @@ setLayout(new BorderLayout(0, 0));
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{363, 113, 0};
 		gbl_panel_1.rowHeights = new int[]{331, 35, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
@@ -147,37 +146,22 @@ setLayout(new BorderLayout(0, 0));
 		panel_1.add(panel_3, gbc_panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{0, 0};
-		gbl_panel_3.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panel_3.rowHeights = new int[]{0, 0, 0};
 		gbl_panel_3.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_3.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_3.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
 		JLabel lblActivityOverview_1 = new JLabel("Activity overview");
 		lblActivityOverview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActivityOverview_1.setFont(new Font("Dialog", Font.BOLD, 15));
 		GridBagConstraints gbc_lblActivityOverview_1 = new GridBagConstraints();
+		gbc_lblActivityOverview_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActivityOverview_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblActivityOverview_1.gridx = 0;
 		gbc_lblActivityOverview_1.gridy = 0;
 		panel_3.add(lblActivityOverview_1, gbc_lblActivityOverview_1);
 		activityView = new CustomTableComponent();
-		activityView.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				try {
-					ItemModel model = activityView.currentItem();
-					String projectId = model.text(5);
-					String activityId = model.text(0);
-					
-					ActivityModel activity = service.activity(projectId, activityId);
-					List<HourRegistrationModel> regObjects = activity.hourRegistrationModels();
-					
-					graphView.setData(regObjects);
-				} catch (Exception e) {	
-				}
-			}
-		});
+		
 		GridBagConstraints gbc_activityView = new GridBagConstraints();
 		gbc_activityView.fill = GridBagConstraints.BOTH;
 		gbc_activityView.gridx = 0;
@@ -185,34 +169,26 @@ setLayout(new BorderLayout(0, 0));
 		panel_3.add(activityView, gbc_activityView);
 		activityView.setHeaderLabels(new String[] {"Title", "Start week", "End week", "Estimated hours", "Total hours", "Project"});
 		
-		graphView = new GraphicsPlot2D();
-		graphView.setPreferredSize(new Dimension(10, 400));
-		GridBagConstraints gbc_graphView = new GridBagConstraints();
-		gbc_graphView.fill = GridBagConstraints.BOTH;
-		gbc_graphView.gridx = 0;
-		gbc_graphView.gridy = 2;
-		panel_3.add(graphView, gbc_graphView);
-		
-		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.fill = GridBagConstraints.VERTICAL;
-		gbc_panel.gridwidth = 2;
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
-		panel_1.add(panel, gbc_panel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0};
-		gbl_panel.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		panel.setLayout(gbl_panel);
+		JPanel ButtonGroup = new JPanel();
+		GridBagConstraints gbc_ButtonGroup = new GridBagConstraints();
+		gbc_ButtonGroup.fill = GridBagConstraints.VERTICAL;
+		gbc_ButtonGroup.gridwidth = 2;
+		gbc_ButtonGroup.gridx = 0;
+		gbc_ButtonGroup.gridy = 1;
+		panel_1.add(ButtonGroup, gbc_ButtonGroup);
+		GridBagLayout gbl_ButtonGroup = new GridBagLayout();
+		gbl_ButtonGroup.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_ButtonGroup.rowHeights = new int[]{0, 0, 0};
+		gbl_ButtonGroup.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_ButtonGroup.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		ButtonGroup.setLayout(gbl_ButtonGroup);
 		
 		JButton btnRegisterHours = new JButton("User page");
 		GridBagConstraints gbc_btnRegisterHours = new GridBagConstraints();
 		gbc_btnRegisterHours.fill = GridBagConstraints.BOTH;
 		gbc_btnRegisterHours.gridx = 0;
 		gbc_btnRegisterHours.gridy = 0;
-		panel.add(btnRegisterHours, gbc_btnRegisterHours);
+		ButtonGroup.add(btnRegisterHours, gbc_btnRegisterHours);
 		
 		addProjectButton = new JButton("Add Project");
 		
@@ -220,7 +196,7 @@ setLayout(new BorderLayout(0, 0));
 		gbc_addProjectButton.fill = GridBagConstraints.BOTH;
 		gbc_addProjectButton.gridx = 1;
 		gbc_addProjectButton.gridy = 0;
-		panel.add(addProjectButton, gbc_addProjectButton);
+		ButtonGroup.add(addProjectButton, gbc_addProjectButton);
 		
 		removeProjectButton = new JButton("Remove project");
 		
@@ -228,13 +204,13 @@ setLayout(new BorderLayout(0, 0));
 		gbc_removeProjectButton.fill = GridBagConstraints.BOTH;
 		gbc_removeProjectButton.gridx = 2;
 		gbc_removeProjectButton.gridy = 0;
-		panel.add(removeProjectButton, gbc_removeProjectButton);
+		ButtonGroup.add(removeProjectButton, gbc_removeProjectButton);
 		JButton btnAddActivity = new JButton("Add Activity");
 		GridBagConstraints gbc_btnAddActivity = new GridBagConstraints();
 		gbc_btnAddActivity.fill = GridBagConstraints.BOTH;
 		gbc_btnAddActivity.gridx = 0;
 		gbc_btnAddActivity.gridy = 1;
-		panel.add(btnAddActivity, gbc_btnAddActivity);
+		ButtonGroup.add(btnAddActivity, gbc_btnAddActivity);
 		
 		JButton btnEditActivity = new JButton("Edit Activity");
 		btnEditActivity.addActionListener(new ActionListener() {
@@ -256,7 +232,7 @@ setLayout(new BorderLayout(0, 0));
 		gbc_btnEditActivity.fill = GridBagConstraints.BOTH;
 		gbc_btnEditActivity.gridx = 1;
 		gbc_btnEditActivity.gridy = 1;
-		panel.add(btnEditActivity, gbc_btnEditActivity);
+		ButtonGroup.add(btnEditActivity, gbc_btnEditActivity);
 		
 		JButton btnRemoveActivty = new JButton("Remove Activty");
 		btnRemoveActivty.addActionListener(new ActionListener() {
@@ -279,7 +255,7 @@ setLayout(new BorderLayout(0, 0));
 		gbc_btnRemoveActivty.fill = GridBagConstraints.BOTH;
 		gbc_btnRemoveActivty.gridx = 2;
 		gbc_btnRemoveActivty.gridy = 1;
-		panel.add(btnRemoveActivty, gbc_btnRemoveActivty);
+		ButtonGroup.add(btnRemoveActivty, gbc_btnRemoveActivty);
 		btnAddActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				launchAddActivity();
