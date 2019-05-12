@@ -81,6 +81,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		setPreferredSize(new Dimension(800, 572));
 		initialize();
 		initializeSelectors();
+		initializeViews();
 		
 		mode = openMode.edit;
 	}
@@ -365,6 +366,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		for(ItemModel item : assignedUserModels)
 		{
 			String availability = service.userAvailability(item.text(0), sDate, eDate);
+			item.setText(availability, 2);
 			if(availability.equals("Not available"))
 			{
 				assignedUserModels.remove(item);
@@ -395,8 +397,8 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		List<ItemModel> restUsers = this.service.userListModels().
 				stream().filter(item -> !currentAssignedUsers.contains(item.text(0))).collect(Collectors.toList());
 		
-		List<ItemModel> assignedUsers = currentAssignedUsers.
-				stream().map(item -> new ItemModel(item)).collect(Collectors.toList());
+		List<ItemModel> assignedUsers = this.service.userListModels().
+				stream().filter(item -> currentAssignedUsers.contains(item.text(0))).collect(Collectors.toList());
 		
 		availableUserView.addItems(restUsers);
 		assignedUserView.addItems(assignedUsers);

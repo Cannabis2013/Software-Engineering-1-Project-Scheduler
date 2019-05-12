@@ -20,7 +20,8 @@ public class ProjectSteps {
 	ApplicationCore coreApp = new ApplicationCore();
 	DateFormat simpleDate = new SimpleDateFormat("dd-mm-yyyy");
 	ProjectModel tempProject;
-	String tempString;
+	String projectName = "Project CANVAS";
+	
 	
 	public ProjectSteps()
 	{
@@ -41,9 +42,8 @@ public class ProjectSteps {
 	public void he_fills_an_project_application_with_the_following_information_start_date_today_end_date_five_days_later_projectleaderid_short_description(String string, String string2) {
 		ProjectModel project;
 		try {
-			project = new ProjectModel(string, LocalDate.now(),LocalDate.now().plusDays(5),string2);
+			project = new ProjectModel(projectName,string, LocalDate.now(),LocalDate.now().plusDays(5),string2);
 			tempProject = project;
-			tempString = project.projectName();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 			fail();
@@ -65,7 +65,7 @@ public class ProjectSteps {
 		
 		ProjectModel retrievedProject;
 		try {
-			retrievedProject = coreApp.project(tempString);
+			retrievedProject = coreApp.project(projectName);
 		} catch (Exception e) {
 			fail();
 			return;
@@ -116,15 +116,14 @@ public class ProjectSteps {
 	@Given("a project exists")
 	public void a_project_exists() {
 	    
-	    ProjectModel project = new ProjectModel("FL", LocalDate.now(), LocalDate.now(), "");
-	    tempString = project.projectName();
+	    ProjectModel project = new ProjectModel(projectName,"FL", LocalDate.now(), LocalDate.now(), "");
 	    try {
 			coreApp.addProject(project);
 		} catch (Exception e) {
 			fail();
 		}
 	    try {
-			coreApp.project(tempString);
+			coreApp.project(projectName);
 		} catch (Exception e) {
 			fail();
 		}
@@ -144,13 +143,13 @@ public class ProjectSteps {
 	@Then("he performs an action that results in removing the project from the system.")
 	public void he_performs_an_action_that_results_in_removing_the_project_from_the_system() {
 		try {
-			coreApp.removeProject(tempString);
+			coreApp.removeProject(projectName);
 		} catch (Exception e) {
 			fail();
 		}
 		
 		try {
-			coreApp.project(tempString);
+			coreApp.project(projectName);
 			fail();
 		} catch (Exception e) {
 			
@@ -169,13 +168,13 @@ public class ProjectSteps {
 
 	@Given("he wants to remove the project with the title {string}.")
 	public void he_wants_to_remove_the_project_with_the_title(String string) {
-	    tempString = string;
+	    projectName = string;
 	}
 
 	@Then("he recieves a message that reads {string}.")
 	public void he_recieves_a_message_that_reads(String string) {
 		try {
-			coreApp.removeProject(tempString);
+			coreApp.removeProject(projectName);
 			fail();
 		} catch (Exception e) {
 			assertEquals(string, e.getMessage());

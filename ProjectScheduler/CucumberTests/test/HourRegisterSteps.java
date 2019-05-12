@@ -18,7 +18,7 @@ import models.ProjectModel;
 public class HourRegisterSteps {
 	
 	ApplicationCore coreApp = new ApplicationCore();
-	String projectName, activityName, tempRegName;
+	String projectName = "Project CANVAS", activityName, tempRegName;
 	ProjectModel currentProject;
 	
 	@Given("a project with name {string} exists with a user with username {string} as projectleader")
@@ -32,7 +32,7 @@ public class HourRegisterSteps {
 		LocalDate startDate = TestUnit.DateFromString("05-05-2019");
 		LocalDate endDate = TestUnit.DateFromString("19-05-2019");
 		
-		currentProject = new ProjectModel(projectLeaderUserName, startDate, endDate, "");
+		currentProject = new ProjectModel(projectName,projectLeaderUserName, startDate, endDate, "");
 		try {
 			coreApp.addProject(currentProject);
 		} catch (Exception e) {

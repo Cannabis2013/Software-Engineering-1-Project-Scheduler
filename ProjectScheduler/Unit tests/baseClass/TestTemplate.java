@@ -15,7 +15,7 @@ import test.TestUnit;
 public class TestTemplate {
 	
 	protected ApplicationCore coreApp = new ApplicationCore();
-	protected String projectName;
+	protected String projectName = "Project CANVAS";
 	
 	protected boolean addProject(String loggedInUserName,
 			String projectLeaderId, 
@@ -41,7 +41,7 @@ public class TestTemplate {
 		
 		ProjectModel project;
 		try {
-			project = new ProjectModel(projectLeaderId, sDate, eDate, description);
+			project = new ProjectModel(projectName,projectLeaderId, sDate, eDate, description);
 		} catch (Exception e) {
 			return false;
 		}
@@ -51,7 +51,6 @@ public class TestTemplate {
 		} catch (Exception e) {
 			return false;
 		}
-		projectName = project.projectName();
 		
 		coreApp.logut();
 		return true;
