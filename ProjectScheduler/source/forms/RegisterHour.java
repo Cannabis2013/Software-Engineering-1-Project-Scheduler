@@ -42,7 +42,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	private IApplicationProgrammingInterface service;
 	private JComboBox<String> activitySelector;
 	private List<ActivityModel> activities;
-	private String componentTitle = "Register hour";
+	private String componentTitle = "Register hour", duplicateMessage = "Please choose another titel";
 	private HourRegistrationModel regModel;
 	private enum openMode {add,edit};
 	private openMode mode;
@@ -111,7 +111,6 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 					assembleRegistrationObject();
 				else
 					reAssembleRegistrationObject();
-				close();
 				
 			}
 		});
@@ -198,8 +197,9 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		
 		try {
 			service.registerHour(projectId, activityId, title, hour, description);
+			close();
 		} catch (Exception e) {
-			titleTextbox.setText("Choose another name. Duplicate.");
+			titleTextbox.setText(duplicateMessage);
 			return;
 		}
 		
@@ -207,9 +207,12 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	
 	public void reAssembleRegistrationObject()
 	{
+		ActivityModel parentActivity = (ActivityModel) regModel.Parent();
+		parentActivity.removeRegistrationModel(regModel.registrationId());
 		int currentIndex = activitySelector.getSelectedIndex();
 		String title = titleTextbox.getText(), 
-				description = descriptionTextBox.getText();
+				description = descriptionTextBox.getText(),
+				oldRegistrationId = regModel.registrationId();
 		double hour = ((Double) hourSpinBox.getValue()).doubleValue();
 		
 		regModel.setRegistrationId(title);
@@ -217,6 +220,20 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		regModel.setHours(hour);
 		regModel.setDescription(description);
 		service.requestUpdate();
+		try {
+			parentActivity.addRegistrationModel(regModel);
+			close();
+		} catch (Exception e) {
+			titleTextbox.setText(duplicateMessage);
+			regModel.setRegistrationId(oldRegistrationId);
+			try {
+				parentActivity.addRegistrationModel(regModel);
+			} catch (Exception e1) {
+				System.exit(-1);
+				
+			}
+			return;
+		}
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class ProjectManager extends Manager {
 		removeModelAt(index);
 	}
 	
-	public ProjectModel project(String projectName) throws NullPointerException
+	public ProjectModel project(String projectName) throws Exception
 	{
 		return (ProjectModel) model(projectName);
 	}
@@ -80,7 +80,7 @@ public class ProjectManager extends Manager {
         return true;
     }
 
-    public ActivityModel activityById(String projectIdentity, String activityId)
+    public ActivityModel activityById(String projectIdentity, String activityId) throws Exception
     {
         ProjectModel project = project(projectIdentity);
         return project.Activities().stream().

@@ -17,6 +17,7 @@ import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
 import models.ActivityModel;
+import models.ProjectModel;
 import static_Domain.DateFormatizer;
 
 import java.awt.Dimension;
@@ -41,14 +42,28 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 	private JTextField startDateField;
 	private JTextField endDateField;
 	private JComboBox<String> reasonSelector;
+	private ActivityModel absence;
+	private JTextArea descriptionBox;
+	private enum openMode{add,edit};
+	private openMode mode;
 
 	/**
 	 * Create the panel.
+	 * @wbp.parser.constructor
 	 */
 	public AbsentActivityDialog(IApplicationProgrammingInterface service) {
 		this.service = service;
 		initializeComponent();
 		setTitle("Add absent activity");
+		mode = openMode.add;
+	}
+	
+	public AbsentActivityDialog(IApplicationProgrammingInterface service,ActivityModel absence) {
+		this.service = service;
+		initializeComponent();
+		setTitle("Add absent activity");
+		this.absence = absence;
+		mode = openMode.edit;
 	}
 	
 	public void initializeComponent()
@@ -217,15 +232,15 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		gbc_reasonSelector.gridy = 3;
 		panel_1.add(reasonSelector, gbc_reasonSelector);
 		
-		JTextArea txtrDescriptionbox = new JTextArea();
-		txtrDescriptionbox.setLineWrap(true);
-		txtrDescriptionbox.setText("Enter details here.");
-		GridBagConstraints gbc_txtrDescriptionbox = new GridBagConstraints();
-		gbc_txtrDescriptionbox.gridwidth = 2;
-		gbc_txtrDescriptionbox.fill = GridBagConstraints.BOTH;
-		gbc_txtrDescriptionbox.gridx = 0;
-		gbc_txtrDescriptionbox.gridy = 4;
-		panel_1.add(txtrDescriptionbox, gbc_txtrDescriptionbox);
+		descriptionBox = new JTextArea();
+		descriptionBox.setLineWrap(true);
+		descriptionBox.setText("Enter details here.");
+		GridBagConstraints gbc_descriptionBox = new GridBagConstraints();
+		gbc_descriptionBox.gridwidth = 2;
+		gbc_descriptionBox.fill = GridBagConstraints.BOTH;
+		gbc_descriptionBox.gridx = 0;
+		gbc_descriptionBox.gridy = 4;
+		panel_1.add(descriptionBox, gbc_descriptionBox);
 		
 		JPanel buttonGroup = new JPanel();
 		GridBagConstraints gbc_buttonGroup = new GridBagConstraints();
@@ -247,12 +262,24 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				assembleActivityOfAbsence();
-				close();
+				if(mode == openMode.add)
+					assembleActivityOfAbsence();
+				else
+					reAssembleActivityOfAbsence();
+				
 			}
 		});
 		buttonGroup.add(btnSave);
 		
+	}
+	
+	public void initializeSelectors()
+	{
+		titleSelector.setText(absence.activityId());
+		startDateField.setText(DateFormatizer.dateToString(absence.startDate()));
+		endDateField.setText(DateFormatizer.dateToString(absence.endDate()));
+		reasonSelector.setSelectedItem(absence.Reason());
+		descriptionBox.setText(absence.description());
 	}
 	
 	public void assembleActivityOfAbsence()
@@ -267,8 +294,39 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		
 		try {
 			service.addAbsenceActivity(absence);
+			close();
 		} catch (Exception e) {
 			titleSelector.setText("Choose another title. Duplicate.");
+		}
+	}
+	
+	public void reAssembleActivityOfAbsence()
+	{
+		service.removeAbsenceActivity(absence.activityId());
+		
+		LocalDate sDate = DateFormatizer.dateFromString(startDateField.getText()),
+				eDate = DateFormatizer.dateFromString(endDateField.getText());
+		
+		String oldAbsenceId = absence.activityId();
+		
+		absence.setActivityId(titleSelector.getText());
+		absence.setStartDate(sDate);
+		absence.setEndDate(eDate);
+		
+		absence.setReason((String) reasonSelector.getSelectedItem());
+		absence.setDescription(descriptionBox.getText());
+		
+		try {
+			service.addAbsenceActivity(absence);
+			close();
+		} catch (Exception e) {
+			titleSelector.setText("Choose another title. Duplicate.");
+			absence.setActivityId(oldAbsenceId);
+			try {
+				service.addAbsenceActivity(absence);
+			} catch (Exception e1) {
+				System.exit(-1);
+			}
 		}
 	}
 

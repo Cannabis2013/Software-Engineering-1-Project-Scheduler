@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import formComponents.CustomTableComponent;
 import models.ActivityModel;
 import models.ItemModel;
+import models.ProjectModel;
 import static_Domain.DateFormatizer;
 
 import java.awt.Dimension;
@@ -58,7 +59,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 	private ActivityModel activity;
 	private enum openMode {add,edit};
 	private openMode mode;
-	private String componentTitle;
+	private String componentTitle, duplicateMessage = "Please choose another titel";
 	/**
 	 * @wbp.parser.constructor
 	 */
@@ -304,7 +305,6 @@ public class AddActivity extends JPanel implements FrameImplementable{
 					assembleActivity();
 				else
 					reAssembleActivity();
-				close();
 			}
 		});
 
@@ -442,7 +442,9 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		ActivityModel activity = new ActivityModel(activityId, sDate, eDate, workHours, assignedUsers, description);
 		try {
 			service.addActivity(projectId, activity);
+			close();
 		} catch (Exception e) {
+			activityTitleTextBox.setText(duplicateMessage);
 			return;
 		}
 	}
@@ -452,10 +454,13 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		if(projectSelector.getItemCount() < 1)
 			return;
 		
+		ProjectModel parentProject = (ProjectModel) activity.Parent();
+		parentProject.removeActivity(activity.activityId());
 		
 		String activityId = activityTitleTextBox.getText(),
 				projectId = (String) projectSelector.getSelectedItem(),
-				description = descriptionTextBox.getText();
+				description = descriptionTextBox.getText(),
+				oldActivityId = activity.activityId();
 		
 		int workHours;
 		try {
@@ -477,6 +482,28 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		activity.ClearAssignedUserIdentities();
 		activity.AssignUsers(assignedUsers);
 		activity.setDescription(description);
+		
+		ProjectModel project;
+		try {
+			project = service.project(projectId);
+		} catch (Exception e) {
+			return;
+		}
+		
+		try {
+			project.addActivity(activity);
+			close();
+		} catch (Exception e) {
+			activityTitleTextBox.setText(duplicateMessage);
+			activity.setActivityId(oldActivityId);
+			try {
+				project.addActivity(activity);
+			} catch (Exception e1) {
+				System.exit(-1);
+			}
+			return;
+		}
+		
 	}
 	
 	public boolean isDatesInitialized()

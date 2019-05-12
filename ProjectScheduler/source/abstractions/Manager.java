@@ -55,7 +55,7 @@ public abstract class Manager implements Serializable {
     	return null;
     }
     
-    protected AbstractModel model(String id)
+    protected AbstractModel model(String id) throws Exception
     {
     	for(AbstractModel model : models)
     	{
@@ -63,7 +63,7 @@ public abstract class Manager implements Serializable {
     			return model;
     	}
     	
-    	throw new NullPointerException("No model with the given identity exists within the current context.");
+    	throw new Exception("No model with the given identity exists within the current context.");
     }
     
     protected AbstractModel modelAt(int index)
