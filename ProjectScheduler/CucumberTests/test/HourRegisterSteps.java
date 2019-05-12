@@ -38,7 +38,6 @@ public class HourRegisterSteps {
 		} catch (Exception e) {
 			fail();
 		}
-		projectName = currentProject.projectName();
 	}
 	
 	@Given("an activity extists with name {string} with some random chosen date intervals chosen")

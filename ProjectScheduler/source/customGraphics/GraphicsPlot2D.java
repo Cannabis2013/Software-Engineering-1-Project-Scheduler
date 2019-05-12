@@ -48,7 +48,7 @@ public class GraphicsPlot2D extends JPanel {
 		setMaxValAxis(axis.xAxis, this.cachedData.size());
 		setMaxValAxis(axis.yAxis, getSum(this.cachedData, axis.yAxis));
 		
-		paint(this.getGraphics());
+		paintComponent(this.getGraphics());
 	}
 
 	@Override
