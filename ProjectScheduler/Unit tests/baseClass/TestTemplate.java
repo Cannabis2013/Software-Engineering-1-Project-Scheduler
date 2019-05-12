@@ -209,21 +209,6 @@ public class TestTemplate {
 		return model.hours() == newHour;
 	}
 	
-	protected boolean removeProject(int index, String userName) {
-		try {
-			coreApp.login(userName);
-		} catch (Exception e1) {
-			return false;
-		}
-	
-		try {
-		coreApp.removeProject(index);
-		return true;
-		} catch (Exception e2) {
-		return false;
-		}
-		
-	}
 	protected boolean removeProject(String id, String userName) {
 		try {
 			coreApp.login(userName);
@@ -238,19 +223,7 @@ public class TestTemplate {
 		}
 		
 	}
-	protected boolean removeProject(ProjectModel project, String userName) {
-		try {
-			coreApp.login(userName);
-		} catch (Exception e1) {
-			return false;
-		}
-		try {
-			coreApp.removeProject(project);
-			return true;
-		} catch (Exception e2) {
-			return false;
-		}
-	}
+	
 	
 	
 }

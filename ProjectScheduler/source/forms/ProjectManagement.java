@@ -26,13 +26,10 @@ import javax.swing.SwingConstants;
 
 import formComponents.CustomTableComponent;
 import models.ActivityModel;
-import models.HourRegistrationModel;
 import models.ItemModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
-import java.awt.Insets;
-import java.awt.Canvas;
 
 public class ProjectManagement extends JPanel implements FrameImplementable, ICustomObserver {
 	

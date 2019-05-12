@@ -104,14 +104,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         pManager.addProject(newProject);
     }
 
-    public void removeProject(int index) throws Exception
-    {
-        if (!uManager.isAdmin())
-            throw new Exception("Admin privilliges required!");
-
-        pManager.removeProjectAt(index);
-
-    }
 
     public void removeProject(String identity) throws Exception
     {
@@ -123,24 +115,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		} catch (Exception e) {
 			throw e;
 		}
-    }
-
-    public void removeProject(ProjectModel project) throws Exception 
-    {
-    	if(!uManager.isAdmin())
-    		throw new Exception("Admin privileges required");
-    		
-    	try {
-				pManager.removeProject(project.projectName());
-			} catch (Exception e) {
-				throw e;
-			}
-    	
-    }
-
-    public ProjectModel project(int index) throws NullPointerException
-    {
-        return pManager.projectAt(index);
     }
 
     public ProjectModel project(String identity) throws Exception
@@ -195,12 +169,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     		return activity;
     	
     	throw new Exception("User isn't permitted to retrieve the selected activity.");
-    }
-
-    public List<ActivityModel> activitiesById(String activityId)
-    {
-        return pManager.activityModels().stream().
-        		filter(item -> item.activityId().equals(activityId)).collect(Collectors.toList());
     }
 
     public List<ActivityModel> activities()
@@ -259,11 +227,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     {
     	return uManager.isAdmin() ?  pManager.ProjectItemModels() : 
     		 pManager.ProjectItemModels(currentUserLoggedIn().UserName());
-    }
-
-    public List<ItemModel> projectItemModels(String UserIdentity)
-    {
-    	return pManager.ProjectItemModels(UserIdentity);
     }
 
     public List<ItemModel> activityItemModels()

@@ -30,15 +30,11 @@ public interface IApplicationProgrammingInterface {
     // Project section
 
     void addProject(ProjectModel newProject) throws Exception;
-    void removeProject(int index) throws Exception;
     void removeProject(String identity) throws Exception;
-    void removeProject(ProjectModel project) throws Exception;
 
-    ProjectModel project(int index) throws NullPointerException;
     ProjectModel project(String title) throws NullPointerException, Exception;
 
     List<ItemModel> projectItemModels();
-    List<ItemModel> projectItemModels(String UserIdentity);
     
     boolean isUserProjectLeader();
 
@@ -52,7 +48,6 @@ public interface IApplicationProgrammingInterface {
 
     ActivityModel activity(String projectId, String activityId) throws Exception;
 
-    List<ActivityModel> activitiesById(String activityId);
     List<ActivityModel> activities();
     List<ActivityModel> activities(String userName);
 
