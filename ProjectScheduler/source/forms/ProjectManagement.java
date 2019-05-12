@@ -155,7 +155,6 @@ setLayout(new BorderLayout(0, 0));
 		lblActivityOverview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblActivityOverview_1.setFont(new Font("Dialog", Font.BOLD, 15));
 		GridBagConstraints gbc_lblActivityOverview_1 = new GridBagConstraints();
-		gbc_lblActivityOverview_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActivityOverview_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblActivityOverview_1.gridx = 0;
 		gbc_lblActivityOverview_1.gridy = 0;
