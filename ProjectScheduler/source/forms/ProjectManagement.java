@@ -33,7 +33,6 @@ import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.Canvas;
-import customGraphics.GraphicsPlot2D;
 
 public class ProjectManagement extends JPanel implements FrameImplementable, ICustomObserver {
 	
