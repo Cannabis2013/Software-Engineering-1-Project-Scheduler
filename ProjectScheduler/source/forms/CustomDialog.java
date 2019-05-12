@@ -99,7 +99,11 @@ public class CustomDialog extends JDialog implements CustomFrame{
 					setBounds(newX, getY(), tempWidth + diffX, tempHeight + diffY);
 				}
 				else if( currentResizeMode == resizeMode.rightBorderResize)
+				{
 					diffX = (int) (arg0.getLocationOnScreen().getX()- X);
+					setBounds(getX(), getY(), tempWidth + diffX, tempHeight);
+				}
+				
 				else if(currentResizeMode == resizeMode.lowerBorderResize)
 				{
 					diffY = (int) (arg0.getLocationOnScreen().getY() -Y);

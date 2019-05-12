@@ -9,6 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import models.ItemModel;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.Cursor;
+import java.awt.event.MouseEvent;
 
 public class CustomTable extends JTable {
 	
@@ -16,9 +19,13 @@ public class CustomTable extends JTable {
 	
 	public CustomTable(TableModel model)
 	{
-		super(model);
-		
-	
+		addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
+				setCursor(cursor);
+			}
+		});
 		setShowGrid(false);
 	}
 	
