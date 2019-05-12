@@ -193,7 +193,7 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 				dC.setFrame(new CustomDialog());
 			}
 		});
-		endDateIcon.setIcon(new ImageIcon(".\\Ressource\\calendericon.png"));
+		endDateIcon.setIcon(new ImageIcon("./Ressource/calendericon.png"));
 		GridBagConstraints gbc_endDateIcon = new GridBagConstraints();
 		gbc_endDateIcon.gridx = 1;
 		gbc_endDateIcon.gridy = 0;
@@ -223,6 +223,7 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		panel_1.add(reasonSelector, gbc_reasonSelector);
 		
 		JTextArea txtrDescriptionbox = new JTextArea();
+		txtrDescriptionbox.setLineWrap(true);
 		txtrDescriptionbox.setText("Enter details here.");
 		GridBagConstraints gbc_txtrDescriptionbox = new GridBagConstraints();
 		gbc_txtrDescriptionbox.gridwidth = 2;

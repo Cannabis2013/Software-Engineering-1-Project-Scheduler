@@ -279,6 +279,7 @@ public class AddActivity extends JPanel implements FrameImplementable{
 		contentPanel.add(endDateSelectorDialog);
 		
 		descriptionTextBox = new JTextArea();
+		descriptionTextBox.setLineWrap(true);
 		descriptionTextBox.setBounds(479, 54, 175, 111);
 		contentPanel.add(descriptionTextBox);
 		descriptionTextBox.setColumns(10);

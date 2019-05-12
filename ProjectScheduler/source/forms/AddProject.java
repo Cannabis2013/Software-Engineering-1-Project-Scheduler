@@ -235,6 +235,7 @@ public class AddProject extends JPanel implements FrameImplementable {
 				lblEnterShortDescription.setFont(new Font("Times", Font.PLAIN, 15));
 				
 				descriptionTextBox = new JTextArea();
+				descriptionTextBox.setLineWrap(true);
 				GridBagConstraints gbc_descriptionTextBox = new GridBagConstraints();
 				gbc_descriptionTextBox.fill = GridBagConstraints.BOTH;
 				gbc_descriptionTextBox.gridwidth = 2;
