@@ -174,12 +174,8 @@ setLayout(new BorderLayout(0, 0));
 					List<HourRegistrationModel> regObjects = activity.hourRegistrationModels();
 					
 					graphView.setData(regObjects);
-					
-				} catch (Exception e) {
-					
+				} catch (Exception e) {	
 				}
-				
-				
 			}
 		});
 		GridBagConstraints gbc_activityView = new GridBagConstraints();
@@ -254,8 +250,6 @@ setLayout(new BorderLayout(0, 0));
 				} catch (Exception e) {
 					return;
 				}
-				
-
 			}
 		});
 		GridBagConstraints gbc_btnEditActivity = new GridBagConstraints();
@@ -267,8 +261,18 @@ setLayout(new BorderLayout(0, 0));
 		JButton btnRemoveActivty = new JButton("Remove Activty");
 		btnRemoveActivty.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int currentIndex = activityView.currentIndex();
-				activityView.removeItemAt(currentIndex);
+				ItemModel currentItem;
+				try {
+					currentItem = activityView.currentItem();
+				} catch (Exception e) {
+					return;
+				}
+				activityView.removeItem(currentItem);
+				try {
+					service.removeActivity(currentItem.text(5), currentItem.text(0));
+				} catch (Exception e) {
+					return;
+				}
 			}
 		});
 		GridBagConstraints gbc_btnRemoveActivty = new GridBagConstraints();
