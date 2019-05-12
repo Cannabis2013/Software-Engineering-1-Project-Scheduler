@@ -117,6 +117,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		});
 		
 		descriptionTextBox = new JTextArea();
+		descriptionTextBox.setLineWrap(true);
 		descriptionTextBox.setBounds(342, 89, 258, 145);
 		descriptionTextBox.setColumns(10);
 		contentPanel.setLayout(null);
