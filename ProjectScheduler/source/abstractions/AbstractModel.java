@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.ItemModel;
+import sun.security.provider.certpath.BuildStep;
 
 public abstract class AbstractModel implements Serializable {
 
@@ -22,7 +23,37 @@ public abstract class AbstractModel implements Serializable {
 	
 	protected void setModelidentity(String id)
 	{
-		this.id = id;
+		int index = 0;
+		StringBuilder buildedString = new StringBuilder(id);
+		if(parent != null)
+		{
+			AbstractModel parentModel;
+			parentModel = parent;
+			
+			List<AbstractModel> parentChildrens = parentModel.subModels();
+			for(AbstractModel model : parentChildrens)
+			{
+				if(model.modelId().equals(id))
+					index++;
+			}
+			String indexString = String.format("(%d)", index++);
+			buildedString.append(indexString);	
+		}
+		else if(parentManager != null)
+		{
+			Manager parentModel = parentManager();
+			
+			List<AbstractModel> parentChildrens = parentModel.models();
+			for(AbstractModel model : parentChildrens)
+			{
+				if(model.modelId().equals(id))
+					index++;
+			}
+			String indexString = String.format("(%d)", index++);
+			buildedString.append(indexString);
+		}
+		
+		this.id = buildedString.toString();
 		StateChanged();
 	}
 	

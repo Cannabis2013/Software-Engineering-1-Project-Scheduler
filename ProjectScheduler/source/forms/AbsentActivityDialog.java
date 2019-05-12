@@ -8,10 +8,14 @@ import java.awt.Insets;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JTextField;
 
 import abstractions.CustomFrame;
@@ -136,19 +140,19 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		panel.add(startDateField, gbc_startDateField);
 		startDateField.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
+		JLabel startDateIcon = new JLabel("");
+		startDateIcon.setIcon(new ImageIcon(".\\Ressource\\calendericon.png"));
+		startDateIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				DateChooser dC = new DateChooser(startDateField);
 				dC.setFrame(new CustomDialog());
 			}
 		});
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Martin\\OneDrive\\Programmering\\Git projekter\\ProjectScheduler\\ProjectScheduler\\Ressource\\calendericon.png"));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		panel.add(lblNewLabel, gbc_lblNewLabel);
+		GridBagConstraints gbc_startDateIcon = new GridBagConstraints();
+		gbc_startDateIcon.gridx = 1;
+		gbc_startDateIcon.gridy = 0;
+		panel.add(startDateIcon, gbc_startDateIcon);
 		
 		JLabel lblEndDate = new JLabel("End date");
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
@@ -181,19 +185,19 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 		panel_2.add(endDateField, gbc_endDateField);
 		endDateField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+		JLabel endDateIcon = new JLabel("");
+		endDateIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DateChooser dC = new DateChooser(endDateField);
 				dC.setFrame(new CustomDialog());
 			}
 		});
-		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Martin\\OneDrive\\Programmering\\Git projekter\\ProjectScheduler\\ProjectScheduler\\Ressource\\calendericon.png"));
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 0;
-		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		endDateIcon.setIcon(new ImageIcon(".\\Ressource\\calendericon.png"));
+		GridBagConstraints gbc_endDateIcon = new GridBagConstraints();
+		gbc_endDateIcon.gridx = 1;
+		gbc_endDateIcon.gridy = 0;
+		panel_2.add(endDateIcon, gbc_endDateIcon);
 		
 		JLabel lblReason = new JLabel("Reason");
 		lblReason.setHorizontalAlignment(SwingConstants.LEFT);
@@ -252,6 +256,7 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 			}
 		});
 		buttonGroup.add(btnSave);
+		
 	}
 	
 	public void assembleActivityOfAbsence()
