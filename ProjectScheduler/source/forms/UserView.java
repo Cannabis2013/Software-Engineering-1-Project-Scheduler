@@ -42,6 +42,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	private CustomTableComponent activityView, hourRegistrationView;
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+  
 		this.service = service;
 		this.parent = parent;
 		initialize();
