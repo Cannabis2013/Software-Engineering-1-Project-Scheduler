@@ -42,7 +42,7 @@ public interface IApplicationProgrammingInterface {
     
     void addAbsenceActivity(ActivityModel activity) throws Exception;
     void addActivity(String projectTitle, ActivityModel activity) throws Exception;
-    void removeAbsenceActivity(String id);
+    void removeAbsenceActivity(String id) throws Exception;
     
     void removeActivity(String projectid, String activityId) throws Exception;
 

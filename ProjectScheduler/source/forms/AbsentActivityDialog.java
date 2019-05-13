@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
@@ -284,8 +285,16 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 	
 	public void assembleActivityOfAbsence()
 	{
-		LocalDate sDate = DateFormatizer.dateFromString(startDateField.getText()),
-				eDate = DateFormatizer.dateFromString(endDateField.getText());
+		
+		LocalDate sDate, eDate;
+		try {
+			sDate = DateFormatizer.dateFromString(startDateField.getText());
+			eDate = DateFormatizer.dateFromString(endDateField.getText());
+		} catch (DateTimeParseException e1) {
+			startDateField.setText("Set value");
+			endDateField.setText("Set value");
+			return;
+		}
 		
 		ActivityModel absence = new ActivityModel(titleSelector.getText(), 
 				(String) reasonSelector.getSelectedItem(), 
@@ -302,10 +311,21 @@ public class AbsentActivityDialog extends JPanel implements FrameImplementable {
 	
 	public void reAssembleActivityOfAbsence()
 	{
-		service.removeAbsenceActivity(absence.activityId());
+		try {
+			service.removeAbsenceActivity(absence.activityId());
+		} catch (Exception e2) {
+			return;
+		}
 		
-		LocalDate sDate = DateFormatizer.dateFromString(startDateField.getText()),
-				eDate = DateFormatizer.dateFromString(endDateField.getText());
+		LocalDate sDate, eDate;
+		try {
+			sDate = DateFormatizer.dateFromString(startDateField.getText());
+			eDate = DateFormatizer.dateFromString(endDateField.getText());
+		} catch (DateTimeParseException e1) {
+			startDateField.setText("Set value");
+			endDateField.setText("Set value");
+			return;
+		}
 		
 		String oldAbsenceId = absence.activityId();
 		

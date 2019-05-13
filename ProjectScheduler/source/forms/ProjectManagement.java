@@ -259,7 +259,13 @@ setLayout(new BorderLayout(0, 0));
 					}
 				}
 				else
-					service.removeAbsenceActivity(activityId);
+				{					
+					try {
+						service.removeAbsenceActivity(activityId);
+					} catch (Exception e) {
+						
+					}
+				}
 				
 				
 			}
