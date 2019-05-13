@@ -190,7 +190,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
         	
         String userId = uManager.currentUser().UserName();
         if(!activity.isUserAssigned(userId))
-        	throw new Exception("User isn't assigned to the selected activity");
+        	throw new IllegalAccessException("User isn't assigned to the selected activity");
         
         HourRegistrationModel regModel = new HourRegistrationModel(regId, hours, userId, shortDescription);
         pManager.registerHour(projectId, activityId, regModel);
