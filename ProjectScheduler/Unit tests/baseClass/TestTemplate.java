@@ -33,8 +33,8 @@ public class TestTemplate {
 		LocalDate eDate;
 		
 		try {
-			sDate = TestUnit.DateFromString("05-05-2019");
-			eDate = TestUnit.DateFromString("19-05-2019");
+			sDate = TestUnit.DateFromString(startDate);
+			eDate = TestUnit.DateFromString(endDate);
 		} catch (NullPointerException e) {
 			return false;
 		}

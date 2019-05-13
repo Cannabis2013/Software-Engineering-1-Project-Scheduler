@@ -108,4 +108,5 @@ public class CodeCoverage extends TestTemplate {
 			fail();
 		}
 	}
+	
 }
