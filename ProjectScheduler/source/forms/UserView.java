@@ -29,6 +29,8 @@ import models.ItemModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class UserView extends JPanel implements FrameImplementable, ICustomObserver {
 	
@@ -42,6 +44,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 	private CustomTableComponent activityView, hourRegistrationView;
 	
 	public UserView(ApplicationFrontEnd parent, IApplicationProgrammingInterface service) {
+		
 		this.service = service;
 		this.parent = parent;
 		initialize();
