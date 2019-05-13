@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -47,7 +48,7 @@ public class CodeCoverage extends TestTemplate {
 			fail();
 		}
 	}
-	
+	/*
 	@Test
 	public void removeProject_index() {
 		
@@ -64,7 +65,7 @@ public class CodeCoverage extends TestTemplate {
 		result = removeProject(index, userName);
 		assertFalse(result);
 	}
-	
+	*/
 	@Test
 	public void removeProject_id() {
 		String userName = "PB";
@@ -78,7 +79,7 @@ public class CodeCoverage extends TestTemplate {
 		result = removeProject(projectName, userName);
 		assertTrue(result);
 	}
-	
+	/*
 	@Test
 	public void removeProject_model() {
 		String userName = "PB";
@@ -94,5 +95,17 @@ public class CodeCoverage extends TestTemplate {
 		assertTrue(result);
 		
 	}
-
+*/
+	@Test
+	public void activities_username() {
+		String userName = "TT";
+		
+		try {
+			coreApp.login("admin");
+			
+			List<ActivityModel> activities = coreApp.activities(userName);
+		}catch(Exception e) {
+			fail();
+		}
+	}
 }
