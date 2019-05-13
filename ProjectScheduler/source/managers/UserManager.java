@@ -89,7 +89,7 @@ public class UserManager extends Manager {
 		addModel(admin);
         
         /*
-         * Initialize five dummy users for testing/demonstration purposes
+         * Initialize ten dummy users for testing/demonstration purposes
          */
         UserModel nUser1 = new UserModel("JW", UserModel.userRole.Employee);
         UserModel nUser2 = new UserModel("NE", UserModel.userRole.Employee);
@@ -99,6 +99,8 @@ public class UserManager extends Manager {
         UserModel nUser6 = new UserModel("HT", UserModel.userRole.Employee);
         UserModel nUser7 = new UserModel("PB", UserModel.userRole.Employee);
         UserModel nUser8 = new UserModel("MH", UserModel.userRole.Employee);
+        UserModel nUser9 = new UserModel("HR", UserModel.userRole.Employee);
+        UserModel nUser10 = new UserModel("RB", UserModel.userRole.Employee);
         
         addModel(nUser1);
         addModel(nUser2);
@@ -108,5 +110,7 @@ public class UserManager extends Manager {
         addModel(nUser6);
         addModel(nUser7);
         addModel(nUser8);
+        addModel(nUser9);
+        addModel(nUser10);
     }
 }

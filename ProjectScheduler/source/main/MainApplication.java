@@ -11,7 +11,7 @@ public class MainApplication {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ApplicationFrontEnd facade = new ApplicationFrontEnd();
+					new ApplicationFrontEnd();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -273,7 +273,6 @@ public class AddProject extends JPanel implements FrameImplementable {
 
 	@Override
 	public void setFrame(CustomFrame frame) {
-		// TODO Auto-generated method stub
 		this.frame = frame;
 		frame.setWidget(this);
 		frame.setWindowModality(true);

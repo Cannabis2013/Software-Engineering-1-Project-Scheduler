@@ -48,7 +48,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		updateView();
 		
 		String userId = service.currentUserLoggedIn().UserName();
-		setTitle(String.format("User view : %s", userId));
+		setTitle(String.format("User View : %s", userId));
 		
 		this.service.subScribe(this);
 	}
@@ -73,7 +73,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmLogOut = new JMenuItem("Log out");
+		JMenuItem mntmLogOut = new JMenuItem("Log Out");
 		mntmLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.close();
@@ -89,24 +89,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 			}
 		});
 		mnFile.add(mntmQuit);
-		
-		JMenu mnEdit = new JMenu("Edit");
-		menuBar.add(mnEdit);
-		
-		JMenuItem mntmAddProject = new JMenuItem("Add Project");
-		mntmAddProject.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				launchAddProject();
-			}
-		});
-		
-		mnEdit.add(mntmAddProject);
-		
-		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
-		mnEdit.add(mntmAddActivity);
-		new ImageIcon("./Ressource/calendericon.png");
-		
+	
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{200, 486, 0};
 		gridBagLayout.rowHeights = new int[]{560, 0};
@@ -180,7 +163,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_registerButton.gridy = 0;
 		buttonGroup.add(registerButton, gbc_registerButton);
 		
-		JButton btnFillAbsenceActivity = new JButton("Fill absence activity");
+		JButton btnFillAbsenceActivity = new JButton("Fill Absence Activity");
 		btnFillAbsenceActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -189,7 +172,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 			}
 		});
 		
-		JButton btnEditSelectedHour = new JButton("Edit selected hour");
+		JButton btnEditSelectedHour = new JButton("Edit Selected Hour");
 		btnEditSelectedHour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -211,7 +194,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_btnEditSelectedHour.gridy = 1;
 		buttonGroup.add(btnEditSelectedHour, gbc_btnEditSelectedHour);
 		
-		JButton btnRemoveRegisteredHour = new JButton("Remove selected registration");
+		JButton btnRemoveRegisteredHour = new JButton("Remove Selected Registration");
 		btnRemoveRegisteredHour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ItemModel item;
@@ -243,7 +226,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_btnFillAbsenceActivity.gridy = 3;
 		buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
 		
-		JButton btnRemoveAbsenceActivity = new JButton("Remove absence activity");
+		JButton btnRemoveAbsenceActivity = new JButton("Remove Absence Activity");
 		btnRemoveAbsenceActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -303,7 +286,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JLabel lblActivityOverview = new JLabel("My Assigned Activities");
+		JLabel lblActivityOverview = new JLabel("Assigned Activities");
 		GridBagConstraints gbc_lblActivityOverview = new GridBagConstraints();
 		gbc_lblActivityOverview.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActivityOverview.gridx = 0;
@@ -313,7 +296,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblActivityOverview.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		
 		activityView = new CustomTableComponent();
-		activityView.setHeaderLabels(new String[] {"Title", "Startdate", "Enddate", "Estimated hours", "Total hours", "Project"});
+		activityView.setHeaderLabels(new String[] {"Title", "Start Week", "End Week", "Estimated Hours", "Total Hours", "Project"});
 		GridBagConstraints gbc_activityView = new GridBagConstraints();
 		gbc_activityView.insets = new Insets(0, 0, 5, 0);
 		gbc_activityView.fill = GridBagConstraints.BOTH;
@@ -331,7 +314,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		lblRegisteredHoursEntities.setFont(new Font("Lucida Grande", Font.BOLD, 15));
 		
 		hourRegistrationView = new CustomTableComponent();
-		hourRegistrationView.setHeaderLabels(new String[] {"Title", "Username", "Hours", "Registration date", "Activity", "Project"});
+		hourRegistrationView.setHeaderLabels(new String[] {"Title", "Username", "Hours", "Registration Date", "Activity", "Project"});
 		GridBagConstraints gbc_hourRegistrationView = new GridBagConstraints();
 		gbc_hourRegistrationView.fill = GridBagConstraints.BOTH;
 		gbc_hourRegistrationView.gridx = 0;
