@@ -1,3 +1,8 @@
+/*
+ * Martin Hansen
+ */
+
+
 package entities;
 
 import java.time.LocalDate;

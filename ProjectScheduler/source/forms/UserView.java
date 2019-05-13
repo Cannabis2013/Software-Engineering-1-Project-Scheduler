@@ -1,3 +1,7 @@
+/*
+ * Clair Mutebi
+ */
+
 package forms;
 import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
@@ -17,8 +21,6 @@ import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;

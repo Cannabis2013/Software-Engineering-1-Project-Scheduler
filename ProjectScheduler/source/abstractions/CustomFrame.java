@@ -1,3 +1,8 @@
+/*
+ * Martin Hansen
+ */
+
+
 package abstractions;
 
 import javax.swing.JMenuBar;

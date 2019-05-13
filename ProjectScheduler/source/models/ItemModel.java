@@ -1,3 +1,7 @@
+
+/*
+ * Peter Bloch
+ */
 package models;
 
 public class ItemModel {

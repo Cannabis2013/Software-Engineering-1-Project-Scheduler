@@ -1,3 +1,7 @@
+/*
+ * Peter Bloch
+ */
+
 package managers;
 
 import java.util.List;

@@ -1,7 +1,3 @@
-/*
- * Martin Hansen
- */
-
 
 Feature: Project Creation
 Scenario: An unauthorized user attempts to create a project.

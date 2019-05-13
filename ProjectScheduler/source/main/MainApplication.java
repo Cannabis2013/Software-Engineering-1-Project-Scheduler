@@ -1,3 +1,7 @@
+/*
+ * Martin Hansen
+ */
+
 package main;
 
 import java.awt.EventQueue;
