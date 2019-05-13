@@ -226,7 +226,8 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_btnFillAbsenceActivity.gridy = 3;
 		buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
 		
-		JButton btnRemoveAbsenceActivity = new JButton("Remove Absence Activity");
+		JButton btnRemoveAbsenceActivity = new JButton("Remove absence activity");
+
 		btnRemoveAbsenceActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
