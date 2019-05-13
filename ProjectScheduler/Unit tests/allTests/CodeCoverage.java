@@ -101,6 +101,7 @@ public class CodeCoverage extends TestTemplate {
 		String userName = "TT";
 		
 		try {
+			coreApp.login("admin");
 			
 			List<ActivityModel> activities = coreApp.activities(userName);
 		}catch(Exception e) {
