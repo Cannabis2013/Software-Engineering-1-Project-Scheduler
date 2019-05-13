@@ -21,9 +21,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 	private String FileName = "ProjectFile";
     private ProjectManager pManager = new ProjectManager();
     private UserManager uManager = new UserManager();
-
-    public ApplicationCore()
-    {}
     
     // Persistence
     public void writePersistence()
@@ -81,7 +78,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 
     public List<ItemModel> userListModels()
     {
-            return uManager.userItemModels();
+        return uManager.userItemModels();
     }
 
     public String userAvailability(String username, LocalDate sDate, LocalDate eDate)
@@ -98,12 +95,10 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     public void addProject(ProjectModel newProject) throws Exception
     {
         if (!uManager.isAdmin())
-            throw new Exception("Admin privilliges required");
-        
+            throw new Exception("Admin privilliges required");    
         pManager.addProject(newProject);
     }
-
-
+    
     public void removeProject(String identity) throws Exception
     {
         if (!uManager.isAdmin())
@@ -121,8 +116,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	String userId = uManager.currentUser().UserName();
     	ProjectModel project = pManager.project(identity);
     	if(project.projectLeaderId().equals(userId) || isAdmin())
-    		return project;
-    	
+    		return project; 	
     	throw new Exception("Not admin or projectleader for this project");
     }
     
@@ -138,8 +132,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 	}
 
     public void addAbsenceActivity(ActivityModel activity) throws Exception
-    {
-    	
+    { 	
     	pManager.addAbsenceActivity(activity);
     }
 
@@ -291,7 +284,6 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
 		
 		String userId = uManager.currentUser().UserName();
 		return pManager.isProjectLeaderForAnyProject(userId);
-		
 	}
 
 	@Override

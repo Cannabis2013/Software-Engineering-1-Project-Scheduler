@@ -100,8 +100,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 				if(frame != null)
 					close();
 			}
-		});
-		
+		});		
 		JButton saveButton = new JButton("Save");
 		saveButton.setBounds(449, 252, 86, 29);
 		saveButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
@@ -113,8 +112,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 					reAssembleRegistrationObject();
 				
 			}
-		});
-		
+		});	
 		descriptionTextBox = new JTextArea();
 		descriptionTextBox.setLineWrap(true);
 		descriptionTextBox.setBounds(342, 89, 258, 145);
@@ -129,8 +127,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		contentPanel.add(cancelButton);
 		contentPanel.add(saveButton);
 		contentPanel.add(descriptionTextBox);
-
-		
+	
 		activitySelector = new JComboBox<String>();
 		
 		activities = service.activities();
@@ -180,8 +177,7 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 	}
 
 	@Override
-	public void close() {
-		
+	public void close() {	
 		frame.close();
 	}
 	

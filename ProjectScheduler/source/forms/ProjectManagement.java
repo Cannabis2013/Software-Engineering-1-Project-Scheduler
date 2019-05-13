@@ -63,7 +63,7 @@ public class ProjectManagement extends JPanel implements FrameImplementable, ICu
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-setLayout(new BorderLayout(0, 0));
+		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(176, 224, 230));
@@ -125,8 +125,7 @@ setLayout(new BorderLayout(0, 0));
 				} catch (Exception e1) {
 					e1.printStackTrace();
 					return;
-				}
-				
+				}			
 				activityView.clear();
 				activityView.addItems(activityItemModels);
 			}
@@ -177,7 +176,7 @@ setLayout(new BorderLayout(0, 0));
 		gbl_ButtonGroup.rowWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
 		ButtonGroup.setLayout(gbl_ButtonGroup);
 		
-		JButton btnRegisterHours = new JButton("User page");
+		JButton btnRegisterHours = new JButton("User Page");
 		GridBagConstraints gbc_btnRegisterHours = new GridBagConstraints();
 		gbc_btnRegisterHours.fill = GridBagConstraints.BOTH;
 		gbc_btnRegisterHours.gridx = 0;
@@ -263,9 +262,7 @@ setLayout(new BorderLayout(0, 0));
 					} catch (Exception e) {
 						
 					}
-				}
-				
-				
+				}			
 			}
 		});
 		GridBagConstraints gbc_btnRemoveActivty = new GridBagConstraints();
@@ -339,8 +336,7 @@ setLayout(new BorderLayout(0, 0));
 					launchAddProject();
 				}
 			});
-		}
-		
+		}		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
 		mntmAddActivity.addActionListener(new ActionListener() {
@@ -356,7 +352,6 @@ setLayout(new BorderLayout(0, 0));
 		this.frame.setWidget(this);
 		this.frame.setMenuBar(menuBar);
 		this.frame.ShowDialog();
-		
 	}
 
 	@Override
@@ -390,7 +385,6 @@ setLayout(new BorderLayout(0, 0));
 	
 	@Override
 	public void updateView() {
-		
 		projectSelectorView.clear();
 		List<ItemModel> assignedProjects = service.projectItemModels();
 		projectSelectorView.addItems(assignedProjects);
