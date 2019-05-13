@@ -17,7 +17,6 @@ import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
 import models.ActivityModel;
-import models.ProjectModel;
 import static_Domain.DateFormatizer;
 
 import java.awt.Dimension;
