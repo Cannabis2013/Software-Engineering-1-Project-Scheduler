@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 
 import formComponents.CustomTableComponent;
 import models.ActivityModel;
+import models.ActivityModel.ActivityType;
 import models.ItemModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -238,12 +239,29 @@ setLayout(new BorderLayout(0, 0));
 				} catch (Exception e) {
 					return;
 				}
-				activityView.removeItem(currentItem);
+				
+				String parentProject = currentItem.text(5), activityId = currentItem.text(0);
+				
+				ActivityModel activity;
+				
 				try {
-					service.removeActivity(currentItem.text(5), currentItem.text(0));
-				} catch (Exception e) {
+					activity = service.activity(parentProject, activityId);
+				} catch (Exception e1) {
 					return;
 				}
+				
+				if(activity.TypeOfActivity() == ActivityType.Work_Related)
+				{
+					try {
+						service.removeActivity(currentItem.text(5), currentItem.text(0));
+					} catch (Exception e) {
+						return;
+					}
+				}
+				else
+					service.removeAbsenceActivity(activityId);
+				
+				
 			}
 		});
 		GridBagConstraints gbc_btnRemoveActivty = new GridBagConstraints();
