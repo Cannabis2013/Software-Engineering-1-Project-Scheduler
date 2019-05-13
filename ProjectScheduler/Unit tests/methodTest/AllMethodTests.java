@@ -2,6 +2,7 @@ package methodTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -18,8 +19,12 @@ public class AllMethodTests extends TestTemplate {
 	@Test
 	public void projectItemModelsTest()
 	{
-		addProject("admin", "Project CANVAS","FL", "05-05-2019", "05-06-2019", "");
-		addProject("admin", "Project NEMO","FL", "05-05-2019", "05-06-2019", "");
+		try {
+			addProject("admin", "Project CANVAS","FL", "05-05-2019", "05-06-2019", "");
+			addProject("admin", "Project NEMO","FL", "05-05-2019", "05-06-2019", "");
+		} catch (Exception e1) {
+			fail();
+		}
 		
 		try {
 			coreApp.login("FL");
@@ -35,7 +40,11 @@ public class AllMethodTests extends TestTemplate {
 	@Test
 	public void projectActivityItemModelsTest()
 	{
-		addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+		try {
+			addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+		} catch (Exception e2) {
+			fail();
+		}
 		ProjectModel project = getProject("admin", projectName);
 		
 		addActivity("FL", "GUI Test", project, 
@@ -68,7 +77,11 @@ public class AllMethodTests extends TestTemplate {
 	@Test
 	public void activityItemModels()
 	{
-		addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+		try {
+			addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+		} catch (Exception e2) {
+			fail();
+		}
 		ProjectModel project = getProject("admin", projectName);
 		
 		addActivity("FL", "GUI Test", project, 
@@ -97,6 +110,23 @@ public class AllMethodTests extends TestTemplate {
 		
 		assertEquals(2,itemModels.size());
 	}
-	
-	
+	@Test
+	public void projectItemModelsTestDuplicate()
+	{ 
+		try {
+		addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+		
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+			return;
+		}
+		try {
+			addProject("admin", projectName,"FL", "05-05-2019", "05-06-2019", "");
+			fail();
+		} catch (Exception e) {
+			
+		}
+	}
 }

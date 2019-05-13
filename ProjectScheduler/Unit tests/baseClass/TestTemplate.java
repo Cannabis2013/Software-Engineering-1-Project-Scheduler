@@ -61,7 +61,7 @@ public class TestTemplate {
 			String projectLeaderId, 
 			String startDate, 
 			String endDate, 
-			String description)
+			String description) throws Exception
 	{
 		try {
 			coreApp.login(loggedInUserName);
@@ -89,7 +89,7 @@ public class TestTemplate {
 		try {
 			coreApp.addProject(project);
 		} catch (Exception e) {
-			return false;
+			throw e;
 		}
 		
 		coreApp.logut();
