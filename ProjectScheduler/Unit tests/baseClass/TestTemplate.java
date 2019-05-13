@@ -56,6 +56,46 @@ public class TestTemplate {
 		return true;
 	}
 	
+	protected boolean addProject(String loggedInUserName,
+			String projectName,
+			String projectLeaderId, 
+			String startDate, 
+			String endDate, 
+			String description)
+	{
+		try {
+			coreApp.login(loggedInUserName);
+		} catch (Exception e1) {
+			return false;
+		}
+		
+		LocalDate sDate;
+		LocalDate eDate;
+		
+		try {
+			sDate = TestUnit.DateFromString(startDate);
+			eDate = TestUnit.DateFromString(endDate);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		ProjectModel project;
+		try {
+			project = new ProjectModel(projectName,projectLeaderId, sDate, eDate, description);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		try {
+			coreApp.addProject(project);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		coreApp.logut();
+		return true;
+	}
+	
 	protected ProjectModel getProject(String currentloggedinUser, String projectId)
 	{
 		try {

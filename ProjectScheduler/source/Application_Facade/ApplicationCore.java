@@ -24,7 +24,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     private UserManager uManager = new UserManager();
 
     public ApplicationCore()
-    {}
+    {
+    	
+    }
     
     // Persistence
     public void writePersistence()

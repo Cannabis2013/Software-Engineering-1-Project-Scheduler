@@ -17,6 +17,7 @@ public class ApplicationFrontEnd {
 	private ApplicationCore coreApp = new ApplicationCore();
 	
 	public ApplicationFrontEnd() {
+		
 		initializeItems();
 		launchLoginDialog();
 	}
