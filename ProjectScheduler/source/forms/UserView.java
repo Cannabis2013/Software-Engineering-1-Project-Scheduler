@@ -168,9 +168,9 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		panel.add(buttonGroup, gbc_buttonGroup);
 		GridBagLayout gbl_buttonGroup = new GridBagLayout();
 		gbl_buttonGroup.columnWidths = new int[]{0, 0};
-		gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_buttonGroup.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		buttonGroup.setLayout(gbl_buttonGroup);
 		
 		registerButton = new JButton("Register Hours");
@@ -210,10 +210,37 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_btnEditSelectedHour.gridx = 0;
 		gbc_btnEditSelectedHour.gridy = 1;
 		buttonGroup.add(btnEditSelectedHour, gbc_btnEditSelectedHour);
+		
+		JButton btnRemoveRegisteredHour = new JButton("Remove selected registration");
+		btnRemoveRegisteredHour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ItemModel item;
+				try {
+					item = hourRegistrationView.currentItem();
+				} catch (Exception e) {
+					return;
+				}
+				String parentProjectId = item.text(5),
+						parentActivityId = item.text(4),
+						registrationId = item.text(0);
+				
+				try {
+					service.unRegisterHour(parentProjectId, parentActivityId, registrationId);
+				} catch (Exception e) {
+					return;
+				}
+				
+			}
+		});
+		GridBagConstraints gbc_btnRemoveRegisteredHour = new GridBagConstraints();
+		gbc_btnRemoveRegisteredHour.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnRemoveRegisteredHour.gridx = 0;
+		gbc_btnRemoveRegisteredHour.gridy = 2;
+		buttonGroup.add(btnRemoveRegisteredHour, gbc_btnRemoveRegisteredHour);
 		GridBagConstraints gbc_btnFillAbsenceActivity = new GridBagConstraints();
 		gbc_btnFillAbsenceActivity.fill = GridBagConstraints.BOTH;
 		gbc_btnFillAbsenceActivity.gridx = 0;
-		gbc_btnFillAbsenceActivity.gridy = 2;
+		gbc_btnFillAbsenceActivity.gridy = 3;
 		buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
 		
 		
@@ -221,7 +248,7 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		GridBagConstraints gbc_btnProjectOverview = new GridBagConstraints();
 		gbc_btnProjectOverview.fill = GridBagConstraints.BOTH;
 		gbc_btnProjectOverview.gridx = 0;
-		gbc_btnProjectOverview.gridy = 3;
+		gbc_btnProjectOverview.gridy = 4;
 		buttonGroup.add(btnProjectOverview, gbc_btnProjectOverview);
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
