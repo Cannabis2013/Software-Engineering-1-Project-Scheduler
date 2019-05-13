@@ -25,7 +25,7 @@ public class UserManager extends Manager {
         UserModel user = verifyCredentials(userName);
         if (user == null)
             throw new Exception("Wrong userName");
-
+        
         currentlyLoggedIn = user;
 
         return true;
@@ -44,17 +44,6 @@ public class UserManager extends Manager {
     public UserModel currentUser()
     {
         return currentlyLoggedIn;
-    }
-
-    public UserModel user(String userName)
-    {
-        for (AbstractModel model : models())
-        {
-        	UserModel user = (UserModel) model;
-        	if (user.UserName().equals(userName))
-        		return user;
-        }
-        return null;
     }
 	
 	private UserModel verifyCredentials(String userName)

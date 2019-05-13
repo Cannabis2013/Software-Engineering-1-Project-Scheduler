@@ -14,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
@@ -26,6 +28,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeListener;
+
+import org.eclipse.swt.widgets.MessageBox;
+
 import javax.swing.event.ChangeEvent;
 
 public class RegisterHour extends JPanel implements FrameImplementable {
@@ -198,6 +203,12 @@ public class RegisterHour extends JPanel implements FrameImplementable {
 		try {
 			service.registerHour(projectId, activityId, title, hour, description);
 			close();
+		} 
+		catch (IllegalAccessException e1) {
+			JOptionPane.showMessageDialog(null, 
+                    "Admin not allowed to register hours.", 
+                    "Sorry. Admin do have their limitations.", 
+                    JOptionPane.WARNING_MESSAGE);
 		} catch (Exception e) {
 			titleTextbox.setText(duplicateMessage);
 			return;
