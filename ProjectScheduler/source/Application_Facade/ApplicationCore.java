@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import abstractions.IApplicationProgrammingInterface;
 import abstractions.ICustomObserver;
 import managers.ProjectManager;
@@ -24,7 +23,9 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     private UserManager uManager = new UserManager();
 
     public ApplicationCore()
-    {}
+    {
+    	
+    }
     
     // Persistence
     public void writePersistence()

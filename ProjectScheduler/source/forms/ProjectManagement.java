@@ -4,7 +4,6 @@ import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import abstractions.IApplicationProgrammingInterface;
 import abstractions.ICustomObserver;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -15,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -194,7 +192,7 @@ setLayout(new BorderLayout(0, 0));
 		gbc_addProjectButton.gridy = 0;
 		ButtonGroup.add(addProjectButton, gbc_addProjectButton);
 		
-		removeProjectButton = new JButton("Remove project");
+		removeProjectButton = new JButton("Remove Project");
 		
 		GridBagConstraints gbc_removeProjectButton = new GridBagConstraints();
 		gbc_removeProjectButton.fill = GridBagConstraints.BOTH;
@@ -309,11 +307,10 @@ setLayout(new BorderLayout(0, 0));
 		setBounds(100, 100, 1000, 540);
 		
 		menuBar = new JMenuBar();
-		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmLogOut = new JMenuItem("Log out");
+		JMenuItem mntmLogOut = new JMenuItem("Log Out");
 		mntmLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frame.close();
@@ -337,9 +334,8 @@ setLayout(new BorderLayout(0, 0));
 		{
 			JMenuItem mntmAddProject = new JMenuItem("Add Project");
 			mnEdit.add(mntmAddProject);
-			mntmAddProject.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
+			mntmAddProject.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
 					launchAddProject();
 				}
 			});
@@ -347,7 +343,11 @@ setLayout(new BorderLayout(0, 0));
 		
 		JMenuItem mntmAddActivity = new JMenuItem("Add Activity");
 		mnEdit.add(mntmAddActivity);
-		new ImageIcon("./Ressource/calendericon.png");
+		mntmAddActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				launchAddActivity();
+			}
+		});
 	}
 	
 	@Override
