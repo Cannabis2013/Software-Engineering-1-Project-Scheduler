@@ -1,3 +1,7 @@
+/*
+ * Peter Bloch
+ */
+
 package static_Domain;
 
 import java.time.DateTimeException;

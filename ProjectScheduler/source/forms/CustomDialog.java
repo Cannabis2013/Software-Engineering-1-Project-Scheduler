@@ -1,3 +1,7 @@
+/*
+ * Clair Mutebi
+ */
+
 package forms;
 
 import javax.swing.BorderFactory;
