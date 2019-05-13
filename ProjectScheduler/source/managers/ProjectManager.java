@@ -11,6 +11,7 @@ import abstractions.ICustomObserver;
 import abstractions.AbstractModel;
 import entities.ActivityEntity;
 import models.ActivityModel;
+import models.ActivityModel.ActivityType;
 import models.HourRegistrationModel;
 import models.ItemModel;
 import models.ProjectModel;
@@ -57,10 +58,22 @@ public class ProjectManager extends Manager {
 		}
 	}
 	
-	public void removeAbsenceActivity(String id)
+	public void removeAbsenceActivity(String id) throws Exception
 	{
+		
 		for (ProjectModel project : allProjects())
-			project.removeActivity(id);
+		{
+			ActivityModel activity;
+			try {
+				activity = project.activity(id);
+			} catch (Exception e) {
+				throw new Exception("Project doesn't exists.");
+			}
+			if(activity.TypeOfActivity() == ActivityType.Absent_Related)
+				project.removeActivity(id);
+			else
+				throw new Exception("Is not absence");
+		}
 	}
 	
     public void addActivity(String projectIdentity, ActivityModel activity) throws Exception

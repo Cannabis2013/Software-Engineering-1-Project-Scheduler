@@ -144,7 +144,7 @@ public class ApplicationCore implements IApplicationProgrammingInterface {
     	pManager.addAbsenceActivity(activity);
     }
 
-    public void removeAbsenceActivity(String id)
+    public void removeAbsenceActivity(String id) throws Exception
     {
     	pManager.removeAbsenceActivity(id);
     }

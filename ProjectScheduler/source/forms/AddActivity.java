@@ -433,8 +433,16 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			workHours = 0;
 		}
 		
-		LocalDate sDate = DateFormatizer.dateFromString(startDateSelector.getText()), 
-				eDate = DateFormatizer.dateFromString(endDateSelector.getText());
+		LocalDate sDate, eDate;
+		
+		try {
+			sDate = DateFormatizer.dateFromString(startDateSelector.getText());
+			eDate = DateFormatizer.dateFromString(endDateSelector.getText());
+		} catch (DateTimeParseException e1) {
+			startDateSelector.setText("Set value");
+			endDateSelector.setText("Set value");
+			return;
+		}
 		
 		List<String> assignedUsers = assignedUserView.allItems().
 				stream().map(item -> item.text(0)).collect(Collectors.toList());
@@ -469,8 +477,15 @@ public class AddActivity extends JPanel implements FrameImplementable{
 			workHours = 0;
 		}
 		
-		LocalDate sDate = DateFormatizer.dateFromString(startDateSelector.getText()), 
-				eDate = DateFormatizer.dateFromString(endDateSelector.getText());
+		LocalDate sDate, eDate;
+		try {
+			sDate = DateFormatizer.dateFromString(startDateSelector.getText());
+			eDate = DateFormatizer.dateFromString(endDateSelector.getText());
+		} catch (DateTimeParseException e2) {
+			startDateSelector.setText("Set value");
+			endDateSelector.setText("Set value");
+			return;
+		}
 		
 		List<String> assignedUsers = assignedUserView.allItems().
 				stream().map(item -> item.text(0)).collect(Collectors.toList());

@@ -168,9 +168,9 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		panel.add(buttonGroup, gbc_buttonGroup);
 		GridBagLayout gbl_buttonGroup = new GridBagLayout();
 		gbl_buttonGroup.columnWidths = new int[]{0, 0};
-		gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_buttonGroup.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_buttonGroup.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_buttonGroup.rowWeights = new double[]{1.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		buttonGroup.setLayout(gbl_buttonGroup);
 		
 		registerButton = new JButton("Register Hours");
@@ -243,12 +243,36 @@ public class UserView extends JPanel implements FrameImplementable, ICustomObser
 		gbc_btnFillAbsenceActivity.gridy = 3;
 		buttonGroup.add(btnFillAbsenceActivity, gbc_btnFillAbsenceActivity);
 		
+		JButton btnRemoveAbsenceActivity = new JButton("Remove absence activity");
+		btnRemoveAbsenceActivity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ItemModel model;
+				try {
+					model = activityView.currentItem();
+				} catch (Exception e) {
+					return;
+				}
+				
+				try {
+					service.removeAbsenceActivity(model.text(0));
+				} catch (Exception e) {
+					
+				}
+			}
+		});
+		GridBagConstraints gbc_btnRemoveAbsenceActivity = new GridBagConstraints();
+		gbc_btnRemoveAbsenceActivity.fill = GridBagConstraints.BOTH;
+		gbc_btnRemoveAbsenceActivity.gridx = 0;
+		gbc_btnRemoveAbsenceActivity.gridy = 4;
+		buttonGroup.add(btnRemoveAbsenceActivity, gbc_btnRemoveAbsenceActivity);
+		
 		
 		JButton btnProjectOverview = new JButton("Management");
 		GridBagConstraints gbc_btnProjectOverview = new GridBagConstraints();
 		gbc_btnProjectOverview.fill = GridBagConstraints.BOTH;
 		gbc_btnProjectOverview.gridx = 0;
-		gbc_btnProjectOverview.gridy = 4;
+		gbc_btnProjectOverview.gridy = 5;
 		buttonGroup.add(btnProjectOverview, gbc_btnProjectOverview);
 		btnProjectOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
