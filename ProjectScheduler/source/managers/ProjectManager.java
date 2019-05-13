@@ -31,20 +31,12 @@ public class ProjectManager extends Manager {
 		removeModel(id);
 	}
 	
-	public void removeProjectAt(int index) throws Exception
-	{
-		removeModelAt(index);
-	}
 	
 	public ProjectModel project(String projectName) throws Exception
 	{
 		return (ProjectModel) model(projectName);
 	}
 	
-	public ProjectModel projectAt(int index) throws NullPointerException
-	{
-		return (ProjectModel) modelAt(index);
-	}
 	
 	private List<ProjectModel> allProjects()
 	{

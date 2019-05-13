@@ -14,6 +14,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import Application_Facade.ApplicationFrontEnd;
 import abstractions.CustomFrame;
 import abstractions.FrameImplementable;
 import java.awt.GridBagLayout;
@@ -23,6 +24,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Insets;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CustomDialog extends JDialog implements CustomFrame{
 
@@ -40,10 +43,12 @@ public class CustomDialog extends JDialog implements CustomFrame{
 	private enum resizeMode {lowerBorderResize,leftBorderResize, 
 		rightBorderResize, leftCornerResize, rightCornerResize,noResize};
 	private resizeMode currentResizeMode = resizeMode.noResize;
+	ApplicationFrontEnd parent = null;
 	/**
 	 * Create the frame.
 	 */
 	public CustomDialog() {
+		
 		setUndecorated(true);
 		initializeComponents();
 		
@@ -291,6 +296,7 @@ public class CustomDialog extends JDialog implements CustomFrame{
 		
 		setWindowTitle(implementable.title());
 		Component widget = (JPanel) implementable;
+		
 		this.setSize(widget.getPreferredSize());
 		GridBagConstraints layoutConstraints = new GridBagConstraints();
 		layoutConstraints.fill = GridBagConstraints.BOTH;
